@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StareMedic.Views.PickPatientView"
+             Title="PickPatientView">
+    <ScrollView>
+        <VerticalStackLayout Padding="10">
+            <ListView x:Name="ListViewPatients"
+                      ItemSelected="ListViewPatients_ItemSelected"
+                      Style="{StaticResource listviewShowEntity}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Nombre}"
+                                  TextColor="White"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+            <HorizontalStackLayout Spacing="15">
+                <Label Text="Buscar Paciente: "
+                       Style="{StaticResource labelEntry}"/>
+                <Entry x:Name="EntrySearch"
+                       TextChanged="EntrySearch_TextChanged"
+                       Style="{StaticResource entryName}"/>
+            </HorizontalStackLayout>
+            
+            <Grid ColumnDefinitions="*,*" HorizontalOptions="Start" Margin="10,0,0,0" ColumnSpacing="15">
+
+                    <Button
+                    x:Name="BtnCancel"
+                    Clicked="BtnCancel_Clicked"
+                    Text="Cancelar"
+                    Grid.Column="0"
+                    HorizontalOptions="Center"/>
+
+                    <Button
+                    x:Name="BtnConfirmar"
+                    Clicked="BtnConfirmar_Clicked"
+                    Text="Confirmar"
+                    Grid.Column="1"
+                    HorizontalOptions="Center"
+                    IsEnabled="False"/>
+            </Grid>
+        </VerticalStackLayout>
+        
+
+    </ScrollView>
+</ContentPage>

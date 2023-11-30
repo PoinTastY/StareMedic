@@ -1,0 +1,67 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:StareMedic"
+             x:Class="StareMedic.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BreakLine" TargetType="BoxView">
+                <Setter Property="Color" Value="Gray"/>
+                <Setter Property="HeightRequest" Value="1"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="Margin" Value="10"/>
+            </Style>
+            
+            <Style x:Key="entryPhone" TargetType="Entry">
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="Keyboard" Value="Numeric"/>
+                <Setter Property="MaxLength" Value="10"/>
+                <Setter Property="MinimumWidthRequest" Value="200"/>
+                <Setter Property="MaximumWidthRequest" Value="300"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="HorizontalOptions" Value="Start"/>
+            </Style>
+            
+            <Style x:Key="labelEntry" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="TextColor" Value="#b0b0b0"/>
+                <Setter Property="FontSize" Value="Subtitle"/>
+            </Style>
+
+            <Style x:Key="entryName" TargetType="Entry">
+                <Setter Property="MinimumWidthRequest" Value="400"/>
+                <Setter Property="MaximumWidthRequest" Value="550"/>
+                <Setter Property="HeightRequest" Value="45"/>
+                <Setter Property="BackgroundColor" Value="#6f6f6f"/>
+                <Setter Property="FontSize" Value="Title"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="TextTransform" Value="Uppercase"/>
+            </Style>
+            
+            <Style x:Key="mainVerticalStackLayout" TargetType="VerticalStackLayout">
+                <Setter Property="Spacing" Value="10"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="BackgroundColor" Value="#383838"/>
+            </Style>
+
+            <Style x:Key="listviewShowEntity" TargetType="ListView">
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="SeparatorColor" Value="Purple"/>
+                <Setter Property="RowHeight" Value="75"/>
+            </Style>
+            <Style x:Key="listViewPacientes" TargetType="ListView">
+                <Setter Property="SeparatorColor" Value="Purple"/>
+            </Style>
+            <Style x:Key="ProfileSettingSwitch" TargetType="Switch">
+                <Setter Property="HorizontalOptions" Value="End" />
+                <Setter Property="Margin" Value="0,5,10,0" />
+
+            </Style>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

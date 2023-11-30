@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StareMedic.Views.RegisterRoom"
+             Title="RegisterRoom">
+    <VerticalStackLayout Style="{StaticResource mainVerticalStackLayout}">
+        <!--Display ID-->
+        <Label 
+            FontSize="Title"
+            Text="ID:"
+            x:Name="lblID"
+            VerticalOptions="Center" 
+            HorizontalOptions="Start" />
+        
+        <!--NameCap-->
+        <HorizontalStackLayout>
+            <Label Text="*Nombre:"
+                    Style="{StaticResource labelEntry}"/>
+            <Entry x:Name="EntryName"
+                    Style="{StaticResource entryName}"
+                    Placeholder="Nombre de la Habitacion..."
+                    TextChanged="EntryName_TextChanged"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout HorizontalOptions="Start">
+            <Label Text="Descripcion:"
+                    Style="{StaticResource labelEntry}"/>
+            <Editor x:Name="EditorDescripcion"
+                    Placeholder="Descripcion..."
+                    TextChanged="EditorDescripcion_TextChanged"
+                    VerticalOptions="StartAndExpand"
+                    HorizontalOptions="FillAndExpand"
+                    MinimumWidthRequest="300"
+                    MaximumWidthRequest="300"
+                    MaximumHeightRequest="100"
+                    AutoSize="TextChanges"/>
+        </HorizontalStackLayout>
+        
+        <!--confirm buttons-->
+        <Grid ColumnDefinitions="*,*" HorizontalOptions="Start" Margin="10,0,0,0" ColumnSpacing="15">
+
+            <Button
+            x:Name="BtnCancel"
+            Clicked="BtnCancel_Clicked"
+            Text="Cancelar"
+            Grid.Column="0"
+            HorizontalOptions="Center"/>
+
+            <Button
+            x:Name="BtnGuardar"
+            Clicked="BtnGuardar_Clicked"
+            Text="Guardar:)"
+            Grid.Column="1"
+            HorizontalOptions="Center"/>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

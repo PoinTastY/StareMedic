@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StareMedic.Views.ViewClinicalCase"
+             Title="ViewClinicalCase">
+    <VerticalStackLayout>
+        <HorizontalStackLayout>
+                <Label 
+                    Text="Welcome to .NET MAUI!"
+                    x:Name="LblName"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+            <Button x:Name="BtnSaveAll"
+                    Text="Guardar Cambios"
+                    IsVisible="False"
+                    Clicked="Button_Clicked"/>
+        </HorizontalStackLayout>
+
+        
+        <VerticalStackLayout>
+            <Label Text="ID: "
+                   x:Name="LblId"/>
+            <!--Name CC & patient-->
+            <HorizontalStackLayout>
+                <Label Text="Caso: "/>
+                <Entry x:Name="EntryName"
+                       Style="{StaticResource entryName}"
+                       IsEnabled="False"/>
+                <Button x:Name="BtnChangeCaseName"
+                        Text="Cambiar"
+                        Clicked="BtnChangeCaseName_Clicked"/>
+
+
+                <!--Implement btn "View Patient Details"-->
+                <Label Text="Paciente: "/>
+                <Entry x:Name="EntryPatient"
+                       Style="{StaticResource entryName}"
+                       IsEnabled="False"/>
+                
+            </HorizontalStackLayout>
+            
+            <!--Name Medic & Room-->
+            <HorizontalStackLayout x:Name="Editables">
+                <Label Text="Medico: "/>
+                <Entry x:Name="EntryMedic"
+                       Style="{StaticResource entryName}"
+                       IsEnabled="False"/>
+                <Button x:Name="BtnChangeMedic"
+                        Text="Cambiar"
+                        Clicked="BtnChangeMedic_Clicked"/>
+
+                <Label Text="Habitacion: "/>
+                <Entry x:Name="EntryRoom"
+                       Style="{StaticResource entryName}"
+                       IsEnabled="False"/>
+                <Button x:Name="BtnChangeRoom"
+                        Text="Cambiar"
+                        Clicked="BtnChangeRoom_Clicked"/>
+            </HorizontalStackLayout>
+            
+            <!--Diagnoose-->
+            <HorizontalStackLayout>
+                <Editor x:Name="EditorDiagnoose"
+                        MaximumWidthRequest="500"
+                        IsReadOnly="True"/>
+
+                <Button x:Name="BtnEditDiagnoose"
+                        Text="Editar"
+                        Clicked="BtnEditDiagnoose_Clicked"/>
+                
+                <!--enable edition-->
+                <Button x:Name="BtnSaveDiagnoose"
+                        Text="Guardar"
+                        IsVisible="False"
+                        IsEnabled="False"
+                        Clicked="BtnSaveDiagnoose_Clicked"/>
+                <Button x:Name="BtnCancelEditionDiagnoose"
+                        Text="Cancelar"
+                        IsVisible="false"
+                        IsEnabled="false"
+                        Clicked="BtnCancelEditionDiagnoose_Clicked"/>
+
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+        <Button Text="Generar hoja de admision"
+                x:Name="BtnExportCase"
+                Clicked="BtnExportCase_Clicked"/>
+        <Button Text="Cerrar Caso"
+                x:Name="BtnCerrarCaso"
+                Clicked="BtnCerrarCaso_Clicked"/>
+    </VerticalStackLayout>
+</ContentPage>

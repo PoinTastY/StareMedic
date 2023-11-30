@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StareMedic.Views.Pacientes"
+             Title="Pacientes">
+    <Grid ColumnDefinitions="2*,*" >
+
+        <ListView
+            Grid.Column="0"
+            x:Name="listPatients"
+            Style="{StaticResource listviewShowEntity}"
+            ItemSelected="ListPatients_ItemSelected"
+            ItemTapped="ListPatients_ItemTapped"
+            HorizontalOptions="FillAndExpand"
+            MinimumWidthRequest="600">
+            <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Nombre}"
+                                  Detail="{Binding Path=Id}"
+                                  TextColor="White"></TextCell>
+                    </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Grid RowDefinitions="*,*" VerticalOptions="FillAndExpand" Padding="10" Grid.Column="1">
+            <SearchBar x:Name="SearchBarPatients"
+                        VerticalOptions="Start"
+                        Background="Purple"
+                        CancelButtonColor="Black"
+                        SearchButtonPressed="SearchBarPatients_SearchButtonPressed"
+                        TextChanged="SearchBarPatients_TextChanged"
+                        MaximumHeightRequest="60"
+                        MinimumWidthRequest="300"
+                        MaximumWidthRequest="300"
+                        Grid.Row="0"/>
+
+            <Grid VerticalOptions="EndAndExpand" RowDefinitions="*,*" ColumnDefinitions="*,*" Grid.Row="1">
+                <Picker Grid.ColumnSpan="2"
+                        HorizontalOptions="Center"
+                        x:Name="PickerFilter"
+                        Grid.Row="0"
+                        Margin="0,0,0,10"
+                        VerticalOptions="End">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Nombre</x:String>
+                            <x:String>ID</x:String>
+                            <!--Si es otro, traer un entry para capturarlo xd-->
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+
+                <Button
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="Center"
+                    MinimumWidthRequest="150"
+                    Grid.Row="1"
+                    x:Name="btnCancel"
+                    Clicked="BtnCancel_Clicked"
+                    Text="Volver"
+                    VerticalOptions="End"/>
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StareMedic.MainPage">
+
+    <FlexLayout  Margin="10,10,10,10" AlignItems="Center" JustifyContent="Start" Wrap="Wrap">
+
+
+        <Button
+            x:Name="BtnPacientes"
+            Clicked="BtnPacientes_Clicked"
+            Text="Pacientes"
+            MinimumHeightRequest="250"
+            MinimumWidthRequest="250"/>
+        <Button
+            x:Name="BtnRegister"
+            Clicked="BtnRegister_Clicked"
+            Text="Registrar Paciente"
+            MinimumHeightRequest="250"
+            MinimumWidthRequest="250"/>
+        <Button
+            x:Name="BtnRooms"
+            Clicked="BtnRooms_Clicked"
+            Text="Habitaciones"
+            MinimumHeightRequest="250"
+            MinimumWidthRequest="250"/>
+        <Button
+            x:Name="BtnMedics"
+            Clicked="BtnMedics_Clicked"
+            Text="Doctores"
+            MinimumHeightRequest="250"
+            MinimumWidthRequest="250"/>
+        <Button 
+            x:Name="BtnRegCasoCli"
+            Clicked="BtnRegCasoCli_Clicked"
+            Text="Registro Caso Clinico"
+            MinimumHeightRequest="250"
+            MinimumWidthRequest="250"/>
+
+        <Button 
+            x:Name="BtnSearchCC"
+            Clicked="BtnSearchCC_Clicked"
+            Text="buscar caso clinico"
+            MinimumHeightRequest="250"
+            MinimumWidthRequest="250"/>
+
+        <Button 
+            x:Name="BtnEditPatient"
+            Clicked="BtnEditPatient_Clicked"
+            Text="Editar Paciente"
+            MinimumHeightRequest="250"
+            MinimumWidthRequest="250"/> 
+
+
+
+    </FlexLayout>
+
+</ContentPage>

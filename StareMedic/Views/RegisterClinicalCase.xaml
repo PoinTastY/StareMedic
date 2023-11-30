@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StareMedic.Views.RegisterClinicalCase"
+             Title="Registro de Caso Clinico">
+    <VerticalStackLayout Style="{StaticResource mainVerticalStackLayout}">
+        <!--some info label, not yet xD-->
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+            <!--NameCap-->
+            <HorizontalStackLayout Grid.Column="0" Grid.Row="0">
+                <Label Text="*Nombre:"
+                       Style="{StaticResource labelEntry}"/>
+                <Entry x:Name="EntryName"
+                       Placeholder="Nombre del caso Clinico..."
+                       Style="{StaticResource entryName}"
+                       TextChanged="EntryName_TextChanged"/>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Grid.Column="1" Grid.Row="0" HorizontalOptions="StartAndExpand">
+                <Label Text="Paciente Ingresado:"
+                       Style="{StaticResource labelEntry}"/>
+                <Label x:Name="LblPaciente"/>
+                
+                <Button x:Name="BtnPickPatient"
+                        Clicked="BtnPickPatient_Clicked"
+                        Text="Seleccionar Paciente"/>
+                <Button x:Name="BtnAddPatient"
+                        Clicked="BtnAddPatient_Clicked"
+                        Text="+"
+                        FontSize="Large"/>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Grid.Column="0" Grid.Row="1" HorizontalOptions="StartAndExpand" x:Name="ShowDoctor" IsVisible="false">
+                <Label Text="Doctor Asignado:"
+                       Style="{StaticResource labelEntry}"/>
+                <Picker x:Name="PickerDoctor"
+                        SelectedIndexChanged="PickerDoctor_SelectedIndexChanged">
+                    <Picker.ItemDisplayBinding>
+                        <Binding Path="Nombre"/>
+                    </Picker.ItemDisplayBinding>
+                </Picker>
+            </HorizontalStackLayout>
+            
+            <HorizontalStackLayout Grid.Column="1" Grid.Row="1" HorizontalOptions="StartAndExpand" x:Name="ShowRoom" IsVisible="false">
+                <Label Text="Habitacion Asignada:"
+                       Style="{StaticResource labelEntry}"/>
+                <Picker x:Name="PickerHabitacion"
+                        SelectedIndexChanged="PickerHabitacion_SelectedIndexChanged">
+                    <Picker.ItemDisplayBinding>
+                        <Binding Path="Nombre"/>
+                    </Picker.ItemDisplayBinding>
+                </Picker>
+            </HorizontalStackLayout>
+
+        </Grid>
+        <Grid ColumnDefinitions="*,*" HorizontalOptions="Start" Margin="10,0,0,0" ColumnSpacing="15">
+
+            <Button
+                x:Name="BtnCancel"
+                Clicked="BtnCancel_Clicked"
+                Text="Cancelar"
+                Grid.Column="0"
+                HorizontalOptions="Center"/>
+
+            <Button
+                x:Name="BtnGuardar"
+                Clicked="BtnGuardar_Clicked"
+                Text="Confirmar"
+                Grid.Column="1"
+                HorizontalOptions="Center"/>
+        </Grid>
+
+    </VerticalStackLayout>
+</ContentPage>

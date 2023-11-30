@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StareMedic.Views.EditPatient"
+             Title="EditPatient"
+             BackgroundColor="Black">
+    
+    <ScrollView>
+        <StackLayout Spacing="10" Padding="10">
+  
+            <Label Text="ID:" TextColor="#a7a7a7" FontSize="Title" x:Name="lblID"/>
+
+          
+            <StackLayout Spacing="15">
+                <Label Text="*Nombre:" TextColor="White"/>
+                <Entry Placeholder="Ingresa el nombre del Paciente..." x:Name="entryName" TextChanged="EntryName_TextChanged"/>
+            </StackLayout>
+
+            
+            <StackLayout Spacing="10" Orientation="Horizontal">
+                <Label Text="Sexo" TextColor="#b0b0b0" VerticalOptions="Center"/>
+                <Picker x:Name="pickerSexo" MaximumWidthRequest="120" VerticalOptions="Center" SelectedIndexChanged="PickerSexo_SelectedIndexChanged">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Masculino</x:String>
+                            <x:String>Femenino</x:String>
+                            <x:String>Otro</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <Label Text="Estado Civil" TextColor="#b0b0b0" VerticalOptions="Center"/>
+                <Picker x:Name="pickerEdoCivil" MaximumWidthRequest="120" VerticalOptions="Center" SelectedIndexChanged="PickerEdoCivil_SelectedIndexChanged">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Soltero/a</x:String>
+                            <x:String>Casado/a</x:String>
+                            <x:String>Divorciado/a</x:String>
+                            <x:String>Viudo/a</x:String>
+                            <x:String>Separado/a</x:String>
+                            <x:String>Prefiero no decirlo</x:String>
+                            <x:String>Union libre/Convivencia</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <Label Text="T/Sangre" TextColor="#b0b0b0" VerticalOptions="Center"/>
+                <Picker x:Name="pickerSangre" MaximumWidthRequest="120" VerticalOptions="Center" SelectedIndexChanged="PickerSangre_SelectedIndexChanged">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>A+</x:String>
+                            <x:String>O+</x:String>
+                            <x:String>B+</x:String>
+                            <x:String>AB+</x:String>
+                            <x:String>A-</x:String>
+                            <x:String>O-</x:String>
+                            <x:String>B-</x:String>
+                            <x:String>AB-</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <Label Text="Edad" TextColor="#b0b0b0" VerticalOptions="Center"/>
+                <Picker x:Name="pickerEdad" VerticalOptions="Center" MaximumWidthRequest="120" SelectedIndexChanged="PickerEdad_SelectedIndexChanged">
+                    
+                </Picker>
+            </StackLayout>
+
+            <StackLayout Spacing="10">
+                <Label Text="Telefono:" TextColor="White"/>
+                <Entry x:Name="entryTelefono" TextChanged="EntryTelefono_TextChanged"/>
+            </StackLayout>
+
+            <StackLayout Spacing="10">
+                <Label Text="Direccion (Calle, Numero, Numero int., C.P., Colonia...):" TextColor="#b0b0b0"/>
+                <Entry x:Name="entryDomicilio" TextTransform="Uppercase" TextChanged="EntryDomicilio_TextChanged"/>
+            </StackLayout>
+
+
+            <StackLayout Spacing="10">
+                <Label Text="Ciudad:" TextColor="#b0b0b0"/>
+                <Entry x:Name="entryCiudad" TextTransform="Uppercase" TextChanged="EntryCiudad_TextChanged"/>
+            </StackLayout>
+
+
+            <StackLayout Spacing="10">
+                <Label Text="Estado:" TextColor="#b0b0b0"/>
+                <Entry x:Name="entryEstado" TextTransform="Uppercase" TextChanged="EntryEstado_TextChanged"/>
+            </StackLayout>
+
+            <StackLayout Spacing="10">
+                <Label Text="Nacionalidad:" TextColor="#b0b0b0"/>
+                <Entry x:Name="entryNacionalidad" TextTransform="Uppercase" TextChanged="EntryNacionalidad_TextChanged"/>
+            </StackLayout>
+
+            <Label Text="Contacto Cercano"/>
+
+            <StackLayout Spacing="10">
+                <Label Text="Nombre:" TextColor="#b0b0b0"/>
+                <Entry x:Name="entryNombreCercano" TextTransform="Uppercase" TextChanged="EntryNombreCercano_TextChanged"/>
+            </StackLayout>
+
+            
+            <StackLayout Spacing="10">
+                <Label Text="Telefono:" TextColor="#b0b0b0"/>
+                <Entry x:Name="entryTelefonoCercano" TextChanged="EntryTelefonoCercano_TextChanged"/>
+            </StackLayout>
+
+            <StackLayout Spacing="10">
+                <Label Text="Direccion (Calle, Numero, Numero int., C.P., Colonia...):" TextColor="#b0b0b0"/>
+                <Entry x:Name="entryDomicilioCercano" TextTransform="Uppercase" TextChanged="EntryDomicilioCercano_TextChanged"/>
+            </StackLayout>
+
+    
+            <StackLayout Spacing="10">
+                <Label Text="Ciudad:" TextColor="#b0b0b0"/>
+                <Entry x:Name="entryCiudadCercano" TextTransform="Uppercase" TextChanged="EntryCiudadCercano_TextChanged"/>
+            </StackLayout>
+
+         
+            <StackLayout Spacing="10">
+                <Label Text="Estado:" TextColor="#b0b0b0"/>
+                <Entry x:Name="entryEstadoCercano" TextTransform="Uppercase" TextChanged="EntryEstadoCercano_TextChanged"/>
+            </StackLayout>
+            
+       <StackLayout Spacing="10">
+                <Label Text="Relacion:" TextColor="#b0b0b0"/>
+                <Entry x:Name="entryRelacionCercano" TextTransform="Uppercase" TextChanged="EntryRelacionCercano_TextChanged"/>
+            </StackLayout>
+
+  
+            
+       
+            
+                <StackLayout x:Name="stackFiador" Spacing="10" IsVisible="False">
+        
+                    <StackLayout Spacing="10">
+                        <Label Text="Nombre:" TextColor="#b0b0b0"/>
+                        <Entry x:Name="entryNombreFiador" TextTransform="Uppercase" TextChanged="EntryNombreFiador_TextChanged"/>
+                    </StackLayout>
+
+              
+                    <StackLayout Spacing="10">
+                        <Label Text="Telefono:" TextColor="#b0b0b0"/>
+                        <Entry x:Name="entryTelefonoFiador" TextChanged="EntryTelefonoFiador_TextChanged"/>
+                    </StackLayout>
+
+                  
+                    <StackLayout Spacing="10">
+                        <Label Text="Direccion (Calle, Numero, Numero int., C.P., Colonia...):" TextColor="#b0b0b0"/>
+                        <Entry x:Name="entryDireccionFiador" TextTransform="Uppercase" TextChanged="EntryDireccionFiador_TextChanged"/>
+                    </StackLayout>
+
+                    <StackLayout Spacing="10">
+                        <Label Text="Ciudad:" TextColor="#b0b0b0"/>
+                        <Entry x:Name="entryCiudadFiador" TextTransform="Uppercase" TextChanged="EntryCiudadFiador_TextChanged"/>
+                    </StackLayout>
+
+                    
+                    <StackLayout Spacing="10">
+                        <Label Text="Estado:" TextColor="#b0b0b0"/>
+                        <Entry x:Name="entryEstadoFiador" TextTransform="Uppercase" TextChanged="EntryEstadoFiador_TextChanged"/>
+                    </StackLayout>
+                </StackLayout>
+           
+
+            
+            <StackLayout Orientation="Horizontal" Spacing="15">
+                <Button x:Name="btnCancel" Clicked="BtnCancel_Clicked" Text="Cancelar" HorizontalOptions="Center"/>
+                <Button x:Name="btnGuardar" Clicked="BtnSave_Clicked" Text="Guardar:)" HorizontalOptions="Center"/>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
