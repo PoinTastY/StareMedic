@@ -4,7 +4,7 @@ HospitalManagementSoftware
 
 This SW began with the request from a hospital in my hometown where they have a program older than me, so I decided to make one updated as a challenge for me and once i'm satisfacted with the result, i'll offer it to the hospital.
 
-##What does it has?
+## What does it has?
 > It is pretty simple, but i hope to improve it each time, even if it is not accepted
 
 Starting from the bottom, it has a database runing in postgres, bcs that is the one that im familiarized with, and also I neded to create one for a school project, so here it is. Then is the db context running with entity framework and Npsql.
