@@ -106,4 +106,128 @@ public partial class PatientControll : ContentView
         }
 	}
 
+    private void EntryPatientName_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void PickerSexo_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    private void PickerEdoCivil_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    private void PickerSangre_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    private void PickerEdad_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    private void EntryTelefono_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void entryDomicilio_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void EntryDomicilio_TextChanged_1(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void EntryCiudad_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void EntryEstado_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void EntryNacionalidad_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void EntryNombreCercano_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void EntryTelefonoCercano_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void EntryDomicilioCercano_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void EntryCiudadCercano_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void EntryEstadoCercano_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void EntryRelacionCercano_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void ChkCercanoIsFiador_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+
+    }
+
+    private void EntryNombreFiador_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void EntryTelefonoFiador_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void EntryDireccionFiador_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void EntryCiudadFiador_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void EntryEstadoFiador_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void BtnCancel_Clicked(object sender, EventArgs e)
+    {
+
+    }
+
+    private void BtnGuardar_Clicked(object sender, EventArgs e)
+    {
+
+    }
 }
