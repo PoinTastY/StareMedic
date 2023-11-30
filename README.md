@@ -1,6 +1,6 @@
 # StareMedic
 HospitalManagementSoftware
-> This is the second attempt uploading it properly, i've tried it once and worked in there but it was trash so now is in a private archive, here we are doing good rn
+> This is the second attempt uploading it properly, i've tried it once and worked in there but it was trash so now is in a private archive, here we are doing good rn.
 
 This SW began with the request from a hospital in my hometown where they have a program older than me, so I decided to make one updated as a challenge for me and once i'm satisfacted with the result, i'll offer it to the hospital.
 ##What does it has?
