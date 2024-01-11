@@ -1,6 +1,8 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using StareMedic.Models.Entities;
+using System;
+using System.IO;
 
 namespace StareMedic.Models
 {
@@ -8,12 +10,17 @@ namespace StareMedic.Models
     {
         private static string _pagare = "";
         private static string _patient = "";
-        private readonly static string _path = @"C:\Users\kbece\Documents\Exported\";
+        private readonly static string _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Exported");
         public static bool GenerateDocument(CasoClinico CasoReferenciado)
         {
+            if (!Directory.Exists(_path))
+            {
+                Directory.CreateDirectory(_path);
+            }
+
             //this thing can be done later with an html or sometghing more simple lol
             Document doc = new();
-            PdfWriter.GetInstance(doc, new FileStream(_path + $"{CasoReferenciado.Id}.pdf", FileMode.Create));
+            PdfWriter.GetInstance(doc, new FileStream(_path + $"\\{CasoReferenciado.Id}.pdf", FileMode.Create));
             doc.Open();
 
             //header
@@ -164,7 +171,7 @@ A QUIEN SE LE DENOMINARA ""EL PACIENTE"", Y QUE CELEBRARAN MEDIANTE LAS SIGUIENT
             cell.Colspan = 4; cell.Border = Rectangle.NO_BORDER;
             cell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
             logoClausules.AddCell(cell);
-            iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(@"C:\Users\kbece\source\repos\StareMedic\StareMedic\StareMedic\Resources\Images\hosplogo.jpg");
+            iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance("C:\\Users\\quebin\\Source\\Repos\\PoinTastY\\StareMedic\\StareMedic\\Resources\\Images\\hosplogo.jpg");
             logo.ScaleToFit(60f, 60f);
             cell = new(); cell.Border = Rectangle.NO_BORDER;
             cell.AddElement(logo);

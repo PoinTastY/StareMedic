@@ -21,6 +21,9 @@ public partial class Pacientes : ContentPage
 		{
             patients.Insert(0, patient);
         }
+
+        //implement sort first
+
 		listPatients.ItemsSource = patients;
 	}
 

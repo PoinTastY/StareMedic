@@ -8,48 +8,38 @@ using StareMedic.Models.Entities;
 public partial class SearchCC : ContentPage
 {
     private readonly ObservableCollection<CasoClinico> casos = new();
-    private readonly List<CasoClinico> cases = MainRepo.GetCasos();
-            
-    protected bool onlyActives = true;
+
     public SearchCC()
-	{
-		InitializeComponent();
-        foreach (CasoClinico caso in MainRepo.GetCasos())
-        {
-            if (onlyActives)
-            {
-                if(!caso.Activo)
-                {
-                    continue;
-                }
-                casos.Add(caso);
-
-            }
-            else
-            {
-                casos.Add(caso);
-            }
-        }
-
-        ListViewCC.ItemsSource = casos;
-	}
-
-    protected override void OnAppearing()
     {
-        base.OnAppearing();
-        var filteredPatients = casos.Where(caso => caso.Activo == onlyActives);
-        filteredPatients = filteredPatients.ToList();
-        casos.Clear();
-        foreach (CasoClinico caso in filteredPatients)
+        InitializeComponent();
+        foreach (CasoClinico caso in MainRepo.GetCasos())
         {
             casos.Add(caso);
         }
+
+        ListViewCC.ItemsSource = casos;
     }
+
+    //protected override void OnAppearing()
+    //{
+    //    base.OnAppearing();
+    //    if (ChkBxOnlyActives.IsChecked)
+    //    {
+    //        var filteredPatients = casos.Where(caso => caso.Activo == true);
+    //        filteredPatients = filteredPatients.ToList();
+    //        casos.Clear();
+    //        foreach (CasoClinico caso in filteredPatients)
+    //        {
+    //            casos.Add(caso);
+    //        }
+    //    }
+
+    //}
 
 
     private async void ListViewCC_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
-        if(ListViewCC.SelectedItem != null)
+        if (ListViewCC.SelectedItem != null)
         {
             //It will send to de detailed patient view, or the edit pg, rn is edit?
             //Shell.Current.GoToAsync($"{nameof(ViewClinicalCase)}?Id={((CasoClinico)ListViewCC.SelectedItem).Id}");
@@ -64,50 +54,73 @@ public partial class SearchCC : ContentPage
         ListViewCC.SelectedItem = null;
     }
 
-    private void EntrySearch_TextChanged(object sender, TextChangedEventArgs e)
-    {//maybe, for efficiency, would have not to be reloading coincidences, just search and show
-        //filtering the list
-        if (SwtchIdorName.IsToggled)
+    private void SearchBarentry_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(SearchBarentry.Text))
         {
-            var filteredPatients = cases.Where(caso => caso.Nombre.Contains(e.NewTextValue));
-            filteredPatients = filteredPatients.ToList();
-            casos.Clear();
-            foreach (CasoClinico caso in filteredPatients)
+            if (ChkBxOnlyActives.IsChecked)
             {
-                casos.Add(caso);
+                ListViewCC.ItemsSource = casos.Where(caso => caso.Activo == true);
+            }
+            else
+            {
+                ListViewCC.ItemsSource = casos;
+            }
+        }
+    }
+
+    
+
+    private void SearchBarentry_SearchButtonPressed(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrWhiteSpace(SearchBarentry.Text))
+        {
+            if (SwtchIdorName.IsToggled)
+            {
+                if (ChkBxOnlyActives.IsChecked)
+                {
+                    ListViewCC.ItemsSource = casos.Where(caso => caso.Nombre.Contains(SearchBarentry.Text.ToUpper()) && caso.Activo == true);
+                }
+                else
+                {
+                    ListViewCC.ItemsSource = casos.Where(caso => caso.Nombre.Contains(SearchBarentry.Text.ToUpper()));
+                }
+            }
+            else
+            {
+                if (ChkBxOnlyActives.IsChecked)
+                {
+                    ListViewCC.ItemsSource = casos.Where(caso => caso.Id.Contains(SearchBarentry.Text.ToUpper()) && caso.Activo == true);
+                }
+                else
+                {
+                    ListViewCC.ItemsSource = casos.Where(caso => caso.Id.Contains(SearchBarentry.Text.ToUpper()));
+                }
             }
         }
         else
         {
-            var filteredPatients = cases.Where(caso => caso.Id.Contains(e.NewTextValue));
-            filteredPatients = filteredPatients.ToList();
-            casos.Clear();
-            foreach (CasoClinico caso in filteredPatients)
+            if (ChkBxOnlyActives.IsChecked)
             {
-                casos.Add(caso);
+                ListViewCC.ItemsSource = casos.Where(caso => caso.Activo == true);
+            }
+            else
+            {
+                ListViewCC.ItemsSource = casos;
             }
         }
-        
-        
+            
     }
 
     private void ChkBxOnlyActives_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        if (e.Value)
+        if (ChkBxOnlyActives.IsChecked)
         {
-            var filteredPatients = cases.Where(caso => caso.Activo == e.Value);
-            filteredPatients = filteredPatients.ToList();
-            casos.Clear();
-            foreach (CasoClinico caso in filteredPatients)
-            {
-                casos.Add(caso);
-            }
+            ListViewCC.ItemsSource = casos.Where(caso => caso.Activo == true);
         }
-        onlyActives = e.Value;
-    }
-
-    private void SwtchIdorName_Toggled(object sender, ToggledEventArgs e)
-    {
-
+        else
+        {
+            ListViewCC.ItemsSource = casos;
+        }
     }
 }

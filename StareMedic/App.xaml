@@ -37,7 +37,16 @@
                 <Setter Property="TextColor" Value="White"/>
                 <Setter Property="TextTransform" Value="Uppercase"/>
             </Style>
-            
+
+            <Style x:Key="NameSearchBar" TargetType="SearchBar">
+                <Setter Property="MinimumWidthRequest" Value="400"/>
+                <Setter Property="MaximumWidthRequest" Value="550"/>
+                <Setter Property="HeightRequest" Value="45"/>
+                <Setter Property="BackgroundColor" Value="#6f6f6f"/>
+                <Setter Property="FontSize" Value="Title"/>
+                <Setter Property="TextColor" Value="White"/>
+            </Style>
+
             <Style x:Key="mainVerticalStackLayout" TargetType="VerticalStackLayout">
                 <Setter Property="Spacing" Value="10"/>
                 <Setter Property="Padding" Value="10"/>

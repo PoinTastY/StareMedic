@@ -19,9 +19,10 @@
             <HorizontalStackLayout Spacing="15">
                 <Label Text="Buscar Paciente: "
                        Style="{StaticResource labelEntry}"/>
-                <Entry x:Name="EntrySearch"
-                       TextChanged="EntrySearch_TextChanged"
-                       Style="{StaticResource entryName}"/>
+                <SearchBar x:Name="SearchbarPatient"
+                       TextChanged="SearchbarPatient_TextChanged"
+                           SearchButtonPressed="SearchbarPatient_SearchButtonPressed"
+                       Style="{StaticResource NameSearchBar}"/>
             </HorizontalStackLayout>
             
             <Grid ColumnDefinitions="*,*" HorizontalOptions="Start" Margin="10,0,0,0" ColumnSpacing="15">
