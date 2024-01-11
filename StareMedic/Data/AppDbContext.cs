@@ -14,7 +14,7 @@ namespace StareMedic.Data
         public DbSet<Cercano> Cercanos { get; set; }
 
         //es: localhost // 192.168.3.3 // 26.101.17.190
-        static readonly string server = "192.168.3.3";// create dns or external service to find server
+        static readonly string server = "localhost";// create dns or external service to find server
 
         static readonly string db = "staremedic";
         static readonly string user = "admin";
@@ -25,7 +25,15 @@ namespace StareMedic.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(connString);
+            try
+            {
+                optionsBuilder.UseNpgsql(connString);
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción, por ejemplo, escribir un mensaje en el registro
+                Console.WriteLine($"Error al configurar la base de datos: {ex.Message}");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
