@@ -17,27 +17,30 @@ public partial class PickPatientView : ContentPage
                 patients.Add(patient);
         }
 
+        //implement sort later
+
         ListViewPatients.ItemsSource = patients;
 	}
-
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        ListViewPatients.ItemsSource = patients;
-    }
 
     private async void BtnConfirmar_Clicked(object sender, EventArgs e)
     {
         MainRepo.PatientIdSolver = (Patient)ListViewPatients.SelectedItem;
-        if (MainRepo.PatientIdSolver.Status == false && MainRepo.PatientIdSolver != null) 
+        //implement R U Sure?
+        bool confirmacion = await DisplayAlert("Confirmacion", $"Seleccionar a: {MainRepo.PatientIdSolver.Nombre}?","Volver", "Confirmar");
+        
+        if (!confirmacion)
         {
-            await Navigation.PopModalAsync();
-        }
-        else
-        {
-            await DisplayAlert("Error", "El paciente ya esta en un caso clinico", "Ok");
-            ListViewPatients.SelectedItem = null;
-            BtnConfirmar.IsEnabled = false;
+            //this if works as a try lol
+            if (MainRepo.PatientIdSolver.Status == false && MainRepo.PatientIdSolver != null)
+            {
+                await Navigation.PopModalAsync();
+            }
+            else
+            {
+                await DisplayAlert("Error", "Parece que el paciente ya esta en un caso clinico", "Ok");
+                ListViewPatients.SelectedItem = null;
+                BtnConfirmar.IsEnabled = false;
+            }
         }
     }
 
@@ -51,15 +54,18 @@ public partial class PickPatientView : ContentPage
         BtnConfirmar.IsEnabled = true;
     }
 
-    private void EntrySearch_TextChanged(object sender, TextChangedEventArgs e)
+    private void SearchbarPatient_TextChanged(object sender, TextChangedEventArgs e)
     {
-        //search by name in patients list
-        var filteredPatients = MainRepo.GetPatients().Where(patient => patient.Nombre.Contains(e.NewTextValue));
-        patients.Clear();
-        foreach (Patient patient in filteredPatients)
+        if(string.IsNullOrWhiteSpace(SearchbarPatient.Text))
         {
-            if (patient.Status == false)
-                patients.Add(patient);
+            ListViewPatients.ItemsSource = patients;
+            BtnConfirmar.IsEnabled = false;
         }
+    }
+
+    private void SearchbarPatient_SearchButtonPressed(object sender, EventArgs e)
+    {
+        ListViewPatients.ItemsSource = patients.Where(patient => patient.Nombre.Contains(SearchbarPatient.Text.ToUpper()));
+        BtnConfirmar.IsEnabled = false;
     }
 }

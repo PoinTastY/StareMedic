@@ -176,4 +176,10 @@ public partial class ViewClinicalCase : ContentPage
         MainRepo.UpdateClinicalCase(caso);
 
     }
+
+    private void BtnReopenCase_Clicked(object sender, EventArgs e)
+    {
+        //validate if patient is not busy to reopen
+        //make sure that all affected entities are good w dis
+    }
 }

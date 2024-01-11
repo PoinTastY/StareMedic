@@ -89,5 +89,8 @@
         <Button Text="Cerrar Caso"
                 x:Name="BtnCerrarCaso"
                 Clicked="BtnCerrarCaso_Clicked"/>
+        <Button Text="Re Abrir caso"
+                x:Name="BtnReopenCase"
+                Clicked="BtnReopenCase_Clicked"/>
     </VerticalStackLayout>
 </ContentPage>
