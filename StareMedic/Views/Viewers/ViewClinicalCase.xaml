@@ -13,7 +13,7 @@
             <Button x:Name="BtnSaveAll"
                     Text="Guardar Cambios"
                     IsVisible="False"
-                    Clicked="Button_Clicked"/>
+                    Clicked="BtnSaveAll_Clicked"/>
         </HorizontalStackLayout>
 
         

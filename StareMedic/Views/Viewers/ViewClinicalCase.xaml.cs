@@ -38,6 +38,16 @@ public partial class ViewClinicalCase : ContentPage
 		EntryRoom.Text = room.Nombre;
 		EditorDiagnoose.Text = diagnostico.Contenido;
 
+        //self explanatory
+        if(this.caso.Activo != true)
+        {
+            BtnReopenCase.IsVisible = true;
+        }
+        else
+        {
+            BtnReopenCase.IsVisible = false;
+        }
+
 	}
 
 	
@@ -171,15 +181,22 @@ public partial class ViewClinicalCase : ContentPage
         BtnSaveAll.IsEnabled = true;
     }
 
-    private void Button_Clicked(object sender, EventArgs e)
-    {
-        MainRepo.UpdateClinicalCase(caso);
 
-    }
 
     private void BtnReopenCase_Clicked(object sender, EventArgs e)
     {
+        //first confirm if we want to reopen
+
+        //then disable btn
+        BtnReopenCase.IsVisible = false;
+        //then, re enable edits
+        //remember to update new close 
         //validate if patient is not busy to reopen
         //make sure that all affected entities are good w dis
+    }
+
+    private void BtnSaveAll_Clicked(object sender, EventArgs e)
+    {
+        MainRepo.UpdateClinicalCase(caso);
     }
 }
