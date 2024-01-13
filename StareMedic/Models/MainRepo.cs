@@ -230,7 +230,7 @@ namespace StareMedic.Models
         {
             var case2close = _db.CasoClinicos.FirstOrDefault(x => x.IdDB == id);
             case2close.Activo = false;
-            case2close.FechaAltaSet(DateTime.Now);
+            case2close.FechaAlta = DateTimeOffset.UtcNow;
             UpdatePatientStatus(false, case2close.IdPaciente);
             //maybe implement destructor here? or write on db
 

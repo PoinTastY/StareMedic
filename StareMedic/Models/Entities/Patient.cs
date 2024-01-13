@@ -23,7 +23,7 @@ namespace StareMedic.Models.Entities
         private string _telefono;
 
         //controll info
-        private DateTime _registered;
+        private DateTimeOffset _registered;
 
         private bool _active;
 
@@ -34,7 +34,7 @@ namespace StareMedic.Models.Entities
         //id initialization
         public Patient(uint id)
         {
-            _registered = DateTime.Now.ToUniversalTime();
+            _registered = DateTimeOffset.UtcNow;
             _id = id;
             _idCercano = null;
             _idFiador = null;
@@ -120,9 +120,9 @@ namespace StareMedic.Models.Entities
             set => _telefono = value;
         }
 
-        public DateTime Registered
+        public DateTimeOffset Registered
         {
-            get => _registered.ToUniversalTime();
+            get => _registered;
         }
 
         public bool Status
@@ -205,8 +205,6 @@ namespace StareMedic.Models.Entities
             }
         }
 
-        public DateTime RegisteredDate { get => _registered.Date; set => _registered = value.ToUniversalTime(); }
-        public TimeSpan RegisteredHour { get  { return _registered.TimeOfDay; } set => _registered = DateTime.Today.Add(value).ToUniversalTime();}
-
+        
     }
 }
