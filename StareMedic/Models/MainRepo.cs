@@ -83,24 +83,24 @@ namespace StareMedic.Models
         }
 
         //finders
-        public static Patient GetPatientById(uint patientId)
+        public static Patient GetPatientById(int patientId)
         {
             return _db.Patients.FirstOrDefault(x => x.Id == patientId);
         }
 
-        public static Fiador GetFiadorById(uint? fiadorId)
+        public static Fiador GetFiadorById(int? fiadorId)
         {
             if (fiadorId == null) { return new Fiador(); }
             return _db.Fiadores.FirstOrDefault(x => x.Id == fiadorId);
         }
 
-        public static Cercano GetCercanoById(uint? cercanoId)
+        public static Cercano GetCercanoById(int? cercanoId)
         {
             if (cercanoId == null) { return new Cercano(); }
             return _db.Cercanos.FirstOrDefault(x => x.Id == cercanoId);
         }
 
-        public static Rooms GetRoomById(uint roomId)
+        public static Rooms GetRoomById(int roomId)
         {
             return _db.Rooms.FirstOrDefault(x => x.Id == roomId);
         }
@@ -110,66 +110,66 @@ namespace StareMedic.Models
             return _db.CasoClinicos.FirstOrDefault(x => x.Id == caseId);
         }
 
-        public static Medic GetMedicById(uint medicId)
+        public static Medic GetMedicById(int medicId)
         {
             return _db.Medics.FirstOrDefault(x => x.Id == medicId);
         }
 
-        public static Diagnostico GetDiagnosticoById(uint diagnosticoId)
+        public static Diagnostico GetDiagnosticoById(int diagnosticoId)
         {
             return _db.Diagnosticos.FirstOrDefault(x => x.Id == diagnosticoId);
         }
 
         //indexers
-        public static uint GetCurrentPatientIndex()//Implement exception handling here
+        public static int GetCurrentPatientIndex()//Implement exception handling here
         {
             if (!_db.Patients.Any()) { return 1; }
             // Obtén el valor máximo actual de la clave primaria (ID) en la tabla de pacientes
-            var maxId = _db.Patients.Max(p => (uint?)p.Id);
+            var maxId = _db.Patients.Max(p => (int?)p.Id);
 
             // Si no hay registros en la tabla, el valor máximo será nulo, así que devuelve 1 como valor predeterminado
             return (maxId ?? 0) + 1;//check dis out
         }
 
-        public static uint GetCurrentCercanoIndex()
+        public static int GetCurrentCercanoIndex()
         {
             if (!_db.Cercanos.Any()) { return 1; }
-            var maxId = _db.Cercanos.Max(p => (uint?)p.Id);
+            var maxId = _db.Cercanos.Max(p => (int?)p.Id);
             return (maxId ?? 0) + 1;
         }
 
-        public static uint GetCurrentFiadorIndex()
+        public static int GetCurrentFiadorIndex()
         {
             if(!_db.Fiadores.Any()) { return 1; }//check dis out
-            var maxId = _db.Fiadores.Max(p => (uint?)p.Id);
+            var maxId = _db.Fiadores.Max(p => (int?)p.Id);
             return (maxId ?? 0) + 1;
         }
         
-        public static uint GetCurrentRoomIndex()
+        public static int GetCurrentRoomIndex()
         {
             if(!_db.Rooms.Any()) { return 1; }
-            var maxId = _db.Rooms.Max(p => (uint?)p.Id);
+            var maxId = _db.Rooms.Max(p => (int?)p.Id);
             return (maxId ?? 0) + 1;
         }
 
-        public static uint GetCurrentCaseIndex()
+        public static int GetCurrentCaseIndex()
         {
             if(!_db.CasoClinicos.Any()) { return 1; }//check dis out
-            var maxId = _db.CasoClinicos.Max(p => (uint?)p.IdDB);
+            var maxId = _db.CasoClinicos.Max(p => (int?)p.IdDB);
             return (maxId ?? 0) + 1;
         }
 
-        public static uint GetCurrentMedicIndex()
+        public static int GetCurrentMedicIndex()
         {
             if(!_db.Medics.Any()) { return 1; }//check dis out
-            var maxId = _db.Medics.Max(p => (uint?)p.Id);
+            var maxId = _db.Medics.Max(p => (int?)p.Id);
             return (maxId ?? 0) + 1;
         }
 
-        public static uint GetCurrentDiagnosticoIndex()
+        public static int GetCurrentDiagnosticoIndex()
         {
             if(!_db.Diagnosticos.Any()) { return 1; }//check dis out
-            var maxId = _db.Diagnosticos.Max(p => (uint?)p.Id);
+            var maxId = _db.Diagnosticos.Max(p => (int?)p.Id);
             return (maxId ?? 0) + 1;
         }
 
@@ -181,18 +181,20 @@ namespace StareMedic.Models
         }
 
         //updaters
-        public static void UpdatePatientStatus(bool stts,uint id)
+        public static void UpdatePatientStatus(bool stts,int id)
         {
             var patient2update = _db.Patients.FirstOrDefault(x => x.Id == id);
             patient2update.Status = stts;
+            _db.Entry(patient2update).CurrentValues.SetValues(patient2update);
             _db.SaveChanges();
 
         }
 
-        public static void UpdateRoomStatus(bool stts, uint id)
+        public static void UpdateRoomStatus(bool stts, int id)
         {
             var room2update = _db.Rooms.FirstOrDefault(x => x.Id == id);
             room2update.Status = stts;
+            _db.Entry(room2update).CurrentValues.SetValues(room2update);
             _db.SaveChanges();
         }
 
@@ -202,6 +204,7 @@ namespace StareMedic.Models
             var patient2update = _db.Patients.FirstOrDefault(x => x.Id == patient.Id);
             //Confirm that dis works with db working
             patient2update.Update(patient);
+            _db.Entry(patient2update).CurrentValues.SetValues(patient2update);
             _db.SaveChanges();
 
         }
@@ -210,7 +213,7 @@ namespace StareMedic.Models
         public static void UpdateDiagnoose(Diagnostico diagnostico)
         {
             var diag2update = _db.Diagnosticos.FirstOrDefault(x => x.Id == diagnostico.Id);
-            diag2update.Contenido = diagnostico.Contenido;
+            _db.Entry(diag2update).CurrentValues.SetValues(diagnostico);
             _db.SaveChanges();
 
         }
@@ -219,20 +222,32 @@ namespace StareMedic.Models
         {
 
             var case2update = _db.CasoClinicos.FirstOrDefault(x => x.Id == caso.Id);
-            case2update = caso;
+            _db.Entry(case2update).CurrentValues.SetValues(caso);
             _db.SaveChanges();
 
 
         }
 
         //closers
-        public static void CloseCase(uint id)
+        public static void CloseCase(int id)
         {
             var case2close = _db.CasoClinicos.FirstOrDefault(x => x.IdDB == id);
             case2close.Activo = false;
             case2close.FechaAlta = DateTimeOffset.UtcNow;
             UpdatePatientStatus(false, case2close.IdPaciente);
+            _db.Entry(case2close).CurrentValues.SetValues(case2close);
+            _db.SaveChanges();
             //maybe implement destructor here? or write on db
+
+        }
+
+        public static void ReopenCase(int id)
+        {
+            var case2reopen = _db.CasoClinicos.FirstOrDefault(x => x.IdDB == id);
+            case2reopen.Activo = true;
+            case2reopen.FechaAlta = null;
+            UpdatePatientStatus(true, case2reopen.IdPaciente);
+            _db.SaveChanges();
 
         }
     }

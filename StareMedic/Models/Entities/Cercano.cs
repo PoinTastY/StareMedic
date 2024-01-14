@@ -9,7 +9,7 @@ namespace StareMedic.Models.Entities
     public class Cercano
     {
         //atributes
-        private uint? _id;
+        private int? _id;
         private string _name;
         private string _phone;
         private string _address;
@@ -18,7 +18,7 @@ namespace StareMedic.Models.Entities
         private string _relation;
 
         //builder
-        public Cercano(uint id)
+        public Cercano(int id)
         {
             _id = id;
             _name = "";
@@ -41,7 +41,7 @@ namespace StareMedic.Models.Entities
         }
 
         //methods
-        public uint? Id
+        public int? Id
         {
             get => _id;
             set => _id = value;

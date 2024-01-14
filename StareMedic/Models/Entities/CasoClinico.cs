@@ -11,17 +11,17 @@ namespace StareMedic.Models.Entities
     {
         private string _id;
 
-        private readonly uint _idDB;
+        private readonly int _idDB;
 
         private string _name;
 
-        private uint _idPacient;
+        private int _idPacient;
 
-        private uint _idDoctor;
+        private int _idDoctor;
 
-        private uint _idHabitacion;
+        private int _idHabitacion;
 
-        private uint _idDiagnostico;
+        private int _idDiagnostico;
 
         private bool _status;
 
@@ -31,7 +31,7 @@ namespace StareMedic.Models.Entities
 
         private DateTimeOffset? _fechaAlta;
 
-        public CasoClinico(uint id)
+        public CasoClinico(int id)
         {
             _idDB = id;
             _fechaIngreso = DateTimeOffset.UtcNow;
@@ -46,7 +46,7 @@ namespace StareMedic.Models.Entities
         //Total account?
         //TO-DO: mplement a static method to assign all the values to the object?
 
-        public uint IdDB
+        public int IdDB
         {
             get => _idDB;
         }
@@ -64,25 +64,25 @@ namespace StareMedic.Models.Entities
             set => _name = value;
         }
 
-        public uint IdPaciente
+        public int IdPaciente
         {
             get => _idPacient;
             set => _idPacient = value;
         }
 
-        public uint IdDoctor
+        public int IdDoctor
         {
             get => _idDoctor;
             set => _idDoctor = value;
         }
 
-        public uint IdHabitacion
+        public int IdHabitacion
         {
             get => _idHabitacion;
             set => _idHabitacion = value;
         }
 
-        public uint IdDiagnostico//thisone will only be setted through the case overview, nowhere else
+        public int IdDiagnostico//thisone will only be setted through the case overview, nowhere else
         {
             get => _idDiagnostico;
             set => _idDiagnostico = value;
@@ -145,11 +145,6 @@ namespace StareMedic.Models.Entities
         {
                 return MainRepo.GetDiagnosticoById(_idDiagnostico);
         }
-
-        //public DateTime FechaAltaDate { get { return _fechaAlta.Date; } set { _fechaAlta = value.ToUniversalTime(); } }
-        //public TimeSpan FechaAltaHour { get { return _fechaAlta.TimeOfDay; } set { _fechaAlta = DateTime.Today.Add(value).ToUniversalTime(); } }
-        //public DateTime FechaIngresoDate { get { return _fechaIngreso.Date; } set { _fechaIngreso = value.ToUniversalTime(); } }
-        //public TimeSpan FechaIngresoHour { get { return _fechaIngreso.TimeOfDay; } set { _fechaIngreso = DateTime.Today.Add(value).ToUniversalTime(); } }
 
         //maybe add close case method in here instead of repo?
     }

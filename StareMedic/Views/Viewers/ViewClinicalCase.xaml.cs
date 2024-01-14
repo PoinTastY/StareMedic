@@ -189,9 +189,14 @@ public partial class ViewClinicalCase : ContentPage
 
         //then disable btn
         BtnReopenCase.IsVisible = false;
+        caso.Activo = true;
         //then, re enable edits
         //remember to update new close 
         //validate if patient is not busy to reopen
+        if(MainRepo.GetPatientById(patient.Id).Status != true)
+        {
+            MainRepo.ReopenCase(caso.IdDB);
+        }
         //make sure that all affected entities are good w dis
     }
 

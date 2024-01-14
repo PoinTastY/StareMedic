@@ -9,7 +9,7 @@ namespace StareMedic.Models.Entities
     public class Rooms
     {
         //Attributes
-        private readonly uint _id;
+        private readonly int _id;
         private string _name;
         private string _description;
 
@@ -17,14 +17,14 @@ namespace StareMedic.Models.Entities
         private bool _status;
 
         //builder
-        public Rooms(uint id)
+        public Rooms(int id)
         {
             _id = id;//from db autoincrement
             _status = false;
         }
 
         //methods
-        public uint Id
+        public int Id
         {
             get => _id;
         }

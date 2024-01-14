@@ -144,7 +144,7 @@ namespace StareMedic.Models
             return displayinfo;
         }
 
-        private static Paragraph Diagnosis (uint diagnoose)
+        private static Paragraph Diagnosis (int diagnoose)
         {
             Paragraph body = new()
             {

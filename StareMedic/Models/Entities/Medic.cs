@@ -8,7 +8,7 @@ namespace StareMedic.Models.Entities
 {
     public class Medic
     {
-        private readonly uint _id;
+        private readonly int _id;
 
         private string _name;
 
@@ -17,12 +17,12 @@ namespace StareMedic.Models.Entities
         //private string _email;//not forced rn
 
 
-        public Medic(uint id)
+        public Medic(int id)
         {
             _id = id;
         }
 
-        public uint Id
+        public int Id
         {
             get => _id;
         }

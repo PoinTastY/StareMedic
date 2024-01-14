@@ -8,10 +8,10 @@ namespace StareMedic.Models.Entities
 {
     public class Diagnostico
     {
-        private readonly uint _id;
+        private readonly int _id;
         private string _content;
 
-        public Diagnostico(uint id)
+        public Diagnostico(int id)
         {
 
             _content = "Pendiente...";
@@ -24,7 +24,7 @@ namespace StareMedic.Models.Entities
             set => _content = value;
         }
 
-        public uint Id
+        public int Id
         {
             get => _id;
         }
