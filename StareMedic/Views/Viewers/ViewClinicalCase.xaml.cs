@@ -23,7 +23,8 @@ public partial class ViewClinicalCase : ContentPage
 		room = caso.Habitacion();
 		diagnostico = caso.Diagnostico();
 
-
+        PickMedic.ItemsSource = MainRepo.GetMedics();
+        PickRoom.ItemsSource = MainRepo.GetRooms();
 
         if (caso.Activo == true)
         {
@@ -38,26 +39,6 @@ public partial class ViewClinicalCase : ContentPage
 		LblId.Text = "ID: " + caso.Id;
 		EntryName.Text = caso.Nombre;
 		EntryPatient.Text = patient.Nombre;
-
-		PickMedic.ItemsSource = MainRepo.GetMedics();
-        if (medic.Nombre != "missing")
-            PickMedic.SelectedItem = medic;
-        else
-        {
-            DisplayAlert("Error", "El registro de medico de este caso no se encontro, elija uno", "Ok");
-            enabledisable(true);
-        }
-
-        PickRoom.ItemsSource = MainRepo.GetRooms();
-        if (room.Nombre != "missing")
-            PickRoom.SelectedItem = room;
-        else
-        {
-            DisplayAlert("Error", "El registro de habitacion de este caso no se encontro, elija uno", "Ok");
-            enabledisable(true);
-        }
-
-
         EditorDiagnoose.Text = diagnostico.Contenido;
 
 	}
@@ -70,6 +51,22 @@ public partial class ViewClinicalCase : ContentPage
         {
             LblStatus.TextColor = Color.FromRgb(0, 255, 0);
             LblStatus.Text = "Estado: Abierto";
+            if (medic.Nombre != "missing")
+                PickMedic.SelectedItem = medic;
+            else
+            {
+                DisplayAlert("Error", "El registro de medico de este caso no se encontro, elija uno", "Ok");
+                enabledisable(true);
+            }
+            if (room.Nombre != "missing")
+                PickRoom.SelectedItem = room;
+            else
+            {
+                DisplayAlert("Error", "El registro de habitacion de este caso no se encontro, elija uno", "Ok");
+                enabledisable(true);
+            }
+            BtnDelete.IsVisible = false;
+            BtnDelete.IsEnabled = false;
         }
         else
         {
@@ -77,6 +74,9 @@ public partial class ViewClinicalCase : ContentPage
             LblStatus.Text = "Estado: Cerrado";
             BtnDelete.IsVisible = true;
             BtnDelete.IsEnabled = true;
+            enabledisable(false);
+            BtnEdit.IsVisible = false;
+            BtnEdit.IsEnabled = false;
         }
         BtnCerrarCaso.IsVisible = status;
         BtnCerrarCaso.IsEnabled = status;
@@ -85,6 +85,11 @@ public partial class ViewClinicalCase : ContentPage
         BtnReopenCase.IsVisible = !status;
         BtnReopenCase.IsEnabled = !status;
         BtnEdit.IsVisible = status;
+        BtnEdit.IsEnabled = status;
+        BtnSaveAll.IsVisible = status;
+        BtnSaveAll.IsEnabled = status;
+        BtnCancelAll.IsVisible = status;
+        BtnCancelAll.IsEnabled = status;
     }
 
 	
@@ -166,6 +171,7 @@ public partial class ViewClinicalCase : ContentPage
             }
             else//if not, we reopen
             {
+
                 MainRepo.ReopenCase(caso.IdDB);
                 await DisplayAlert("Confirmado", $"Se ha reabierto el caso:\n{caso.Nombre}", "Ok");
                 reopenclose(true);//then reload butons and that
@@ -212,8 +218,7 @@ public partial class ViewClinicalCase : ContentPage
     {
         if(medic.Nombre == "missing" || room.Nombre == "missing")
         {
-            DisplayAlert("Error", "No se puede cancelar, verifica que todo este bien", "Ok");
-            return;
+            DisplayAlert("Advertencia:", "Si el medico o habitaciones asignadas no son validos,\nSe recomienda elegir a uno", "Ok");
         }
         EntryName.Text = caso.Nombre;
         PickMedic.SelectedItem = medic;

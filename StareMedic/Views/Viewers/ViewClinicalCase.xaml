@@ -59,7 +59,7 @@
                 <HorizontalStackLayout x:Name="Editables">
                     <Label Text="Medico: "/>
                     <Picker x:Name="PickMedic"
-                                IsEnabled="False">
+                            IsEnabled="False">
                         <Picker.ItemDisplayBinding>
                             <Binding Path="Nombre"/>
                         </Picker.ItemDisplayBinding>
@@ -67,7 +67,7 @@
 
                     <Label Text="Habitacion: "/>
                     <Picker x:Name="PickRoom"
-                                IsEnabled="False">
+                            IsEnabled="False">
                         <Picker.ItemDisplayBinding>
                             <Binding Path="Nombre"/>
                         </Picker.ItemDisplayBinding>
