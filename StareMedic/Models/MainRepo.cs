@@ -102,7 +102,14 @@ namespace StareMedic.Models
 
         public static Rooms GetRoomById(int roomId)
         {
-            return _db.Rooms.FirstOrDefault(x => x.Id == roomId);
+            Rooms roomreturned = _db.Rooms.FirstOrDefault(x => x.Id == roomId);
+            if (roomreturned == null)
+            {
+                roomreturned = new();
+                return roomreturned;
+            }
+            else
+                return roomreturned;
         }
 
         public static CasoClinico GetCasoById(string caseId)
@@ -112,7 +119,13 @@ namespace StareMedic.Models
 
         public static Medic GetMedicById(int medicId)
         {
-            return _db.Medics.FirstOrDefault(x => x.Id == medicId);
+            Medic medreturned = _db.Medics.FirstOrDefault(x => x.Id == medicId);
+            if (medreturned == null)
+            {
+                medreturned= new();
+                return medreturned;
+            }else
+                return medreturned;
         }
 
         public static Diagnostico GetDiagnosticoById(int diagnosticoId)
@@ -249,6 +262,23 @@ namespace StareMedic.Models
             UpdatePatientStatus(true, case2reopen.IdPaciente);
             _db.SaveChanges();
 
+        }
+
+        //deleters
+        public static void DeleteClinicalCase(CasoClinico casodel)
+        {
+            var case2delete = _db.CasoClinicos.FirstOrDefault(x => x == casodel);
+            _db.CasoClinicos.Remove(case2delete);
+            DeleteDiagnoose(casodel.IdDiagnostico);
+            UpdatePatientStatus(false, casodel.IdPaciente);
+            _db.SaveChanges();
+        }
+
+        private static void DeleteDiagnoose(int id)
+        {
+            var diag2delete = _db.Diagnosticos.FirstOrDefault(x => x.Id == id);
+            _db.Diagnosticos.Remove(diag2delete);
+            _db.SaveChanges();
         }
     }
 }

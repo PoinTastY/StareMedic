@@ -16,11 +16,16 @@ namespace StareMedic.Models.Entities
         //maybe need a quantity of patients that can be in the room?
         private bool _status;
 
-        //builder
+        //builders
         public Rooms(int id)
         {
             _id = id;//from db autoincrement
             _status = false;
+        }
+
+        public Rooms()
+        {
+            _name = "missing";
         }
 
         //methods

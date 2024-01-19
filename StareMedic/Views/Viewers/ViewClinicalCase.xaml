@@ -4,14 +4,14 @@
              x:Class="StareMedic.Views.ViewClinicalCase"
              Title="ViewClinicalCase">
     <ScrollView>
-        <VerticalStackLayout x:Name="ControllStack">
+        <VerticalStackLayout HorizontalOptions="StartAndExpand">
 
             <HorizontalStackLayout>
                 <Label 
                             Text="Welcome to .NET MAUI!"
                             x:Name="LblName"
                             VerticalOptions="Center" 
-                            HorizontalOptions="Center" />
+                            HorizontalOptions="Center"/>
                 <Label Text="Estado: "
                            x:Name="LblStatus"/>
                 <Button x:Name="BtnEdit"
@@ -20,11 +20,19 @@
                 <Button x:Name="BtnSaveAll"
                             Text="Guardar Cambios"
                             IsVisible="False"
+                            IsEnabled="False"
                             Clicked="BtnSaveAll_Clicked"/>
                 <Button x:Name="BtnCancelAll"
                             Text="Cancelar Cambios"
                             IsVisible="False"
+                            IsEnabled="False"
                             Clicked="BtnCancelAll_Clicked"/>
+                <Button x:Name="BtnDelete"
+                            Text="Eliminar"
+                            IsVisible="False"
+                            IsEnabled="False"
+                            Clicked="BtnDelete_Clicked"
+                            />
             </HorizontalStackLayout>
 
 

@@ -206,12 +206,11 @@ namespace StareMedic.Data
             //relation to patient
             modelBuilder.Entity<CasoClinico>()
                 .HasMany<Patient>()
-                .WithOne()
-                .HasForeignKey(c => c.Id)
-                .IsRequired(true);
+                .WithMany();
             modelBuilder.Entity<CasoClinico>()
                 .Property(c => c.IdPaciente)
-                .HasColumnName("_idpacient");
+                .HasColumnName("_idpacient")
+                .IsRequired(true);
 
             //relation to diagnostic
             modelBuilder.Entity<CasoClinico>()
@@ -220,25 +219,21 @@ namespace StareMedic.Data
                 .HasForeignKey<CasoClinico>(c => c.IdDiagnostico);
             modelBuilder.Entity<CasoClinico>()
                 .Property(c => c.IdDiagnostico)
-                .HasColumnName("_iddiagnostico");
+                .HasColumnName("_iddiagnostico")
+                .IsRequired(true);
 
-                //relation to medic
+            //relation to medic
             modelBuilder.Entity<CasoClinico>()
                 .HasMany<Medic>()
-                .WithOne()
-                .HasForeignKey(c => c.Id);
+                .WithMany();
             modelBuilder.Entity<CasoClinico>()
                 .Property(c => c.IdDoctor)
-                .HasColumnName("_iddoctor")
-                .IsRequired(true);
+                .HasColumnName("_iddoctor");
 
-                //relation to room
+            //relation to room
             modelBuilder.Entity<CasoClinico>()
                 .HasMany<Rooms>()
-                .WithOne()
-                .HasForeignKey(c => c.Id)
-                .IsRequired(true);
-
+                .WithMany();
             modelBuilder.Entity<CasoClinico>()
                 .Property(c => c.IdHabitacion)
                 .HasColumnName("_idhabitacion");
