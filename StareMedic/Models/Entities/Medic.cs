@@ -22,6 +22,11 @@ namespace StareMedic.Models.Entities
             _id = id;
         }
 
+        public Medic() 
+        {
+            _name = "missing";
+        }
+
         public int Id
         {
             get => _id;

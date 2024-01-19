@@ -12,29 +12,21 @@ public partial class SearchCC : ContentPage
     public SearchCC()
     {
         InitializeComponent();
+        
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        casos.Clear();
         foreach (CasoClinico caso in MainRepo.GetCasos())
         {
             casos.Add(caso);
         }
 
         ListViewCC.ItemsSource = casos;
+
     }
-
-    //protected override void OnAppearing()
-    //{
-    //    base.OnAppearing();
-    //    if (ChkBxOnlyActives.IsChecked)
-    //    {
-    //        var filteredPatients = casos.Where(caso => caso.Activo == true);
-    //        filteredPatients = filteredPatients.ToList();
-    //        casos.Clear();
-    //        foreach (CasoClinico caso in filteredPatients)
-    //        {
-    //            casos.Add(caso);
-    //        }
-    //    }
-
-    //}
 
 
     private async void ListViewCC_ItemSelected(object sender, SelectedItemChangedEventArgs e)
