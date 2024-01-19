@@ -8,8 +8,6 @@ namespace StareMedic.Models
 {
     public static class DoCreate
     {
-        private static string _pagare = "";
-        private static string _patient = "";
         private readonly static string _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Exported");
         public static bool GenerateDocument(CasoClinico CasoReferenciado)
         {
@@ -23,20 +21,24 @@ namespace StareMedic.Models
             PdfWriter.GetInstance(doc, new FileStream(_path + $"\\{CasoReferenciado.Id}.pdf", FileMode.Create));
             doc.Open();
 
-            //header
-            Paragraph HojaAdmision = new(@"HOJA DE ADMISION
+            Patient patient = MainRepo.GetPatientById(CasoReferenciado.IdPaciente);
+            Cercano cercano = MainRepo.GetCercanoById(patient.IdCercano);
+            Fiador fiador = MainRepo.GetFiadorById(patient.IdFiador);
+
+        //header
+        Paragraph HojaAdmision = new(@"HOJA DE ADMISION
 ", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12f));
             HojaAdmision.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
             doc.Add(HojaAdmision);
 
             //Clinical case elements
-            doc.Add(GenerateContentTable(CasoReferenciado));
+            doc.Add(GenerateContentTable(CasoReferenciado, patient, cercano, fiador));
 
             //Diagnosis
             doc.Add(Diagnosis(CasoReferenciado.IdDiagnostico));
 
             //logo and clausules
-            doc.Add(logoYtal());
+            doc.Add(logoYtal(fiador.Nombre));
 
             //clausulas
             doc.Add(Clausule());
@@ -50,22 +52,19 @@ namespace StareMedic.Models
             return true;
         }
 
-        private static PdfPTable GenerateContentTable(CasoClinico CasoReferenciado)
+        private static PdfPTable GenerateContentTable(CasoClinico CasoReferenciado, Patient patient, Cercano cercano, Fiador fiador)
         {
-            Patient patient = MainRepo.GetPatientById(CasoReferenciado.IdPaciente);
-            _patient = patient.Nombre;
-            Cercano cercano = new();
-            Fiador fiador = new();
+
             //font for the table
-            if (patient.IdCercano > 0)
-            {
-                cercano = MainRepo.GetCercanoById(patient.IdCercano);
-            }
-            if (patient.IdFiador > 0)
-            {
-                fiador = MainRepo.GetFiadorById(patient.IdFiador);
-                _pagare = fiador.Nombre;
-            }
+            //if (patient.IdCercano > 0)
+            //{
+            //    cercano = MainRepo.GetCercanoById(patient.IdCercano);
+            //}
+            //if (patient.IdFiador > 0)
+            //{
+            //    fiador = MainRepo.GetFiadorById(patient.IdFiador);
+            //    _pagare = fiador.Nombre;
+            //}
             Medic medic = MainRepo.GetMedicById(CasoReferenciado.IdDoctor);
             Rooms room = MainRepo.GetRoomById(CasoReferenciado.IdHabitacion);
 
@@ -77,10 +76,10 @@ namespace StareMedic.Models
             displayinfo.DefaultCell.Border = Rectangle.NO_BORDER;
 
             displayinfo.AddCell(new Phrase("Caso Clinico: ", fuente)); displayinfo.AddCell(new PdfPCell(new Phrase(CasoReferenciado.Id, fuente)) { Colspan = 2, Border = Rectangle.NO_BORDER }) ;
-            displayinfo.AddCell(new Phrase($"Fecha de ingreso: {CasoReferenciado.FechaIngreso():dd/MM/yyyy hh:mm}", fuente));
-            string fechaAltaTexto = CasoReferenciado.FechaAlta() == DateTime.MinValue
+            displayinfo.AddCell(new Phrase($"Fecha de ingreso: {CasoReferenciado.FechaIngreso:dd/MM/yyyy hh:mm}", fuente));
+            string fechaAltaTexto = CasoReferenciado.FechaAlta == null
                 ? "Fecha de alta: [No disponible]" // Mensaje cuando la fecha de alta está vacía
-                : $"Fecha de alta: {CasoReferenciado.FechaAlta():dd/MM/yyyy hh:mm}";
+                : $"Fecha de alta: {CasoReferenciado.FechaAlta:dd/MM/yyyy hh:mm}";
             displayinfo.AddCell(new Phrase(fechaAltaTexto, fuente));//br
 
             ///////////////////////////////////////////////////////////new row
@@ -145,7 +144,7 @@ namespace StareMedic.Models
             return displayinfo;
         }
 
-        private static Paragraph Diagnosis (uint diagnoose)
+        private static Paragraph Diagnosis (int diagnoose)
         {
             Paragraph body = new()
             {
@@ -156,14 +155,14 @@ namespace StareMedic.Models
             return body;
         }
 
-        private static PdfPTable logoYtal()
+        private static PdfPTable logoYtal(string patient)
         {
             //first paragraph & logo image
             iTextSharp.text.Font fnt = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 6f);
             PdfPTable logoClausules = new(5);
             string contratoText = @$"
 CONTRATO DE PRESTACION DE SERVICIOS HOSPITALARIOS CELEBRADO POR EL ""HOSPITAL DR. MANUEL MONTERO"" A QUIEN EN LO SUCESIVO SE LE DENOMINARA ""EL HOSPITAL"",
-Y POR LA OTRA PARTE DOMICILIO EN ""{_patient}"" 
+Y POR LA OTRA PARTE DOMICILIO EN ""{patient}"" 
 A QUIEN SE LE DENOMINARA ""EL PACIENTE"", Y QUE CELEBRARAN MEDIANTE LAS SIGUIENTES:
 ";
             //TODO: add logo
@@ -171,7 +170,7 @@ A QUIEN SE LE DENOMINARA ""EL PACIENTE"", Y QUE CELEBRARAN MEDIANTE LAS SIGUIENT
             cell.Colspan = 4; cell.Border = Rectangle.NO_BORDER;
             cell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
             logoClausules.AddCell(cell);
-            iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance("C:\\Users\\kbece\\Source\\Repos\\PoinTastY\\StareMedic\\StareMedic\\Resources\\Images\\hosplogo.jpg");
+            iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance("C:\\Users\\quebin\\Source\\Repos\\PoinTastY\\StareMedic\\StareMedic\\Resources\\Images\\hosplogo.jpg");
             logo.ScaleToFit(60f, 60f);
             cell = new(); cell.Border = Rectangle.NO_BORDER;
             cell.AddElement(logo);
@@ -235,7 +234,7 @@ SAN JUAN DE LOS LAGOS, JAL., A: ________________________________________________
 
             signatures.Add(new Chunk("PAGARE", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10f)));
             string pagareText = @"
-POR EL PRESENTE PAGARE DEBO, Y PAGARE INCONDICIONALMENTE AL HOSPITAL DR MANUEL MONERO, EN EL LUGAR QUE SE ME REQUIERA,
+POR EL PRESENTE PAGARE DEBO, Y PAGARE INCONDICIONALMENTE AL HOSPITAL DR MANUEL MONTERO, EN EL LUGAR QUE SE ME REQUIERA,
 LA CANTIDAD DE: (money)
 IMPORTE DE LOS SERVICIOS DETALLADOS EN ESTE TITULO DE CREDITO, QUE GENERA INTERESES A RAZON DEL (interest)% MENSUALES";
 

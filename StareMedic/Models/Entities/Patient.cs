@@ -10,7 +10,7 @@ namespace StareMedic.Models.Entities
     public class Patient
     {
         //Atributos paciente
-        private uint _id;//dbfilled only on creation
+        private int _id;//dbfilled only on creation
         private string _name;
         private string _domicilio;
         private string _tipoSangre;
@@ -23,18 +23,18 @@ namespace StareMedic.Models.Entities
         private string _telefono;
 
         //controll info
-        private DateTime _registered;
+        private DateTimeOffset _registered;
 
         private bool _active;
 
         //Contactos extras
-        private uint? _idCercano;
-        private uint? _idFiador;//Contpaq SDK comming soon here?
+        private int? _idCercano;
+        private int? _idFiador;//Contpaq SDK comming soon here?
 
         //id initialization
-        public Patient(uint id)
+        public Patient(int id)
         {
-            _registered = DateTime.Now.ToUniversalTime();
+            _registered = DateTimeOffset.UtcNow;
             _id = id;
             _idCercano = null;
             _idFiador = null;
@@ -56,7 +56,7 @@ namespace StareMedic.Models.Entities
         }
 
         //methods
-        public uint Id
+        public int Id
         {
             get => _id;
             set => _id = value;
@@ -120,9 +120,9 @@ namespace StareMedic.Models.Entities
             set => _telefono = value;
         }
 
-        public DateTime Registered
+        public DateTimeOffset Registered
         {
-            get => _registered.ToUniversalTime();
+            get => _registered;
         }
 
         public bool Status
@@ -132,13 +132,13 @@ namespace StareMedic.Models.Entities
         }
 
         //dejo estos dos como la otra forma de declararse tambien
-        public uint? IdCercano
+        public int? IdCercano
         {
             get { return _idCercano; }
             set { _idCercano = value; }
         }
 
-        public uint? IdFiador
+        public int? IdFiador
         {
             get { return _idFiador; }
             set { _idFiador = value; }
@@ -205,8 +205,6 @@ namespace StareMedic.Models.Entities
             }
         }
 
-        public DateTime RegisteredDate { get => _registered.Date; set => _registered = value.ToUniversalTime(); }
-        public TimeSpan RegisteredHour { get  { return _registered.TimeOfDay; } set => _registered = DateTime.Today.Add(value).ToUniversalTime();}
-
+        
     }
 }

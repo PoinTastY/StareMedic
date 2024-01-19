@@ -14,7 +14,7 @@ namespace StareMedic.Data
         public DbSet<Cercano> Cercanos { get; set; }
 
         //es: localhost // 192.168.3.3 // 26.101.17.190
-        static readonly string server = "localhost";// create dns or external service to find server
+        static readonly string server = "192.168.3.3";// create dns or external service to find server
 
         static readonly string db = "staremedic";
         static readonly string user = "admin";
@@ -161,12 +161,10 @@ namespace StareMedic.Data
                 .HasColumnName("_telefono");
 
             modelBuilder.Entity<Patient>()
-                .Property(p => p.RegisteredDate)
-                .HasColumnName("_fecharegistrado");
-
-            modelBuilder.Entity<Patient>()
-                .Property(p => p.RegisteredHour)
-                .HasColumnName("_horaregistrado");
+                .Property(p => p.Registered)
+                .HasColumnName("_fecharegistrado")
+                .HasColumnType("timestamp with time zone")
+                .IsRequired(true);  
 
             modelBuilder.Entity<Patient>()
                 .Property(p => p.Status)
@@ -205,11 +203,12 @@ namespace StareMedic.Data
                 .Property(c => c.Id)
                 .HasColumnName("_id");
 
-                //relation to patient
+            //relation to patient
             modelBuilder.Entity<CasoClinico>()
-                .HasOne<Patient>()
+                .HasMany<Patient>()
                 .WithOne()
-                .HasForeignKey<CasoClinico>(c => c.IdPaciente);
+                .HasForeignKey(c => c.Id)
+                .IsRequired(true);
             modelBuilder.Entity<CasoClinico>()
                 .Property(c => c.IdPaciente)
                 .HasColumnName("_idpacient");
@@ -225,18 +224,21 @@ namespace StareMedic.Data
 
                 //relation to medic
             modelBuilder.Entity<CasoClinico>()
-                .HasOne<Medic>()
+                .HasMany<Medic>()
                 .WithOne()
-                .HasForeignKey<CasoClinico>(c => c.IdDoctor);
+                .HasForeignKey(c => c.Id);
             modelBuilder.Entity<CasoClinico>()
                 .Property(c => c.IdDoctor)
-                .HasColumnName("_iddoctor");
+                .HasColumnName("_iddoctor")
+                .IsRequired(true);
 
                 //relation to room
             modelBuilder.Entity<CasoClinico>()
-                .HasOne<Rooms>()
+                .HasMany<Rooms>()
                 .WithOne()
-                .HasForeignKey<CasoClinico>(c => c.IdHabitacion);
+                .HasForeignKey(c => c.Id)
+                .IsRequired(true);
+
             modelBuilder.Entity<CasoClinico>()
                 .Property(c => c.IdHabitacion)
                 .HasColumnName("_idhabitacion");
@@ -251,20 +253,22 @@ namespace StareMedic.Data
                 .HasColumnName("_status");
 
             modelBuilder.Entity<CasoClinico>()
-                .Property(c => c.FechaIngresoDate)
-                .HasColumnName("_fechaingreso");
+                .Property(c => c.FechaIngreso)
+                .HasColumnName("_fechaingreso")
+                .HasColumnType("timestamp with time zone")
+                .IsRequired(true);
 
             modelBuilder.Entity<CasoClinico>()
-                .Property(c => c.FechaIngresoHour)
-                .HasColumnName("_horaingreso");
+                .Property(c => c.FechaAlta)
+                .HasColumnName("_fechaalta")
+                .HasColumnType("timestamp with time zone")
+                .IsRequired(false);
+
 
             modelBuilder.Entity<CasoClinico>()
-                .Property(c => c.FechaAltaDate)
-                .HasColumnName("_fechaalta");
+                .Property(c => c.Total)
+                .HasColumnName("_total");
 
-            modelBuilder.Entity<CasoClinico>()
-                .Property(c => c.FechaAltaHour)
-                .HasColumnName("_horaalta");
 
             //diagnostic entity
             modelBuilder.Entity<Diagnostico>()

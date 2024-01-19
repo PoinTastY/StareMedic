@@ -44,7 +44,7 @@ public partial class EditPatient : ContentPage
     {
         set
         {
-            patient = MainRepo.GetPatientById(uint.Parse(value));
+            patient = MainRepo.GetPatientById(int.Parse(value));
 
             originalPatient = new Patient
             {
@@ -77,7 +77,7 @@ public partial class EditPatient : ContentPage
     {
         set
         {
-            cercano = MainRepo.GetCercanoById(uint.Parse(value));
+            cercano = MainRepo.GetCercanoById(int.Parse(value));
 
             originalCercano = new Cercano
             {
@@ -106,7 +106,7 @@ public partial class EditPatient : ContentPage
     {
         set
         {
-            fiador = MainRepo.GetFiadorById(uint.Parse(value));
+            fiador = MainRepo.GetFiadorById(int.Parse(value));
 
             originalFiador = new Fiador
 

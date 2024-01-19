@@ -11,39 +11,42 @@ namespace StareMedic.Models.Entities
     {
         private string _id;
 
-        private readonly uint _idDB;
+        private readonly int _idDB;
 
         private string _name;
 
-        private uint _idPacient;
+        private int _idPacient;
 
-        private uint _idDoctor;
+        private int _idDoctor;
 
-        private uint _idHabitacion;
+        private int _idHabitacion;
 
-        private uint _idDiagnostico;
+        private int _idDiagnostico;
 
         private bool _status;
 
-        private DateTime _fechaIngreso;
+        private float _total;
 
-        private DateTime _fechaAlta;
+        private DateTimeOffset _fechaIngreso;
 
-        public CasoClinico(uint id)
+        private DateTimeOffset? _fechaAlta;
+
+        public CasoClinico(int id)
         {
             _idDB = id;
-            _fechaIngreso = DateTime.Now.ToUniversalTime();
+            _fechaIngreso = DateTimeOffset.UtcNow;
             _status = true;
             _idDoctor = 0;
             _idHabitacion = 0;
             _idPacient = 0;
+            _total = 0;
         }
 
         public CasoClinico() { }
         //Total account?
         //TO-DO: mplement a static method to assign all the values to the object?
 
-        public uint IdDB
+        public int IdDB
         {
             get => _idDB;
         }
@@ -61,44 +64,42 @@ namespace StareMedic.Models.Entities
             set => _name = value;
         }
 
-        public uint IdPaciente
+        public int IdPaciente
         {
             get => _idPacient;
             set => _idPacient = value;
         }
 
-        public uint IdDoctor
+        public int IdDoctor
         {
             get => _idDoctor;
             set => _idDoctor = value;
         }
 
-        public uint IdHabitacion
+        public int IdHabitacion
         {
             get => _idHabitacion;
             set => _idHabitacion = value;
         }
 
-        public uint IdDiagnostico//thisone will only be setted through the case overview, nowhere else
+        public int IdDiagnostico//thisone will only be setted through the case overview, nowhere else
         {
             get => _idDiagnostico;
             set => _idDiagnostico = value;
         }
 
-        public DateTime FechaIngreso()
+        public DateTimeOffset FechaIngreso
         {
-            return _fechaIngreso.ToUniversalTime();
+            get => _fechaIngreso.ToLocalTime();
+            set => _fechaIngreso = value;
         }
 
-        public void FechaAltaSet(DateTime x)
+        public DateTimeOffset? FechaAlta
         {
-            _fechaAlta = x.ToUniversalTime();
+            get { if (_fechaAlta.HasValue) { return _fechaAlta.Value.ToLocalTime(); } else { return null; } }
+            set { _fechaAlta = value; }
         }
-
-        public DateTime FechaAlta()//change this to traditional method, split get and set individually
-        {
-            return _fechaAlta;
-        }
+  
 
         public bool Activo
         {
@@ -106,12 +107,18 @@ namespace StareMedic.Models.Entities
             set => _status = value;
         }
 
+        public float Total
+        {
+            get => _total;
+            set => _total = value;
+        }
+
         public void Update(CasoClinico caso)
         {
             _name = caso.Nombre;
             _idDoctor = caso.IdDoctor;
             _idHabitacion = caso.IdHabitacion;
-            _fechaAlta = caso.FechaAlta();
+            _fechaAlta = caso.FechaAlta;
         }
 
         public static implicit operator bool(CasoClinico x)
@@ -138,11 +145,6 @@ namespace StareMedic.Models.Entities
         {
                 return MainRepo.GetDiagnosticoById(_idDiagnostico);
         }
-
-        public DateTime FechaAltaDate { get { return _fechaAlta.Date; } set { _fechaAlta = value.ToUniversalTime(); } }
-        public TimeSpan FechaAltaHour { get { return _fechaAlta.TimeOfDay; } set { _fechaAlta = DateTime.Today.Add(value).ToUniversalTime(); } }
-        public DateTime FechaIngresoDate { get { return _fechaIngreso.Date; } set { _fechaIngreso = value.ToUniversalTime(); } }
-        public TimeSpan FechaIngresoHour { get { return _fechaIngreso.TimeOfDay; } set { _fechaIngreso = DateTime.Today.Add(value).ToUniversalTime(); } }
 
         //maybe add close case method in here instead of repo?
     }
