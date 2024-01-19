@@ -1,6 +1,5 @@
 using StareMedic.Models;
 using StareMedic.Models.Entities;
-using System.Collections.ObjectModel;
 
 namespace StareMedic.Views;
 
@@ -8,12 +7,9 @@ public partial class ViewClinicalCase : ContentPage
 {
 	private readonly CasoClinico caso;
 	private readonly Patient patient;
-	private readonly Medic medic;
-	private readonly Rooms room;
 	private readonly Diagnostico diagnostico;
-
-    private Picker PickerRoom;
-    private Picker PickerMedic;
+    private Medic medic;
+    private Rooms room;
     
 
     public ViewClinicalCase(CasoClinico caso)
@@ -28,27 +24,47 @@ public partial class ViewClinicalCase : ContentPage
 
 
 
-
+        if (caso.Activo == true)
+        {
+            reopenclose(true);
+        }
+        else
+        {
+            reopenclose(false);
+        }
         //Fill everything
         LblName.Text = caso.Nombre;
 		LblId.Text = "ID: " + caso.Id;
 		EntryName.Text = caso.Nombre;
 		EntryPatient.Text = patient.Nombre;
-		EntryMedic.Text = medic.Nombre;
-		EntryRoom.Text = room.Nombre;
+		PickMedic.ItemsSource = MainRepo.GetMedics();
+        PickMedic.SelectedItem = medic;
+        PickRoom.ItemsSource = MainRepo.GetRooms();
+        PickRoom.SelectedItem = room;
 		EditorDiagnoose.Text = diagnostico.Contenido;
 
-        //self explanatory
-        if(this.caso.Activo != true)
+	}
+
+    private void reopenclose(bool status)
+    {
+        if(status)
         {
-            BtnReopenCase.IsVisible = true;
+            LblStatus.TextColor = Color.FromRgb(0, 255, 0);
+            LblStatus.Text = "Estado: Abierto";
         }
         else
         {
-            BtnReopenCase.IsVisible = false;
+            LblStatus.TextColor = Color.FromRgb(255, 0, 0);
+            LblStatus.Text = "Estado: Cerrado";
         }
-
-	}
+        BtnCerrarCaso.IsVisible = status;
+        BtnCerrarCaso.IsEnabled = status;
+        BtnEditDiagnoose.IsVisible = status;
+        BtnEditDiagnoose.IsEnabled = status;
+        BtnReopenCase.IsVisible = !status;
+        BtnReopenCase.IsEnabled = !status;
+        BtnEdit.IsVisible = status;
+    }
 
 	
 
@@ -60,8 +76,12 @@ public partial class ViewClinicalCase : ContentPage
 		{
 			MainRepo.CloseCase(caso.IdDB);
 			await DisplayAlert("Confirmado", $"Se ha cerrado el caso:\n{caso.Nombre}", "Ok");
-			await Navigation.PopAsync();
-		}
+            reopenclose(false);
+        }
+        else
+        {
+            return;
+        }
     }
 
     private async void BtnExportCase_Clicked(object sender, EventArgs e)
@@ -82,126 +102,90 @@ public partial class ViewClinicalCase : ContentPage
 
     private void BtnEditDiagnoose_Clicked(object sender, EventArgs e)
     {
-		EditorDiagnoose.IsReadOnly = false;
-		BtnEditDiagnoose.IsVisible = false;
-		BtnEditDiagnoose.IsEnabled = false;
-		//BtnSaveDiagnoose.IsVisible = true; or create it directly, iunno
-		BtnSaveDiagnoose.IsEnabled = true;
-		BtnSaveDiagnoose.IsVisible = true;
-		BtnCancelEditionDiagnoose.IsEnabled = true;
-		BtnCancelEditionDiagnoose.IsVisible = true;
+        enabledisableDiag(true);
 
+    }
+
+    private void enabledisableDiag (bool status)
+    {
+        EditorDiagnoose.IsReadOnly = !status;
+        BtnEditDiagnoose.IsVisible = !status;
+        BtnEditDiagnoose.IsEnabled = !status;
+        BtnSaveDiagnoose.IsEnabled = status;
+        BtnSaveDiagnoose.IsVisible = status;
+        BtnCancelEditionDiagnoose.IsEnabled = status;
+        BtnCancelEditionDiagnoose.IsVisible = status;
     }
 
     private void BtnSaveDiagnoose_Clicked(object sender, EventArgs e)
     {
 		diagnostico.Contenido = EditorDiagnoose.Text;
         MainRepo.UpdateDiagnoose(diagnostico);
-        EditorDiagnoose.IsReadOnly = true;
-        BtnEditDiagnoose.IsVisible = true;
-        BtnEditDiagnoose.IsEnabled = true;
-        BtnSaveDiagnoose.IsEnabled = false;
-        BtnSaveDiagnoose.IsVisible = false;
-		BtnCancelEditionDiagnoose.IsEnabled = false;
-		BtnCancelEditionDiagnoose.IsVisible = false;
+        enabledisableDiag(false);
     }
 
     private void BtnCancelEditionDiagnoose_Clicked(object sender, EventArgs e)
     {
-		EditorDiagnoose.Text = diagnostico.Contenido;
-        EditorDiagnoose.IsReadOnly = true;
-        BtnEditDiagnoose.IsVisible = true;
-        BtnEditDiagnoose.IsEnabled = true;
-        BtnSaveDiagnoose.IsEnabled = false;
-        BtnSaveDiagnoose.IsVisible = false;
-        BtnCancelEditionDiagnoose.IsEnabled = false;
-        BtnCancelEditionDiagnoose.IsVisible = false;
-    }
-
-    private void BtnChangeCaseName_Clicked(object sender, EventArgs e)
-    {
-
-    }
-
-    private void BtnChangeMedic_Clicked(object sender, EventArgs e)
-    {
-		ObservableCollection<Medic> medics = new();
-		foreach (Medic medic in MainRepo.GetMedics())
-		{
-            medics.Add(medic);
-        }
-		Editables.Children.Remove(EntryMedic);
-        PickerMedic= new Picker()
-        {
-            ItemsSource = medics
-        };
-        PickerMedic.ItemDisplayBinding = new Binding("Nombre");
-        PickerMedic.SelectedIndexChanged += PickerMedic_SelectedIndexChanged;
-        Editables.Children.Insert(1,PickerMedic);
-    }
-
-    private async void BtnChangeRoom_Clicked(object sender, EventArgs e)
-    {
-		bool sure = await DisplayAlert("Confirmar", "Se cambiara la habitacion del caso", "Cancelar", "Confirmar");
-		if (!sure)
-		{
-            ObservableCollection<Rooms> rooms = new();
-            foreach (Rooms room in MainRepo.GetRooms())
-            {
-                rooms.Add(room);
-            }
-            Editables.Children.Remove(EntryRoom);
-            PickerRoom = new Picker
-            {
-                ItemsSource = rooms,
-            };
-            PickerRoom.ItemDisplayBinding = new Binding("Nombre");
-            PickerRoom.SelectedIndexChanged += PickerRoom_SelectedIndexChanged;
-            Editables.Children.Insert(4, PickerRoom);
-
-        }
-        
-    }
-
-    private void PickerRoom_SelectedIndexChanged(object sender, EventArgs e)
-	{
-        if(PickerRoom != null)
-        {
-            caso.IdHabitacion = ((Rooms)PickerRoom.SelectedItem).Id;
-        }
-        BtnSaveAll.IsEnabled = true;
-    }
-
-    private void PickerMedic_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        if(PickerMedic != null)
-        {
-            caso.IdDoctor = ((Medic)PickerMedic.SelectedItem).Id;
-        }
-        BtnSaveAll.IsEnabled = true;
+		enabledisableDiag(false);
     }
 
 
 
-    private void BtnReopenCase_Clicked(object sender, EventArgs e)
+    private async void BtnReopenCase_Clicked(object sender, EventArgs e)
     {
         //first confirm if we want to reopen
-
+        bool confirm = await DisplayAlert("Confirmar", $"Se reabrirá el caso:\n{caso.Id}", "Cancelar", "Confirmar");
+        if(confirm)//remember, is inverted
+        {
+            return;
+        }
         //then disable btn
-        BtnReopenCase.IsVisible = false;
+        reopenclose(true);
         caso.Activo = true;
+        MainRepo.ReopenCase(caso.IdDB);
+
         //then, re enable edits
         //remember to update new close 
         //validate if patient is not busy to reopen
-        if(MainRepo.GetPatientById(patient.Id).Status != true)
-        {
-            MainRepo.ReopenCase(caso.IdDB);
-        }
+        
         //make sure that all affected entities are good w dis
     }
 
     private void BtnSaveAll_Clicked(object sender, EventArgs e)
-    {
+    { 
+        medic = (Medic)PickMedic.SelectedItem;
+        room = (Rooms)PickRoom.SelectedItem;
+        caso.IdDoctor = medic.Id;
+        caso.IdHabitacion = room.Id;
+        caso.Nombre = EntryName.Text;
+        enabledisable(false);
         MainRepo.UpdateClinicalCase(caso);
+    }
+
+    private void BtnEdit_Clicked(object sender, EventArgs e)
+    {
+
+        enabledisable(true);
+
+    }
+
+    private void enabledisable(bool status)
+    {
+        BtnEdit.IsEnabled = !status;
+        BtnSaveAll.IsVisible = status;
+        BtnSaveAll.IsEnabled = status;
+        BtnCancelAll.IsVisible = status;
+        BtnCancelAll.IsEnabled = status;
+        EntryName.IsEnabled = status;
+        PickMedic.IsEnabled = status;
+        PickRoom.IsEnabled = status;
+    }
+
+    private void BtnCancelAll_Clicked(object sender, EventArgs e)
+    {
+        EntryName.Text = caso.Nombre;
+        PickMedic.SelectedItem = medic;
+        PickRoom.SelectedItem = room;
+        enabledisable(false);
     }
 }
