@@ -4,6 +4,7 @@
 //using System.Text;
 //using System.Threading.Tasks;
 //using MetalPerformanceShaders;
+using iTextSharp.text.pdf;
 using StareMedic.Data;
 using StareMedic.Models.Entities;
 
@@ -339,6 +340,13 @@ namespace StareMedic.Models
         {
             var diag2delete = _db.Diagnosticos.FirstOrDefault(x => x.Id == id);
             _db.Diagnosticos.Remove(diag2delete);
+            _db.SaveChanges();
+        }
+
+        public static void DeleteMedic(int id)
+        {
+            var medic2delete = _db.Medics.FirstOrDefault(x => x.Id == id);
+            _db.Medics.Remove(medic2delete);
             _db.SaveChanges();
         }
     }

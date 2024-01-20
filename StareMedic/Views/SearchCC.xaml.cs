@@ -12,7 +12,6 @@ public partial class SearchCC : ContentPage
     public SearchCC()
     {
         InitializeComponent();
-        
     }
 
     protected override void OnAppearing()
