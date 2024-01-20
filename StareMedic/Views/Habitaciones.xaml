@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StareMedic.Views.Habitaciones"
              Title="Habitaciones">
+    
     <Grid ColumnDefinitions="2*,*">
         <ListView
             Grid.Column="0"

@@ -5,12 +5,12 @@
              Title="RoomControll">
     <VerticalStackLayout Style="{StaticResource mainVerticalStackLayout}">
         <!--Display ID-->
-        <Label 
-            FontSize="Title"
-            Text="ID:"
-            x:Name="lblID"
+        <Button 
+            Text="Eliminar"
+            x:Name="BtnDelete"
+            Clicked="BtnDelete_Clicked"
             VerticalOptions="Center" 
-            HorizontalOptions="Start" />
+            HorizontalOptions="End"/>
 
         <!--NameCap-->
         <HorizontalStackLayout>

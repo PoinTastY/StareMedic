@@ -349,5 +349,12 @@ namespace StareMedic.Models
             _db.Medics.Remove(medic2delete);
             _db.SaveChanges();
         }
+
+        public static void DeleteRoom(int id)
+        {
+            var room2delete = _db.Rooms.FirstOrDefault(x => x.Id == id);
+            _db.Rooms.Remove(room2delete);
+            _db.SaveChanges();
+        }
     }
 }
