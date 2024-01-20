@@ -11,13 +11,15 @@ public partial class RoomControll : ContentPage
 		InitializeComponent();
         if(room.Nombre != "missing")
         {
+            
             this.room = room;
             EntryName.Text = room.Nombre;
             EditorDescripcion.Text = room.Descripcion;
-            lblID.Text = "ID: " + room.Id.ToString();
         }
         else
         {
+            BtnDelete.IsVisible = false;
+            BtnDelete.IsEnabled = false;
             this.room = new(MainRepo.GetCurrentRoomIndex());
         }
 	}
@@ -57,6 +59,17 @@ public partial class RoomControll : ContentPage
         bool confirm = await DisplayAlert("Cancelar", "Desea cancelar el registro?", "No", "Si");
         if (!confirm)
         {
+            await Shell.Current.GoToAsync("..");
+        }
+    }
+
+    private async void BtnDelete_Clicked(object sender, EventArgs e)
+    {
+        bool confirm = await DisplayAlert("Eliminar", $"Desea eliminar la habitacion {room.Nombre}?", "No", "Si");
+        if (!confirm)
+        {
+            MainRepo.DeleteRoom(room.Id);
+            await DisplayAlert("Exito", $"Se elimino la habitacion {room.Nombre}", "OK");
             await Shell.Current.GoToAsync("..");
         }
     }
