@@ -66,6 +66,10 @@ public partial class ViewClinicalCase : ContentPage
             }
             BtnDelete.IsVisible = false;
             BtnDelete.IsEnabled = false;
+            BtnSaveAll.IsVisible = false;
+            BtnSaveAll.IsEnabled = false;
+            BtnCancelAll.IsVisible = false;
+            BtnCancelAll.IsEnabled = false;
         }
         else
         {
@@ -76,6 +80,10 @@ public partial class ViewClinicalCase : ContentPage
             enabledisable(false);
             BtnEdit.IsVisible = false;
             BtnEdit.IsEnabled = false;
+            BtnSaveAll.IsVisible = false;
+            BtnSaveAll.IsEnabled = false;
+            BtnCancelAll.IsVisible = false;
+            BtnCancelAll.IsEnabled = false;
         }
         BtnCerrarCaso.IsVisible = status;
         BtnCerrarCaso.IsEnabled = status;
@@ -85,15 +93,9 @@ public partial class ViewClinicalCase : ContentPage
         BtnReopenCase.IsEnabled = !status;
         BtnEdit.IsVisible = status;
         BtnEdit.IsEnabled = status;
-        BtnSaveAll.IsVisible = status;
-        BtnSaveAll.IsEnabled = status;
-        BtnCancelAll.IsVisible = status;
-        BtnCancelAll.IsEnabled = status;
+
     }
 
-	
-
-	//TODO: Implement diagnoose, i think it is the only thing actually needed
     private async void BtnCerrarCaso_Clicked(object sender, EventArgs e)
     {
 		bool confirm = await DisplayAlert("Confirmar", $"Se cerrara el caso:\n{caso.Id}", "Cancelar", "Confirmar"); 
@@ -127,12 +129,13 @@ public partial class ViewClinicalCase : ContentPage
 
     private void BtnEditDiagnoose_Clicked(object sender, EventArgs e)
     {
+        //maybe display a hint os something bcs this emptyness gives me anxiety
         enabledisableDiag(true);
-
     }
 
     private void enabledisableDiag (bool status)
     {
+        //interaction on buttons of diagnoose
         EditorDiagnoose.IsReadOnly = !status;
         BtnEditDiagnoose.IsVisible = !status;
         BtnEditDiagnoose.IsEnabled = !status;
@@ -142,17 +145,43 @@ public partial class ViewClinicalCase : ContentPage
         BtnCancelEditionDiagnoose.IsVisible = status;
     }
 
-    private void BtnSaveDiagnoose_Clicked(object sender, EventArgs e)
+    private async void BtnSaveDiagnoose_Clicked(object sender, EventArgs e)
     {
-		diagnostico.Contenido = EditorDiagnoose.Text;
-        MainRepo.UpdateDiagnoose(diagnostico);
-        enabledisableDiag(false);
+        bool confirm = await DisplayAlert("Confirmar", $"Se guardaran los cambios en el diagnostico:\n{caso.Id}", "Cancelar", "Confirmar");
+        if (!confirm)
+        {
+            //update changefs
+            diagnostico.Contenido = EditorDiagnoose.Text;
+            MainRepo.UpdateDiagnoose(diagnostico);
+            await DisplayAlert("Confirmado", $"Se han guardado los cambios en el diagnostico:\n{caso.Id}", "Ok");
+            enabledisableDiag(false);
+
+        }
+        else
+        {
+            //get back
+            await DisplayAlert("Cancelado", $"NO se han guardado los cambios en el diagnostico:\n{caso.Id}", "Ok");
+            EditorDiagnoose.Text = diagnostico.Contenido;
+            enabledisableDiag(false);
+            return;
+        }
+		
     }
 
-    private void BtnCancelEditionDiagnoose_Clicked(object sender, EventArgs e)
+    private async void BtnCancelEditionDiagnoose_Clicked(object sender, EventArgs e)
     {
-        EditorDiagnoose.Text = diagnostico.Contenido;
-		enabledisableDiag(false);
+        bool done = await DisplayAlert("Confirmar", $"Deseas cancelar la edicion del diagnostico?", "No", "Si");
+        if (!done)
+        {
+            await DisplayAlert("Cancelado", $"NO se han guardado los cambios en el diagnostico", "Ok");
+            EditorDiagnoose.Text = diagnostico.Contenido;
+            enabledisableDiag(false);
+            return;
+        }
+        else
+        {
+            return;
+        }
     }
 
 
@@ -160,38 +189,55 @@ public partial class ViewClinicalCase : ContentPage
     private async void BtnReopenCase_Clicked(object sender, EventArgs e)
     {
         //first confirm if we want to reopen
-        bool confirm = await DisplayAlert("Confirmar", $"Se reabrirá el caso:\n{caso.Id}", "Cancelar", "Confirmar");
+        bool confirm = await DisplayAlert("Confirmar:", $"Se reabrirá el caso:\n{caso.Id}", "Cancelar", "Confirmar");
         if(!confirm)//remember, is inverted
         {
             if (patient.Status == true)//if patient is busy, we cant reopen
             {
-                await DisplayAlert("Error", $"El paciente:\n{patient.Nombre}\nEsta ocupado", "Ok");
+                await DisplayAlert("Error:", $"El paciente:\n{patient.Nombre}\nEsta ocupado", "Ok");
                 return;
             }
             else//if not, we reopen
             {
 
                 MainRepo.ReopenCase(caso.IdDB);
-                await DisplayAlert("Confirmado", $"Se ha reabierto el caso:\n{caso.Nombre}", "Ok");
+                await DisplayAlert("Confirmado:", $"Se ha reabierto el caso:\n{caso.Nombre}", "Ok");
                 reopenclose(true);//then reload butons and that
             }
         }
     }
 
-    private void BtnSaveAll_Clicked(object sender, EventArgs e)
+    private async void BtnSaveAll_Clicked(object sender, EventArgs e)
     { 
         if(PickMedic.SelectedItem == null || PickRoom.SelectedItem == null || string.IsNullOrWhiteSpace(EntryName.Text))
         {
-            DisplayAlert("Error", "No se puede guardar, verifica que todo este bien", "Ok");
+            await DisplayAlert("Error:", "No se puede guardar, verifica que todo este bien", "Ok");
             return;
         }
-        medic = (Medic)PickMedic.SelectedItem;
-        room = (Rooms)PickRoom.SelectedItem;
-        caso.IdDoctor = medic.Id;
-        caso.IdHabitacion = room.Id;
-        caso.Nombre = EntryName.Text;
-        enabledisable(false);
-        MainRepo.UpdateClinicalCase(caso);
+        bool choice = await DisplayAlert("Confirmar:", $"Se guardaran los cambios en el caso:\n{caso.Id}", "Cancelar", "Confirmar");
+        if (!choice)
+        {
+            //update changefs
+            medic = (Medic)PickMedic.SelectedItem;
+            room = (Rooms)PickRoom.SelectedItem;
+            caso.IdDoctor = medic.Id;
+            caso.IdHabitacion = room.Id;
+            caso.Nombre = EntryName.Text;
+            MainRepo.UpdateClinicalCase(caso);
+            await DisplayAlert("Confirmado", $"Se han guardado los cambios en el caso:\n{caso.Nombre}", "Ok");
+            enabledisable(false);
+
+        }
+        else
+        {
+            await DisplayAlert("Cancelado", $"NO se han guardado los cambios en el caso:\n{caso.Nombre}", "Ok");
+            PickMedic.SelectedItem = medic;
+            PickRoom.SelectedItem = room;
+            EntryName.Text = caso.Nombre;
+            enabledisable(false);
+            return;
+        }
+        
     }
 
     private void BtnEdit_Clicked(object sender, EventArgs e)
@@ -213,16 +259,28 @@ public partial class ViewClinicalCase : ContentPage
         PickRoom.IsEnabled = status;
     }
 
-    private void BtnCancelAll_Clicked(object sender, EventArgs e)
+    private async void BtnCancelAll_Clicked(object sender, EventArgs e)
     {
         if(medic.Nombre == "missing" || room.Nombre == "missing")
         {
-            DisplayAlert("Advertencia:", "Si el medico o habitaciones asignadas no son validos,\nSe recomienda elegir a uno", "Ok");
+            await DisplayAlert("Advertencia:", "Si el medico o habitaciones asignadas no son validos,\nSe recomienda elegir a uno", "Ok");
         }
-        EntryName.Text = caso.Nombre;
-        PickMedic.SelectedItem = medic;
-        PickRoom.SelectedItem = room;
-        enabledisable(false);
+
+        bool choice = await DisplayAlert("Deshacer", $"Deseas cancelar los cambios?\nEl caso volvera al estado anterior", "No", "Si");
+        if (!choice)
+        {
+            await DisplayAlert("Cancelado", $"NO se han guardado los cambios en el caso:\n{caso.Nombre}", "Ok");
+            EntryName.Text = caso.Nombre;
+            PickMedic.SelectedItem = medic;
+            PickRoom.SelectedItem = room;
+            enabledisable(false);
+            return;
+        }
+        else
+        {
+            return;
+        }
+
     }
 
     private async void BtnDelete_Clicked(object sender, EventArgs e)
@@ -248,9 +306,5 @@ public partial class ViewClinicalCase : ContentPage
                 return;
             }
         }   
-        //first confirm deletion
-
-
-   
     }
 }
