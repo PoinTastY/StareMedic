@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="StareMedic.Views.RegisterMedic"
-             Title="Registrar Medico">
+             x:Class="StareMedic.Views.Viewers.MedicControll"
+             Title="MedicControll">
     <VerticalStackLayout Style="{StaticResource mainVerticalStackLayout}">
         <!--Display ID-->
         <Label FontSize="Title"
@@ -10,11 +10,11 @@
                x:Name="lblID"
                VerticalOptions="Center" 
                HorizontalOptions="Start" />
-        
+
         <!--Name & Phone cap-->
         <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" Padding="10">
             <HorizontalStackLayout Grid.Column="0" Grid.Row="0" Margin="10,15,0,0">
-                
+
                 <Label Text="*Nombre"
                        Style="{StaticResource labelEntry}"/>
                 <Entry x:Name="EntryName"
@@ -24,7 +24,7 @@
 
             </HorizontalStackLayout>
             <HorizontalStackLayout Grid.Column="1" Grid.Row="0" Margin="10,15,0,0">
-                
+
                 <Label Text="Telefono:"
                        Style="{StaticResource labelEntry}"/>
                 <Entry x:Name="EntryTelefono"
@@ -36,7 +36,7 @@
 
 
         </Grid>
-        
+
         <!--Confirm things-->
         <Grid ColumnDefinitions="*,*" HorizontalOptions="Start" Margin="10,0,0,0" ColumnSpacing="15">
 

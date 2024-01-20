@@ -51,13 +51,22 @@
                 </Picker>
 
                 <Button
-                    Grid.ColumnSpan="2"
+                    Grid.Column="0"
                     HorizontalOptions="Center"
                     MinimumWidthRequest="150"
                     Grid.Row="1"
                     x:Name="btnCancel"
                     Clicked="BtnCancel_Clicked"
                     Text="Volver"
+                    VerticalOptions="End"/>
+                <Button
+                    Grid.Column="1"
+                    HorizontalOptions="Center"
+                    MinimumWidthRequest="150"
+                    Grid.Row="1"
+                    x:Name="BtnAddPatient"
+                    Clicked="BtnAddPatient_Clicked"
+                    Text="Agregar"
                     VerticalOptions="End"/>
             </Grid>
 

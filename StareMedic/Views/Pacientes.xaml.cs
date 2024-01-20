@@ -1,14 +1,9 @@
-namespace StareMedic.Views;
-
 using StareMedic.Models;
 using System.Collections.ObjectModel;
+using StareMedic.Views.Viewers;
 
-/* Cambio no fusionado mediante combinación del proyecto 'StareMedic (net7.0-android)'
-Antes:
-using Patient = StareMedic.Models.Patient; //this is to declare what are we exactly referring to, if theres any conflict
-Después:
-using Patient = Patient; //this is to declare what are we exactly referring to, if theres any conflict
-*/
+namespace StareMedic.Views;
+
 using Patient = Models.Entities.Patient; //this is to declare what are we exactly referring to, if theres any conflict
 
 public partial class Pacientes : ContentPage
@@ -19,7 +14,7 @@ public partial class Pacientes : ContentPage
 		InitializeComponent();
 		foreach (Patient patient in MainRepo.GetPatients())
 		{
-            patients.Insert(0, patient);
+            patients.Add(patient);
         }
 
         //implement sort first
@@ -29,7 +24,15 @@ public partial class Pacientes : ContentPage
 
     protected override void OnAppearing()
     {
+        base.OnAppearing();
+        patients.Clear();
+        foreach (Patient patient in MainRepo.GetPatients())
+        {
+            patients.Add(patient);
+        }
+        listPatients.ItemsSource = patients;
         PickerFilter.SelectedIndex = 0;
+
     }
 
     private void BtnCancel_Clicked(object sender, EventArgs e)
@@ -43,8 +46,8 @@ public partial class Pacientes : ContentPage
 		if(listPatients.SelectedItem != null)
 		{
 			//It will send to de detailed patient view, or the edit pg, rn is edit?
-			await Shell.Current.GoToAsync($"{nameof(EditPatient)}?Id={((Patient)listPatients.SelectedItem).Id}");
 			//maybe directly to edit page, but ill add a button to enable edit
+            await Navigation.PushAsync(new PatientControll((Patient)listPatients.SelectedItem));
 		}
     }
 
@@ -74,5 +77,10 @@ public partial class Pacientes : ContentPage
         {
             listPatients.ItemsSource = patients;
         }
+    }
+
+    private async void BtnAddPatient_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new PatientControll(null));
     }
 }

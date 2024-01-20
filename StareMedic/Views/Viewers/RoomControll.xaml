@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="StareMedic.Views.RegisterRoom"
-             Title="RegisterRoom">
+             x:Class="StareMedic.Views.Viewers.RoomControll"
+             Title="RoomControll">
     <VerticalStackLayout Style="{StaticResource mainVerticalStackLayout}">
         <!--Display ID-->
         <Label 
@@ -11,7 +11,7 @@
             x:Name="lblID"
             VerticalOptions="Center" 
             HorizontalOptions="Start" />
-        
+
         <!--NameCap-->
         <HorizontalStackLayout>
             <Label Text="*Nombre:"
@@ -34,7 +34,7 @@
                     MaximumHeightRequest="100"
                     AutoSize="TextChanges"/>
         </HorizontalStackLayout>
-        
+
         <!--confirm buttons-->
         <Grid ColumnDefinitions="*,*" HorizontalOptions="Start" Margin="10,0,0,0" ColumnSpacing="15">
 
