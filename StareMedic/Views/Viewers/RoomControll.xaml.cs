@@ -1,15 +1,25 @@
-using StareMedic.Models;
 using StareMedic.Models.Entities;
+using StareMedic.Models;
 
-namespace StareMedic.Views;
+namespace StareMedic.Views.Viewers;
 
-public partial class RegisterRoom : ContentPage
+public partial class RoomControll : ContentPage
 {
-    readonly Rooms room = new(MainRepo.GetCurrentRoomIndex());
-	public RegisterRoom()
+    Rooms room;
+	public RoomControll(Rooms room)
 	{
 		InitializeComponent();
-        lblID.Text = "ID: " + room.Id.ToString();
+        if(room.Nombre != "missing")
+        {
+            this.room = room;
+            EntryName.Text = room.Nombre;
+            EditorDescripcion.Text = room.Descripcion;
+            lblID.Text = "ID: " + room.Id.ToString();
+        }
+        else
+        {
+            this.room = new(MainRepo.GetCurrentRoomIndex());
+        }
 	}
 
     private void EntryName_TextChanged(object sender, TextChangedEventArgs e)
@@ -24,7 +34,7 @@ public partial class RegisterRoom : ContentPage
 
     private async void BtnGuardar_Clicked(object sender, EventArgs e)
     {
-        if(room.Nombre != null && room.Nombre != "")
+        if (room.Nombre != null && room.Nombre != "")
         {
             bool confirmacion = await DisplayAlert("Confirmacion", $"Habitacion a Registrar:\n{room.Nombre}", "Cancelar", "Confirmar");
             if (!confirmacion)

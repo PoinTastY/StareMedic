@@ -2,6 +2,7 @@
 
 using StareMedic.Models;
 using StareMedic.Views;
+using StareMedic.Views.Viewers;
 
 public partial class MainPage : ContentPage
 {
@@ -16,19 +17,9 @@ public partial class MainPage : ContentPage
         Shell.Current.GoToAsync(nameof(Pacientes));
     }
 
-    private async void BtnRegister_Clicked(object sender, EventArgs e)
-	{
-		await Shell.Current.GoToAsync(nameof(RegisterPatient));
-	}
-
 	private async void BtnRooms_Clicked(object sender, EventArgs e)
 	{
-		await Shell.Current.GoToAsync(nameof(RegisterRoom));
-	}
-
-	private async void BtnMedics_Clicked(object sender, EventArgs e)
-	{
-		await Shell.Current.GoToAsync(nameof(RegisterMedic));
+		await Shell.Current.GoToAsync(nameof(Habitaciones));
 	}
 
     private async void BtnRegCasoCli_Clicked(object sender, EventArgs e)
@@ -41,9 +32,9 @@ public partial class MainPage : ContentPage
 		await Shell.Current.GoToAsync(nameof(SearchCC));
     }
 
-	private async void BtnEditPatient_Clicked(object sender, EventArgs e)
-	{
-		await Shell.Current.GoToAsync(nameof(EditPatient));
-	}
+    private async void BtnMedics_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(Doctores));
+    }
 }
 

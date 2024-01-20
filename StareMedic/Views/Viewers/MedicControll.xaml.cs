@@ -1,22 +1,30 @@
-using StareMedic.Models;
+namespace StareMedic.Views.Viewers;
 using StareMedic.Models.Entities;
+using StareMedic.Models;
+using StareMedic.Views.Viewers;
 
-namespace StareMedic.Views;
-
-public partial class RegisterMedic : ContentPage
+public partial class MedicControll : ContentPage
 {
-    //Medic model instance
-    readonly Medic medic = new(MainRepo.GetCurrentMedicIndex());
-
-	public RegisterMedic()
+	private Medic doctor;
+	public MedicControll(Medic doctor)
 	{
 		InitializeComponent();
-		lblID.Text = "ID: " + medic.Id.ToString();
+        if(doctor.Nombre != "missing")
+        {
+            this.doctor = doctor;
+            EntryName.Text = doctor.Nombre;
+            EntryTelefono.Text = doctor.Telefono;
+        }
+        else
+        {
+            this.doctor = new(MainRepo.GetCurrentMedicIndex());
+        }
+		
 	}
 
     private void EntryName_TextChanged(object sender, TextChangedEventArgs e)
     {
-        medic.Nombre = EntryName.Text;
+        doctor.Nombre = EntryName.Text;
     }
 
     private void EntryTelefono_TextChanged(object sender, TextChangedEventArgs e)
@@ -30,23 +38,24 @@ public partial class RegisterMedic : ContentPage
         }
         else
         {
-            medic.Telefono = EntryTelefono.Text;
+            doctor.Telefono = EntryTelefono.Text;
         }
     }
 
     private async void BtnGuardar_Clicked(object sender, EventArgs e)
     {
-        if(medic.Nombre != null && medic.Nombre != "")
+        if (doctor.Nombre != null && doctor.Nombre != "")
         {
-            bool confirm = await DisplayAlert("Confirmar", $"Se registrara al Medico:\n{medic.Nombre}", "Cancelar", "Confirmar");
+            bool confirm = await DisplayAlert("Confirmar", $"Se registrara al Medico:\n{doctor.Nombre}", "Cancelar", "Confirmar");
             if (!confirm)
             {
-                MainRepo.AddMedic(medic);
+                MainRepo.AddMedic(doctor);
                 //create a method to confirm directly in the database, return a bool and make an if 4 below
-                await DisplayAlert("Confirmado", $"Se ha registrado al Medico:\n{medic.Nombre}", "Ok");
+                await DisplayAlert("Confirmado", $"Se ha registrado al Medico:\n{doctor.Nombre}", "Ok");
                 await Shell.Current.GoToAsync("..");
             }
-        }else
+        }
+        else
         {
             await DisplayAlert("Error", "El nombre no puede estar vacio", "Ok");
         }
@@ -55,9 +64,9 @@ public partial class RegisterMedic : ContentPage
     private async void BtnCancel_Clicked(object sender, EventArgs e)
     {
         bool confirm = await DisplayAlert("Cancelar", "Desea cancelar el registro?", "No", "Si");
-        if(!confirm)
+        if (!confirm)
         {
-            await Shell.Current.GoToAsync("..");
+            await Navigation.PopAsync();
         }
     }
 }

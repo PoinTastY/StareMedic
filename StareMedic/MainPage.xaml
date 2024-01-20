@@ -12,12 +12,12 @@
             Text="Pacientes"
             MinimumHeightRequest="250"
             MinimumWidthRequest="250"/>
-        <Button
+        <!--<Button
             x:Name="BtnRegister"
             Clicked="BtnRegister_Clicked"
             Text="Registrar Paciente"
             MinimumHeightRequest="250"
-            MinimumWidthRequest="250"/>
+            MinimumWidthRequest="250"/>-->
         <Button
             x:Name="BtnRooms"
             Clicked="BtnRooms_Clicked"
@@ -44,12 +44,12 @@
             MinimumHeightRequest="250"
             MinimumWidthRequest="250"/>
 
-        <Button 
+        <!--<Button 
             x:Name="BtnEditPatient"
             Clicked="BtnEditPatient_Clicked"
             Text="Editar Paciente"
             MinimumHeightRequest="250"
-            MinimumWidthRequest="250"/> 
+            MinimumWidthRequest="250"/>--> 
 
 
 

@@ -36,32 +36,54 @@ namespace StareMedic.Models
         //setters
         public static void AddPatient(Patient patient)
         {
-            Patient patient1 = patient;
-            // Agrega el paciente al contexto de la base de datos
-            _db.Patients.Add(patient);
-            // Guarda los cambios en la base de datos
-            _db.SaveChanges();
-            //exception of encoding mans that some fields cant be null bcs it violates encoding stuff
-
-            //solved: fix null shit
+            if(!(patient.Id <= GetCurrentPatientIndex()-1))
+            {
+                _db.Patients.Add(patient);
+                _db.SaveChanges();
+            }
+            else
+            {
+                UpdatePatient(patient);
+            }
         }
 
         public static void AddFiador(Fiador fiador)
         {
-            _db.Fiadores.Add(fiador);
-            _db.SaveChanges();
+            if(!(fiador.Id <= GetCurrentFiadorIndex()-1))
+            {
+                _db.Fiadores.Add(fiador);
+                _db.SaveChanges();
+            }
+            else
+            {
+                UpdateFiador(fiador);
+            }
         }
 
         public static void AddCercano(Cercano cercano)
         {
-            _db.Cercanos.Add(cercano);
-            _db.SaveChanges();
+            if(!(cercano.Id <= GetCurrentCercanoIndex()-1))
+            {
+                _db.Cercanos.Add(cercano);
+                _db.SaveChanges();
+            }
+            else
+            {
+                UpdateCercano(cercano);
+            }
         }
 
         public static void AddRoom(Rooms room)
         {
-            _db.Rooms.Add(room);
-            _db.SaveChanges();
+            if(!(room.Id <= GetCurrentRoomIndex()-1))
+            {
+                _db.Rooms.Add(room);
+                _db.SaveChanges();
+            }
+            else
+            {
+                UpdateRoom(room.Status, room.Id);
+            }
         }
 
         public static void AddCaso(CasoClinico caso)
@@ -72,8 +94,15 @@ namespace StareMedic.Models
 
         public static void AddMedic(Medic medic)
         {
-            _db.Medics.Add(medic);
-            _db.SaveChanges();
+            if(!(medic.Id <= GetCurrentMedicIndex()-1))
+            {
+                _db.Medics.Add(medic);
+                _db.SaveChanges();
+            }
+            else
+            {
+                UpdateMedic(medic);
+            }
         }
 
         public static void AddDiagnostico(Diagnostico diagnostico)
@@ -222,7 +251,39 @@ namespace StareMedic.Models
 
         }
 
-        //implement update entities here
+        public static void UpdateFiador(Fiador fiador)
+        {
+            var fiador2update = _db.Fiadores.FirstOrDefault(x => x.Id == fiador.Id);
+            _db.Entry(fiador2update).CurrentValues.SetValues(fiador);
+            _db.SaveChanges();
+
+        }
+
+        public static void UpdateCercano(Cercano cercano)
+        {
+            var cercano2update = _db.Cercanos.FirstOrDefault(x => x.Id == cercano.Id);
+            _db.Entry(cercano2update).CurrentValues.SetValues(cercano);
+            _db.SaveChanges();
+
+        }
+
+        public static void UpdateRoom(bool stts, int id)
+        {
+            var room2update = _db.Rooms.FirstOrDefault(x => x.Id == id);
+            room2update.Status = stts;
+            _db.Entry(room2update).CurrentValues.SetValues(room2update);
+            _db.SaveChanges();
+
+        }
+
+        public static void UpdateMedic(Medic medic)
+        {
+            var medic2update = _db.Medics.FirstOrDefault(x => x.Id == medic.Id);
+            _db.Entry(medic2update).CurrentValues.SetValues(medic);
+            _db.SaveChanges();
+
+        }
+
         public static void UpdateDiagnoose(Diagnostico diagnostico)
         {
             var diag2update = _db.Diagnosticos.FirstOrDefault(x => x.Id == diagnostico.Id);

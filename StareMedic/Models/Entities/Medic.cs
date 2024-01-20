@@ -22,6 +22,7 @@ namespace StareMedic.Models.Entities
             _id = id;
         }
 
+        //default builder, dont use or move, if u need new builder, do another one
         public Medic() 
         {
             _name = "missing";
@@ -49,6 +50,10 @@ namespace StareMedic.Models.Entities
         //    get => _email;
         //    set => _email = value;
         //}
+
+        
+
+
 
     }
 }

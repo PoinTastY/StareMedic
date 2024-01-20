@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StareMedic.Views.Doctores"
+             Title="Doctores">
+    <Grid ColumnDefinitions="2*,*">
+        <ListView
+            Grid.Column="0"
+            x:Name="listMedics"
+            Style="{StaticResource listviewShowEntity}"
+            ItemSelected="listMedics_ItemSelected"
+            ItemTapped="listMedics_ItemTapped"
+            HorizontalOptions="FillAndExpand"
+            MinimumWidthRequest="600">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Nombre}"
+                              Detail="{Binding Path=Id}"
+                              TextColor="AliceBlue"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid RowDefinitions="*,*" VerticalOptions="FillAndExpand" Padding="10" Grid.Column="1" ColumnDefinitions="*,*">
+            <SearchBar x:Name="SearchBarMedics"
+                       Style="{StaticResource NameSearchBar}"
+                       SearchButtonPressed="SearchBarMedics_SearchButtonPressed"
+                       TextChanged="SearchBarMedics_TextChanged"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="2"/>
+            <Button
+                Grid.Row="1"
+                Grid.Column="0"
+                HorizontalOptions="Center"
+                MinimumWidthRequest="150"
+                x:Name="btnCancel"
+                Clicked="btnCancel_Clicked"
+                Text="Volver"
+                VerticalOptions="End"/>
+            <Button
+                Grid.Column="1"
+                HorizontalOptions="Center"
+                MinimumWidthRequest="150"
+                Grid.Row="1"
+                x:Name="BtnAddMedic"
+                Clicked="BtnAddMedic_Clicked"
+                Text="Agregar"
+                VerticalOptions="End"/>
+        </Grid>
+    </Grid>
+</ContentPage>

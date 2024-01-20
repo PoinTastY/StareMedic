@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="StareMedic.Views.Viewers.PatientControll">
+             x:Class="StareMedic.Views.Viewers.PatientControll"
+             Title="PatientControll">
     <ScrollView>
         <VerticalStackLayout Style="{StaticResource mainVerticalStackLayout}">
 
 
             <!--Display the id-->
             <Label VerticalOptions="Center" HorizontalOptions="Start"
-                       TextColor="#a7a7a7"
-                       FontSize="Title"
-                       Text="ID:"
-                       x:Name="lblID"/>
+                   TextColor="#a7a7a7"
+                   FontSize="Title"
+                   Text="ID:"
+                   x:Name="lblID"/>
             <!--Name (forced capture)-->
             <Grid ColumnDefinitions="*,*">
                 <HorizontalStackLayout Spacing="15" HorizontalOptions="Start" Grid.Column="0">
 
                     <!--Forced capture-->
                     <Label Text="*Nombre:"
-                           Style="{StaticResource labelEntry}"/>
-                    <Entry x:Name="EntryPatientName"
-                           Style="{StaticResource entryName}"
-                           Placeholder="Ingresa el nombre del Paciente..."
-                           TextChanged="EntryPatientName_TextChanged"/>
+                       Style="{StaticResource labelEntry}"/>
+                    <Entry x:Name="entryName"
+                       Style="{StaticResource entryName}"
+                       Placeholder="Ingresa el nombre del Paciente..."
+                       TextChanged="EntryName_TextChanged"/>
 
                 </HorizontalStackLayout>
 
@@ -30,12 +31,12 @@
                 <!--Not forced Data-->
                 <HorizontalStackLayout Spacing="10" HorizontalOptions="StartAndExpand" Grid.Column="1">
                     <Label Text="Sexo"
-                               VerticalOptions="Center"
-                               TextColor="#b0b0b0"/>
-                    <Picker x:Name="PickerSexo"
-                                MaximumWidthRequest="120"
-                                VerticalOptions="Center"
-                                SelectedIndexChanged="PickerSexo_SelectedIndexChanged">
+                           VerticalOptions="Center"
+                           TextColor="#b0b0b0"/>
+                    <Picker x:Name="pickerSexo"
+                            MaximumWidthRequest="120"
+                            VerticalOptions="Center"
+                            SelectedIndexChanged="PickerSexo_SelectedIndexChanged">
 
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
@@ -47,12 +48,12 @@
                         </Picker.ItemsSource>
                     </Picker>
                     <Label Text="Estado Civil"
-                               VerticalOptions="Center"
-                               TextColor="#b0b0b0"/>
-                    <Picker x:Name="PickerEdoCivil"
-                                MaximumWidthRequest="120"
-                                VerticalOptions="Center"
-                                SelectedIndexChanged="PickerEdoCivil_SelectedIndexChanged">
+                           VerticalOptions="Center"
+                           TextColor="#b0b0b0"/>
+                    <Picker x:Name="pickerEdoCivil"
+                            MaximumWidthRequest="120"
+                            VerticalOptions="Center"
+                            SelectedIndexChanged="PickerEdoCivil_SelectedIndexChanged">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>Soltero/a</x:String>
@@ -66,12 +67,12 @@
                         </Picker.ItemsSource>
                     </Picker>
                     <Label Text="T/Sangre"
-                               VerticalOptions="Center"
-                               TextColor="#b0b0b0"/>
-                    <Picker x:Name="PickerSangre"
-                                MaximumWidthRequest="120"
-                                VerticalOptions="Center"
-                                SelectedIndexChanged="PickerSangre_SelectedIndexChanged">
+                           VerticalOptions="Center"
+                           TextColor="#b0b0b0"/>
+                    <Picker x:Name="pickerSangre"
+                            MaximumWidthRequest="120"
+                            VerticalOptions="Center"
+                            SelectedIndexChanged="PickerSangre_SelectedIndexChanged">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>A+</x:String>
@@ -86,12 +87,12 @@
                         </Picker.ItemsSource>
                     </Picker>
                     <Label Text="Edad"
-                               VerticalOptions="Center"
-                               TextColor="#b0b0b0"/>
-                    <Picker x:Name="PickerEdad"
-                                VerticalOptions="Center"
-                                MaximumWidthRequest="120"
-                                SelectedIndexChanged="PickerEdad_SelectedIndexChanged">
+                           VerticalOptions="Center"
+                           TextColor="#b0b0b0"/>
+                    <Picker x:Name="pickerEdad"
+                            VerticalOptions="Center"
+                            MaximumWidthRequest="120"
+                            SelectedIndexChanged="PickerEdad_SelectedIndexChanged">
                     </Picker>
 
                 </HorizontalStackLayout>
@@ -100,10 +101,10 @@
             <!--Phone capture bellow name lol-->
             <VerticalStackLayout Spacing="10" Margin="10,15,0,0">
                 <Label Text="Telefono:"
-                       Style="{StaticResource labelEntry}"/>
-                <Entry x:Name="EntryTelefono"
-                           Style="{StaticResource entryPhone}"
-                           TextChanged="EntryTelefono_TextChanged"/>
+                   Style="{StaticResource labelEntry}"/>
+                <Entry x:Name="entryTelefono"
+                       Style="{StaticResource entryPhone}"
+                       TextChanged="EntryTelefono_TextChanged"/>
             </VerticalStackLayout>
 
             <!--Direccion shit-->
@@ -112,58 +113,58 @@
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="0" Grid.Row="0">
 
                     <Label Text="Direccion (Calle, Numero, Numero int., C.P., Colonia...):"
-                               HorizontalOptions="Start"
-                               TextColor="#b0b0b0"/>
-                    <Entry x:Name="EntryDomicilio"
-                               VerticalOptions="Start"
-                               TextTransform="Uppercase"
-                               TextChanged="EntryDomicilio_TextChanged_1"
-                               MinimumWidthRequest="500"
-                               MaximumWidthRequest="650"
-                               HorizontalOptions="Start"/>
+                           HorizontalOptions="Start"
+                           TextColor="#b0b0b0"/>
+                    <Entry x:Name="entryDomicilio"
+                           VerticalOptions="Start"
+                           TextTransform="Uppercase"
+                           TextChanged="EntryDomicilio_TextChanged"
+                           MinimumWidthRequest="500"
+                           MaximumWidthRequest="650"
+                           HorizontalOptions="Start"/>
 
                 </StackLayout>
                 <!--City-->
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="1" Grid.Row="0">
 
                     <Label Text="Ciudad:"
-                               HorizontalOptions="Start"
-                               TextColor="#b0b0b0"/>
-                    <Entry x:Name="EntryCiudad"
-                               VerticalOptions="Start"
-                               TextTransform="Uppercase"
-                               TextChanged="EntryCiudad_TextChanged"
-                               MinimumWidthRequest="500"
-                               MaximumWidthRequest="650"
-                               HorizontalOptions="Start"/>
+                           HorizontalOptions="Start"
+                           TextColor="#b0b0b0"/>
+                    <Entry x:Name="entryCiudad"
+                           VerticalOptions="Start"
+                           TextTransform="Uppercase"
+                           TextChanged="EntryCiudad_TextChanged"
+                           MinimumWidthRequest="500"
+                           MaximumWidthRequest="650"
+                           HorizontalOptions="Start"/>
                 </StackLayout>
                 <!--State-->
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="0" Grid.Row="1">
 
                     <Label Text="Estado:"
-                               HorizontalOptions="Start"
-                               TextColor="#b0b0b0"/>
-                    <Entry x:Name="EntryEstado"
-                               VerticalOptions="Start"
-                               TextTransform="Uppercase"
-                               TextChanged="EntryEstado_TextChanged"
-                               MinimumWidthRequest="500"
-                               MaximumWidthRequest="650"    
-                               HorizontalOptions="Start"/>
+                           HorizontalOptions="Start"
+                           TextColor="#b0b0b0"/>
+                    <Entry x:Name="entryEstado"
+                           VerticalOptions="Start"
+                           TextTransform="Uppercase"
+                           TextChanged="EntryEstado_TextChanged"
+                           MinimumWidthRequest="500"
+                           MaximumWidthRequest="650"    
+                           HorizontalOptions="Start"/>
 
                 </StackLayout>
                 <!--Nationality-->
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="1" Grid.Row="1">
                     <Label Text="Nacionalidad:"
-                               HorizontalOptions="Start"
-                               TextColor="#b0b0b0"/>
-                    <Entry x:Name="EntryNacionalidad"
-                               VerticalOptions="Start"
-                               TextTransform="Uppercase"
-                               TextChanged="EntryNacionalidad_TextChanged"
-                               MinimumWidthRequest="500"
-                               MaximumWidthRequest="650"
-                               HorizontalOptions="Start"/>
+                           HorizontalOptions="Start"
+                           TextColor="#b0b0b0"/>
+                    <Entry x:Name="entryNacionalidad"
+                           VerticalOptions="Start"
+                           TextTransform="Uppercase"
+                           TextChanged="EntryNacionalidad_TextChanged"
+                           MinimumWidthRequest="500"
+                           MaximumWidthRequest="650"
+                           HorizontalOptions="Start"/>
                 </StackLayout>
 
             </Grid>
@@ -179,84 +180,84 @@
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="0" Grid.Row="1">
 
                     <Label Text="Nombre:"
-                           HorizontalOptions="Start"
-                           TextColor="#b0b0b0"/>
-                    <Entry x:Name="EntryNombreCercano"
-                           VerticalOptions="Start"
-                           TextTransform="Uppercase"
-                           TextChanged="EntryNombreCercano_TextChanged"
-                           MinimumWidthRequest="500"
-                           MaximumWidthRequest="650"
-                           HorizontalOptions="Start"/>
+                       HorizontalOptions="Start"
+                       TextColor="#b0b0b0"/>
+                    <Entry x:Name="entryNombreCercano"
+                       VerticalOptions="Start"
+                       TextTransform="Uppercase"
+                       TextChanged="EntryNombreCercano_TextChanged"
+                       MinimumWidthRequest="500"
+                       MaximumWidthRequest="650"
+                       HorizontalOptions="Start"/>
 
                 </StackLayout>
                 <!--TelefonoCercano-->
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="1" Grid.Row="1">
 
                     <Label Text="Telefono:"
-                               HorizontalOptions="Start"
-                               TextColor="#b0b0b0"/>
-                    <Entry x:Name="EntryTelefonoCercano"
-                           Style="{StaticResource entryPhone}"
-                           TextChanged="EntryTelefonoCercano_TextChanged"/>
+                           HorizontalOptions="Start"
+                           TextColor="#b0b0b0"/>
+                    <Entry x:Name="entryTelefonoCercano"
+                       Style="{StaticResource entryPhone}"
+                       TextChanged="EntryTelefonoCercano_TextChanged"/>
                 </StackLayout>
                 <!--DireccionCercano-->
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="0" Grid.Row="2">
 
                     <Label Text="Direccion (Calle, Numero, Numero int., C.P., Colonia...):"
-                               HorizontalOptions="Start"
-                               TextColor="#b0b0b0"/>
-                    <Entry x:Name="EntryDomicilioCercano"
-                               VerticalOptions="Start"
-                               TextTransform="Uppercase"
-                               TextChanged="EntryDomicilioCercano_TextChanged"
-                               MinimumWidthRequest="500"
-                               MaximumWidthRequest="650"
-                               HorizontalOptions="Start"/>
+                           HorizontalOptions="Start"
+                           TextColor="#b0b0b0"/>
+                    <Entry x:Name="entryDomicilioCercano"
+                           VerticalOptions="Start"
+                           TextTransform="Uppercase"
+                           TextChanged="EntryDomicilioCercano_TextChanged"
+                           MinimumWidthRequest="500"
+                           MaximumWidthRequest="650"
+                           HorizontalOptions="Start"/>
 
                 </StackLayout>
                 <!--CiudadCercano-->
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="1" Grid.Row="2">
 
                     <Label Text="Ciudad:"
-                               HorizontalOptions="Start"
-                               TextColor="#b0b0b0"/>
-                    <Entry x:Name="EntryCiudadCercano"
-                               VerticalOptions="Start"
-                               TextTransform="Uppercase"
-                               TextChanged="EntryCiudadCercano_TextChanged"
-                               MinimumWidthRequest="500"
-                               MaximumWidthRequest="650"
-                               HorizontalOptions="Start"/>
+                           HorizontalOptions="Start"
+                           TextColor="#b0b0b0"/>
+                    <Entry x:Name="entryCiudadCercano"
+                           VerticalOptions="Start"
+                           TextTransform="Uppercase"
+                           TextChanged="EntryCiudadCercano_TextChanged"
+                           MinimumWidthRequest="500"
+                           MaximumWidthRequest="650"
+                           HorizontalOptions="Start"/>
                 </StackLayout>
 
                 <!--StateCercano-->
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="0" Grid.Row="3">
 
                     <Label Text="Estado:"
-                               HorizontalOptions="Start"
-                               TextColor="#b0b0b0"/>
-                    <Entry x:Name="EntryEstadoCercano"
-                               VerticalOptions="Start"
-                               TextTransform="Uppercase"
-                               TextChanged="EntryEstadoCercano_TextChanged"
-                               MinimumWidthRequest="500"
-                               MaximumWidthRequest="650"    
-                               HorizontalOptions="Start"/>
+                           HorizontalOptions="Start"
+                           TextColor="#b0b0b0"/>
+                    <Entry x:Name="entryEstadoCercano"
+                           VerticalOptions="Start"
+                           TextTransform="Uppercase"
+                           TextChanged="EntryEstadoCercano_TextChanged"
+                           MinimumWidthRequest="500"
+                           MaximumWidthRequest="650"    
+                           HorizontalOptions="Start"/>
 
                 </StackLayout>
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="1" Grid.Row="3">
 
                     <Label Text="Relacion:"
-                               HorizontalOptions="Start"
-                               TextColor="#b0b0b0"/>
-                    <Entry x:Name="EntryRelacionCercano"
-                               VerticalOptions="Start"
-                               TextTransform="Uppercase"
-                               TextChanged="EntryRelacionCercano_TextChanged"
-                               MinimumWidthRequest="500"
-                               MaximumWidthRequest="650"    
-                               HorizontalOptions="Start"/>
+                           HorizontalOptions="Start"
+                           TextColor="#b0b0b0"/>
+                    <Entry x:Name="entryRelacionCercano"
+                           VerticalOptions="Start"
+                           TextTransform="Uppercase"
+                           TextChanged="EntryRelacionCercano_TextChanged"
+                           MinimumWidthRequest="500"
+                           MaximumWidthRequest="650"    
+                           HorizontalOptions="Start"/>
                 </StackLayout>
 
             </Grid>
@@ -267,11 +268,11 @@
             <!--Show or hide Fiador-->
             <HorizontalStackLayout>
                 <Label Text="El pariente cercano es el fiador:"
-                       VerticalOptions="Center"/>
-                <CheckBox x:Name="ChkCercanoIsFiador"
-                          HorizontalOptions="Center"
-                          IsChecked="True"
-                          CheckedChanged="ChkCercanoIsFiador_CheckedChanged"/>
+                   VerticalOptions="Center"/>
+                <CheckBox x:Name="chkCercanoIsFiador"
+                      HorizontalOptions="Center"
+                      IsChecked="True"
+                      CheckedChanged="CheckBox_CheckedChanged"/>
             </HorizontalStackLayout>
 
             <!--Fiador-->
@@ -282,70 +283,70 @@
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="0" Grid.Row="1">
 
                     <Label Text="Nombre:"
-                           HorizontalOptions="Start"
-                           TextColor="#b0b0b0"/>
-                    <Entry x:Name="EntryNombreFiador"
-                           VerticalOptions="Start"
-                           TextTransform="Uppercase"
-                           TextChanged="EntryNombreFiador_TextChanged"
-                           MinimumWidthRequest="500"
-                           MaximumWidthRequest="650"
-                           HorizontalOptions="Start"/>
+                       HorizontalOptions="Start"
+                       TextColor="#b0b0b0"/>
+                    <Entry x:Name="entryNombreFiador"
+                       VerticalOptions="Start"
+                       TextTransform="Uppercase"
+                       TextChanged="EntryNombreFiador_TextChanged"
+                       MinimumWidthRequest="500"
+                       MaximumWidthRequest="650"
+                       HorizontalOptions="Start"/>
 
                 </StackLayout>
                 <!--TelefonoFiador-->
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="1" Grid.Row="1">
 
                     <Label Text="Telefono:"
-                           HorizontalOptions="Start"
-                           TextColor="#b0b0b0"/>
-                    <Entry x:Name="EntryTelefonoFiador"
-                           Style="{StaticResource entryPhone}"
-                           TextChanged="EntryTelefonoFiador_TextChanged"/>
+                       HorizontalOptions="Start"
+                       TextColor="#b0b0b0"/>
+                    <Entry x:Name="entryTelefonoFiador"
+                       Style="{StaticResource entryPhone}"
+                       TextChanged="EntryTelefonoFiador_TextChanged"/>
                 </StackLayout>
                 <!--DireccionFiador-->
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="0" Grid.Row="2">
 
                     <Label Text="Direccion (Calle, Numero, Numero int., C.P., Colonia...):"
-                               HorizontalOptions="Start"
-                               TextColor="#b0b0b0"/>
-                    <Entry x:Name="EntryDireccionFiador"
-                               VerticalOptions="Start"
-                               TextTransform="Uppercase"
-                               TextChanged="EntryDireccionFiador_TextChanged"
-                               MinimumWidthRequest="500"
-                               MaximumWidthRequest="650"
-                               HorizontalOptions="Start"/>
+                           HorizontalOptions="Start"
+                           TextColor="#b0b0b0"/>
+                    <Entry x:Name="entryDireccionFiador"
+                           VerticalOptions="Start"
+                           TextTransform="Uppercase"
+                           TextChanged="EntryDireccionFiador_TextChanged"
+                           MinimumWidthRequest="500"
+                           MaximumWidthRequest="650"
+                           HorizontalOptions="Start"/>
 
                 </StackLayout>
                 <!--CiudadFiador-->
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="1" Grid.Row="2">
 
                     <Label Text="Ciudad:"
-                               HorizontalOptions="Start"
-                               TextColor="#b0b0b0"/>
-                    <Entry x:Name="EntryCiudadFiador"
-                               VerticalOptions="Start"
-                               TextTransform="Uppercase"
-                               TextChanged="EntryCiudadFiador_TextChanged"
-                               MinimumWidthRequest="500"
-                               MaximumWidthRequest="650"
-                               HorizontalOptions="Start"/>
+                           HorizontalOptions="Start"
+                           TextColor="#b0b0b0"/>
+                    <Entry x:Name="entryCiudadFiador"
+                           VerticalOptions="Start"
+                           TextTransform="Uppercase"
+                           TextChanged="EntryCiudadFiador_TextChanged"
+                           MinimumWidthRequest="500"
+                           MaximumWidthRequest="650"
+                           HorizontalOptions="Start"/>
                 </StackLayout>
 
                 <!--StateFiador-->
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="0" Grid.Row="3">
 
                     <Label Text="Estado:"
-                               HorizontalOptions="Start"
-                               TextColor="#b0b0b0"/>
-                    <Entry x:Name="EntryEstadoFiador"
-                               VerticalOptions="Start"
-                               TextTransform="Uppercase"
-                               TextChanged="EntryEstadoFiador_TextChanged"
-                               MinimumWidthRequest="500"
-                               MaximumWidthRequest="650"    
-                               HorizontalOptions="Start"/>
+                           HorizontalOptions="Start"
+                           TextColor="#b0b0b0"/>
+                    <Entry x:Name="entryEstadoFiador"
+                           VerticalOptions="Start"
+                           TextTransform="Uppercase"
+                           TextChanged="EntryEstadoFiador_TextChanged"
+                           MinimumWidthRequest="500"
+                           MaximumWidthRequest="650"    
+                           HorizontalOptions="Start"/>
 
                 </StackLayout>
 
@@ -355,21 +356,21 @@
             <Grid ColumnDefinitions="*,*" HorizontalOptions="Start" Margin="10,0,0,0" ColumnSpacing="15">
 
                 <Button
-                        x:Name="BtnCancel"
-                        Clicked="BtnCancel_Clicked"
-                        Text="Cancelar"
-                        Grid.Column="0"
-                        HorizontalOptions="Center"/>
+                    x:Name="btnCancel"
+                    Clicked="BtnCancel_Clicked"
+                    Text="Cancelar"
+                    Grid.Column="0"
+                    HorizontalOptions="Center"/>
 
                 <Button
-                        x:Name="BtnGuardar"
-                        Clicked="BtnGuardar_Clicked"
-                        Text="Guardar:)"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"/>
+                    x:Name="btnGuardar"
+                    Clicked="BtnGuardar_Clicked"
+                    Text="Guardar:)"
+                    Grid.Column="1"
+                    HorizontalOptions="Center"/>
             </Grid>
 
 
         </VerticalStackLayout>
     </ScrollView>
-</ContentView>
+</ContentPage>

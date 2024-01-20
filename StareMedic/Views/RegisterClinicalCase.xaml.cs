@@ -1,6 +1,7 @@
 using StareMedic.Models;
 using System.Collections.ObjectModel;
 using StareMedic.Models.Entities;
+using StareMedic.Views.Viewers;
 
 namespace StareMedic.Views;
 
@@ -43,9 +44,9 @@ public partial class RegisterClinicalCase : ContentPage
         caso.IdDoctor = ((Medic)PickerDoctor.SelectedItem).Id;
     }
 
-    private void BtnAddPatient_Clicked(object sender, EventArgs e)
+    private async void BtnAddPatient_Clicked(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync($"{nameof(RegisterPatient)}");
+        await Navigation.PushModalAsync(new PatientControll(null));
     }
 
     private void PickerHabitacion_SelectedIndexChanged(object sender, EventArgs e)
