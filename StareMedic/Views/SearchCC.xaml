@@ -7,7 +7,8 @@
         <Button 
             Text="Nuevo Caso Clinico"
             VerticalOptions="Center" 
-            Clicked="Button_Clicked"
+            x:Name="BtnNewCC"
+            Clicked="BtnNewCC_Clicked"
             HorizontalOptions="End" />
         <ListView x:Name="ListViewCC"
                   ItemSelected="ListViewCC_ItemSelected"
