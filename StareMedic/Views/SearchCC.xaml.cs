@@ -22,8 +22,14 @@ public partial class SearchCC : ContentPage
         {
             casos.Add(caso);
         }
-
-        ListViewCC.ItemsSource = casos;
+        if (ChkBxOnlyActives.IsChecked)
+        {
+            ListViewCC.ItemsSource = casos.Where(caso => caso.Activo == true);
+        }
+        else
+        {
+            ListViewCC.ItemsSource = casos;
+        }
 
     }
 

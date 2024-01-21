@@ -173,6 +173,7 @@ public partial class ViewClinicalCase : ContentPage
         bool done = await DisplayAlert("Confirmar", $"Deseas cancelar la edicion del diagnostico?", "No", "Si");
         if (!done)
         {
+            //confirm anything that happens so the user dont too silly things
             await DisplayAlert("Cancelado", $"NO se han guardado los cambios en el diagnostico", "Ok");
             EditorDiagnoose.Text = diagnostico.Contenido;
             enabledisableDiag(false);
