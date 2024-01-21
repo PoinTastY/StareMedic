@@ -22,8 +22,14 @@ public partial class SearchCC : ContentPage
         {
             casos.Add(caso);
         }
-
-        ListViewCC.ItemsSource = casos;
+        if (ChkBxOnlyActives.IsChecked)
+        {
+            ListViewCC.ItemsSource = casos.Where(caso => caso.Activo == true);
+        }
+        else
+        {
+            ListViewCC.ItemsSource = casos;
+        }
 
     }
 
@@ -115,7 +121,7 @@ public partial class SearchCC : ContentPage
         }
     }
 
-    private async void Button_Clicked(object sender, EventArgs e)
+    private async void BtnNewCC_Clicked(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(RegisterClinicalCase));
     }
