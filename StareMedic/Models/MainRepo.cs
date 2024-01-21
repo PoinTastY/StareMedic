@@ -26,12 +26,12 @@ namespace StareMedic.Models
         //private readonly static List<Diagnostico> _diagnosticos = _db.diagnosticos.ToList();
 
         //getters
-        public static List<Patient> GetPatients() { return _db.Patients.ToList(); }
+        public static List<Patient> GetPatients() { return _db.Patients.OrderBy(p => p.Nombre).ToList(); }//the framework sents an order by clause to the db, so eficiency is not impacted
         public static List<Fiador> GetFiadores() => _db.Fiadores.ToList();//igual, 2 formas de declararse xd
         public static List<Cercano> GetCercanos() { return _db.Cercanos.ToList(); }
-        public static List<Rooms> GetRooms() { return _db.Rooms.ToList(); }
-        public static List<CasoClinico> GetCasos() => _db.CasoClinicos.ToList();
-        public static List<Medic> GetMedics() => _db.Medics.ToList();
+        public static List<Rooms> GetRooms() { return _db.Rooms.OrderBy(p => p.Nombre).ToList(); }
+        public static List<CasoClinico> GetCasos() => _db.CasoClinicos.OrderByDescending(p => p.IdDB).ToList();
+        public static List<Medic> GetMedics() => _db.Medics.OrderBy(p => p.Nombre).ToList();
         public static List<Diagnostico> GetDiagnosticos() => _db.Diagnosticos.ToList();
 
         //setters
