@@ -18,7 +18,7 @@ public partial class RegisterClinicalCase : ContentPage
     {
         base.OnAppearing();
         PickerDoctor.ItemsSource = new ObservableCollection<Medic>(MainRepo.GetMedics());
-        if(MainRepo.PatientIdSolver.Nombre != null)
+        if(MainRepo.PatientIdSolver != null)
         {
             LblPaciente.Text = MainRepo.PatientIdSolver.Nombre;
             caso.IdPaciente = MainRepo.PatientIdSolver.Id;
