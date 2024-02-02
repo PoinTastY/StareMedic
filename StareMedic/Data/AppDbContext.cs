@@ -105,10 +105,7 @@ namespace StareMedic.Data
             modelBuilder.Entity<Fiador>()
                 .Property(f => f.Estado)
                 .HasColumnName("_state");
-
-            modelBuilder.Entity<Fiador>()
-                .Property(f => f.Relacion)
-                .HasColumnName("_relation");
+            
 
 
             //patient entity
@@ -127,10 +124,6 @@ namespace StareMedic.Data
             modelBuilder.Entity<Patient>()
                 .Property(p => p.Domicilio)
                 .HasColumnName("_domicilio");
-
-            modelBuilder.Entity<Patient>()
-                .Property(p => p.TipoSangre)
-                .HasColumnName("_tiposangre");
 
             modelBuilder.Entity<Patient>()
                 .Property(p => p.Ciudad)
@@ -165,10 +158,6 @@ namespace StareMedic.Data
                 .HasColumnName("_fecharegistrado")
                 .HasColumnType("timestamp with time zone")
                 .IsRequired(true);  
-
-            modelBuilder.Entity<Patient>()
-                .Property(p => p.Status)
-                .HasColumnName("_active");
 
             modelBuilder.Entity<Patient>()
                 .Property(p => p.IdCercano)
@@ -244,25 +233,10 @@ namespace StareMedic.Data
                 .HasColumnName("_name");
 
             modelBuilder.Entity<CasoClinico>()
-                .Property(c => c.Activo)
-                .HasColumnName("_status");
-
-            modelBuilder.Entity<CasoClinico>()
                 .Property(c => c.FechaIngreso)
                 .HasColumnName("_fechaingreso")
                 .HasColumnType("timestamp with time zone")
                 .IsRequired(true);
-
-            modelBuilder.Entity<CasoClinico>()
-                .Property(c => c.FechaAlta)
-                .HasColumnName("_fechaalta")
-                .HasColumnType("timestamp with time zone")
-                .IsRequired(false);
-
-
-            modelBuilder.Entity<CasoClinico>()
-                .Property(c => c.Total)
-                .HasColumnName("_total");
 
 
             //diagnostic entity
@@ -308,11 +282,6 @@ namespace StareMedic.Data
             modelBuilder.Entity<Rooms>()
                 .Property(d => d.Descripcion)
                 .HasColumnName("_description");
-
-            modelBuilder.Entity<Rooms>()
-                .Property(d => d.Status)
-                .HasColumnName("_status");
-
         }
 
     }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StareMedic.Models.Entities
+﻿namespace StareMedic.Models.Entities
 {
     public class Fiador
     {
@@ -15,7 +9,6 @@ namespace StareMedic.Models.Entities
         private string _address;
         private string _city;
         private string _state;
-        private string _relation;
 
         //builder
         public Fiador(int id)
@@ -26,7 +19,6 @@ namespace StareMedic.Models.Entities
             _address = "";
             _city = "";
             _state = "";
-            _relation = "";
 
         }
 
@@ -38,7 +30,6 @@ namespace StareMedic.Models.Entities
             _address = "";
             _city = "";
             _state = "";
-            _relation = "";
 
         }
 
@@ -79,11 +70,6 @@ namespace StareMedic.Models.Entities
             set => _state = value;
         }
 
-        public string Relacion
-        {
-            get => _relation;
-            set => _relation = value;
-        }
 
         public void Copy(Cercano objCercano)
         {

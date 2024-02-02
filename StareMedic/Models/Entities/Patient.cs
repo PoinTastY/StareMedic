@@ -1,11 +1,4 @@
-﻿using Org.BouncyCastle.Crypto.Digests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StareMedic.Models.Entities
+﻿namespace StareMedic.Models.Entities
 {
     public class Patient
     {
@@ -13,19 +6,16 @@ namespace StareMedic.Models.Entities
         private int _id;//dbfilled only on creation
         private string _name;
         private string _domicilio;
-        private string _tipoSangre;
         private string _ciudad;
         private string _estado;
         private string _nacionalidad;
         private string _estadoCivil;
         private char _sexo;
-        private int _edad;
+        private string _edad;
         private string _telefono;
 
         //controll info
         private DateTimeOffset _registered;
-
-        private bool _active;
 
         //Contactos extras
         private int? _idCercano;
@@ -41,13 +31,12 @@ namespace StareMedic.Models.Entities
             //initiate w default values for notnull compatibility
             _name = "";
             _domicilio = "";
-            _tipoSangre = "";
             _ciudad = "";
             _estado = "";
             _nacionalidad = "";
             _estadoCivil = "";
             _sexo = 'N';
-            _edad = 0;
+            _edad = "";
             _telefono = "";
         }
 
@@ -72,11 +61,7 @@ namespace StareMedic.Models.Entities
             set => _domicilio = value;
         }
 
-        public string TipoSangre
-        {
-            get => _tipoSangre;
-            set => _tipoSangre = value;
-        }
+
 
         public string Ciudad
         {
@@ -108,7 +93,7 @@ namespace StareMedic.Models.Entities
             set => _sexo = value;
         }
 
-        public int Edad
+        public string Edad
         {
             get => _edad;
             set => _edad = value;
@@ -123,12 +108,6 @@ namespace StareMedic.Models.Entities
         public DateTimeOffset Registered
         {
             get => _registered;
-        }
-
-        public bool Status
-        {
-            get => _active;
-            set => _active = value;
         }
 
         //dejo estos dos como la otra forma de declararse tambien
@@ -146,15 +125,14 @@ namespace StareMedic.Models.Entities
 
         public static implicit operator bool(Patient patient)
         {
-            return patient._name != null && patient._name != "";
+            return string.IsNullOrEmpty(patient._name);
         }
 
         public void Update(Patient patient)
         {
-            //Update changes //honestl, idont remember why dis
+            //Update changes //honestl, idont remember why dis // this was bcs i wanted to copy it without having the issue with the id or something like that
             _name = patient._name;
             _domicilio = patient._domicilio;
-            _tipoSangre = patient._tipoSangre;
             _ciudad = patient._ciudad;
             _estado = patient._estado;
             _nacionalidad = patient._nacionalidad;
@@ -163,7 +141,6 @@ namespace StareMedic.Models.Entities
             _edad = patient._edad;
             _telefono = patient._telefono;
             _registered = patient._registered;
-            _active = patient._active;
             _idCercano = patient._idCercano;
             _idFiador = patient._idFiador;
 
