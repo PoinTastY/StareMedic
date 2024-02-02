@@ -28,10 +28,6 @@ public partial class PatientControll : ContentPage
         }
 
         //age thing
-        for (int age = 0; age <= 120; age++)
-            agelist.Add(age);
-        pickerEdad.ItemsSource = agelist;
-        pickerEdad.SelectedItem = 0;
         lblID.Text = "ID: " + paciente.Id.ToString();
 	}
 
@@ -77,16 +73,6 @@ public partial class PatientControll : ContentPage
 
     }
 
-    private void PickerSangre_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        paciente.TipoSangre = (string)pickerSangre.SelectedItem;
-    }
-
-    private void PickerEdad_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        //fix "Edad 0" bug
-        paciente.Edad = (int)pickerEdad.SelectedItem;
-    }
 
     private void
         EntryDomicilio_TextChanged(object sender, TextChangedEventArgs e)
@@ -149,37 +135,37 @@ public partial class PatientControll : ContentPage
     }
 
     //Fiador
-    private void EntryNombreFiador_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        fiador.Nombre = entryNombreFiador.Text;
-    }
+    //private void EntryNombreFiador_TextChanged(object sender, TextChangedEventArgs e)
+    //{
+    //    fiador.Nombre = entryNombreFiador.Text;
+    //}
 
-    private void EntryTelefonoFiador_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        if (!string.IsNullOrWhiteSpace(e.NewTextValue) && !ValidationHelper.IsNumeric(e.NewTextValue))
-        {
-            entryTelefonoFiador.Text = e.OldTextValue;
-        }
-        else
-        {
-            fiador.Telefono = entryTelefonoFiador.Text;
-        }
-    }
+    //private void EntryTelefonoFiador_TextChanged(object sender, TextChangedEventArgs e)
+    //{
+    //    if (!string.IsNullOrWhiteSpace(e.NewTextValue) && !ValidationHelper.IsNumeric(e.NewTextValue))
+    //    {
+    //        entryTelefonoFiador.Text = e.OldTextValue;
+    //    }
+    //    else
+    //    {
+    //        fiador.Telefono = entryTelefonoFiador.Text;
+    //    }
+    //}
 
-    private void EntryDireccionFiador_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        fiador.Direccion = entryDireccionFiador.Text;
-    }
+    //private void EntryDireccionFiador_TextChanged(object sender, TextChangedEventArgs e)
+    //{
+    //    fiador.Direccion = entryDireccionFiador.Text;
+    //}
 
-    private void EntryCiudadFiador_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        fiador.Ciudad = entryCiudadFiador.Text;
-    }
+    //private void EntryCiudadFiador_TextChanged(object sender, TextChangedEventArgs e)
+    //{
+    //    fiador.Ciudad = entryCiudadFiador.Text;
+    //}
 
-    private void EntryEstadoFiador_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        fiador.Estado = entryEstadoFiador.Text;
-    }
+    //private void EntryEstadoFiador_TextChanged(object sender, TextChangedEventArgs e)
+    //{
+    //    fiador.Estado = entryEstadoFiador.Text;
+    //}
 
     //confirm buttons
     private async void BtnCancel_Clicked(object sender, EventArgs e)
@@ -204,31 +190,16 @@ public partial class PatientControll : ContentPage
 
                     paciente.IdCercano = cercano.Id;
                     MainRepo.AddCercano(cercano);
-                    if (chkCercanoIsFiador.IsChecked)
-                    {
-                        fiador.Copy(cercano);
-                        MainRepo.AddFiador(fiador);
-                        paciente.IdFiador = fiador.Id;
-
-                    }
-                    else if (fiador.Nombre != null && fiador.Nombre != "")
-                    {
-                        paciente.IdFiador = fiador.Id;
-                        MainRepo.AddFiador(fiador);
-                    }
-                    else if (fiador)
-                    {
-                        paciente.IdFiador = fiador.Id;
-                        MainRepo.AddFiador(fiador);
-                    }
-
-                }
-                if ((cercano.Nombre == null || cercano.Nombre == "") && (fiador) && !chkCercanoIsFiador.IsChecked)
-                {
-
-                    paciente.IdFiador = fiador.Id;
+                    fiador.Copy(cercano);
                     MainRepo.AddFiador(fiador);
+                    paciente.IdFiador = fiador.Id;
 
+                    //simplified capture to force cercano data capture and use it always as fiador
+                }
+                else
+                {
+                    await DisplayAlert("Error","No puede haber Campos vacios en la informacion de Cercano", "Ok");
+                    return;
                 }
 
                 MainRepo.AddPatient(paciente);
@@ -244,17 +215,18 @@ public partial class PatientControll : ContentPage
         }
     }
 
-    private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
-    {
-        if (chkCercanoIsFiador.IsChecked == true)
-        {
-            gridFiador.IsVisible = false;
-        }
-        else
-        {
-            gridFiador.IsVisible = true;
-        }
-    }
+    //we are commenting this bcs we got requested not to use fiador, but cercano will be managed as it
+    //private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    //{
+    //    if (chkCercanoIsFiador.IsChecked == true)
+    //    {
+    //        gridFiador.IsVisible = false;
+    //    }
+    //    else
+    //    {
+    //        gridFiador.IsVisible = true;
+    //    }
+    //}
 
     private void FillFields()
     {
@@ -265,9 +237,9 @@ public partial class PatientControll : ContentPage
         entryNacionalidad.Text = paciente.Nacionalidad;
         entryEstado.Text = paciente.Estado;
         entryCiudad.Text = paciente.Ciudad;
-        pickerEdad.SelectedItem = paciente.Edad;
+        EntryEdad.Text = paciente.Edad;
         pickerEdoCivil.SelectedItem = paciente.EstadoCivil;
-        pickerSangre.SelectedItem = paciente.TipoSangre;
+
         if (paciente.Sexo == 'M')
         {
             pickerSexo.SelectedItem = "Masculino";
@@ -298,18 +270,23 @@ public partial class PatientControll : ContentPage
         }
 
         //fiador
-        if (paciente.IdFiador != null)
-        {
-            fiador = MainRepo.GetFiadorById(paciente.IdFiador);
-            entryNombreFiador.Text = fiador.Nombre;
-            entryTelefonoFiador.Text = fiador.Telefono;
-            entryDireccionFiador.Text = fiador.Direccion;
-            entryCiudadFiador.Text = fiador.Ciudad;
-            entryEstadoFiador.Text = fiador.Estado;
-        }
-        else
-        {
-            fiador = new(MainRepo.GetCurrentFiadorIndex());
-        }
+        //if (paciente.IdFiador != null)
+        //{
+        //    fiador = MainRepo.GetFiadorById(paciente.IdFiador);
+        //    entryNombreFiador.Text = fiador.Nombre;
+        //    entryTelefonoFiador.Text = fiador.Telefono;
+        //    entryDireccionFiador.Text = fiador.Direccion;
+        //    entryCiudadFiador.Text = fiador.Ciudad;
+        //    entryEstadoFiador.Text = fiador.Estado;
+        //}
+        //else
+        //{
+        //    fiador = new(MainRepo.GetCurrentFiadorIndex());
+        //}
+    }
+
+    private void EntryEdad_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
     }
 }

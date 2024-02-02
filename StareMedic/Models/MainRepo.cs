@@ -76,7 +76,7 @@ namespace StareMedic.Models
             }
             else
             {
-                UpdateRoom(room.Status, room.Id);
+                UpdateRoom(room.Id);
             }
         }
 
@@ -217,22 +217,6 @@ namespace StareMedic.Models
         }
 
         //updaters
-        public static void UpdatePatientStatus(bool stts,int id)
-        {
-            var patient2update = _db.Patients.FirstOrDefault(x => x.Id == id);//first match
-            patient2update.Status = stts;
-            _db.Entry(patient2update).CurrentValues.SetValues(patient2update);//update
-            _db.SaveChanges();//save
-
-        }
-
-        public static void UpdateRoomStatus(bool stts, int id)
-        {
-            var room2update = _db.Rooms.FirstOrDefault(x => x.Id == id);
-            room2update.Status = stts;
-            _db.Entry(room2update).CurrentValues.SetValues(room2update);
-            _db.SaveChanges();
-        }
 
         public static void UpdatePatient(Patient patient)
         {
@@ -260,10 +244,9 @@ namespace StareMedic.Models
 
         }
 
-        public static void UpdateRoom(bool stts, int id)
+        public static void UpdateRoom( int id)
         {
             var room2update = _db.Rooms.FirstOrDefault(x => x.Id == id);
-            room2update.Status = stts;
             _db.Entry(room2update).CurrentValues.SetValues(room2update);
             _db.SaveChanges();
 
@@ -295,34 +278,25 @@ namespace StareMedic.Models
 
         }
 
-        //close/reopen
-        public static void CloseCase(int id)
-        {
-            var case2close = _db.CasoClinicos.FirstOrDefault(x => x.IdDB == id);//match
-            case2close.Activo = false;//release cc
-            case2close.FechaAlta = DateTimeOffset.UtcNow;//register dis
-            UpdatePatientStatus(false, case2close.IdPaciente);//release patient
-            _db.Entry(case2close).CurrentValues.SetValues(case2close);
-            _db.SaveChanges();
-        }
-
-        public static void ReopenCase(int id)
-        {
-            var case2reopen = _db.CasoClinicos.FirstOrDefault(x => x.IdDB == id);//match
-            case2reopen.Activo = true;
-            case2reopen.FechaAlta = null;
-            UpdatePatientStatus(true, case2reopen.IdPaciente);//we already validated if patient is avilable bfore calling this method
-            _db.SaveChanges();
-            //consider setting this method as bool, or int to manage possible exceptions, or bring filtering here as a better code structure
-        }
 
         //deleters
+
+        public static void DeletePatient(Patient patient)
+        {
+            var cercano2delete = _db.Cercanos.FirstOrDefault(x => x.Id == patient.IdCercano);
+            var fiador2delete = _db.Fiadores.FirstOrDefault(x => x.Id == patient.IdFiador);
+            var patient2delete = _db.Patients.FirstOrDefault(x => x.Id == patient.Id);
+            _db.Cercanos.Remove(cercano2delete);
+            _db.Fiadores.Remove(fiador2delete);
+            _db.Patients.Remove(patient2delete);
+            _db.SaveChanges();
+        }
+
         public static void DeleteClinicalCase(CasoClinico casodel)
         {
             var case2delete = _db.CasoClinicos.FirstOrDefault(x => x == casodel);
             _db.CasoClinicos.Remove(case2delete);
             DeleteDiagnoose(casodel.IdDiagnostico);
-            UpdatePatientStatus(false, casodel.IdPaciente);
             _db.SaveChanges();
         }
 

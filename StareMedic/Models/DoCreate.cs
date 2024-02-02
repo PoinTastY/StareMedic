@@ -77,10 +77,7 @@ namespace StareMedic.Models
 
             displayinfo.AddCell(new Phrase("Caso Clinico: ", fuente)); displayinfo.AddCell(new PdfPCell(new Phrase(CasoReferenciado.Id, fuente)) { Colspan = 2, Border = Rectangle.NO_BORDER }) ;
             displayinfo.AddCell(new Phrase($"Fecha de ingreso: {CasoReferenciado.FechaIngreso:dd/MM/yyyy hh:mm}", fuente));
-            string fechaAltaTexto = CasoReferenciado.FechaAlta == null
-                ? "Fecha de alta: [No disponible]" // Mensaje cuando la fecha de alta está vacía
-                : $"Fecha de alta: {CasoReferenciado.FechaAlta:dd/MM/yyyy hh:mm}";
-            displayinfo.AddCell(new Phrase(fechaAltaTexto, fuente));//br
+            displayinfo.AddCell(new Phrase("", fuente));//br
 
             ///////////////////////////////////////////////////////////new row
             displayinfo.AddCell(new Phrase("Nombre del paciente: ", fuente)); PdfPCell Col2 = new(new Phrase(patient.Nombre, fuente)); Col2.Colspan = 2;
