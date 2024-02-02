@@ -1,11 +1,4 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using MetalPerformanceShaders;
-using iTextSharp.text.pdf;
-using StareMedic.Data;
+﻿using StareMedic.Data;
 using StareMedic.Models.Entities;
 
 namespace StareMedic.Models
@@ -17,7 +10,7 @@ namespace StareMedic.Models
         //dbshit
         static AppDbContext _db = new();
 
-        //private readonly static List<Patient> _patients = _db.patients.ToList();
+        //private readonly static List<Patient> _patients = _db.patients.ToList(); STILL RECONSIDERING IF THIS IS MORE EFFICENT
         //private readonly static List<Fiador> _fiadores = _db.fiadores.ToList();
         //private readonly static List<Cercano> _cercanos = _db.cercanos.ToList();
         //private readonly static List<Rooms> _rooms = _db.rooms.ToList();
@@ -34,7 +27,7 @@ namespace StareMedic.Models
         public static List<Medic> GetMedics() => _db.Medics.OrderBy(p => p.Nombre).ToList();
         public static List<Diagnostico> GetDiagnosticos() => _db.Diagnosticos.ToList();
 
-        //setters
+        //adders
         public static void AddPatient(Patient patient)
         {
             if(!(patient.Id <= GetCurrentPatientIndex()-1))
@@ -217,7 +210,7 @@ namespace StareMedic.Models
         }
 
         //solvers
-        public static Patient PatientIdSolver
+        public static Patient PatientIdSolver//this is for the interaction btween pickpatientview and registerCC, for it to pick and  show thepatient
         {
             get { return _tmpPatient; }
             set { _tmpPatient = value; }
@@ -226,10 +219,10 @@ namespace StareMedic.Models
         //updaters
         public static void UpdatePatientStatus(bool stts,int id)
         {
-            var patient2update = _db.Patients.FirstOrDefault(x => x.Id == id);
+            var patient2update = _db.Patients.FirstOrDefault(x => x.Id == id);//first match
             patient2update.Status = stts;
-            _db.Entry(patient2update).CurrentValues.SetValues(patient2update);
-            _db.SaveChanges();
+            _db.Entry(patient2update).CurrentValues.SetValues(patient2update);//update
+            _db.SaveChanges();//save
 
         }
 
@@ -245,7 +238,6 @@ namespace StareMedic.Models
         {
 
             var patient2update = _db.Patients.FirstOrDefault(x => x.Id == patient.Id);
-            //Confirm that dis works with db working
             patient2update.Update(patient);
             _db.Entry(patient2update).CurrentValues.SetValues(patient2update);
             _db.SaveChanges();
@@ -303,27 +295,25 @@ namespace StareMedic.Models
 
         }
 
-        //closers
+        //close/reopen
         public static void CloseCase(int id)
         {
-            var case2close = _db.CasoClinicos.FirstOrDefault(x => x.IdDB == id);
-            case2close.Activo = false;
-            case2close.FechaAlta = DateTimeOffset.UtcNow;
-            UpdatePatientStatus(false, case2close.IdPaciente);
+            var case2close = _db.CasoClinicos.FirstOrDefault(x => x.IdDB == id);//match
+            case2close.Activo = false;//release cc
+            case2close.FechaAlta = DateTimeOffset.UtcNow;//register dis
+            UpdatePatientStatus(false, case2close.IdPaciente);//release patient
             _db.Entry(case2close).CurrentValues.SetValues(case2close);
             _db.SaveChanges();
-            //maybe implement destructor here? or write on db
-
         }
 
         public static void ReopenCase(int id)
         {
-            var case2reopen = _db.CasoClinicos.FirstOrDefault(x => x.IdDB == id);
+            var case2reopen = _db.CasoClinicos.FirstOrDefault(x => x.IdDB == id);//match
             case2reopen.Activo = true;
             case2reopen.FechaAlta = null;
-            UpdatePatientStatus(true, case2reopen.IdPaciente);
+            UpdatePatientStatus(true, case2reopen.IdPaciente);//we already validated if patient is avilable bfore calling this method
             _db.SaveChanges();
-
+            //consider setting this method as bool, or int to manage possible exceptions, or bring filtering here as a better code structure
         }
 
         //deleters

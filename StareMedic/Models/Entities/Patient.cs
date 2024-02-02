@@ -151,7 +151,7 @@ namespace StareMedic.Models.Entities
 
         public void Update(Patient patient)
         {
-            //Update changes
+            //Update changes //honestl, idont remember why dis
             _name = patient._name;
             _domicilio = patient._domicilio;
             _tipoSangre = patient._tipoSangre;
