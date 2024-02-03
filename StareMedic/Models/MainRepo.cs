@@ -10,14 +10,6 @@ namespace StareMedic.Models
         //dbshit
         static AppDbContext _db = new();
 
-        //private readonly static List<Patient> _patients = _db.patients.ToList(); STILL RECONSIDERING IF THIS IS MORE EFFICENT
-        //private readonly static List<Fiador> _fiadores = _db.fiadores.ToList();
-        //private readonly static List<Cercano> _cercanos = _db.cercanos.ToList();
-        //private readonly static List<Rooms> _rooms = _db.rooms.ToList();
-        //private readonly static List<Medic> _medicos = _db.medics.ToList();
-        //private readonly static List<CasoClinico> _casos = _db.casoClinicos.ToList();
-        //private readonly static List<Diagnostico> _diagnosticos = _db.diagnosticos.ToList();
-
         //getters
         public static List<Patient> GetPatients() { return _db.Patients.OrderBy(p => p.Nombre).ToList(); }//the framework sents an order by clause to the db, so eficiency is not impacted
         public static List<Fiador> GetFiadores() => _db.Fiadores.ToList();//igual, 2 formas de declararse xd
