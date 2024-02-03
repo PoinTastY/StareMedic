@@ -22,14 +22,7 @@ public partial class SearchCC : ContentPage
         {
             casos.Add(caso);
         }
-        if (ChkBxOnlyActives.IsChecked)
-        {
-            ListViewCC.ItemsSource = casos.Where(caso => caso.Activo == true);
-        }
-        else
-        {
-            ListViewCC.ItemsSource = casos;
-        }
+        ListViewCC.ItemsSource = casos;
 
     }
 
@@ -55,18 +48,11 @@ public partial class SearchCC : ContentPage
     {
         if (string.IsNullOrWhiteSpace(SearchBarentry.Text))
         {
-            if (ChkBxOnlyActives.IsChecked)
-            {
-                ListViewCC.ItemsSource = casos.Where(caso => caso.Activo == true);
-            }
-            else
-            {
-                ListViewCC.ItemsSource = casos;
-            }
+            ListViewCC.ItemsSource = casos;
         }
     }
 
-    
+
 
     private void SearchBarentry_SearchButtonPressed(object sender, EventArgs e)
     {
@@ -74,50 +60,12 @@ public partial class SearchCC : ContentPage
         {
             if (SwtchIdorName.IsToggled)
             {
-                if (ChkBxOnlyActives.IsChecked)
-                {
-                    ListViewCC.ItemsSource = casos.Where(caso => caso.Nombre.Contains(SearchBarentry.Text.ToUpper()) && caso.Activo == true);
-                }
-                else
-                {
-                    ListViewCC.ItemsSource = casos.Where(caso => caso.Nombre.Contains(SearchBarentry.Text.ToUpper()));
-                }
+                ListViewCC.ItemsSource = casos.Where(caso => caso.Nombre.Contains(SearchBarentry.Text.ToUpper()));
             }
             else
             {
-                if (ChkBxOnlyActives.IsChecked)
-                {
-                    ListViewCC.ItemsSource = casos.Where(caso => caso.Id.Contains(SearchBarentry.Text.ToUpper()) && caso.Activo == true);
-                }
-                else
-                {
-                    ListViewCC.ItemsSource = casos.Where(caso => caso.Id.Contains(SearchBarentry.Text.ToUpper()));
-                }
+                ListViewCC.ItemsSource = casos.Where(caso => caso.Id.Contains(SearchBarentry.Text.ToUpper()));
             }
-        }
-        else
-        {
-            if (ChkBxOnlyActives.IsChecked)
-            {
-                ListViewCC.ItemsSource = casos.Where(caso => caso.Activo == true);
-            }
-            else
-            {
-                ListViewCC.ItemsSource = casos;
-            }
-        }
-            
-    }
-
-    private void ChkBxOnlyActives_CheckedChanged(object sender, CheckedChangedEventArgs e)
-    {
-        if (ChkBxOnlyActives.IsChecked)
-        {
-            ListViewCC.ItemsSource = casos.Where(caso => caso.Activo == true);
-        }
-        else
-        {
-            ListViewCC.ItemsSource = casos;
         }
     }
 

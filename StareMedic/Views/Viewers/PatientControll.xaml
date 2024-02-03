@@ -5,6 +5,22 @@
              Title="PatientControll">
     <ScrollView>
         <VerticalStackLayout Style="{StaticResource mainVerticalStackLayout}">
+            <Button x:Name="BtnEdit"
+                    Text="Editar"
+                    Clicked="BtnEdit_Clicked"
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    IsVisible="false"
+                    IsEnabled="False"
+                    Margin="0,10,10,0"/>
+            <Button x:Name="BtnDelete"
+                    Text="Eliminar"
+                    Clicked="BtnDelete_Clicked"
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    IsVisible="false"
+                    IsEnabled="False"
+                    Margin="0,10,10,0"/>
 
 
             <!--Display the id-->
@@ -66,10 +82,7 @@
                             </x:Array>
                         </Picker.ItemsSource>
                     </Picker>
-                    <Label Text="T/Sangre"
-                           VerticalOptions="Center"
-                           TextColor="#b0b0b0"/>
-                    
+
                     <!--we are commenting this bcs we got required not to use it-->
                     <!--<Picker x:Name="pickerSangre"
                             MaximumWidthRequest="120"
@@ -360,14 +373,14 @@
             <Grid ColumnDefinitions="*,*" HorizontalOptions="Start" Margin="10,0,0,0" ColumnSpacing="15">
 
                 <Button
-                    x:Name="btnCancel"
+                    x:Name="BtnCancel"
                     Clicked="BtnCancel_Clicked"
                     Text="Cancelar"
                     Grid.Column="0"
                     HorizontalOptions="Center"/>
 
                 <Button
-                    x:Name="btnGuardar"
+                    x:Name="BtnGuardar"
                     Clicked="BtnGuardar_Clicked"
                     Text="Guardar:)"
                     Grid.Column="1"

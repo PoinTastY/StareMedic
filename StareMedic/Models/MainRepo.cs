@@ -274,8 +274,6 @@ namespace StareMedic.Models
             var case2update = _db.CasoClinicos.FirstOrDefault(x => x.Id == caso.Id);
             _db.Entry(case2update).CurrentValues.SetValues(caso);
             _db.SaveChanges();
-
-
         }
 
 

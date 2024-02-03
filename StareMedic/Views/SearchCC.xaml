@@ -48,10 +48,6 @@
             <Label Text="Buscar solo en casos activos"
                    VerticalOptions="Center"
                    Style="{StaticResource labelEntry}"/>
-            <CheckBox x:Name="ChkBxOnlyActives"
-                      VerticalOptions="Center"
-                      IsChecked="False"
-                      CheckedChanged="ChkBxOnlyActives_CheckedChanged"/>
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

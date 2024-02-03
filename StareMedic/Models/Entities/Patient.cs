@@ -125,7 +125,7 @@
 
         public static implicit operator bool(Patient patient)
         {
-            return string.IsNullOrEmpty(patient._name);
+            return !string.IsNullOrEmpty(patient._name);
         }
 
         public void Update(Patient patient)

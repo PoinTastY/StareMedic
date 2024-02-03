@@ -10,24 +10,24 @@ public partial class PatientControll : ContentPage
     Fiador fiador;
     readonly List<int> agelist = new();
 
-    public PatientControll(Patient paciente)
+    public PatientControll(Patient pacientEdit)
 	{
 		InitializeComponent();
 
-        if (paciente != null)
+        if (pacientEdit != null)
         {
-            this.paciente = paciente;
+            paciente = pacientEdit;
+            enableEdit(false);
             FillFields();
         }
         else
         {
-            this.paciente = new(MainRepo.GetCurrentPatientIndex());
+            paciente = new(MainRepo.GetCurrentPatientIndex());
             paciente = new(MainRepo.GetCurrentPatientIndex());
             cercano = new(MainRepo.GetCurrentCercanoIndex());
             fiador = new(MainRepo.GetCurrentFiadorIndex());
         }
 
-        //age thing
         lblID.Text = "ID: " + paciente.Id.ToString();
 	}
 
@@ -134,39 +134,6 @@ public partial class PatientControll : ContentPage
         cercano.Relacion = entryRelacionCercano.Text;
     }
 
-    //Fiador
-    //private void EntryNombreFiador_TextChanged(object sender, TextChangedEventArgs e)
-    //{
-    //    fiador.Nombre = entryNombreFiador.Text;
-    //}
-
-    //private void EntryTelefonoFiador_TextChanged(object sender, TextChangedEventArgs e)
-    //{
-    //    if (!string.IsNullOrWhiteSpace(e.NewTextValue) && !ValidationHelper.IsNumeric(e.NewTextValue))
-    //    {
-    //        entryTelefonoFiador.Text = e.OldTextValue;
-    //    }
-    //    else
-    //    {
-    //        fiador.Telefono = entryTelefonoFiador.Text;
-    //    }
-    //}
-
-    //private void EntryDireccionFiador_TextChanged(object sender, TextChangedEventArgs e)
-    //{
-    //    fiador.Direccion = entryDireccionFiador.Text;
-    //}
-
-    //private void EntryCiudadFiador_TextChanged(object sender, TextChangedEventArgs e)
-    //{
-    //    fiador.Ciudad = entryCiudadFiador.Text;
-    //}
-
-    //private void EntryEstadoFiador_TextChanged(object sender, TextChangedEventArgs e)
-    //{
-    //    fiador.Estado = entryEstadoFiador.Text;
-    //}
-
     //confirm buttons
     private async void BtnCancel_Clicked(object sender, EventArgs e)
     {
@@ -176,13 +143,14 @@ public partial class PatientControll : ContentPage
             await Shell.Current.GoToAsync("..");
         }
     }
+
     private async void BtnGuardar_Clicked(object sender, EventArgs e)
     {
         if (paciente)
         {
             //the cancel and confirm buttons are switched bcs i like it that way
-            bool confirmacion = await DisplayAlert("Confirmar", $"Se registrara a:\n{paciente.Nombre}", "Cancelar", "Confirmar");
-            if (!confirmacion)//that is actually true lol
+            bool confirmation = await DisplayAlert("Confirmar", $"Se registrara a:\n{paciente.Nombre}", "Cancelar", "Confirmar");
+            if (!confirmation)//that is actually true lol
             {
                 //add 2 repo
                 if (cercano)
@@ -214,19 +182,6 @@ public partial class PatientControll : ContentPage
             return;
         }
     }
-
-    //we are commenting this bcs we got requested not to use fiador, but cercano will be managed as it
-    //private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
-    //{
-    //    if (chkCercanoIsFiador.IsChecked == true)
-    //    {
-    //        gridFiador.IsVisible = false;
-    //    }
-    //    else
-    //    {
-    //        gridFiador.IsVisible = true;
-    //    }
-    //}
 
     private void FillFields()
     {
@@ -269,24 +224,69 @@ public partial class PatientControll : ContentPage
             cercano = new(MainRepo.GetCurrentCercanoIndex());
         }
 
-        //fiador
-        //if (paciente.IdFiador != null)
-        //{
-        //    fiador = MainRepo.GetFiadorById(paciente.IdFiador);
-        //    entryNombreFiador.Text = fiador.Nombre;
-        //    entryTelefonoFiador.Text = fiador.Telefono;
-        //    entryDireccionFiador.Text = fiador.Direccion;
-        //    entryCiudadFiador.Text = fiador.Ciudad;
-        //    entryEstadoFiador.Text = fiador.Estado;
-        //}
-        //else
-        //{
-        //    fiador = new(MainRepo.GetCurrentFiadorIndex());
-        //}
+        if (paciente.IdFiador != null)
+        {
+            fiador = MainRepo.GetFiadorById(paciente.IdFiador);
+        }
+        else
+        {
+            fiador = new(MainRepo.GetCurrentFiadorIndex());
+        }
     }
 
     private void EntryEdad_TextChanged(object sender, TextChangedEventArgs e)
     {
+        paciente.Edad = EntryEdad.Text;
+    }
 
+    private void BtnEdit_Clicked(object sender, EventArgs e)
+    {
+        enableEdit(true);
+    }
+
+
+    private async void BtnDelete_Clicked(object sender, EventArgs e)
+    {
+        bool confirm = await DisplayAlert("Eliminar", $"Desea eliminar al paciente: {paciente.Nombre}?", "No", "Si");
+        if (!confirm)
+        {
+            MainRepo.DeletePatient(paciente);
+            await DisplayAlert("Exito", $"Paciente eliminado: {paciente.Nombre}", "OK");
+            await Shell.Current.GoToAsync("..");
+        }
+        else
+        {
+            await DisplayAlert("Cancelado", "Operacion cancelada, no se ha borrado nada", "OK");
+            return;
+        }
+
+    }
+
+    //enable disable interface
+    private void enableEdit(bool x)
+    {
+        entryName.IsEnabled = x;
+        entryTelefono.IsEnabled = x;
+        entryDomicilio.IsEnabled = x;
+        entryNacionalidad.IsEnabled = x;
+        entryEstado.IsEnabled = x;
+        entryCiudad.IsEnabled = x;
+        EntryEdad.IsEnabled = x;
+        pickerEdoCivil.IsEnabled = x;
+        pickerSexo.IsEnabled = x;
+        BtnEdit.IsEnabled = !x;
+        BtnEdit.IsVisible = !x;
+        BtnGuardar.IsEnabled = x;
+        BtnGuardar.IsVisible = x;
+        BtnCancel.IsEnabled = x;
+        BtnCancel.IsVisible = x;
+        BtnDelete.IsEnabled = !x;
+        BtnDelete.IsVisible = !x;
+        entryNombreCercano.IsEnabled = x;
+        entryTelefonoCercano.IsEnabled = x;
+        entryDomicilioCercano.IsEnabled = x;
+        entryCiudadCercano.IsEnabled = x;
+        entryEstadoCercano.IsEnabled = x;
+        entryRelacionCercano.IsEnabled = x;
     }
 }

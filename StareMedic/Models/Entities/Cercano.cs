@@ -85,6 +85,7 @@
                !string.IsNullOrEmpty(cercano._city) &&
                !string.IsNullOrEmpty(cercano._state) &&
                !string.IsNullOrEmpty(cercano._relation) &&
+               cercano._phone.Length == 10 &&
                cercano._id != null)
                 
             {
