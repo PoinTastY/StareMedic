@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StareMedic.Models.Entities
+﻿namespace StareMedic.Models.Entities
 {
     public class Cercano
     {
@@ -85,7 +79,15 @@ namespace StareMedic.Models.Entities
 
         public static implicit operator bool(Cercano cercano)
         {
-            if(cercano._name != null && cercano._name != "")
+            if(!string.IsNullOrEmpty(cercano._name) &&
+               !string.IsNullOrEmpty(cercano._phone) &&
+               !string.IsNullOrEmpty(cercano._address) &&
+               !string.IsNullOrEmpty(cercano._city) &&
+               !string.IsNullOrEmpty(cercano._state) &&
+               !string.IsNullOrEmpty(cercano._relation) &&
+               cercano._phone.Length == 10 &&
+               cercano._id != null)
+                
             {
                 return true;
             }

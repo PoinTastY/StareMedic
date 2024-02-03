@@ -67,8 +67,6 @@ public partial class RegisterClinicalCase : ContentPage
             bool answer = await DisplayAlert("Guardar", $"Se guardara el caso: {caso.Nombre}\nEsta seguro?", "No", "Si");
             if (!answer)
             {
-                MainRepo.UpdatePatientStatus(true, caso.IdPaciente);
-                MainRepo.UpdateRoomStatus(true, caso.IdHabitacion);
                 Diagnostico diag = new(MainRepo.GetCurrentDiagnosticoIndex());
                 caso.IdDiagnostico = diag.Id;
                 MainRepo.AddDiagnostico(diag);

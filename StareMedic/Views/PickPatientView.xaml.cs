@@ -13,8 +13,7 @@ public partial class PickPatientView : ContentPage
         InitializeComponent();
         foreach (Patient patient in MainRepo.GetPatients())
         {
-            if (patient.Status == false)
-                patients.Add(patient);
+            patients.Add(patient);
         }
 
         //implement sort later
@@ -31,7 +30,7 @@ public partial class PickPatientView : ContentPage
         if (!confirmacion)
         {
             //this if works as a try lol
-            if (MainRepo.PatientIdSolver.Status == false && MainRepo.PatientIdSolver != null)
+            if (MainRepo.PatientIdSolver != null)
             {
                 await Navigation.PopModalAsync();
             }

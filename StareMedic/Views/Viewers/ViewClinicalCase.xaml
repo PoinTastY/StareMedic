@@ -12,8 +12,6 @@
                             x:Name="LblName"
                             VerticalOptions="Center" 
                             HorizontalOptions="Center"/>
-                <Label Text="Estado: "
-                           x:Name="LblStatus"/>
                 <Button x:Name="BtnEdit"
                             Text="Editar"
                             Clicked="BtnEdit_Clicked"/>
@@ -29,8 +27,6 @@
                             Clicked="BtnCancelAll_Clicked"/>
                 <Button x:Name="BtnDelete"
                             Text="Eliminar"
-                            IsVisible="False"
-                            IsEnabled="False"
                             Clicked="BtnDelete_Clicked"
                             />
             </HorizontalStackLayout>
@@ -104,12 +100,6 @@
             <Button Text="Generar hoja de admision"
                         x:Name="BtnExportCase"
                         Clicked="BtnExportCase_Clicked"/>
-            <Button Text="Cerrar Caso"
-                        x:Name="BtnCerrarCaso"
-                        Clicked="BtnCerrarCaso_Clicked"/>
-            <Button Text="Re Abrir caso"
-                        x:Name="BtnReopenCase"
-                        Clicked="BtnReopenCase_Clicked"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
