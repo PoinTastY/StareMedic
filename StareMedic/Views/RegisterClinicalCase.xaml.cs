@@ -8,10 +8,12 @@ namespace StareMedic.Views;
 public partial class RegisterClinicalCase : ContentPage
 {
     readonly CasoClinico caso = new(MainRepo.GetCurrentCaseIndex());
+    readonly Diagnostico diag = new(MainRepo.GetCurrentDiagnosticoIndex());
+
     public RegisterClinicalCase()
     {
         InitializeComponent();
-
+        EditorDiagnostico.Placeholder = diag.Contenido;
     }
 
     protected override void OnAppearing()
@@ -67,7 +69,7 @@ public partial class RegisterClinicalCase : ContentPage
             bool answer = await DisplayAlert("Guardar", $"Se guardara el caso: {caso.Nombre}\nEsta seguro?", "No", "Si");
             if (!answer)
             {
-                Diagnostico diag = new(MainRepo.GetCurrentDiagnosticoIndex());
+                diag.Contenido = EditorDiagnostico.Text;
                 caso.IdDiagnostico = diag.Id;
                 MainRepo.AddDiagnostico(diag);
                 MainRepo.AddCaso(caso);
@@ -104,4 +106,26 @@ public partial class RegisterClinicalCase : ContentPage
         caso.Id = id;
     }
 
+    private void DateIngreso_DateSelected(object sender, DateChangedEventArgs e)
+    {
+        caso.FechaIngreso = e.NewDate.ToUniversalTime();
+    }
+
+    private void RadioMedico_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if(RadioMedico.IsChecked)
+            caso.TipoCaso = "Medico";
+    }
+
+    private void RadioQuirurgico_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if(RadioQuirurgico.IsChecked)
+            caso.TipoCaso = "Quirurgico";
+    }
+
+    private void RadioObstetrico_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if(RadioObstetrico.IsChecked)
+            caso.TipoCaso = "Obstetrico";
+    }
 }
