@@ -69,6 +69,32 @@
                         </Picker.ItemDisplayBinding>
                     </Picker>
                 </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    
+                    <HorizontalStackLayout>
+                        <Label Text="*Fecha de Ingreso:"
+                               Style="{StaticResource labelEntry}"/>
+                        <DatePicker x:Name="DateIngreso"
+                                    IsEnabled="False"/>
+                    </HorizontalStackLayout>
+                    
+                    
+                    <Label Text="Tipo de Caso: "/>
+
+                    <RadioButton Content="Medico"
+                                Value="Medico"
+                                x:Name="RadioMedico"
+                                 IsEnabled="False"/>
+                    <RadioButton Content="Quirurgico"
+                                Value="Quirurgico"
+                                x:Name="RadioQuirurgico"
+                                 IsEnabled="False"/>
+                    <RadioButton Content="Obstetrico"
+                                Value="Obstetrico"
+                                x:Name="RadioObstetrico"
+                                 IsEnabled="False"/>
+
+                </HorizontalStackLayout>
 
                 <!--Diagnoose-->
                 <VerticalStackLayout>

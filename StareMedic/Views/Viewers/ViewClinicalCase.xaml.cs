@@ -46,6 +46,17 @@ public partial class ViewClinicalCase : ContentPage
 		EntryPatient.Text = patient.Nombre;
         EditorDiagnoose.Text = diagnostico.Contenido;
 
+        //fecha ingreso
+        DateIngreso.Date = caso.FechaIngreso.LocalDateTime;
+        
+        //tipo de caso
+        if(caso.TipoCaso == "Medico")
+            RadioMedico.IsChecked = true;
+        if(caso.TipoCaso == "Obstetrico")
+            RadioObstetrico.IsChecked = true;
+        if(caso.TipoCaso == "Quirurgico")
+            RadioQuirurgico.IsChecked = true;
+
 	}
 
     private void BtnEditDiagnoose_Clicked(object sender, EventArgs e)
@@ -117,6 +128,13 @@ public partial class ViewClinicalCase : ContentPage
         if (!choice)
         {
             //update changefs
+            if (RadioMedico.IsChecked)
+                caso.TipoCaso = "Medico";
+            if (RadioQuirurgico.IsChecked)
+                caso.TipoCaso = "Quirurgico";
+            if (RadioObstetrico.IsChecked)
+                caso.TipoCaso = "Obstetrico";
+            caso.FechaIngreso = DateIngreso.Date.ToUniversalTime();
             medic = (Medic)PickMedic.SelectedItem;
             room = (Rooms)PickRoom.SelectedItem;
             caso.IdDoctor = medic.Id;
@@ -133,6 +151,7 @@ public partial class ViewClinicalCase : ContentPage
             PickMedic.SelectedItem = medic;
             PickRoom.SelectedItem = room;
             EntryName.Text = caso.Nombre;
+
             enabledisable(false);
             return;
         }
@@ -211,13 +230,13 @@ public partial class ViewClinicalCase : ContentPage
                 await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
             }//TODO: EXCEPTION MANAGEMENT
 
-
         }
     }
 
     //View elements visibility and interaction
     private void enabledisable(bool status)
     {
+        //interaction of edit buttons
         BtnEdit.IsEnabled = !status;
         BtnEdit.IsVisible = !status;
         BtnDelete.IsEnabled = !status;
@@ -226,8 +245,16 @@ public partial class ViewClinicalCase : ContentPage
         BtnSaveAll.IsEnabled = status;
         BtnCancelAll.IsVisible = status;
         BtnCancelAll.IsEnabled = status;
+        
+        //interaction on data
         EntryName.IsEnabled = status;
         PickMedic.IsEnabled = status;
         PickRoom.IsEnabled = status;
+
+        //date and radio buttons
+        DateIngreso.IsEnabled = status;
+        RadioMedico.IsEnabled = status;
+        RadioQuirurgico.IsEnabled = status;
+        RadioObstetrico.IsEnabled = status;
     }
 }

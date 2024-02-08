@@ -75,6 +75,19 @@ public partial class RegisterClinicalCase : ContentPage
                 MainRepo.AddCaso(caso);
                 MainRepo.PatientIdSolver = new();
                 await DisplayAlert("Exito", $"Se ha guardado el caso con id: {caso.Id}", "Ok");
+                var Confirm = await DisplayAlert("Exportar", $"Se exportara el caso:\n{caso.Id}", "Cancelar", "Confirmar");
+                if (!Confirm)
+                {
+                    if (DoCreate.GenerateDocument(caso))
+                    {
+                        await DisplayAlert("Confirmado", $"Se ha exportado el caso:\n{caso.Nombre}", "Ok");
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
+                    }//TODO: EXCEPTION MANAGEMENT
+
+                }
 
                 await Shell.Current.GoToAsync("..");
             }
