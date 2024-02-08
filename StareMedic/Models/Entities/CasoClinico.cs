@@ -1,11 +1,4 @@
-﻿using Org.BouncyCastle.Asn1.BC;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StareMedic.Models.Entities
+﻿namespace StareMedic.Models.Entities
 {
     public class CasoClinico
     {
@@ -23,23 +16,18 @@ namespace StareMedic.Models.Entities
 
         private int _idDiagnostico;
 
-        private bool _status;
-
-        private float _total;
-
         private DateTimeOffset _fechaIngreso;
 
-        private DateTimeOffset? _fechaAlta;
+        private string _tipocaso;
+
 
         public CasoClinico(int id)
         {
             _idDB = id;
             _fechaIngreso = DateTimeOffset.UtcNow;
-            _status = true;
             _idDoctor = 0;
             _idHabitacion = 0;
             _idPacient = 0;
-            _total = 0;
         }
 
         public CasoClinico() { }
@@ -88,29 +76,16 @@ namespace StareMedic.Models.Entities
             set => _idDiagnostico = value;
         }
 
+        public string TipoCaso
+        {
+            get => _tipocaso;
+            set => _tipocaso = value;
+        }
+
         public DateTimeOffset FechaIngreso
         {
             get => _fechaIngreso.ToLocalTime();
             set => _fechaIngreso = value;
-        }
-
-        public DateTimeOffset? FechaAlta
-        {
-            get { if (_fechaAlta.HasValue) { return _fechaAlta.Value.ToLocalTime(); } else { return null; } }
-            set { _fechaAlta = value; }
-        }
-  
-
-        public bool Activo
-        {
-            get => _status;
-            set => _status = value;
-        }
-
-        public float Total
-        {
-            get => _total;
-            set => _total = value;
         }
 
         public void Update(CasoClinico caso)
@@ -118,7 +93,6 @@ namespace StareMedic.Models.Entities
             _name = caso.Nombre;
             _idDoctor = caso.IdDoctor;
             _idHabitacion = caso.IdHabitacion;
-            _fechaAlta = caso.FechaAlta;
         }
 
         public static implicit operator bool(CasoClinico x)

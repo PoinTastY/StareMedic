@@ -12,8 +12,6 @@
                             x:Name="LblName"
                             VerticalOptions="Center" 
                             HorizontalOptions="Center"/>
-                <Label Text="Estado: "
-                           x:Name="LblStatus"/>
                 <Button x:Name="BtnEdit"
                             Text="Editar"
                             Clicked="BtnEdit_Clicked"/>
@@ -29,8 +27,6 @@
                             Clicked="BtnCancelAll_Clicked"/>
                 <Button x:Name="BtnDelete"
                             Text="Eliminar"
-                            IsVisible="False"
-                            IsEnabled="False"
                             Clicked="BtnDelete_Clicked"
                             />
             </HorizontalStackLayout>
@@ -73,6 +69,32 @@
                         </Picker.ItemDisplayBinding>
                     </Picker>
                 </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    
+                    <HorizontalStackLayout>
+                        <Label Text="*Fecha de Ingreso:"
+                               Style="{StaticResource labelEntry}"/>
+                        <DatePicker x:Name="DateIngreso"
+                                    IsEnabled="False"/>
+                    </HorizontalStackLayout>
+                    
+                    
+                    <Label Text="Tipo de Caso: "/>
+
+                    <RadioButton Content="Medico"
+                                Value="Medico"
+                                x:Name="RadioMedico"
+                                 IsEnabled="False"/>
+                    <RadioButton Content="Quirurgico"
+                                Value="Quirurgico"
+                                x:Name="RadioQuirurgico"
+                                 IsEnabled="False"/>
+                    <RadioButton Content="Obstetrico"
+                                Value="Obstetrico"
+                                x:Name="RadioObstetrico"
+                                 IsEnabled="False"/>
+
+                </HorizontalStackLayout>
 
                 <!--Diagnoose-->
                 <VerticalStackLayout>
@@ -104,12 +126,6 @@
             <Button Text="Generar hoja de admision"
                         x:Name="BtnExportCase"
                         Clicked="BtnExportCase_Clicked"/>
-            <Button Text="Cerrar Caso"
-                        x:Name="BtnCerrarCaso"
-                        Clicked="BtnCerrarCaso_Clicked"/>
-            <Button Text="Re Abrir caso"
-                        x:Name="BtnReopenCase"
-                        Clicked="BtnReopenCase_Clicked"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

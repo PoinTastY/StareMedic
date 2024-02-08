@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace StareMedic.Models
 {
@@ -25,5 +21,7 @@ namespace StareMedic.Models
             byte[] bytes = Encoding.Default.GetBytes(text);
             return Encoding.UTF8.GetString(bytes);
         }
+
+        //soon, CONTPAQi SDK
     }
 }

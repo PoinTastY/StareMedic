@@ -1,11 +1,4 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using MetalPerformanceShaders;
-using iTextSharp.text.pdf;
-using StareMedic.Data;
+﻿using StareMedic.Data;
 using StareMedic.Models.Entities;
 
 namespace StareMedic.Models
@@ -17,14 +10,6 @@ namespace StareMedic.Models
         //dbshit
         static AppDbContext _db = new();
 
-        //private readonly static List<Patient> _patients = _db.patients.ToList();
-        //private readonly static List<Fiador> _fiadores = _db.fiadores.ToList();
-        //private readonly static List<Cercano> _cercanos = _db.cercanos.ToList();
-        //private readonly static List<Rooms> _rooms = _db.rooms.ToList();
-        //private readonly static List<Medic> _medicos = _db.medics.ToList();
-        //private readonly static List<CasoClinico> _casos = _db.casoClinicos.ToList();
-        //private readonly static List<Diagnostico> _diagnosticos = _db.diagnosticos.ToList();
-
         //getters
         public static List<Patient> GetPatients() { return _db.Patients.OrderBy(p => p.Nombre).ToList(); }//the framework sents an order by clause to the db, so eficiency is not impacted
         public static List<Fiador> GetFiadores() => _db.Fiadores.ToList();//igual, 2 formas de declararse xd
@@ -34,7 +19,7 @@ namespace StareMedic.Models
         public static List<Medic> GetMedics() => _db.Medics.OrderBy(p => p.Nombre).ToList();
         public static List<Diagnostico> GetDiagnosticos() => _db.Diagnosticos.ToList();
 
-        //setters
+        //adders
         public static void AddPatient(Patient patient)
         {
             if(!(patient.Id <= GetCurrentPatientIndex()-1))
@@ -83,7 +68,7 @@ namespace StareMedic.Models
             }
             else
             {
-                UpdateRoom(room.Status, room.Id);
+                UpdateRoom(room.Id);
             }
         }
 
@@ -217,35 +202,18 @@ namespace StareMedic.Models
         }
 
         //solvers
-        public static Patient PatientIdSolver
+        public static Patient PatientIdSolver//this is for the interaction btween pickpatientview and registerCC, for it to pick and  show thepatient
         {
             get { return _tmpPatient; }
             set { _tmpPatient = value; }
         }
 
         //updaters
-        public static void UpdatePatientStatus(bool stts,int id)
-        {
-            var patient2update = _db.Patients.FirstOrDefault(x => x.Id == id);
-            patient2update.Status = stts;
-            _db.Entry(patient2update).CurrentValues.SetValues(patient2update);
-            _db.SaveChanges();
-
-        }
-
-        public static void UpdateRoomStatus(bool stts, int id)
-        {
-            var room2update = _db.Rooms.FirstOrDefault(x => x.Id == id);
-            room2update.Status = stts;
-            _db.Entry(room2update).CurrentValues.SetValues(room2update);
-            _db.SaveChanges();
-        }
 
         public static void UpdatePatient(Patient patient)
         {
 
             var patient2update = _db.Patients.FirstOrDefault(x => x.Id == patient.Id);
-            //Confirm that dis works with db working
             patient2update.Update(patient);
             _db.Entry(patient2update).CurrentValues.SetValues(patient2update);
             _db.SaveChanges();
@@ -268,10 +236,9 @@ namespace StareMedic.Models
 
         }
 
-        public static void UpdateRoom(bool stts, int id)
+        public static void UpdateRoom( int id)
         {
             var room2update = _db.Rooms.FirstOrDefault(x => x.Id == id);
-            room2update.Status = stts;
             _db.Entry(room2update).CurrentValues.SetValues(room2update);
             _db.SaveChanges();
 
@@ -299,40 +266,27 @@ namespace StareMedic.Models
             var case2update = _db.CasoClinicos.FirstOrDefault(x => x.Id == caso.Id);
             _db.Entry(case2update).CurrentValues.SetValues(caso);
             _db.SaveChanges();
-
-
         }
 
-        //closers
-        public static void CloseCase(int id)
-        {
-            var case2close = _db.CasoClinicos.FirstOrDefault(x => x.IdDB == id);
-            case2close.Activo = false;
-            case2close.FechaAlta = DateTimeOffset.UtcNow;
-            UpdatePatientStatus(false, case2close.IdPaciente);
-            _db.Entry(case2close).CurrentValues.SetValues(case2close);
-            _db.SaveChanges();
-            //maybe implement destructor here? or write on db
-
-        }
-
-        public static void ReopenCase(int id)
-        {
-            var case2reopen = _db.CasoClinicos.FirstOrDefault(x => x.IdDB == id);
-            case2reopen.Activo = true;
-            case2reopen.FechaAlta = null;
-            UpdatePatientStatus(true, case2reopen.IdPaciente);
-            _db.SaveChanges();
-
-        }
 
         //deleters
+
+        public static void DeletePatient(Patient patient)
+        {
+            var cercano2delete = _db.Cercanos.FirstOrDefault(x => x.Id == patient.IdCercano);
+            var fiador2delete = _db.Fiadores.FirstOrDefault(x => x.Id == patient.IdFiador);
+            var patient2delete = _db.Patients.FirstOrDefault(x => x.Id == patient.Id);
+            _db.Cercanos.Remove(cercano2delete);
+            _db.Fiadores.Remove(fiador2delete);
+            _db.Patients.Remove(patient2delete);
+            _db.SaveChanges();
+        }
+
         public static void DeleteClinicalCase(CasoClinico casodel)
         {
             var case2delete = _db.CasoClinicos.FirstOrDefault(x => x == casodel);
             _db.CasoClinicos.Remove(case2delete);
             DeleteDiagnoose(casodel.IdDiagnostico);
-            UpdatePatientStatus(false, casodel.IdPaciente);
             _db.SaveChanges();
         }
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StareMedic.Models.Entities
+﻿namespace StareMedic.Models.Entities
 {
     public class Rooms
     {
@@ -13,14 +7,12 @@ namespace StareMedic.Models.Entities
         private string _name;
         private string _description;
 
-        //maybe need a quantity of patients that can be in the room?
-        private bool _status;
+        
 
         //builders
         public Rooms(int id)
         {
             _id = id;//from db autoincrement
-            _status = false;
         }
 
         public Rooms()
@@ -45,11 +37,9 @@ namespace StareMedic.Models.Entities
             set => _description = value;
         }
 
-
-        public bool Status
+        public static implicit operator bool(Rooms room)
         {
-            get => _status;
-            set => _status = value;
+            return string.IsNullOrEmpty(room._name);
         }
     }
 }

@@ -5,6 +5,22 @@
              Title="PatientControll">
     <ScrollView>
         <VerticalStackLayout Style="{StaticResource mainVerticalStackLayout}">
+            <Button x:Name="BtnEdit"
+                    Text="Editar"
+                    Clicked="BtnEdit_Clicked"
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    IsVisible="false"
+                    IsEnabled="False"
+                    Margin="0,10,10,0"/>
+            <Button x:Name="BtnDelete"
+                    Text="Eliminar"
+                    Clicked="BtnDelete_Clicked"
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    IsVisible="false"
+                    IsEnabled="False"
+                    Margin="0,10,10,0"/>
 
 
             <!--Display the id-->
@@ -66,10 +82,9 @@
                             </x:Array>
                         </Picker.ItemsSource>
                     </Picker>
-                    <Label Text="T/Sangre"
-                           VerticalOptions="Center"
-                           TextColor="#b0b0b0"/>
-                    <Picker x:Name="pickerSangre"
+
+                    <!--we are commenting this bcs we got required not to use it-->
+                    <!--<Picker x:Name="pickerSangre"
                             MaximumWidthRequest="120"
                             VerticalOptions="Center"
                             SelectedIndexChanged="PickerSangre_SelectedIndexChanged">
@@ -85,15 +100,17 @@
                                 <x:String>AB-</x:String>
                             </x:Array>
                         </Picker.ItemsSource>
-                    </Picker>
+                    </Picker>-->
+                    
                     <Label Text="Edad"
                            VerticalOptions="Center"
                            TextColor="#b0b0b0"/>
-                    <Picker x:Name="pickerEdad"
-                            VerticalOptions="Center"
-                            MaximumWidthRequest="120"
-                            SelectedIndexChanged="PickerEdad_SelectedIndexChanged">
-                    </Picker>
+                    <Entry
+                        Placeholder="Edad:"
+                        MinimumWidthRequest="100"
+                        x:Name="EntryEdad"
+                        TextChanged="EntryEdad_TextChanged">
+                    </Entry>
 
                 </HorizontalStackLayout>
             </Grid>
@@ -266,20 +283,20 @@
             <!--Separador-->
 
             <!--Show or hide Fiador-->
-            <HorizontalStackLayout>
+            <!--<HorizontalStackLayout>
                 <Label Text="El pariente cercano es el fiador:"
                    VerticalOptions="Center"/>
                 <CheckBox x:Name="chkCercanoIsFiador"
                       HorizontalOptions="Center"
                       IsChecked="True"
                       CheckedChanged="CheckBox_CheckedChanged"/>
-            </HorizontalStackLayout>
+            </HorizontalStackLayout>-->
 
             <!--Fiador-->
-            <Grid x:Name="gridFiador" ColumnDefinitions="*,*" RowDefinitions="*,*,*,*" HorizontalOptions="FillAndExpand" Padding="10" IsVisible="false">
+            <!--<Grid x:Name="gridFiador" ColumnDefinitions="*,*" RowDefinitions="*,*,*,*" HorizontalOptions="FillAndExpand" Padding="10" IsVisible="false">
 
                 <Label Text="Fiador" Grid.Column="0" Grid.Row="0"/>
-                <!--NombreFiador-->
+                --><!--NombreFiador--><!--
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="0" Grid.Row="1">
 
                     <Label Text="Nombre:"
@@ -294,7 +311,7 @@
                        HorizontalOptions="Start"/>
 
                 </StackLayout>
-                <!--TelefonoFiador-->
+                --><!--TelefonoFiador--><!--
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="1" Grid.Row="1">
 
                     <Label Text="Telefono:"
@@ -304,7 +321,7 @@
                        Style="{StaticResource entryPhone}"
                        TextChanged="EntryTelefonoFiador_TextChanged"/>
                 </StackLayout>
-                <!--DireccionFiador-->
+                --><!--DireccionFiador--><!--
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="0" Grid.Row="2">
 
                     <Label Text="Direccion (Calle, Numero, Numero int., C.P., Colonia...):"
@@ -319,7 +336,7 @@
                            HorizontalOptions="Start"/>
 
                 </StackLayout>
-                <!--CiudadFiador-->
+                --><!--CiudadFiador--><!--
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="1" Grid.Row="2">
 
                     <Label Text="Ciudad:"
@@ -334,7 +351,7 @@
                            HorizontalOptions="Start"/>
                 </StackLayout>
 
-                <!--StateFiador-->
+                --><!--StateFiador--><!--
                 <StackLayout Orientation="Vertical" Margin="0,10,0,10" Spacing="10" Grid.Column="0" Grid.Row="3">
 
                     <Label Text="Estado:"
@@ -350,20 +367,20 @@
 
                 </StackLayout>
 
-            </Grid>
+            </Grid>-->
 
             <!--confirm buttons-->
             <Grid ColumnDefinitions="*,*" HorizontalOptions="Start" Margin="10,0,0,0" ColumnSpacing="15">
 
                 <Button
-                    x:Name="btnCancel"
+                    x:Name="BtnCancel"
                     Clicked="BtnCancel_Clicked"
                     Text="Cancelar"
                     Grid.Column="0"
                     HorizontalOptions="Center"/>
 
                 <Button
-                    x:Name="btnGuardar"
+                    x:Name="BtnGuardar"
                     Clicked="BtnGuardar_Clicked"
                     Text="Guardar:)"
                     Grid.Column="1"
