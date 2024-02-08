@@ -1,8 +1,7 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using StareMedic.Models.Entities;
-using System;
-using System.IO;
+using Element = iTextSharp.text.Element;
 
 namespace StareMedic.Models
 {
@@ -29,7 +28,7 @@ namespace StareMedic.Models
         //header
         Paragraph HojaAdmision = new(@"HOJA DE ADMISION
 ", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12f));
-            HojaAdmision.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+            HojaAdmision.Alignment = Element.ALIGN_CENTER;
             doc.Add(HojaAdmision);
 
             //Hoja de admision
@@ -49,11 +48,13 @@ namespace StareMedic.Models
 
             //sumario clinico
             doc.NewPage();
-            Paragraph SumarioClinico = new(@"SUMARIO CLINICO
+            Paragraph SumarioClinico = new(@"HOJA DE SUMARIO CLINICO
 ", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12f));
-            SumarioClinico.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+            SumarioClinico.Alignment = Element.ALIGN_CENTER;
             doc.Add(SumarioClinico);
             doc.Add(GenerateContentTable(CasoReferenciado, patient, cercano, fiador));
+
+            doc.Add(SumarioTemplate(CasoReferenciado, MainRepo.GetMedicById(CasoReferenciado.IdDoctor)));
 
 
             //close file
@@ -174,13 +175,13 @@ A QUIEN SE LE DENOMINARA ""EL PACIENTE"", Y QUE CELEBRARAN MEDIANTE LAS SIGUIENT
             //TODO: add logo
             PdfPCell cell = new(new Phrase(contratoText, fnt));
             cell.Colspan = 4; cell.Border = Rectangle.NO_BORDER;
-            cell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+            cell.VerticalAlignment = Element.ALIGN_MIDDLE;
             logoClausules.AddCell(cell);
             iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance("C:\\Users\\kbece\\Source\\Repos\\PoinTastY\\StareMedic\\StareMedic\\Resources\\Images\\hosplogo.jpg");
             logo.ScaleToFit(60f, 60f);
             cell = new(); cell.Border = Rectangle.NO_BORDER;
             cell.AddElement(logo);
-            cell.HorizontalAlignment = iTextSharp.text.Element.ALIGN_RIGHT;
+            cell.HorizontalAlignment = Element.ALIGN_RIGHT;
             logoClausules.AddCell(cell);
             logoClausules.WidthPercentage = 100f;
 
@@ -195,7 +196,7 @@ A QUIEN SE LE DENOMINARA ""EL PACIENTE"", Y QUE CELEBRARAN MEDIANTE LAS SIGUIENT
 
             //Clausulas subtitle centered
             Paragraph Clausulas = new("CLAUSULAS", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11f));
-            Clausulas.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+            Clausulas.Alignment = Element.ALIGN_CENTER;
             
             //actual clausules
             body.Add(Clausulas);
@@ -247,12 +248,65 @@ IMPORTE DE LOS SERVICIOS DETALLADOS EN ESTE TITULO DE CREDITO, QUE GENERA INTERE
             signatures.Add(new Chunk(pagareText, FontFactory.GetFont(FontFactory.HELVETICA, 7f)));
             signatures.Add(new Chunk(@"
 
+
+
                                                                 ______________________________
                                                                                       ""FIRMA""
 ", FontFactory.GetFont(FontFactory.HELVETICA, 10f)));
             signatures.SetLeading(0, 1f);
 
             return signatures;
+        }
+
+        private static Paragraph SumarioTemplate(CasoClinico caso, Medic medico)
+        {
+            Paragraph template = new();
+
+            //replace Servicio del DR field with the actual doctor name with bold font maybe
+
+            //recreate remaining fields
+            Paragraph previos = new ("INGRESOS ANTERIORES AL HOSPITAL", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11f));
+            previos.Alignment = Element.ALIGN_CENTER;
+            template.Add(previos);
+            previos = new(" FECHA                      DIAGNOSTICO                                           RESULTADO               FECHA DE INTERNACION", FontFactory.GetFont(FontFactory.HELVETICA, 10f));
+            template.Add(previos);
+            template.Add(new Chunk(@"
+
+1. ____________________________________________________________________________
+
+2. ____________________________________________________________________________
+
+3. ____________________________________________________________________________
+
+4. ____________________________________________________________________________
+"));
+            Paragraph actual = new("INGRESO ACTUAL", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11f));
+            actual.Alignment = Element.ALIGN_CENTER;
+            template.Add(actual);
+
+            template.Add(new Chunk(@$"
+Servicio del DR: {medico.Nombre}.
+Diagnostico de Admision: ________________________________________________________
+
+Diagnostico Final: ______________________________________________________________
+
+Complicaciones: _______________________________________________________________
+
+Resultado (condicion de incapacidad):______________________________________________
+
+Fecha de ingreso del Paciente:{caso.FechaIngreso:dd/MM/yyyy}
+
+Fecha de alta:________________________  Por orden de:______________________________
+Duracion de la                                                 Fecha en que podra 
+internacion:__________________________  regresar al trabajo: _________________________
+Ameritara ser internado, 
+pero fue dado de alta a causa de:__________________________________________________
+
+Documentos
+Completos:     ______________________                                 _______________________       
+                                ""Jefe de Archivo""                                                 ""Firma del Medico"""));
+
+            return template;
         }
     }
 }
