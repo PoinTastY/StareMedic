@@ -58,7 +58,39 @@
             </HorizontalStackLayout>
 
         </Grid>
+        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+            <HorizontalStackLayout Grid.Column="0" Grid.Row="0">
+                <Label Text="*Fecha de Ingreso:"
+                       Style="{StaticResource labelEntry}"/>
+                <DatePicker x:Name="DateIngreso"
+                            DateSelected="DateIngreso_DateSelected"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Grid.Column="1" Grid.Row="0">
+                <Label Text="Tipo de Caso: "/>
+
+                <RadioButton Content="Medico"
+                             Value="Medico"
+                             IsChecked="True"
+                             x:Name="RadioMedico"
+                             CheckedChanged="RadioMedico_CheckedChanged"/>
+                <RadioButton Content="Quirurgico"
+                             Value="Quirurgico"
+                             x:Name="RadioQuirurgico"
+                             CheckedChanged="RadioQuirurgico_CheckedChanged"/>
+                <RadioButton Content="Obstetrico"
+                             Value="Obstetrico"
+                             x:Name="RadioObstetrico"
+                             CheckedChanged="RadioObstetrico_CheckedChanged"/>
+
+            </HorizontalStackLayout>
+        </Grid>
+        <HorizontalStackLayout>
+            <Label Text="Diagnostico: "/>
+            <Editor x:Name="EditorDiagnostico"
+                    HeightRequest="100"/>
+        </HorizontalStackLayout>
         <Grid ColumnDefinitions="*,*" HorizontalOptions="Start" Margin="10,0,0,0" ColumnSpacing="15">
+
 
             <Button
                 x:Name="BtnCancel"

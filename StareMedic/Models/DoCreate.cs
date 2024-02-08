@@ -16,14 +16,15 @@ namespace StareMedic.Models
                 Directory.CreateDirectory(_path);
             }
 
-            //this thing can be done later with an html or sometghing more simple lol
-            Document doc = new();
-            PdfWriter.GetInstance(doc, new FileStream(_path + $"\\{CasoReferenciado.Id}.pdf", FileMode.Create));
-            doc.Open();
-
             Patient patient = MainRepo.GetPatientById(CasoReferenciado.IdPaciente);
             Cercano cercano = MainRepo.GetCercanoById(patient.IdCercano);
             Fiador fiador = MainRepo.GetFiadorById(patient.IdFiador);
+
+
+            //this thing can be done later with an html or sometghing more simple lol
+            Document doc = new();
+            PdfWriter.GetInstance(doc, new FileStream(_path + $"\\Admision {CasoReferenciado.Id}.pdf", FileMode.Create));
+            doc.Open();
 
         //header
         Paragraph HojaAdmision = new(@"HOJA DE ADMISION
@@ -31,7 +32,7 @@ namespace StareMedic.Models
             HojaAdmision.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
             doc.Add(HojaAdmision);
 
-            //Clinical case elements
+            //Hoja de admision
             doc.Add(GenerateContentTable(CasoReferenciado, patient, cercano, fiador));
 
             //Diagnosis
@@ -45,6 +46,14 @@ namespace StareMedic.Models
 
             //signs
             doc.Add(Sign());
+
+            //sumario clinico
+            doc.NewPage();
+            Paragraph SumarioClinico = new(@"SUMARIO CLINICO
+", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12f));
+            SumarioClinico.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+            doc.Add(SumarioClinico);
+            doc.Add(GenerateContentTable(CasoReferenciado, patient, cercano, fiador));
 
 
             //close file
@@ -76,8 +85,8 @@ namespace StareMedic.Models
             displayinfo.DefaultCell.Border = Rectangle.NO_BORDER;
 
             displayinfo.AddCell(new Phrase("Caso Clinico: ", fuente)); displayinfo.AddCell(new PdfPCell(new Phrase(CasoReferenciado.Id, fuente)) { Colspan = 2, Border = Rectangle.NO_BORDER }) ;
-            displayinfo.AddCell(new Phrase($"Fecha de ingreso: {CasoReferenciado.FechaIngreso:dd/MM/yyyy hh:mm}", fuente));
-            displayinfo.AddCell(new Phrase("", fuente));//br
+            displayinfo.AddCell(new Phrase($"Fecha de ingreso: {CasoReferenciado.FechaIngreso:dd/MM/yyyy}", fuente));
+            displayinfo.AddCell(new Phrase($"Tipo de caso: {CasoReferenciado.TipoCaso}", fuente));//br
 
             ///////////////////////////////////////////////////////////new row
             displayinfo.AddCell(new Phrase("Nombre del paciente: ", fuente)); PdfPCell Col2 = new(new Phrase(patient.Nombre, fuente)); Col2.Colspan = 2;
@@ -220,8 +229,8 @@ SEXTA: ", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 6f)));
         private static Paragraph Sign()
         {
             Paragraph signatures = new();
-            signatures.Add(new Chunk(@"
-SAN JUAN DE LOS LAGOS, JAL., A: _____________________________________________________________________________________
+            signatures.Add(new Chunk(@$"
+SAN JUAN DE LOS LAGOS, JAL., A: {DateTime.Now:D}
 
 
                                      ______________________________                                         ______________________________       
