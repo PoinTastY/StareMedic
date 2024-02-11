@@ -18,6 +18,8 @@
 
         private DateTimeOffset _fechaIngreso;
 
+        private string _tipocaso;
+
 
         public CasoClinico(int id)
         {
@@ -72,6 +74,12 @@
         {
             get => _idDiagnostico;
             set => _idDiagnostico = value;
+        }
+
+        public string TipoCaso
+        {
+            get => _tipocaso;
+            set => _tipocaso = value;
         }
 
         public DateTimeOffset FechaIngreso
