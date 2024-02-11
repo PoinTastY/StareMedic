@@ -192,6 +192,10 @@ namespace StareMedic.Data
                 .Property(c => c.Id)
                 .HasColumnName("_id");
 
+            modelBuilder.Entity<CasoClinico>()
+                .Property(c => c.TipoCaso)
+                .HasColumnName("_tipocaso");
+
             //relation to patient
             modelBuilder.Entity<CasoClinico>()
                 .HasMany<Patient>()
