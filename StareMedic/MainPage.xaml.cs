@@ -17,10 +17,6 @@ public partial class MainPage : ContentPage
        
     }
 
-    private void OnHamburguerClicked(object sender, EventArgs e)
-    {
-        sidePanel.IsVisible = !sidePanel.IsVisible;
-    }
 
 	//remember to register pages on appshell first, or you are not going nowhere
     private void BtnPacientes_Clicked(object sender, EventArgs e)

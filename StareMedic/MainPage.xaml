@@ -9,93 +9,179 @@
         <Color x:Key="Alter1">#C3ACD0</Color>
         <Color x:Key="Alter2">#7743DB</Color>
         
-        
     </ContentPage.Resources>
 
-    <!--<Shell.TitleView>
-        <Image Source="hamburguer.png"
-               BackgroundColor="{StaticResource Secundario}"    
-               VerticalOptions="End"
-               HorizontalOptions="End"/>
-    </Shell.TitleView>--> 
-        
-      
 
-        <FlexLayout  Margin="10,20,20,20" AlignItems="Center" JustifyContent="Start" Wrap="Wrap" BackgroundColor="{StaticResource Alter1}">
 
-        <Grid x:Name="Flex" BackgroundColor="{StaticResource Alter1}">
+
+
+    <StackLayout>
+        <!--First grid who has the first row of the ui-->
+        <Grid BackgroundColor="{StaticResource Alter1}" 
+              HorizontalOptions="FillAndExpand" 
+              VerticalOptions="Start">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="200"/>
-                
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            
-            
 
-                <!--<ImageButton Source="C:\\Users\\erick\\OneDrive\\Documentos\\StareIcons\\hamburguer.png" Clicked="OnHamburgerClicked" Margin="10"/>-->
+            <!--Grids to assing the boton options-->     
+            <Grid Grid.Column="0" 
+                  BackgroundColor="{StaticResource Alter2}" 
+                  ColumnDefinitions="Auto, *"
+                  Padding="18">
+
+                <Image Grid.Column="0"
+                       Source="logo_hospital.png"
+                       Aspect="AspectFit"
+                       HeightRequest="50"
+                       VerticalOptions="Start"
+                       HorizontalOptions="Start"/>
+                <Label Grid.Column="1"
+                       Text="Stare Medic"
+                       FontSize="Large"
+                       FontAttributes="Bold"
+                       FontFamily="OpenSansRegular"
+                       TextColor="{StaticResource Secundario}"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center">
+                </Label>
+            </Grid>
+
+            <Grid Grid.Column="1"
+                  BackgroundColor="{StaticResource Alter1}" 
+                  ColumnDefinitions="Auto, *"
+                  Padding="18"
+                  ColumnSpacing="-60">
+
+                <Image Grid.Column="0"
+                       Source="patients.png"
+                       Aspect="AspectFit"
+                       HeightRequest="40"
+                       VerticalOptions="Start"
+                       HorizontalOptions="Start"/>
+                <Label Grid.Column="1"
+                       Text="Pacientes"
+                       FontSize="Subtitle"                      
+                       FontFamily="OpenSansRegular"
+                       TextColor="Black"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center">
+                </Label>
+                
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="BtnPacientes_Clicked"/>
+                </Grid.GestureRecognizers>
+
+            </Grid>
+
+            <Grid Grid.Column="2" 
+                  BackgroundColor="{StaticResource Alter1}" 
+                  ColumnDefinitions="Auto, *"
+                  Padding="18"
+                  ColumnSpacing="-60">
+
+                <Image Grid.Column="0"
+                       Source="medic.png"
+                       Aspect="AspectFit"
+                       HeightRequest="40"
+                       VerticalOptions="Start"
+                       HorizontalOptions="Start"/>
+                <Label Grid.Column="1"
+                       Text="Medicos"
+                       FontSize="Subtitle"
+                       FontFamily="OpenSansRegular"
+                       TextColor="Black"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center">
+                </Label>
+                
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="BtnMedics_Clicked"/>
+                </Grid.GestureRecognizers>
+                
+            </Grid>
+
+            <Grid Grid.Column="3" 
+                  BackgroundColor="{StaticResource Alter1}" 
+                  ColumnDefinitions="Auto, *"
+                  Padding="18"
+                  ColumnSpacing="-60">
+
+                <Image Grid.Column="0"
+                       Source="rooms.png"
+                       Aspect="AspectFit"
+                       HeightRequest="40"
+                       VerticalOptions="Start"
+                       HorizontalOptions="Start"/>
+                <Label Grid.Column="1"
+                       Text="Habitaciones"
+                       FontSize="Subtitle"
+                       FontFamily="OpenSansRegular"
+                       TextColor="Black"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center">
+                </Label>
+
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="BtnRooms_Clicked"/>
+                </Grid.GestureRecognizers>
+                
+            </Grid>
+
+            <Grid Grid.Column="4"
+                  BackgroundColor="{StaticResource Alter1}" 
+                  ColumnDefinitions="Auto, *"
+                  Padding="18"
+                  ColumnSpacing="30">
+
+                <Image Grid.Column="0"
+                       Source="clinical_case.png"
+                       Aspect="AspectFit"
+                       HeightRequest="40"
+                       VerticalOptions="Start"
+                       HorizontalOptions="Start"/>
+                <Label Grid.Column="1"
+                       Text="Admisiones Clinicas"
+                       FontSize="Subtitle"
+                       FontFamily="OpenSansRegular"
+                       TextColor="Black"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center">
+                </Label>
+
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="BtnRegCasoCli_Clicked"/>
+                </Grid.GestureRecognizers>
+                
+            </Grid>
 
         </Grid>
-        
-        <!--Menu icon-->
 
-        
-  
-        <Border x:Name="sidePanel" BackgroundColor="Black" WidthRequest="150" HeightRequest="300" IsVisible="False">
-            
-            <Label Text="Contenido de la pestaña" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
-        </Border>
+        <!--Second grid to separate the UI options-->
+        <Grid BackgroundColor="{StaticResource Principal}" 
+              HorizontalOptions="FillAndExpand" 
+              VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-     
-        <Label Text="Contenido principal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
-            
+            <Image Grid.Row="0"
+                   Source="logo_hospital.png"
+                   Aspect="AspectFit"
+                   HeightRequest="250"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand">
+            </Image>
+        </Grid>
+    </StackLayout>
 
-        <Button
-            x:Name="BtnPacientes"
-            Clicked="BtnPacientes_Clicked"
-            Text="Pacientes"
-            MinimumHeightRequest="250"
-            MinimumWidthRequest="250"/>
-        <!--<Button
-            x:Name="BtnRegister"
-            Clicked="BtnRegister_Clicked"
-            Text="Registrar Paciente"
-            MinimumHeightRequest="250"
-            MinimumWidthRequest="250"/>-->
-        <Button
-            x:Name="BtnRooms"
-            Clicked="BtnRooms_Clicked"
-            Text="Habitaciones"
-            MinimumHeightRequest="250"
-            MinimumWidthRequest="250"/>
-        <Button
-            x:Name="BtnMedics"
-            Clicked="BtnMedics_Clicked"
-            Text="Doctores"
-            MinimumHeightRequest="250"
-            MinimumWidthRequest="250"/>
-        <Button 
-            x:Name="BtnRegCasoCli"
-            Clicked="BtnRegCasoCli_Clicked"
-            Text="Registro Caso Clinico"
-            MinimumHeightRequest="250"
-            MinimumWidthRequest="250"/>
-
-        <Button 
-            x:Name="BtnSearchCC"
-            Clicked="BtnSearchCC_Clicked"
-            Text="buscar caso clinico"
-            MinimumHeightRequest="250"
-            MinimumWidthRequest="250"/>
-
-        <!--<Button 
-            x:Name="BtnEditPatient"
-            Clicked="BtnEditPatient_Clicked"
-            Text="Editar Paciente"
-            MinimumHeightRequest="250"
-            MinimumWidthRequest="250"/>--> 
-
-
-
-    </FlexLayout>
 
 </ContentPage>

@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:StareMedic"
+    
     Shell.FlyoutBehavior="Flyout">
 
     <Shell.FlyoutHeader>
@@ -57,6 +58,10 @@
                            TextColor="#FFFBF5"
                            FontFamily="Sans Serif"
                            Scale="1.5"/>
+
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnPacientes_Clicked"/>
+                    </Grid.GestureRecognizers>
                 </Grid>
 
                 <Grid ColumnDefinitions="Auto, *, Auto"
@@ -83,6 +88,9 @@
                            FontFamily="Sans Serif"
                            Scale="1.5"/>
 
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnMedics_Clicked"/>
+                    </Grid.GestureRecognizers>
                 </Grid>
 
                 <Grid ColumnDefinitions="Auto, *, Auto"
@@ -109,12 +117,16 @@
                            FontFamily="Sans Serif"
                            Scale="1.5"/>
 
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnRooms_Clicked"/>
+                    </Grid.GestureRecognizers>
+
                 </Grid>
                 
                 <!--A Column to separate the elements-->
 
                 <Grid ColumnDefinitions="Auto"
-                      Padding="135"/>
+                      Padding="80"/>
 
                 <!--Grids to eliminate elements of the hospital-->
 
@@ -142,6 +154,10 @@
                            FontFamily="Sans Serif"
                            Scale="1.5"/>
 
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnPacientes_Clicked"/>
+                    </Grid.GestureRecognizers>
+
                 </Grid>
 
                 <Grid ColumnDefinitions="Auto, *, Auto"
@@ -167,6 +183,10 @@
                            TextColor="#FFFBF5"
                            FontFamily="Sans Serif"
                            Scale="1.5"/>
+
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnMedics_Clicked"/>
+                    </Grid.GestureRecognizers>
 
                 </Grid>
 
@@ -194,27 +214,30 @@
                            FontFamily="Sans Serif"
                            Scale="1.5"/>
 
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnRooms_Clicked"/>
+                    </Grid.GestureRecognizers>
+
                 </Grid>
+
+                <!--A Column to fill out the elements-->
+                
+                <Grid ColumnDefinitions="Auto"
+                      Padding="230"/>
+                
+                
 
             </VerticalStackLayout>
         </ScrollView>
     </Shell.FlyoutContent>
 
-    
+    <ShellContent
+         Title="Menú"
+         ContentTemplate="{DataTemplate local:MainPage}" 
+         Icon="logo_hospital.png"
+         Route="MainPage"/>
 
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="ParentRoute">
 
-        <ShellContent
-            Title="Menú"
-            ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage" />
-
-        <ShellContent
-            Title="Paciente"
-            ContentTemplate="{DataTemplate local:MainPage}"
-            Route="BtnPacientes_Clicked" />
-
-    </FlyoutItem>
 
 
 

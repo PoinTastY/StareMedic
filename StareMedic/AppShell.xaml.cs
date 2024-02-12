@@ -21,4 +21,29 @@ public partial class AppShell : Shell
 
 	
 	}
+
+	private void BtnPacientes_Clicked(object sender, EventArgs e)
+	{
+        Shell.Current.GoToAsync(nameof(Pacientes));
+    }
+
+    private async void BtnRooms_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(Habitaciones));
+    }
+
+    private async void BtnRegCasoCli_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(RegisterClinicalCase));
+    }
+
+    private async void BtnSearchCC_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(SearchCC));
+    }
+
+    private async void BtnMedics_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(Doctores));
+    }
 }
