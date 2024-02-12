@@ -8,7 +8,6 @@ public partial class PatientControll : ContentPage
     Patient paciente;
     Cercano cercano;
     Fiador fiador;
-    readonly List<int> agelist = new();
 
     public PatientControll(Patient pacientEdit)
 	{
