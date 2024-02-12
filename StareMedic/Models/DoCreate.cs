@@ -177,7 +177,7 @@ A QUIEN SE LE DENOMINARA ""EL PACIENTE"", Y QUE CELEBRARAN MEDIANTE LAS SIGUIENT
             cell.Colspan = 4; cell.Border = Rectangle.NO_BORDER;
             cell.VerticalAlignment = Element.ALIGN_MIDDLE;
             logoClausules.AddCell(cell);
-            iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance("C:\\Users\\kbece\\Source\\Repos\\PoinTastY\\StareMedic\\StareMedic\\Resources\\Images\\hosplogo.jpg");
+            iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance("C:\\Users\\quebin\\Source\\Repos\\PoinTastY\\StareMedic\\StareMedic\\Resources\\Images\\hosplogo.jpg");
             logo.ScaleToFit(60f, 60f);
             cell = new(); cell.Border = Rectangle.NO_BORDER;
             cell.AddElement(logo);
@@ -208,7 +208,7 @@ SEGUNDA: ", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 6f)));
             body.Add(new Chunk(@"""EL PACIENTE"" SE OBLIGA A PAGAR A ""EL HOSPITAL"" EL IMPORTE TOTAL DE LOS SERVICIOS ANTES MENCIONADOS, INCLUYENDO LOS DERIVADOS DE RAYOS X, LABORATORIO, MEDICINAS, MATERIAL DE CURACION, TERAPA INTENSIVA, Y DEMAS QUE SEAN SOLICITADOS OPR EL MEDICO DE ""EL PACIENTE"", CUYOS GASTOS SE CARGARAN EN FORMA ADICIONAL, EN LA CUENTA RESPECTIVA.", fnt));
             body.Add(new Chunk(@"
 TERCERA: ", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 6f)));
-            body.Add(new Chunk(@"""EL PACIENTE"" SE ENTREGA EN ESTE ACTO A ""EL HOSPITAL"" EN CALIDAD DE ANTICIPO LA CANTIDAD DE: $ (insert psos)
+            body.Add(new Chunk(@"""EL PACIENTE"" SE ENTREGA EN ESTE ACTO A ""EL HOSPITAL"" EN CALIDAD DE ANTICIPO LA CANTIDAD DE: $
 EN MONEDA NACIONAL, Y SE OBLIGA A HACER PAGOS SEMANALES POR LOS GASTOS INCURRIDOS Y LIQUIDAR EL REMANENTE TOTAL DE LA CUENTA AL SER DADO DE ALTA POR SU MEDICO O AL RETIRARSE DE ""EL HOSPITAL"" POR CUALQUIER MOTIVO.", fnt));
             body.Add(new Chunk(@"
 CUARTA: ", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 6f)));
@@ -242,8 +242,8 @@ SAN JUAN DE LOS LAGOS, JAL., A: {DateTime.Now:D}
             signatures.Add(new Chunk("PAGARE", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10f)));
             string pagareText = @"
 POR EL PRESENTE PAGARE DEBO, Y PAGARE INCONDICIONALMENTE AL HOSPITAL DR MANUEL MONTERO, EN EL LUGAR QUE SE ME REQUIERA,
-LA CANTIDAD DE: (money)
-IMPORTE DE LOS SERVICIOS DETALLADOS EN ESTE TITULO DE CREDITO, QUE GENERA INTERESES A RAZON DEL (interest)% MENSUALES";
+LA CANTIDAD DE:
+IMPORTE DE LOS SERVICIOS DETALLADOS EN ESTE TITULO DE CREDITO, QUE GENERA INTERESES A RAZON DEL            % MENSUALES";
 
             signatures.Add(new Chunk(pagareText, FontFactory.GetFont(FontFactory.HELVETICA, 7f)));
             signatures.Add(new Chunk(@"
@@ -297,7 +297,7 @@ Resultado (condicion de incapacidad):___________________________________________
 Fecha de ingreso del Paciente:{caso.FechaIngreso:dd/MM/yyyy}
 
 Fecha de alta:________________________  Por orden de:______________________________
-Duracion de la                                                 Fecha en que podra 
+Duracion de la                                                  Fecha en que podra 
 internacion:__________________________  regresar al trabajo: _________________________
 Ameritara ser internado, 
 pero fue dado de alta a causa de:__________________________________________________
