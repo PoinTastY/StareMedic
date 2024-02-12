@@ -177,7 +177,9 @@ A QUIEN SE LE DENOMINARA ""EL PACIENTE"", Y QUE CELEBRARAN MEDIANTE LAS SIGUIENT
             cell.Colspan = 4; cell.Border = Rectangle.NO_BORDER;
             cell.VerticalAlignment = Element.ALIGN_MIDDLE;
             logoClausules.AddCell(cell);
+
             iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance("C:\\Users\\quebin\\Source\\Repos\\PoinTastY\\StareMedic\\StareMedic\\Resources\\Images\\hosplogo.jpg");
+
             logo.ScaleToFit(60f, 60f);
             cell = new(); cell.Border = Rectangle.NO_BORDER;
             cell.AddElement(logo);

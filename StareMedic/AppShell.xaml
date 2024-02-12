@@ -4,11 +4,241 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:StareMedic"
-    Shell.FlyoutBehavior="Disabled">
+    
+    Shell.FlyoutBehavior="Flyout">
+
+    <Shell.FlyoutHeader>
+        <Border BackgroundColor="#FFFBF5"
+                StrokeThickness="0">
+            <Grid ColumnDefinitions="Auto, *"
+                          Padding="25"
+                          ColumnSpacing="20">
+                <Image Grid.Column="0"
+                       Source="logo_hospital.png"
+                       Aspect="AspectFill"
+                       HeightRequest="50"
+                       WidthRequest="50"/>
+
+                <Label Grid.Column="1"
+                       Text="StareMedic"
+                       VerticalTextAlignment="Center"
+                       TextColor="#7743DB"
+                       FontFamily="Sans Serif"
+                       FontSize="28"
+                       FontAttributes="Bold"/>
+
+            </Grid>
+        </Border>
+    </Shell.FlyoutHeader>
+        
+        
+    <Shell.FlyoutContent>
+        <ScrollView Margin="0" Padding="0" VerticalOptions="Start">
+            <VerticalStackLayout VerticalOptions="End" BackgroundColor="#7743DB">
+                
+                <Grid ColumnDefinitions="Auto, *, Auto"
+                      Padding="20"  
+                      ColumnSpacing="20">
+                    
+                    <Image Grid.Column="0"
+                           Source="edit_patients.png"
+                           Aspect="AspectFill"
+                           HeightRequest="25"
+                           WidthRequest="25"/>
+
+                    <Label Grid.Column="1"
+                           Text="Editar Pacientes"
+                           TextColor="#FFFBF5"
+                           FontFamily="Sans Serif"
+                           FontSize="16"/>
+
+                    <Label Grid.Column="2"
+                           Text=">"
+                           FontAttributes="Bold"
+                           TextColor="#FFFBF5"
+                           FontFamily="Sans Serif"
+                           Scale="1.5"/>
+
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnPacientes_Clicked"/>
+                    </Grid.GestureRecognizers>
+                </Grid>
+
+                <Grid ColumnDefinitions="Auto, *, Auto"
+                      Padding="20"  
+                      ColumnSpacing="20">
+                    
+                    <Image Grid.Column="0"
+                           Source="edit_medics.png"
+                           Aspect="AspectFill"
+                           HeightRequest="25"
+                           WidthRequest="25"/>
+
+                    <Label Grid.Column="1"
+                           Text="Editar Doctores"
+                           FontFamily="Sans Serif"
+                           TextColor="#FFFBF5"
+                           FontSize="16"/>
+
+
+                    <Label Grid.Column="2"
+                           Text=">"
+                           FontAttributes="Bold"
+                           TextColor="#FFFBF5"
+                           FontFamily="Sans Serif"
+                           Scale="1.5"/>
+
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnMedics_Clicked"/>
+                    </Grid.GestureRecognizers>
+                </Grid>
+
+                <Grid ColumnDefinitions="Auto, *, Auto"
+                      Padding="20"  
+                      ColumnSpacing="20">
+
+                    <Image Grid.Column="0"
+                           Source="edit_rooms.png"
+                           Aspect="AspectFill"
+                           HeightRequest="25"
+                           WidthRequest="25"/>
+
+                    <Label Grid.Column="1"
+                           Text="Editar Habitaciones"
+                           TextColor="#FFFBF5"
+                           FontFamily="Sans Serif"
+                           FontSize="16"/>
+
+
+                    <Label Grid.Column="2"
+                           Text=">"
+                           FontAttributes="Bold"
+                           TextColor="#FFFBF5"
+                           FontFamily="Sans Serif"
+                           Scale="1.5"/>
+
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnRooms_Clicked"/>
+                    </Grid.GestureRecognizers>
+
+                </Grid>
+                
+                <!--A Column to separate the elements-->
+
+                <Grid ColumnDefinitions="Auto"
+                      Padding="80"/>
+
+                <!--Grids to eliminate elements of the hospital-->
+
+                <Grid ColumnDefinitions="Auto, *, Auto"
+                      Padding="20"  
+                      ColumnSpacing="20">
+
+                    <Image Grid.Column="0"
+                           Source="delete_patients.png"
+                           Aspect="AspectFill"
+                           HeightRequest="25"
+                           WidthRequest="25"/>
+
+                    <Label Grid.Column="1"
+                           Text="Eliminar Pacientes"
+                           TextColor="#FFFBF5"
+                           FontFamily="Sans Serif"
+                           FontSize="16"/>
+
+
+                    <Label Grid.Column="2"
+                           Text=">"
+                           FontAttributes="Bold"
+                           TextColor="#FFFBF5"
+                           FontFamily="Sans Serif"
+                           Scale="1.5"/>
+
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnPacientes_Clicked"/>
+                    </Grid.GestureRecognizers>
+
+                </Grid>
+
+                <Grid ColumnDefinitions="Auto, *, Auto"
+                      Padding="20"  
+                      ColumnSpacing="20">
+
+                    <Image Grid.Column="0"
+                           Source="delete_medics.png"
+                           Aspect="AspectFill"
+                           HeightRequest="25"
+                           WidthRequest="25"/>
+
+                    <Label Grid.Column="1"
+                           Text="Eliminar Doctores"
+                           TextColor="#FFFBF5"
+                           FontFamily="Sans Serif"
+                           FontSize="16"/>
+
+
+                    <Label Grid.Column="2"
+                           Text=">"
+                           FontAttributes="Bold"
+                           TextColor="#FFFBF5"
+                           FontFamily="Sans Serif"
+                           Scale="1.5"/>
+
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnMedics_Clicked"/>
+                    </Grid.GestureRecognizers>
+
+                </Grid>
+
+                <Grid ColumnDefinitions="Auto, *, Auto"
+                      Padding="20"  
+                      ColumnSpacing="20">
+
+                    <Image Grid.Column="0"
+                           Source="delete_rooms.png"
+                           Aspect="AspectFill"
+                           HeightRequest="25"
+                           WidthRequest="25"/>
+
+                    <Label Grid.Column="1"
+                           Text="Eliminar Habitaciones"
+                           TextColor="#FFFBF5"
+                           FontFamily="Sans Serif"
+                           FontSize="16"/>
+
+
+                    <Label Grid.Column="2"
+                           Text=">"
+                           FontAttributes="Bold"
+                           TextColor="#FFFBF5"
+                           FontFamily="Sans Serif"
+                           Scale="1.5"/>
+
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnRooms_Clicked"/>
+                    </Grid.GestureRecognizers>
+
+                </Grid>
+
+                <!--A Column to fill out the elements-->
+                
+                <Grid ColumnDefinitions="Auto"
+                      Padding="230"/>
+                
+                
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Shell.FlyoutContent>
 
     <ShellContent
-        Title="Stare-Medic"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+         Title="Menú"
+         ContentTemplate="{DataTemplate local:MainPage}" 
+         Icon="logo_hospital.png"
+         Route="MainPage"/>
+
+
+
+
 
 </Shell>

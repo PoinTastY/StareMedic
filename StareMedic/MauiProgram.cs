@@ -14,6 +14,10 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+				fonts.AddFont("ComicSansMS.ttf", "ComicSansMS");
+				fonts.AddFont("OpenSans-Regular.ttf", "Sans Serif");
+				fonts.AddFont("Hospital-Regular.ttf", "HospitalRegular");
+				
 			});
 		builder.UseMauiApp<App>()
             // Initialize the .NET MAUI Community Toolkit by adding the below line of code
@@ -23,6 +27,10 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("ComicSansMS.ttf", "ComicSansMS");
+                fonts.AddFont("OpenSans-Regular.ttf", "Sans Serif");
+                fonts.AddFont("Hospital-Regular.ttf", "HospitalRegular");
+
             });
 
 #if DEBUG
