@@ -16,9 +16,14 @@
                   Style="{StaticResource listviewShowEntity}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Nombre}"
-                              Detail="{Binding Id}"
-                              TextColor="GreenYellow"/>
+                    <ViewCell>
+                        <VerticalStackLayout>
+                            <Label Text ="{Binding Nombre}"/>
+                            <Label Text="{Binding Id}"
+                                   TextColor="Red"/>
+                            <Label Text="{Binding PatientName}"/>
+                        </VerticalStackLayout>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

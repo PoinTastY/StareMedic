@@ -7,7 +7,7 @@ using StareMedic.Models.Entities;
 
 public partial class SearchCC : ContentPage
 {
-    private readonly ObservableCollection<CasoClinico> casos = new();
+    private readonly ObservableCollection<CCwPatient> casos = new();
 
     public SearchCC()
     {
@@ -20,7 +20,8 @@ public partial class SearchCC : ContentPage
         casos.Clear();
         foreach (CasoClinico caso in MainRepo.GetCasos())
         {
-            casos.Add(caso);
+            CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre);
+            casos.Add(vista);
         }
         ListViewCC.ItemsSource = casos;
 
@@ -33,7 +34,8 @@ public partial class SearchCC : ContentPage
         {
             //It will send to de detailed patient view, or the edit pg, rn is edit?
             //Shell.Current.GoToAsync($"{nameof(ViewClinicalCase)}?Id={((CasoClinico)ListViewCC.SelectedItem).Id}");
-            await Navigation.PushAsync(new ViewClinicalCase((CasoClinico)ListViewCC.SelectedItem));
+            CCwPatient element = ListViewCC.SelectedItem as CCwPatient;
+            await Navigation.PushAsync(new ViewClinicalCase(MainRepo.GetCasoById(element.Iddb)));
             //maybe directly to edit page, but ill add a button to enable edit
         }
     }
