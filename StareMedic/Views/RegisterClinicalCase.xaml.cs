@@ -14,12 +14,13 @@ public partial class RegisterClinicalCase : ContentPage
     {
         InitializeComponent();
         EditorDiagnostico.Placeholder = diag.Contenido;
+        PickerDoctor.ItemsSource = new ObservableCollection<Medic>(MainRepo.GetMedics());
+        PickerHabitacion.ItemsSource = new ObservableCollection<Rooms>(MainRepo.GetRooms());
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        PickerDoctor.ItemsSource = new ObservableCollection<Medic>(MainRepo.GetMedics());
         if(MainRepo.PatientIdSolver != null)
         {
             LblPaciente.Text = MainRepo.PatientIdSolver.Nombre;
@@ -27,7 +28,6 @@ public partial class RegisterClinicalCase : ContentPage
             ShowDoctor.IsVisible = true;
             ShowRoom.IsVisible = true;
         }
-        PickerHabitacion.ItemsSource = new ObservableCollection<Rooms>(MainRepo.GetRooms());
     }
 
     protected override void OnDisappearing()
@@ -43,7 +43,8 @@ public partial class RegisterClinicalCase : ContentPage
 
     private void PickerDoctor_SelectedIndexChanged(object sender, EventArgs e)
     {
-        caso.IdDoctor = ((Medic)PickerDoctor.SelectedItem).Id;
+        if(PickerDoctor.SelectedItem != null)
+            caso.IdDoctor = ((Medic)PickerDoctor.SelectedItem).Id;
     }
 
     private async void BtnAddPatient_Clicked(object sender, EventArgs e)
@@ -53,7 +54,8 @@ public partial class RegisterClinicalCase : ContentPage
 
     private void PickerHabitacion_SelectedIndexChanged(object sender, EventArgs e)
     {
-        caso.IdHabitacion = ((Rooms)PickerHabitacion.SelectedItem).Id;
+        if (PickerDoctor.SelectedItem != null)
+            caso.IdHabitacion = ((Rooms)PickerHabitacion.SelectedItem).Id;
     }
 
     private async void BtnPickPatient_Clicked(object sender, EventArgs e)
