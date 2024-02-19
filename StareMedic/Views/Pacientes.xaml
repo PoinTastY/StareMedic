@@ -3,30 +3,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StareMedic.Views.Pacientes"
              Title="Pacientes">
-    <Grid ColumnDefinitions="2*,*" >
+    <Grid ColumnDefinitions="3*,*" BackgroundColor="#F7EFE5">
 
         <ListView
             Grid.Column="0"
             x:Name="listPatients"
+            BackgroundColor="#C3ACD0"
             Style="{StaticResource listviewShowEntity}"
             ItemSelected="ListPatients_ItemSelected"
             ItemTapped="ListPatients_ItemTapped"
             HorizontalOptions="FillAndExpand"
             MinimumWidthRequest="600">
             <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextCell Text="{Binding Nombre}"
-                                  Detail="{Binding Path=Id}"
-                                  TextColor="White"></TextCell>
-                    </DataTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Nombre}"
+                              Detail="{Binding Path=Id}"
+                              DetailColor="Black"
+                              TextColor="Black">
+                    </TextCell>
+                </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
-        <Grid RowDefinitions="*,*" VerticalOptions="FillAndExpand" Padding="10" Grid.Column="1">
+        <Grid  
+              VerticalOptions="FillAndExpand" 
+              Padding="10" 
+              ColumnSpacing="-40"
+              Grid.Column="1">
+
+            <!-- Fila 0: SearchBar y Picker -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
             <SearchBar x:Name="SearchBarPatients"
                         VerticalOptions="Start"
-                        Background="Purple"
-                        CancelButtonColor="Black"
+                        Background="#C3ACD0"
+                        CancelButtonColor="#7743DB"
                         SearchButtonPressed="SearchBarPatients_SearchButtonPressed"
                         TextChanged="SearchBarPatients_TextChanged"
                         MaximumHeightRequest="60"
@@ -34,13 +52,20 @@
                         MaximumWidthRequest="300"
                         Grid.Row="0"/>
 
-            <Grid VerticalOptions="EndAndExpand" RowDefinitions="*,*" ColumnDefinitions="*,*" Grid.Row="1">
-                <Picker Grid.ColumnSpan="2"
-                        HorizontalOptions="Center"
-                        x:Name="PickerFilter"
-                        Grid.Row="0"
-                        Margin="0,0,0,10"
-                        VerticalOptions="End">
+            <Image Grid.Row="1"
+                   Source="logo_hospital.png"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   HeightRequest="200"/>
+
+
+            <Picker Grid.Column="1"
+                    HorizontalOptions="Center" 
+                    BackgroundColor="#C3ACD0"
+                    x:Name="PickerFilter"
+                    Grid.Row="1"
+                    Margin="0,0,0,10"               
+                    VerticalOptions="Start">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>Nombre</x:String>
@@ -48,7 +73,15 @@
                             <!--Si es otro, traer un entry para capturarlo xd-->
                         </x:Array>
                     </Picker.ItemsSource>
-                </Picker>
+            </Picker>
+
+            <Grid VerticalOptions="EndAndExpand" 
+                  RowDefinitions="*,*" 
+                  ColumnDefinitions="*,*" 
+                  Grid.Row="2"
+                  ColumnSpacing="150"
+                  BackgroundColor="#F7EFE5">
+                
 
                 <Button
                     Grid.Column="0"
@@ -57,16 +90,20 @@
                     Grid.Row="1"
                     x:Name="btnCancel"
                     Clicked="BtnCancel_Clicked"
+                    BackgroundColor="#C3ACD0"
                     Text="Volver"
+                    TextColor="#F7EFE5"
                     VerticalOptions="End"/>
                 <Button
                     Grid.Column="1"
-                    HorizontalOptions="Center"
+                    HorizontalOptions="End"
                     MinimumWidthRequest="150"
                     Grid.Row="1"
                     x:Name="BtnAddPatient"
                     Clicked="BtnAddPatient_Clicked"
+                    BackgroundColor="#C3ACD0"
                     Text="Agregar"
+                    TextColor="#F7EFE5"
                     VerticalOptions="End"/>
             </Grid>
 
