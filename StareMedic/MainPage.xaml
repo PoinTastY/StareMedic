@@ -16,6 +16,7 @@
 
 
     <StackLayout>
+        
         <!--First grid who has the first row of the ui-->
         <Grid BackgroundColor="{StaticResource Alter1}" 
               HorizontalOptions="FillAndExpand" 
@@ -35,6 +36,7 @@
             <!--Grids to assing the boton options-->     
             <Grid Grid.Column="0" 
                   BackgroundColor="{StaticResource Alter2}" 
+                  
                   ColumnDefinitions="Auto, *"
                   Padding="18">
 
@@ -42,16 +44,18 @@
                        Source="logo_hospital.png"
                        Aspect="AspectFit"
                        HeightRequest="50"
-                       VerticalOptions="Start"
+                       VerticalOptions="Start"                     
                        HorizontalOptions="Start"/>
+                       
                 <Label Grid.Column="1"
                        Text="Stare Medic"
                        FontSize="Large"
                        FontAttributes="Bold"
                        FontFamily="OpenSansRegular"
                        TextColor="{StaticResource Secundario}"
-                       VerticalOptions="Center"
+                       VerticalOptions="Center"                
                        HorizontalOptions="Center">
+                   
                 </Label>
             </Grid>
 
@@ -77,7 +81,8 @@
                 </Label>
                 
                 <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="BtnPacientes_Clicked"/>
+                    <TapGestureRecognizer               
+                        Tapped="BtnPacientes_Clicked"/>
                 </Grid.GestureRecognizers>
 
             </Grid>
