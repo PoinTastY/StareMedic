@@ -66,6 +66,6 @@ public partial class Doctores : ContentPage
 
     private async void BtnAddMedic_Clicked(object sender, EventArgs e)
     {
-        await  Navigation.PushAsync(new MedicControll(new Medic()));
+        await  Navigation.PushAsync(new MedicControll(null));
     }
 }
