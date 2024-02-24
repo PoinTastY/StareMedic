@@ -12,6 +12,8 @@ public partial class SearchCC : ContentPage
     public SearchCC()
     {
         InitializeComponent();
+
+        PickerFilterSearch.SelectedItem = "Paciente";
     }
 
     protected override void OnAppearing()
@@ -60,11 +62,15 @@ public partial class SearchCC : ContentPage
     {
         if (!string.IsNullOrWhiteSpace(SearchBarentry.Text))
         {
-            if (SwtchIdorName.IsToggled)
+            if (PickerFilterSearch.SelectedItem.ToString() == "Paciente")
+            {
+                ListViewCC.ItemsSource = casos.Where(caso => caso.PatientName.Contains(SearchBarentry.Text.ToUpper()));
+            }
+            else if(PickerFilterSearch.SelectedItem.ToString() == "Nombre")
             {
                 ListViewCC.ItemsSource = casos.Where(caso => caso.Nombre.Contains(SearchBarentry.Text.ToUpper()));
             }
-            else
+            else//implicit "Id"
             {
                 ListViewCC.ItemsSource = casos.Where(caso => caso.Id.Contains(SearchBarentry.Text.ToUpper()));
             }

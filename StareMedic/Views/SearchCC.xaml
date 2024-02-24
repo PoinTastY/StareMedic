@@ -30,22 +30,16 @@
         <HorizontalStackLayout Spacing="10">
             <Label Text="Buscar caso por: "
                    Style="{StaticResource labelEntry}"/>
-            <Label Text="ID" 
-                   Style="{StaticResource labelEntry}"/>
 
-            <!--It is inside this bcs i cannot hide on/off txt, trash-->
-            <AbsoluteLayout>
-                <Switch Style="{StaticResource ProfileSettingSwitch}"
-                        x:Name="SwtchIdorName"
-                        IsToggled="True"
-                        ThumbColor="{OnPlatform Android='#0969D9', iOS='#FFFFFF',  WinUI='#FFFFFF'}"     
-                        OnColor="#0969D9"
-                        AbsoluteLayout.LayoutBounds="0.7,0,60,35"
-                        AbsoluteLayout.LayoutFlags="XProportional,YProportional" 
-                        IsVisible="{OnPlatform Android='True',iOS='True',WinUI='True'}"/>
-            </AbsoluteLayout>
-            <Label Text="Nombre"
-                   Style="{StaticResource labelEntry}"/>
+            <Picker x:Name="PickerFilterSearch">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Paciente</x:String>
+                        <x:String>Nombre</x:String>
+                        <x:String>Id</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
             <SearchBar x:Name="SearchBarentry"
                        TextChanged="SearchBarentry_TextChanged"
                        SearchButtonPressed="SearchBarentry_SearchButtonPressed"
