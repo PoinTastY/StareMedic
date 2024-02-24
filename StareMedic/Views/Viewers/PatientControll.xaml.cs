@@ -139,6 +139,7 @@ public partial class PatientControll : ContentPage
         bool confirm = await DisplayAlert("Cancelar", "Desea cancelar el registro?", "No", "Si");
         if (!confirm)
         {
+            await DisplayAlert("Cancelado", "No se ha realizado ningun cambio", "Ok");
             await Shell.Current.GoToAsync("..");
         }
     }

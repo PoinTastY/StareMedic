@@ -67,7 +67,7 @@ public partial class Habitaciones : ContentPage
 
     private async void BtnAddRoom_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new RoomControll(new Rooms ()));
+        await Navigation.PushAsync(new RoomControll(null));
     }
 
     private async void btnCancel_Clicked(object sender, EventArgs e)

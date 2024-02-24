@@ -4,13 +4,21 @@
              x:Class="StareMedic.Views.Viewers.MedicControll"
              Title="MedicControll">
     <VerticalStackLayout Style="{StaticResource mainVerticalStackLayout}">
-        <!--Display ID-->
+        <Button Text="Editar"
+                x:Name="BtnEdit"
+                Clicked="BtnEdit_Clicked"
+                VerticalOptions="Center"
+                HorizontalOptions="End"
+                IsVisible="false"
+                IsEnabled="False"/>
         <Button 
                Text="Eliminar"
                x:Name="BtnDelete"
                 Clicked="BtnDelete_Clicked"
                VerticalOptions="Center" 
-               HorizontalOptions="End" />
+               HorizontalOptions="End"
+            IsVisible="false"
+            IsEnabled="false"/>
 
         <!--Name & Phone cap-->
         <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" Padding="10">
