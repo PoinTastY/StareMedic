@@ -13,6 +13,7 @@ public partial class RegisterClinicalCase : ContentPage
     public RegisterClinicalCase()
     {
         InitializeComponent();
+        caso.IdDiagnostico = diag.Id;
         EditorDiagnostico.Placeholder = diag.Contenido;
         PickerDoctor.ItemsSource = new ObservableCollection<Medic>(MainRepo.GetMedics());
         PickerHabitacion.ItemsSource = new ObservableCollection<Rooms>(MainRepo.GetRooms());
@@ -72,7 +73,6 @@ public partial class RegisterClinicalCase : ContentPage
             if (!answer)
             {
                 diag.Contenido = EditorDiagnostico.Text;
-                caso.IdDiagnostico = diag.Id;
                 MainRepo.AddDiagnostico(diag);
                 MainRepo.AddCaso(caso);
                 MainRepo.PatientIdSolver = new();

@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using StareMedic.Models;
 using StareMedic.Models.Entities;
 
-
 public partial class SearchCC : ContentPage
 {
     private readonly ObservableCollection<CCwPatient> casos = new();
@@ -12,6 +11,9 @@ public partial class SearchCC : ContentPage
     public SearchCC()
     {
         InitializeComponent();
+
+        //default search method
+        PickerFilterSearch.SelectedItem = "Paciente";
     }
 
     protected override void OnAppearing()
@@ -24,7 +26,6 @@ public partial class SearchCC : ContentPage
             casos.Add(vista);
         }
         ListViewCC.ItemsSource = casos;
-
     }
 
 
@@ -40,7 +41,6 @@ public partial class SearchCC : ContentPage
         }
     }
 
-
     private void ListViewCC_ItemTapped(object sender, ItemTappedEventArgs e)
     {
         ListViewCC.SelectedItem = null;
@@ -54,17 +54,19 @@ public partial class SearchCC : ContentPage
         }
     }
 
-
-
     private void SearchBarentry_SearchButtonPressed(object sender, EventArgs e)
     {
         if (!string.IsNullOrWhiteSpace(SearchBarentry.Text))
         {
-            if (SwtchIdorName.IsToggled)
+            if (PickerFilterSearch.SelectedItem.ToString() == "Paciente")
+            {
+                ListViewCC.ItemsSource = casos.Where(caso => caso.PatientName.Contains(SearchBarentry.Text.ToUpper()));
+            }
+            else if(PickerFilterSearch.SelectedItem.ToString() == "Nombre")
             {
                 ListViewCC.ItemsSource = casos.Where(caso => caso.Nombre.Contains(SearchBarentry.Text.ToUpper()));
             }
-            else
+            else//implicit "Id"
             {
                 ListViewCC.ItemsSource = casos.Where(caso => caso.Id.Contains(SearchBarentry.Text.ToUpper()));
             }
