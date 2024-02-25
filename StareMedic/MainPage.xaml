@@ -8,17 +8,14 @@
         <Color x:Key="Secundario">#F7EFE5</Color>
         <Color x:Key="Alter1">#C3ACD0</Color>
         <Color x:Key="Alter2">#7743DB</Color>
-        
+        <Color x:Key="Black">#000</Color>
     </ContentPage.Resources>
-
-
-
-
-
+    
+   
     <StackLayout>
         
         <!--First grid who has the first row of the ui-->
-        <Grid BackgroundColor="{StaticResource Alter1}" 
+        <Grid BackgroundColor="{StaticResource Secundario}" 
               HorizontalOptions="FillAndExpand" 
               VerticalOptions="Start">
             <Grid.RowDefinitions>
@@ -35,10 +32,10 @@
 
             <!--Grids to assing the boton options-->     
             <Grid Grid.Column="0" 
-                  BackgroundColor="{StaticResource Alter2}" 
-                  
+                  BackgroundColor="{StaticResource Alter2}"     
                   ColumnDefinitions="Auto, *"
                   Padding="18">
+
 
                 <Image Grid.Column="0"
                        Source="logo_hospital.png"
@@ -52,18 +49,32 @@
                        FontSize="Large"
                        FontAttributes="Bold"
                        FontFamily="OpenSansRegular"
-                       TextColor="{StaticResource Secundario}"
+                       TextColor="{StaticResource Principal}"
                        VerticalOptions="Center"                
                        HorizontalOptions="Center">
                    
                 </Label>
             </Grid>
 
-            <Grid Grid.Column="1"
+            <Grid x:Name="PatientsMain"
+                  Grid.Column="1"
                   BackgroundColor="{StaticResource Alter1}" 
                   ColumnDefinitions="Auto, *"
                   Padding="18"
                   ColumnSpacing="-60">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
 
                 <Image Grid.Column="0"
                        Source="patients.png"
@@ -75,7 +86,7 @@
                        Text="Pacientes"
                        FontSize="Subtitle"                      
                        FontFamily="OpenSansRegular"
-                       TextColor="Black"
+                       TextColor="{StaticResource Black}"
                        VerticalOptions="Center"
                        HorizontalOptions="Center">
                 </Label>
@@ -85,13 +96,31 @@
                         Tapped="BtnPacientes_Clicked"/>
                 </Grid.GestureRecognizers>
 
+                
+                   
+
+
             </Grid>
 
-            <Grid Grid.Column="2" 
+            <Grid x:Name="MedicsMain"
+                  Grid.Column="2" 
                   BackgroundColor="{StaticResource Alter1}" 
                   ColumnDefinitions="Auto, *"
                   Padding="18"
                   ColumnSpacing="-60">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
 
                 <Image Grid.Column="0"
                        Source="medic.png"
@@ -103,7 +132,7 @@
                        Text="Medicos"
                        FontSize="Subtitle"
                        FontFamily="OpenSansRegular"
-                       TextColor="Black"
+                       TextColor="{StaticResource Black}"
                        VerticalOptions="Center"
                        HorizontalOptions="Center">
                 </Label>
@@ -114,11 +143,25 @@
                 
             </Grid>
 
-            <Grid Grid.Column="3" 
+            <Grid x:Name="RoomsMain"
+                  Grid.Column="3" 
                   BackgroundColor="{StaticResource Alter1}" 
                   ColumnDefinitions="Auto, *"
                   Padding="18"
                   ColumnSpacing="-60">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
 
                 <Image Grid.Column="0"
                        Source="rooms.png"
@@ -130,7 +173,7 @@
                        Text="Habitaciones"
                        FontSize="Subtitle"
                        FontFamily="OpenSansRegular"
-                       TextColor="Black"
+                       TextColor="{StaticResource Black}"
                        VerticalOptions="Center"
                        HorizontalOptions="Center">
                 </Label>
@@ -141,11 +184,25 @@
                 
             </Grid>
 
-            <Grid Grid.Column="4"
+            <Grid x:Name="RegCCMain"
+                  Grid.Column="4"
                   BackgroundColor="{StaticResource Alter1}" 
                   ColumnDefinitions="Auto, *"
                   Padding="18"
                   ColumnSpacing="30">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
 
                 <Image Grid.Column="0"
                        Source="clinical_case.png"
@@ -157,7 +214,7 @@
                        Text="Admisiones Clinicas"
                        FontSize="Subtitle"
                        FontFamily="OpenSansRegular"
-                       TextColor="Black"
+                       TextColor="{StaticResource Black}"
                        VerticalOptions="Center"
                        HorizontalOptions="Center">
                 </Label>
@@ -171,7 +228,7 @@
         </Grid>
 
         <!--Second grid to separate the UI options-->
-        <Grid BackgroundColor="{StaticResource Principal}" 
+        <Grid BackgroundColor="{StaticResource Secundario}" 
               HorizontalOptions="FillAndExpand" 
               VerticalOptions="FillAndExpand">
             <Grid.RowDefinitions>

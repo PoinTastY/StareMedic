@@ -4,10 +4,25 @@
              x:Class="StareMedic.Views.Habitaciones"
              Title="Habitaciones">
     
-    <Grid ColumnDefinitions="2*,*">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
+
+    <ContentPage.Resources>
+        <Color x:Key="Principal">#FFFBF5</Color>
+        <Color x:Key="Secundario">#F7EFE5</Color>
+        <Color x:Key="Alter1">#C3ACD0</Color>
+        <Color x:Key="Alter2">#7743DB</Color>
+        <Color x:Key="Black">#000</Color>
+    </ContentPage.Resources>
+    
+    <Grid 
+        ColumnDefinitions="2*,*"
+        BackgroundColor="{StaticResource Secundario}">
         <ListView
             Grid.Column="0"
             x:Name="ListRooms"
+            BackgroundColor="{StaticResource Alter1}"
             Style="{StaticResource listviewShowEntity}"
             ItemSelected="ListRooms_ItemSelected"
             ItemTapped="ListRooms_ItemTapped"
@@ -15,37 +30,141 @@
             MinimumWidthRequest="600">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Nombre}"
-                              Detail="{Binding Path=Id}"
-                              TextColor="AliceBlue"/>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+
+                            <Grid Padding="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                    Grid.Column="0"
+                                    Text="{Binding Path=Id, StringFormat='ID: {0} '}"
+                                    TextColor="{StaticResource Black}"
+                                    FontFamily="OpenSansRegular"
+                                    FontSize="15"
+                                    HorizontalTextAlignment="Start"
+                                    HorizontalOptions="Start"/>
+
+                                <Label
+                                    Grid.Column="1"
+                                    Text=" -- "
+                                    TextColor="{StaticResource Black}" 
+                                    FontFamily="OpenSansRegular"
+                                    FontSize="15"
+                                    HorizontalOptions="Center"/>
+
+
+                                <Label
+                                    Grid.Column="2"
+                                    Text="{Binding Nombre}"
+                                    TextColor="{StaticResource Black}"
+                                    FontFamily="OpenSansRegular"
+                                    FontSize="15"
+                                    HorizontalOptions="Start"
+                                    HorizontalTextAlignment="Center"/>
+                            </Grid>
+                        </StackLayout>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Grid RowDefinitions="*,*" VerticalOptions="FillAndExpand" Padding="10" Grid.Column="1" ColumnDefinitions="*,*">
+        
+        
+        <Grid 
+            Padding="10"
+            ColumnSpacing="-40"
+            Grid.Column="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+                
             <SearchBar x:Name="SearchBarRooms"
-                       Style="{StaticResource NameSearchBar}"
+                       VerticalOptions="Start"
+                       Placeholder="Buscar habitación"
+                       Background="{StaticResource Alter1}"              
                        SearchButtonPressed="SearchBarRooms_SearchButtonPressed"
                        TextChanged="SearchBarRooms_TextChanged"
-                       Grid.Row="0"
-                       Grid.ColumnSpan="2"/>
-            <Button
+                       MaximumHeightRequest="60"
+                       MinimumWidthRequest="300"
+                       MaximumWidthRequest="300"
+                       Grid.Row="0"/>
+
+            <Image
                 Grid.Row="1"
-                Grid.Column="0"
+                x:Name="imgRoom"
+                Source="logo_hospital.png"               
                 HorizontalOptions="Center"
-                MinimumWidthRequest="150"
-                x:Name="btnCancel"
-                Clicked="btnCancel_Clicked"
-                Text="Volver"
-                VerticalOptions="End"/>
-            <Button
-                Grid.Column="1"
-                HorizontalOptions="Center"
-                MinimumWidthRequest="150"
-                Grid.Row="1"
-                x:Name="BtnAddRoom"
-                Clicked="BtnAddRoom_Clicked"
-                Text="Agregar"
-                VerticalOptions="End"/>
+                VerticalOptions="Center"
+                HeightRequest="200"/>
+
+            <Grid 
+                  VerticalOptions="EndAndExpand" 
+                  RowDefinitions="*,*" 
+                  ColumnDefinitions="*,*" 
+                  Grid.Row="2"
+                  ColumnSpacing="100"
+                  BackgroundColor="{StaticResource Secundario}">
+
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalOptions="Start"
+                    MinimumWidthRequest="160"
+                    x:Name="btnCancel"
+                    Clicked="btnCancel_Clicked"
+                    BackgroundColor="{StaticResource Alter1}"
+                    Text="Volver"
+                    TextColor="{StaticResource Principal}"
+                    VerticalOptions="End">
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+
+                </Button>
+
+                <Button
+                    Grid.Column="1"
+                    HorizontalOptions="End"
+                    MinimumWidthRequest="160"
+                    Grid.Row="1"
+                    x:Name="BtnAddRoom"
+                    Clicked="BtnAddRoom_Clicked"
+                    BackgroundColor="{StaticResource Alter1}"
+                    Text="Agregar Habitacion"
+                    TextColor="{StaticResource Principal}">
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                    
+                </Button>
+            </Grid>
         </Grid>
     </Grid>
 </ContentPage>
