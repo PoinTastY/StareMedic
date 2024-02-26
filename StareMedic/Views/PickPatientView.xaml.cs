@@ -23,6 +23,9 @@ public partial class PickPatientView : ContentPage
 
     private async void BtnConfirmar_Clicked(object sender, EventArgs e)
     {
+        BtnConfirmar.Opacity = 0;
+        await BtnConfirmar.FadeTo(1, 200);
+
         MainRepo.PatientIdSolver = (Patient)ListViewPatients.SelectedItem;
         //implement R U Sure?
         bool confirmacion = await DisplayAlert("Confirmacion", $"Seleccionar a: {MainRepo.PatientIdSolver.Nombre}?","Volver", "Confirmar");
@@ -45,6 +48,9 @@ public partial class PickPatientView : ContentPage
 
     private async void BtnCancel_Clicked(object sender, EventArgs e)
     {
+        BtnCancel.Opacity = 0;
+        await BtnCancel.FadeTo(1, 200);
+
         await Navigation.PopModalAsync();
     }
 

@@ -182,8 +182,9 @@
                     <Picker.ItemDisplayBinding>
                         <Binding Path="Nombre"/>
                     </Picker.ItemDisplayBinding>
-                                       
-                </Picker>
+
+
+                    </Picker>
             </HorizontalStackLayout>
      
             <HorizontalStackLayout
@@ -210,11 +211,13 @@
                      Grid.Column="3"                    
                      Grid.Row="2"
                      SelectedIndexChanged="PickerHabitacion_SelectedIndexChanged">
-
+                     
                     <Picker.ItemDisplayBinding>
                         <Binding Path="Nombre"/>
                     </Picker.ItemDisplayBinding>
-                                                        
+
+                        
+
                 </Picker>
             </HorizontalStackLayout>
            
@@ -241,7 +244,8 @@
                     Margin="50,0,0,0"
                     WidthRequest="250"
                     DateSelected="DateIngreso_DateSelected"/>
-            </HorizontalStackLayout>
+                   
+                </HorizontalStackLayout>
                 
 
         </Grid>

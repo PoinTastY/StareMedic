@@ -62,10 +62,10 @@ public partial class RegisterClinicalCase : ContentPage
     private void PickerHabitacion_SelectedIndexChanged(object sender, EventArgs e)
     {
         PickerHabitacion.Opacity = 0;
-        PickerHabitacion.FadeTo(1, 200);
+        PickerHabitacion.FadeTo(1, 400);
 
         if (PickerDoctor.SelectedItem != null)
-            caso.IdHabitacion = ((Rooms)PickerHabitacion.SelectedItem).Id;
+           caso.IdHabitacion = ((Rooms)PickerHabitacion.SelectedItem).Id;
     }
 
     private async void BtnPickPatient_Clicked(object sender, EventArgs e)
@@ -141,6 +141,9 @@ public partial class RegisterClinicalCase : ContentPage
 
     private void DateIngreso_DateSelected(object sender, DateChangedEventArgs e)
     {
+        DateIngreso.Opacity = 0;
+        DateIngreso.FadeTo(1, 200);
+
         caso.FechaIngreso = e.NewDate.ToUniversalTime();
     }
 
