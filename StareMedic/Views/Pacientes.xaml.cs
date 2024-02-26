@@ -31,13 +31,16 @@ public partial class Pacientes : ContentPage
             patients.Add(patient);
         }
         listPatients.ItemsSource = patients;
-        PickerFilter.SelectedIndex = 0;
+        
 
     }
 
-    private void BtnCancel_Clicked(object sender, EventArgs e)
+    private async void BtnCancel_Clicked(object sender, EventArgs e)
     {
-		Shell.Current.GoToAsync("..");
+        btnCancel.Opacity = 0;
+        await btnCancel.FadeTo(1, 300);
+
+		await Shell.Current.GoToAsync("..");
 
     }
 
@@ -60,14 +63,10 @@ public partial class Pacientes : ContentPage
     {
         if (!string.IsNullOrWhiteSpace(SearchBarPatients.Text))
         {
-            if (PickerFilter.SelectedIndex == 0)
-            {
-                listPatients.ItemsSource = patients.Where(patient => patient.Nombre.Contains(SearchBarPatients.Text.ToUpper()));
-            }
-            else
-            {
-                listPatients.ItemsSource = patients.Where(patient => patient.Id.ToString().Contains(SearchBarPatients.Text.ToUpper()));
-            }
+       
+            listPatients.ItemsSource = patients.Where(patient => patient.Nombre.Contains(SearchBarPatients.Text.ToUpper()));
+            
+          
         }
     }
 
@@ -81,6 +80,9 @@ public partial class Pacientes : ContentPage
 
     private async void BtnAddPatient_Clicked(object sender, EventArgs e)
     {
+        BtnAddPatient.Opacity = 0;
+        await BtnAddPatient.FadeTo(1, 200);
+
         await Navigation.PushAsync(new PatientControll(null));
     }
 }

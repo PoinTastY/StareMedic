@@ -1,14 +1,20 @@
-﻿using StareMedic.Views;
+﻿
+using StareMedic.Views;
 using StareMedic.Views.Viewers;
 
 namespace StareMedic;
 
 public partial class AppShell : Shell
 {
+    
+    
 	public AppShell()
 	{
 		InitializeComponent();
-		Routing.RegisterRoute(nameof(Pacientes), typeof(Pacientes));
+        //App
+        Shell.SetBackButtonBehavior(this, new BackButtonBehavior { IsVisible = false } );
+        //Routing
+        Routing.RegisterRoute(nameof(Pacientes), typeof(Pacientes));
         Routing.RegisterRoute(nameof(Doctores), typeof(Doctores));
 		Routing.RegisterRoute(nameof(Habitaciones), typeof(Habitaciones));
         Routing.RegisterRoute(nameof(RegisterClinicalCase), typeof(RegisterClinicalCase));
@@ -22,29 +28,48 @@ public partial class AppShell : Shell
 	
 	}
 
-	private void BtnPacientes_Clicked(object sender, EventArgs e)
-	{
-        Shell.Current.GoToAsync(nameof(Pacientes));
+    private async void BtnPacientes_Clicked(object sender, EventArgs e)
+    {
+        
+       PatientsFly.Opacity = 0;
+       await PatientsFly.FadeTo(1, 200);
+
+       await Shell.Current.GoToAsync(nameof(Pacientes));
+
     }
+
 
     private async void BtnRooms_Clicked(object sender, EventArgs e)
     {
+        RoomsFly.Opacity = 0;
+        await RoomsFly.FadeTo(1, 200);
+
         await Shell.Current.GoToAsync(nameof(Habitaciones));
     }
 
     private async void BtnRegCasoCli_Clicked(object sender, EventArgs e)
     {
+
         await Shell.Current.GoToAsync(nameof(RegisterClinicalCase));
     }
 
     private async void BtnSearchCC_Clicked(object sender, EventArgs e)
     {
+        CCFly.Opacity = 0;
+        await CCFly.FadeTo(1, 200);
+
         await Shell.Current.GoToAsync(nameof(SearchCC));
     }
 
     private async void BtnMedics_Clicked(object sender, EventArgs e)
     {
+        MedicsFly.Opacity = 0;
+        await MedicsFly.FadeTo(1, 200);
+
         await Shell.Current.GoToAsync(nameof(Doctores));
     }
+
+   
+
 
 }

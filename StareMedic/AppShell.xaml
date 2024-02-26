@@ -4,11 +4,25 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:StareMedic"
-    
     Shell.FlyoutBehavior="Flyout">
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
+
+
+    <Shell.Resources>
+        <Color x:Key="Principal">#FFFBF5</Color>
+        <Color x:Key="Secundario">#F7EFE5</Color>
+        <Color x:Key="Alter1">#C3ACD0</Color>
+        <Color x:Key="Alter2">#7743DB</Color>
+        <Color x:Key="Black">#000</Color>
+    </Shell.Resources>
+
+    
+        
     <Shell.FlyoutHeader>
-        <Border BackgroundColor="#FFFBF5"
+        <Border BackgroundColor="{StaticResource Alter2}"
                 StrokeThickness="0">
             <Grid ColumnDefinitions="Auto, *"
                           Padding="25"
@@ -22,7 +36,7 @@
                 <Label Grid.Column="1"
                        Text="StareMedic"
                        VerticalTextAlignment="Center"
-                       TextColor="#7743DB"
+                       TextColor="{StaticResource Principal}"
                        FontFamily="Sans Serif"
                        FontSize="28"
                        FontAttributes="Bold"/>
@@ -33,13 +47,41 @@
         
         
     <Shell.FlyoutContent>
-        <ScrollView Margin="0" Padding="0" VerticalOptions="Start">
-            <VerticalStackLayout VerticalOptions="End" BackgroundColor="#7743DB">
+        
+        <VerticalStackLayout
+            Margin="0" 
+            Padding="0" 
+            VerticalOptions="Start">
+
+         
+            <VerticalStackLayout 
+                VerticalOptions="End" 
+                BackgroundColor="{StaticResource Secundario}">
+
+                <!--Grids to separate -->
+                <Grid ColumnDefinitions="Auto"
+                      Padding="15"/>
                 
-                <Grid ColumnDefinitions="Auto, *, Auto"
+                <Grid x:Name="PatientsFly"
+                      ColumnDefinitions="Auto, *, Auto"
                       Padding="20"  
                       ColumnSpacing="20">
-                    
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+
+
+
                     <Image Grid.Column="0"
                            Source="edit_patients.png"
                            Aspect="AspectFill"
@@ -47,15 +89,15 @@
                            WidthRequest="25"/>
 
                     <Label Grid.Column="1"
-                           Text="Editar Pacientes"
-                           TextColor="#FFFBF5"
+                           Text="Control de Pacientes"
+                           TextColor="{StaticResource Black}"
                            FontFamily="Sans Serif"
                            FontSize="16"/>
 
                     <Label Grid.Column="2"
                            Text=">"
                            FontAttributes="Bold"
-                           TextColor="#FFFBF5"
+                           TextColor="{StaticResource Black}"
                            FontFamily="Sans Serif"
                            Scale="1.5"/>
 
@@ -64,212 +106,92 @@
                     </Grid.GestureRecognizers>
                 </Grid>
 
-                <Grid ColumnDefinitions="Auto, *, Auto"
-                      Padding="20"  
-                      ColumnSpacing="20">
-                    
-                    <Image Grid.Column="0"
-                           Source="edit_medics.png"
-                           Aspect="AspectFill"
-                           HeightRequest="25"
-                           WidthRequest="25"/>
-
-                    <Label Grid.Column="1"
-                           Text="Editar Doctores"
-                           FontFamily="Sans Serif"
-                           TextColor="#FFFBF5"
-                           FontSize="16"/>
-
-
-                    <Label Grid.Column="2"
-                           Text=">"
-                           FontAttributes="Bold"
-                           TextColor="#FFFBF5"
-                           FontFamily="Sans Serif"
-                           Scale="1.5"/>
-
-                    <Grid.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="BtnMedics_Clicked"/>
-                    </Grid.GestureRecognizers>
-                </Grid>
-                <Grid ColumnDefinitions="Auto, *, Auto"
-                      Padding="20"  
-                      ColumnSpacing="20">
-
-                    <Image Grid.Column="0"
-                           Source="edit_medics.png"
-                           Aspect="AspectFill"
-                           HeightRequest="25"
-                           WidthRequest="25"/>
-
-                    <Label Grid.Column="1"
-                           Text="Editar Doctores"
-                           FontFamily="Sans Serif"
-                           TextColor="#FFFBF5"
-                           FontSize="16"/>
-
-
-                    <Label Grid.Column="2"
-                           Text=">"
-                           FontAttributes="Bold"
-                           TextColor="#FFFBF5"
-                           FontFamily="Sans Serif"
-                           Scale="1.5"/>
-
-                    <Grid.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="BtnSearchCC_Clicked"/>
-                    </Grid.GestureRecognizers>
-                </Grid>
-
-
-                <Grid ColumnDefinitions="Auto, *, Auto"
-                      Padding="20"  
-                      ColumnSpacing="20">
-
-                    <Image Grid.Column="0"
-                           Source="edit_rooms.png"
-                           Aspect="AspectFill"
-                           HeightRequest="25"
-                           WidthRequest="25"/>
-
-                    <Label Grid.Column="1"
-                           Text="Editar Habitaciones"
-                           TextColor="#FFFBF5"
-                           FontFamily="Sans Serif"
-                           FontSize="16"/>
-
-
-                    <Label Grid.Column="2"
-                           Text=">"
-                           FontAttributes="Bold"
-                           TextColor="#FFFBF5"
-                           FontFamily="Sans Serif"
-                           Scale="1.5"/>
-
-                    <Grid.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="BtnRooms_Clicked"/>
-                    </Grid.GestureRecognizers>
-
-                </Grid>
-
-                <Grid ColumnDefinitions="Auto, *, Auto"
-                      Padding="20"  
-                      ColumnSpacing="20">
-
-                    <Image Grid.Column="0"
-                   Source="edit_rooms.png"
-                   Aspect="AspectFill"
-                   HeightRequest="25"
-                   WidthRequest="25"/>
-
-                    <Label Grid.Column="1"
-                   Text="Editar Habitaciones"
-                   TextColor="#FFFBF5"
-                   FontFamily="Sans Serif"
-                   FontSize="16"/>
-
-
-                    <Label Grid.Column="2"
-                   Text=">"
-                   FontAttributes="Bold"
-                   TextColor="#FFFBF5"
-                   FontFamily="Sans Serif"
-                   Scale="1.5"/>
-
-                    <Grid.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="BtnSearchCC_Clicked"/>
-                    </Grid.GestureRecognizers>
-
-                </Grid>
-
-                <!--A Column to separate the elements-->
-
+                <!--Grids to separate -->
                 <Grid ColumnDefinitions="Auto"
-                      Padding="80"/>
+                        Padding="15"/>
 
-                <!--Grids to eliminate elements of the hospital-->
 
-                <Grid ColumnDefinitions="Auto, *, Auto"
+                <Grid x:Name="MedicsFly"
+                      ColumnDefinitions="Auto, *, Auto"
                       Padding="20"  
                       ColumnSpacing="20">
 
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+
                     <Image Grid.Column="0"
-                           Source="delete_patients.png"
+                           Source="edit_medics.png"
                            Aspect="AspectFill"
                            HeightRequest="25"
                            WidthRequest="25"/>
 
                     <Label Grid.Column="1"
-                           Text="Eliminar Pacientes"
-                           TextColor="#FFFBF5"
+                           Text="Control de Medicos"
                            FontFamily="Sans Serif"
+                           TextColor="{StaticResource Black}"
                            FontSize="16"/>
 
 
                     <Label Grid.Column="2"
                            Text=">"
                            FontAttributes="Bold"
-                           TextColor="#FFFBF5"
-                           FontFamily="Sans Serif"
-                           Scale="1.5"/>
-
-                    <Grid.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="BtnPacientes_Clicked"/>
-                    </Grid.GestureRecognizers>
-
-                </Grid>
-
-                <Grid ColumnDefinitions="Auto, *, Auto"
-                      Padding="20"  
-                      ColumnSpacing="20">
-
-                    <Image Grid.Column="0"
-                           Source="delete_medics.png"
-                           Aspect="AspectFill"
-                           HeightRequest="25"
-                           WidthRequest="25"/>
-
-                    <Label Grid.Column="1"
-                           Text="Eliminar Doctores"
-                           TextColor="#FFFBF5"
-                           FontFamily="Sans Serif"
-                           FontSize="16"/>
-
-
-                    <Label Grid.Column="2"
-                           Text=">"
-                           FontAttributes="Bold"
-                           TextColor="#FFFBF5"
+                           TextColor="{StaticResource Black}"
                            FontFamily="Sans Serif"
                            Scale="1.5"/>
 
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Tapped="BtnMedics_Clicked"/>
                     </Grid.GestureRecognizers>
-
                 </Grid>
 
-                <Grid ColumnDefinitions="Auto, *, Auto"
+                <!--Grids to separate -->
+                <Grid ColumnDefinitions="Auto"
+                      Padding="15"/>
+
+                <Grid x:Name="RoomsFly"
+                      ColumnDefinitions="Auto, *, Auto"
                       Padding="20"  
                       ColumnSpacing="20">
 
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+
                     <Image Grid.Column="0"
-                           Source="delete_rooms.png"
+                           Source="rooms_control.png"
                            Aspect="AspectFill"
-                           HeightRequest="25"
+                           HeightRequest="30"
                            WidthRequest="25"/>
 
                     <Label Grid.Column="1"
-                           Text="Eliminar Habitaciones"
-                           TextColor="#FFFBF5"
+                           Text="Control de Habitaciones"
+                           TextColor="{StaticResource Black}"
                            FontFamily="Sans Serif"
                            FontSize="16"/>
 
-
                     <Label Grid.Column="2"
-                           Text=">"
+                           Text="      >"
                            FontAttributes="Bold"
-                           TextColor="#FFFBF5"
+                           TextColor="{StaticResource Black}"
                            FontFamily="Sans Serif"
                            Scale="1.5"/>
 
@@ -279,21 +201,68 @@
 
                 </Grid>
 
+                <!--Grids to separate -->
+                <Grid ColumnDefinitions="Auto"
+                      Padding="15"/>
+
+                <Grid x:Name="CCFly"
+                      ColumnDefinitions="Auto, *, Auto"
+                      Padding="20"  
+                      ColumnSpacing="20">
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+
+                    <Image Grid.Column="0"
+                           Source="search_cc.png"
+                           Aspect="AspectFill"
+                           HeightRequest="25"
+                           WidthRequest="25"/>
+
+                    <Label Grid.Column="1"
+                           Text="Busqueda de Admisiones"
+                           TextColor="{StaticResource Black}"
+                           FontFamily="Sans Serif"
+                           FontSize="16"/>
+
+
+                    <Label Grid.Column="2"
+                           Text="    >"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Black}"
+                           FontFamily="Sans Serif"
+                           Scale="1.5"/>
+
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnSearchCC_Clicked"/>
+                    </Grid.GestureRecognizers>
+
+                </Grid>
+
+          
                 <!--A Column to fill out the elements-->
                 
                 <Grid ColumnDefinitions="Auto"
-                      Padding="230"/>
+                      Padding="10000"/>
                 
                 
 
             </VerticalStackLayout>
-        </ScrollView>
+        </VerticalStackLayout>
     </Shell.FlyoutContent>
 
-    <ShellContent
-         Title="Menú"
+    <ShellContent      
          ContentTemplate="{DataTemplate local:MainPage}" 
-         Icon="logo_hospital.png"
          Route="MainPage"/>
 
 

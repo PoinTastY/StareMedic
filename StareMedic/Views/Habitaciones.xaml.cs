@@ -67,11 +67,17 @@ public partial class Habitaciones : ContentPage
 
     private async void BtnAddRoom_Clicked(object sender, EventArgs e)
     {
+        BtnAddRoom.Opacity = 0;
+        await BtnAddRoom.FadeTo(1, 300);
+
         await Navigation.PushAsync(new RoomControll(null));
     }
 
     private async void btnCancel_Clicked(object sender, EventArgs e)
     {
+        btnCancel.Opacity = 0;
+        await btnCancel.FadeTo(1, 300);
+
         await Shell.Current.GoToAsync("..");
     }
 }

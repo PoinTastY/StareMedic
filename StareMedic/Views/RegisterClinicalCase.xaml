@@ -3,109 +3,417 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StareMedic.Views.RegisterClinicalCase"
              Title="Nueva Admision Clinica">
-    <VerticalStackLayout Style="{StaticResource mainVerticalStackLayout}">
-        <!--some info label, not yet xD-->
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
-            <!--NameCap-->
-            <HorizontalStackLayout Grid.Column="0" Grid.Row="0">
-                <Label Text="*Nombre:"
-                       Style="{StaticResource labelEntry}"/>
-                <Entry x:Name="EntryName"
-                       Placeholder="Nombre del caso Clinico..."
-                       Style="{StaticResource entryName}"
-                       TextChanged="EntryName_TextChanged"/>
-            </HorizontalStackLayout>
 
-            <HorizontalStackLayout Grid.Column="1" Grid.Row="0" HorizontalOptions="StartAndExpand">
-                <Label Text="Paciente Ingresado:"
-                       Style="{StaticResource labelEntry}"/>
-                <Label x:Name="LblPaciente"/>
-                
-                <Button x:Name="BtnPickPatient"
-                        Clicked="BtnPickPatient_Clicked"
-                        Text="Seleccionar Paciente"/>
-                <Button x:Name="BtnAddPatient"
-                        Clicked="BtnAddPatient_Clicked"
-                        Text="+"
-                        FontSize="Large"/>
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
 
-            </HorizontalStackLayout>
+    <ContentPage.Resources>
+        <Color x:Key="Principal">#FFFBF5</Color>
+        <Color x:Key="Secundario">#F7EFE5</Color>
+        <Color x:Key="Alter1">#C3ACD0</Color>
+        <Color x:Key="Alter2">#7743DB</Color>
+        <Color x:Key="Black">#000</Color>
+    </ContentPage.Resources>
 
-            <HorizontalStackLayout Grid.Column="0" Grid.Row="1" HorizontalOptions="StartAndExpand" x:Name="ShowDoctor" IsVisible="false">
-                <Label Text="Doctor Asignado:"
-                       Style="{StaticResource labelEntry}"/>
-                <Picker x:Name="PickerDoctor"
-                        SelectedIndexChanged="PickerDoctor_SelectedIndexChanged">
-                    <Picker.ItemDisplayBinding>
-                        <Binding Path="Nombre"/>
-                    </Picker.ItemDisplayBinding>
-                </Picker>
-            </HorizontalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout
+        BackgroundColor="{StaticResource Secundario}">
+        <Grid                               
+            BackgroundColor="{StaticResource Secundario}"
+            HorizontalOptions="StartAndExpand"
+            VerticalOptions="CenterAndExpand"
+            Padding="30">
             
-            <HorizontalStackLayout Grid.Column="1" Grid.Row="1" HorizontalOptions="StartAndExpand" x:Name="ShowRoom" IsVisible="false">
-                <Label Text="Habitacion Asignada:"
-                       Style="{StaticResource labelEntry}"/>
-                <Picker x:Name="PickerHabitacion"
-                        SelectedIndexChanged="PickerHabitacion_SelectedIndexChanged">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+
+            <Label 
+                Text="Nombre:"
+                TextColor="{StaticResource Black}"
+                Grid.Column="0"
+                VerticalOptions="Center"
+                Grid.Row="0"
+                Style="{StaticResource labelEntry}"/>
+            <Entry 
+                x:Name="EntryName"
+                Grid.Column="1"
+                Grid.Row="0" 
+                WidthRequest="800"
+                Placeholder="Nombre de la admision clinica..."
+                Style="{StaticResource entryName}"
+                TextChanged="EntryName_TextChanged"/>
+        </Grid>
+
+        <Grid
+            Padding="30">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <HorizontalStackLayout
+                HorizontalOptions="StartAndExpand"
+                VerticalOptions="CenterAndExpand"
+                Grid.Column="0"
+                Grid.Row="0">
+
+                <Label 
+                    Text="Paciente Ingresado:"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    TextColor="{StaticResource Black}"
+                    Style="{StaticResource labelEntry}"/>
+
+                <Label 
+                    x:Name="LblPaciente"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    FontFamily="OpenSansRegular"
+                    FontSize="Body"
+                    TextColor="{StaticResource Black}"
+                    Grid.Row="0"
+                    Grid.Column="1"/>
+
+                <Button 
+                    x:Name="BtnPickPatient"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    HeightRequest="50"
+                    Margin="30,0,0,0"
+                    WidthRequest="200"
+                    BackgroundColor="{StaticResource Alter1}"
+                    Clicked="BtnPickPatient_Clicked"
+                    TextColor="{StaticResource Principal}"
+                    Text="Seleccionar Paciente">
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                    
+                </Button>
+
+                <Button 
+                    x:Name="BtnAddPatient"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    HeightRequest="50"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"                       
+                    BackgroundColor="{StaticResource Alter1}"
+                    TextColor="{StaticResource Principal}"
+                    Clicked="BtnAddPatient_Clicked"
+                    Text="+"
+                    FontSize="Medium">
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                    
+                </Button>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout               
+                 Grid.Column="2" 
+                 Grid.Row="0" 
+                 HorizontalOptions="StartAndExpand"
+                 VerticalOptions="CenterAndExpand"
+                 x:Name="ShowDoctor" 
+                 IsVisible="false">
+
+                <Label 
+                    Text="Doctor Asignado:"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    Grid.Column="2"                 
+                    Grid.Row="0"
+                    Style="{StaticResource labelEntry}"/>
+
+                <Picker 
+                    x:Name="PickerDoctor"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="{StaticResource Alter1}"                 
+                    WidthRequest="400"
+                    Grid.Column="3"
+                    Margin="93,0,0,0"
+                    Grid.Row="0"
+                    SelectedIndexChanged="PickerDoctor_SelectedIndexChanged">
+
                     <Picker.ItemDisplayBinding>
                         <Binding Path="Nombre"/>
                     </Picker.ItemDisplayBinding>
+                                       
                 </Picker>
             </HorizontalStackLayout>
+     
+            <HorizontalStackLayout
+                 Grid.Column="2" 
+                 Grid.Row="2" 
+                 HorizontalOptions="CenterAndExpand" 
+                 VerticalOptions="CenterAndExpand"
+                 x:Name="ShowRoom" 
+                 IsVisible="false">
+                
+                <Label 
+                    Text="Habitacion Asignada:"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Style="{StaticResource labelEntry}"/>
+
+                <Picker
+                     x:Name="PickerHabitacion"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center"
+                     BackgroundColor="{StaticResource Alter1}"    
+                     Margin="50,0,0,0"
+                     WidthRequest="400"                     
+                     Grid.Column="3"                    
+                     Grid.Row="2"
+                     SelectedIndexChanged="PickerHabitacion_SelectedIndexChanged">
+
+                    <Picker.ItemDisplayBinding>
+                        <Binding Path="Nombre"/>
+                    </Picker.ItemDisplayBinding>
+                                                        
+                </Picker>
+            </HorizontalStackLayout>
+           
+                
+
+            <HorizontalStackLayout
+                HorizontalOptions="StartAndExpand"
+                VerticalOptions="CenterAndExpand"
+                x:Name="Date"
+                Grid.Column="0"
+                Grid.Row="2">
+                    
+                <Label 
+                    Text="Fecha de Ingreso:"                    
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    Style="{StaticResource labelEntry}"/>
+
+                <DatePicker 
+                    x:Name="DateIngreso"        
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    BackgroundColor="{StaticResource Alter1}"
+                    Margin="50,0,0,0"
+                    WidthRequest="250"
+                    DateSelected="DateIngreso_DateSelected"/>
+            </HorizontalStackLayout>
+                
 
         </Grid>
-        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
-            <HorizontalStackLayout Grid.Column="0" Grid.Row="0">
-                <Label Text="*Fecha de Ingreso:"
-                       Style="{StaticResource labelEntry}"/>
-                <DatePicker x:Name="DateIngreso"
-                            DateSelected="DateIngreso_DateSelected"/>
-            </HorizontalStackLayout>
-            <HorizontalStackLayout Grid.Column="1" Grid.Row="0">
-                <Label Text="Tipo de Caso: "/>
 
-                <RadioButton Content="Medico"
-                             Value="Medico"
-                             IsChecked="True"
-                             x:Name="RadioMedico"
-                             CheckedChanged="RadioMedico_CheckedChanged"/>
-                <RadioButton Content="Quirurgico"
-                             Value="Quirurgico"
-                             x:Name="RadioQuirurgico"
-                             CheckedChanged="RadioQuirurgico_CheckedChanged"/>
-                <RadioButton Content="Obstetrico"
-                             Value="Obstetrico"
-                             x:Name="RadioObstetrico"
-                             CheckedChanged="RadioObstetrico_CheckedChanged"/>
 
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <HorizontalStackLayout
+                HorizontalOptions="StartAndExpand"
+                VerticalOptions="CenterAndExpand">
+                    <Label 
+                        Text="Tipo de Caso: "
+                        Padding="30"
+                        HorizontalOptions="StartAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        Style="{StaticResource labelEntry}"
+                        Grid.Column="0"
+                        Grid.Row="0"/>
+
+                    <RadioButton 
+                         Content="Medico"                        
+                         Grid.Column="1"
+                         Value="Medico"
+                         FontSize="Medium"
+                         TextColor="{StaticResource Black}"                        
+                         x:Name="RadioMedico"
+                         Margin="40,0,40,0"
+                         CheckedChanged="RadioMedico_CheckedChanged"/>
+                    <RadioButton 
+                         Content="Quirurgico"
+                         FontSize="Medium"
+                         Grid.Column="2"
+                         TextColor="{StaticResource Black}"
+                         Value="Quirurgico"
+                         Margin="40,0,40,0"                                            
+                         x:Name="RadioQuirurgico"
+                         CheckedChanged="RadioQuirurgico_CheckedChanged"/>
+                    <RadioButton                       
+                         Content="Obstetrico"
+                         Grid.Column="3"
+                         VerticalOptions="CenterAndExpand"
+                         HorizontalOptions="CenterAndExpand"
+                         TextColor="{StaticResource Black}"
+                         FontSize="Medium"
+                         Margin="40,0,40,0"
+                         Value="Obstetrico"
+                         x:Name="RadioObstetrico"
+                         CheckedChanged="RadioObstetrico_CheckedChanged"/>
+                
             </HorizontalStackLayout>
+         </Grid>
+
+
+        <Grid 
+            Padding="30">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label 
+                Text="Diagnóstico: "               
+                Grid.Row="0"
+                HorizontalOptions="StartAndExpand"
+                VerticalOptions="CenterAndExpand"
+                Style="{StaticResource labelEntry}"/>
+
+            <Editor 
+                x:Name="EditorDiagnostico"
+                BackgroundColor="{StaticResource Alter1}"
+                HorizontalTextAlignment="Start"
+                HorizontalOptions="FillAndExpand" 
+                TextColor="{StaticResource Black}"
+                VerticalOptions="CenterAndExpand"        
+                Grid.Column="0"              
+                Placeholder="Escriba aquí..."
+                HeightRequest="100"                 
+                Grid.Row="1"/>
+
+            <Image 
+                Source="logo_hospital.png"
+                VerticalOptions="Start"
+                HorizontalOptions="Start"              
+                Grid.Column="2"
+                Grid.Row="1"
+                HeightRequest="150"/>
         </Grid>
-        <HorizontalStackLayout>
-            <Label Text="Diagnostico: "/>
-            <Editor x:Name="EditorDiagnostico"
-                    HeightRequest="100"/>
-        </HorizontalStackLayout>
-        <Grid ColumnDefinitions="*,*" HorizontalOptions="Start" Margin="10,0,0,0" ColumnSpacing="15">
 
+        <Grid
+            Padding="30"
+            HorizontalOptions="StartAndExpand"
+            VerticalOptions="CenterAndExpand">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
             <Button
                 x:Name="BtnCancel"
                 Clicked="BtnCancel_Clicked"
                 Text="Cancelar"
-                Grid.Column="0"
-                HorizontalOptions="Center"/>
+                HeightRequest="80"
+                BackgroundColor="{StaticResource Alter1}"
+                TextColor="{StaticResource Principal}"
+                WidthRequest="200"
+                Grid.Column="0"              
+                HorizontalOptions="Center">
 
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+
+            </Button>
+
+            
             <Button
                 x:Name="BtnGuardar"
                 Clicked="BtnGuardar_Clicked"
-                Text="Confirmar"
+                Text="Confirmar Admision"
+                HeightRequest="80"
+                BackgroundColor="{StaticResource Alter1}"
+                TextColor="{StaticResource Principal}"
+                Margin="200,0,200,0"
+                WidthRequest="200"
                 Grid.Column="1"
-                HorizontalOptions="Center"/>
+                HorizontalOptions="Center">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+
+            </Button>
+            
         </Grid>
 
-    </VerticalStackLayout>
+       </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
