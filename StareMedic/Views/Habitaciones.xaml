@@ -35,32 +35,29 @@
 
                             <Grid Padding="20">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
                                 <Label
                                     Grid.Column="0"
+                                    Grid.Row="0"
                                     Text="{Binding Path=Id, StringFormat='ID: {0} '}"
-                                    TextColor="{StaticResource Black}"
+                                    TextColor="{StaticResource Alter2}"
                                     FontFamily="OpenSansRegular"
                                     FontSize="15"
                                     HorizontalTextAlignment="Start"
                                     HorizontalOptions="Start"/>
 
                                 <Label
-                                    Grid.Column="1"
-                                    Text=" -- "
-                                    TextColor="{StaticResource Black}" 
-                                    FontFamily="OpenSansRegular"
-                                    FontSize="15"
-                                    HorizontalOptions="Center"/>
-
-
-                                <Label
-                                    Grid.Column="2"
-                                    Text="{Binding Nombre}"
+                                    Grid.Column="0"
+                                    Grid.Row="1"
+                                    Text="{Binding Nombre, StringFormat='Nombre: {0} '}"
                                     TextColor="{StaticResource Black}"
                                     FontFamily="OpenSansRegular"
                                     FontSize="15"

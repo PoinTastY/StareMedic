@@ -64,7 +64,7 @@
             <Style x:Key="listviewShowEntity" TargetType="ListView">
                 <Setter Property="BackgroundColor" Value="Transparent"/>
                 <Setter Property="SeparatorColor" Value="Purple"/>
-                <Setter Property="RowHeight" Value="75"/>
+                <Setter Property="RowHeight" Value="85"/>
             </Style>
             <Style x:Key="listViewPacientes" TargetType="ListView">
                 <Setter Property="SeparatorColor" Value="Purple"/>
@@ -75,7 +75,8 @@
 
             </Style>
 
-            
+         
+
 
         </ResourceDictionary>
     </Application.Resources>
