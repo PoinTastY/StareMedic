@@ -2,9 +2,25 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StareMedic.Views.Viewers.PatientControll"
-             Title="PatientControll">
+             Title="Nuevo Paciente">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
+
+    <ContentPage.Resources>
+        <Color x:Key="Principal">#FFFBF5</Color>
+        <Color x:Key="Secundario">#F7EFE5</Color>
+        <Color x:Key="Alter1">#C3ACD0</Color>
+        <Color x:Key="Alter2">#7743DB</Color>
+        <Color x:Key="Black">#000</Color>
+    </ContentPage.Resources>
+    
     <ScrollView>
-        <VerticalStackLayout Style="{StaticResource mainVerticalStackLayout}">
+        <VerticalStackLayout 
+            Padding="20"
+            BackgroundColor="{StaticResource Secundario}">
+            
             <Button x:Name="BtnEdit"
                     Text="Editar"
                     Clicked="BtnEdit_Clicked"
@@ -13,6 +29,7 @@
                     IsVisible="false"
                     IsEnabled="False"
                     Margin="0,10,10,0"/>
+            
             <Button x:Name="BtnDelete"
                     Text="Eliminar"
                     Clicked="BtnDelete_Clicked"
@@ -24,36 +41,69 @@
 
 
             <!--Display the id-->
-            <Label VerticalOptions="Center" HorizontalOptions="Start"
-                   TextColor="#a7a7a7"
-                   FontSize="Title"
-                   Text="ID:"
-                   x:Name="lblID"/>
+            <Label 
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                TextColor="#a7a7a7"
+                FontSize="Title"
+                Text="ID:"
+                x:Name="lblID"/>
             <!--Name (forced capture)-->
-            <Grid ColumnDefinitions="*,*">
-                <HorizontalStackLayout Spacing="15" HorizontalOptions="Start" Grid.Column="0">
+            
+            <Grid 
+                Padding="8"
+                ColumnDefinitions="*,*">
+                <HorizontalStackLayout 
+                    Spacing="20" 
+                    HorizontalOptions="StartAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    Grid.Column="0">
 
                     <!--Forced capture-->
-                    <Label Text="*Nombre:"
-                       Style="{StaticResource labelEntry}"/>
-                    <Entry x:Name="entryName"
-                       Style="{StaticResource entryName}"
-                       Placeholder="Ingresa el nombre del Paciente..."
-                       TextChanged="EntryName_TextChanged"/>
+                    <Label 
+                        Text="Nombre:"
+                        Grid.Column="0"
+                        VerticalOptions="Center"
+                        Style="{StaticResource labelEntry}"/>
+                    <Entry 
+                        x:Name="entryName"
+                        WidthRequest="800"
+                        Style="{StaticResource entryName}"
+                        Placeholder="Ingresa el nombre del Paciente..."
+                        TextChanged="EntryName_TextChanged"/>
 
                 </HorizontalStackLayout>
 
 
                 <!--Not forced Data-->
-                <HorizontalStackLayout Spacing="10" HorizontalOptions="StartAndExpand" Grid.Column="1">
-                    <Label Text="Sexo"
-                           VerticalOptions="Center"
-                           TextColor="#b0b0b0"/>
-                    <Picker x:Name="pickerSexo"
-                            MaximumWidthRequest="120"
-                            VerticalOptions="Center"
-                            SelectedIndexChanged="PickerSexo_SelectedIndexChanged">
+                
+            </Grid>
 
+            <!--Phone capture bellow name lol-->
+            <HorizontalStackLayout
+                Spacing="20" Margin="10,15,0,0">
+                <Label 
+                    Text="Telefono:"
+                    Style="{StaticResource labelEntry}"/>
+                <Entry 
+                    x:Name="entryTelefono"
+                    Style="{StaticResource entryPhone}"
+                    TextChanged="EntryTelefono_TextChanged"/>
+
+                <Grid 
+                    HorizontalOptions="StartAndExpand" 
+                    Grid.Column="1">
+
+                    <Label 
+                       Text="Sexo"
+                       VerticalOptions="Center"
+                       TextColor="#b0b0b0"/>
+                    <Picker 
+                       x:Name="pickerSexo"
+                       MaximumWidthRequest="120"
+                       VerticalOptions="Center"
+                       SelectedIndexChanged="PickerSexo_SelectedIndexChanged">
+                        
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>Masculino</x:String>
@@ -62,14 +112,19 @@
                                 <!--Si es otro, traer un entry para capturarlo xd-->
                             </x:Array>
                         </Picker.ItemsSource>
+
                     </Picker>
-                    <Label Text="Estado Civil"
-                           VerticalOptions="Center"
-                           TextColor="#b0b0b0"/>
-                    <Picker x:Name="pickerEdoCivil"
-                            MaximumWidthRequest="120"
-                            VerticalOptions="Center"
-                            SelectedIndexChanged="PickerEdoCivil_SelectedIndexChanged">
+
+                    <Label 
+                        Text="Estado Civil"
+                        VerticalOptions="Center"
+                        TextColor="#b0b0b0"/>
+                    
+                    <Picker
+                        x:Name="pickerEdoCivil"
+                        MaximumWidthRequest="120"
+                        VerticalOptions="Center"
+                        SelectedIndexChanged="PickerEdoCivil_SelectedIndexChanged">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>Soltero/a</x:String>
@@ -83,13 +138,15 @@
                         </Picker.ItemsSource>
                     </Picker>
 
-                    <!--we are commenting this bcs we got required not to use it-->
-                    <!--<Picker x:Name="pickerSangre"
-                            MaximumWidthRequest="120"
-                            VerticalOptions="Center"
-                            SelectedIndexChanged="PickerSangre_SelectedIndexChanged">
+                      <!--we are commenting this bcs we got required not to use it-->
+                    <!--<Picker 
+                        x:Name="pickerSangre"
+                        MaximumWidthRequest="120"
+                        VerticalOptions="Center"
+                        SelectedIndexChanged="PickerSangre_SelectedIndexChanged">
+                    
                         <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
+                           <x:Array Type="{x:Type x:String}">
                                 <x:String>A+</x:String>
                                 <x:String>O+</x:String>
                                 <x:String>B+</x:String>
@@ -98,31 +155,23 @@
                                 <x:String>O-</x:String>
                                 <x:String>B-</x:String>
                                 <x:String>AB-</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
+                           </x:Array>
+                         </Picker.ItemsSource>
                     </Picker>-->
-                    
-                    <Label Text="Edad"
-                           VerticalOptions="Center"
-                           TextColor="#b0b0b0"/>
+
+                    <Label 
+                        Text="Edad"
+                        VerticalOptions="Center"
+                        TextColor="#b0b0b0"/>
                     <Entry
                         Placeholder="Edad:"
                         MinimumWidthRequest="100"
                         x:Name="EntryEdad"
                         TextChanged="EntryEdad_TextChanged">
-                    </Entry>
+                     </Entry>
 
-                </HorizontalStackLayout>
-            </Grid>
-
-            <!--Phone capture bellow name lol-->
-            <VerticalStackLayout Spacing="10" Margin="10,15,0,0">
-                <Label Text="Telefono:"
-                   Style="{StaticResource labelEntry}"/>
-                <Entry x:Name="entryTelefono"
-                       Style="{StaticResource entryPhone}"
-                       TextChanged="EntryTelefono_TextChanged"/>
-            </VerticalStackLayout>
+                </Grid>
+            </HorizontalStackLayout>
 
             <!--Direccion shit-->
             <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" HorizontalOptions="FillAndExpand" Padding="10">
