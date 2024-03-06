@@ -40,22 +40,29 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Label
-                                Grid.Column="0"
-                                Text="Paciente: "
-                                Style="{StaticResource labelEntry}"  
-                                TextColor="{StaticResource Alter2}"
-                                FontSize="15"
-                                HorizontalOptions="StartAndExpand"
-                                HorizontalTextAlignment="Start"/>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
 
                                 <Label
-                                Grid.Column="1"
-                                Text="{Binding Nombre}"
-                                Style="{StaticResource labelEntry}"                              
-                                FontSize="15"
-                                HorizontalOptions="StartAndExpand"
-                                HorizontalTextAlignment="Start"/>
+                                    Grid.Column="0"
+                                    Grid.Row="0"
+                                    Text="Paciente: "
+                                    Style="{StaticResource labelEntry}"  
+                                    TextColor="{StaticResource Alter2}"
+                                    FontSize="15"
+                                    HorizontalOptions="StartAndExpand"
+                                    HorizontalTextAlignment="Start"/>
+
+                                <Label
+                                    Grid.Column="0"
+                                    Grid.Row="1"
+                                    Text="{Binding Nombre, StringFormat='> {0} '}"
+                                    Style="{StaticResource labelEntry}"                              
+                                    FontSize="15"
+                                    HorizontalOptions="StartAndExpand"
+                                    HorizontalTextAlignment="Start"/>
 
                             </Grid>
 

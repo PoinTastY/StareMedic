@@ -20,15 +20,45 @@
                 <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
                 <Setter Property="Margin" Value="10"/>
             </Style>
+
+            <Style x:Key="Entrys" TargetType="Entry">
+                <Setter Property="MinimumWidthRequest" Value="500"/>
+                <Setter Property="MaximumWidthRequest" Value="650"/>
+                <Setter Property="HeightRequest" Value="35"/>
+                <Setter Property="BackgroundColor" Value="#C3ACD0"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="TextColor" Value="#FFFBF5"/>
+                <Setter Property="TextTransform" Value="Uppercase"/>
+
+                <Style.Triggers>
+                    <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                        <Setter Property="BackgroundColor" Value="#7743DB" />
+                    </Trigger>
+                    <Trigger TargetType="Entry" Property="IsFocused" Value="False">
+                        <Setter Property="BackgroundColor" Value="#C3ACD0" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
             
             <Style x:Key="entryPhone" TargetType="Entry">
                 <Setter Property="FontSize" Value="Medium" />
                 <Setter Property="Keyboard" Value="Numeric"/>
                 <Setter Property="MaxLength" Value="10"/>
+                <Setter Property="TextColor" Value="#FFFBF5"/>
+                <Setter Property="BackgroundColor" Value="#C3ACD0"/>
                 <Setter Property="MinimumWidthRequest" Value="200"/>
                 <Setter Property="MaximumWidthRequest" Value="300"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
                 <Setter Property="HorizontalOptions" Value="Start"/>
+
+                <Style.Triggers>
+                    <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                        <Setter Property="BackgroundColor" Value="#7743DB" />
+                    </Trigger>
+                    <Trigger TargetType="Entry" Property="IsFocused" Value="False">
+                        <Setter Property="BackgroundColor" Value="#C3ACD0" />
+                    </Trigger>
+                </Style.Triggers>
             </Style>
 
             <Style x:Key="labelEntry" TargetType="Label">
@@ -44,6 +74,17 @@
                 <Setter Property="FontSize" Value="Medium"/>
                 <Setter Property="TextColor" Value="#FFFBF5"/>
                 <Setter Property="TextTransform" Value="Uppercase"/>
+
+
+                <Style.Triggers>
+                    <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                        <Setter Property="BackgroundColor" Value="#7743DB" />
+                    </Trigger>
+                    <Trigger TargetType="Entry" Property="IsFocused" Value="False">
+                        <Setter Property="BackgroundColor" Value="#C3ACD0" />
+                    </Trigger>
+                </Style.Triggers>
+  
             </Style>
 
             <Style x:Key="NameSearchBar" TargetType="SearchBar">
