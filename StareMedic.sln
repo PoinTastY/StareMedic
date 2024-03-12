@@ -5,6 +5,12 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StareMedic", "StareMedic\StareMedic.csproj", "{7C30F71A-AF21-469F-9E92-16AC631B7531}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{B426E940-D897-448A-98D3-A98A9F4FB497}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StareMedicTest", "StareMedicTest\StareMedicTest.csproj", "{D1C7F2DA-72C7-4822-969E-5EE7E42A442F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prt", "Prt", "{D0C6FF71-4042-46EA-98AE-24BB7DEFE635}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,9 +23,16 @@ Global
 		{7C30F71A-AF21-469F-9E92-16AC631B7531}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C30F71A-AF21-469F-9E92-16AC631B7531}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7C30F71A-AF21-469F-9E92-16AC631B7531}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{D1C7F2DA-72C7-4822-969E-5EE7E42A442F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1C7F2DA-72C7-4822-969E-5EE7E42A442F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1C7F2DA-72C7-4822-969E-5EE7E42A442F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1C7F2DA-72C7-4822-969E-5EE7E42A442F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D1C7F2DA-72C7-4822-969E-5EE7E42A442F} = {B426E940-D897-448A-98D3-A98A9F4FB497}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}
