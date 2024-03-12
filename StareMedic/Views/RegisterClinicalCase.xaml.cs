@@ -13,13 +13,15 @@ public partial class RegisterClinicalCase : ContentPage
     public RegisterClinicalCase()
     {
         InitializeComponent();
+        caso.IdDiagnostico = diag.Id;
         EditorDiagnostico.Placeholder = diag.Contenido;
+        PickerDoctor.ItemsSource = new ObservableCollection<Medic>(MainRepo.GetMedics());
+        PickerHabitacion.ItemsSource = new ObservableCollection<Rooms>(MainRepo.GetRooms());
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        PickerDoctor.ItemsSource = new ObservableCollection<Medic>(MainRepo.GetMedics());
         if(MainRepo.PatientIdSolver != null)
         {
             LblPaciente.Text = MainRepo.PatientIdSolver.Nombre;
@@ -27,7 +29,6 @@ public partial class RegisterClinicalCase : ContentPage
             ShowDoctor.IsVisible = true;
             ShowRoom.IsVisible = true;
         }
-        PickerHabitacion.ItemsSource = new ObservableCollection<Rooms>(MainRepo.GetRooms());
     }
 
     protected override void OnDisappearing()
@@ -42,27 +43,44 @@ public partial class RegisterClinicalCase : ContentPage
     }
 
     private void PickerDoctor_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        caso.IdDoctor = ((Medic)PickerDoctor.SelectedItem).Id;
+    {      
+        PickerDoctor.Opacity = 0;
+        PickerDoctor.FadeTo(1, 200);
+
+        if(PickerDoctor.SelectedItem != null)
+            caso.IdDoctor = ((Medic)PickerDoctor.SelectedItem).Id;
     }
 
     private async void BtnAddPatient_Clicked(object sender, EventArgs e)
     {
+        BtnAddPatient.Opacity = 0;
+        await BtnAddPatient.FadeTo(1, 200);
+
         await Navigation.PushModalAsync(new PatientControll(null));
     }
 
     private void PickerHabitacion_SelectedIndexChanged(object sender, EventArgs e)
     {
-        caso.IdHabitacion = ((Rooms)PickerHabitacion.SelectedItem).Id;
+        PickerHabitacion.Opacity = 0;
+        PickerHabitacion.FadeTo(1, 400);
+
+        if (PickerDoctor.SelectedItem != null)
+           caso.IdHabitacion = ((Rooms)PickerHabitacion.SelectedItem).Id;
     }
 
     private async void BtnPickPatient_Clicked(object sender, EventArgs e)
     {
+        BtnPickPatient.Opacity = 0;
+        await BtnPickPatient.FadeTo(1, 200);
+
         await Navigation.PushModalAsync(new PickPatientView());
     }
 
     private async void BtnGuardar_Clicked(object sender, EventArgs e)
     {
+        BtnGuardar.Opacity = 0; 
+        await BtnGuardar.FadeTo(1, 200);
+
         if (caso)
         {
             MakeStringID();
@@ -70,7 +88,6 @@ public partial class RegisterClinicalCase : ContentPage
             if (!answer)
             {
                 diag.Contenido = EditorDiagnostico.Text;
-                caso.IdDiagnostico = diag.Id;
                 MainRepo.AddDiagnostico(diag);
                 MainRepo.AddCaso(caso);
                 MainRepo.PatientIdSolver = new();
@@ -101,6 +118,9 @@ public partial class RegisterClinicalCase : ContentPage
 
     private async void BtnCancel_Clicked(object sender, EventArgs e)
     {
+        BtnCancel.Opacity = 0;
+        await BtnCancel.FadeTo(1, 200);
+
         bool answer = await DisplayAlert("Cancelar", "¿Estas seguro de cancelar?", "No", "Si");
         if (!answer)
         {
@@ -121,6 +141,9 @@ public partial class RegisterClinicalCase : ContentPage
 
     private void DateIngreso_DateSelected(object sender, DateChangedEventArgs e)
     {
+        DateIngreso.Opacity = 0;
+        DateIngreso.FadeTo(1, 200);
+
         caso.FechaIngreso = e.NewDate.ToUniversalTime();
     }
 

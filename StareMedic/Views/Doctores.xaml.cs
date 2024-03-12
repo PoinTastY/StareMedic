@@ -59,13 +59,19 @@ public partial class Doctores : ContentPage
         }
     }
 
-    private void btnCancel_Clicked(object sender, EventArgs e)
+    private async void btnCancel_Clicked(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("..");
+        btnCancel.Opacity = 0;
+        await btnCancel.FadeTo(1, 300);
+
+        await Shell.Current.GoToAsync("..");
     }
 
     private async void BtnAddMedic_Clicked(object sender, EventArgs e)
     {
-        await  Navigation.PushAsync(new MedicControll(new Medic()));
+        BtnAddMedic.Opacity = 0;
+        await BtnAddMedic.FadeTo(1, 300);
+
+        await  Navigation.PushAsync(new MedicControll(null));
     }
 }

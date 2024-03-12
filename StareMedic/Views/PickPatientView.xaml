@@ -3,47 +3,174 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StareMedic.Views.PickPatientView"
              Title="PickPatientView">
-    <ScrollView>
-        <VerticalStackLayout Padding="10">
-            <ListView x:Name="ListViewPatients"
-                      ItemSelected="ListViewPatients_ItemSelected"
-                      Style="{StaticResource listviewShowEntity}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextCell Text="{Binding Nombre}"
-                                  TextColor="White"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
 
-            </ListView>
-            <HorizontalStackLayout Spacing="15">
-                <Label Text="Buscar Paciente: "
-                       Style="{StaticResource labelEntry}"/>
-                <SearchBar x:Name="SearchbarPatient"
-                       TextChanged="SearchbarPatient_TextChanged"
-                           SearchButtonPressed="SearchbarPatient_SearchButtonPressed"
-                       Style="{StaticResource NameSearchBar}"/>
-            </HorizontalStackLayout>
-            
-            <Grid ColumnDefinitions="*,*" HorizontalOptions="Start" Margin="10,0,0,0" ColumnSpacing="15">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
 
-                    <Button
+    <ContentPage.Resources>
+        <Color x:Key="Principal">#FFFBF5</Color>
+        <Color x:Key="Secundario">#F7EFE5</Color>
+        <Color x:Key="Alter1">#C3ACD0</Color>
+        <Color x:Key="Alter2">#7743DB</Color>
+        <Color x:Key="Black">#000</Color>
+    </ContentPage.Resources>
+
+    <Grid
+        ColumnDefinitions="2*,*"
+        BackgroundColor="{StaticResource Secundario}">
+
+        <ListView 
+            Grid.Column="0"
+            x:Name="ListViewPatients"
+            BackgroundColor="{StaticResource Alter1}"
+            ItemSelected="ListViewPatients_ItemSelected"
+            HorizontalOptions="FillAndExpand"
+            MinimumWidthRequest="600"
+            Style="{StaticResource listviewShowEntity}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout
+                                Orientation="Horizontal">
+                            <Grid
+                                Padding="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Label
+                                    Grid.Column="0"
+                                    Grid.Row="0"
+                                    Text="Paciente: "
+                                    Style="{StaticResource labelEntry}"  
+                                    TextColor="{StaticResource Alter2}"
+                                    FontSize="15"
+                                    HorizontalOptions="StartAndExpand"
+                                    HorizontalTextAlignment="Start"/>
+
+                                <Label
+                                    Grid.Column="0"
+                                    Grid.Row="1"
+                                    Text="{Binding Nombre, StringFormat='> {0} '}"
+                                    Style="{StaticResource labelEntry}"                              
+                                    FontSize="15"
+                                    HorizontalOptions="StartAndExpand"
+                                    HorizontalTextAlignment="Start"/>
+
+                            </Grid>
+
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+        
+        <Grid
+            Padding="10"
+            ColumnSpacing="-40"
+            Grid.Column="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+            <SearchBar 
+                 x:Name="SearchbarPatient"
+                 VerticalOptions="Start"
+                 Placeholder="Buscar Paciente"
+                 TextChanged="SearchbarPatient_TextChanged"            
+                 SearchButtonPressed="SearchbarPatient_SearchButtonPressed"
+                 Background="{StaticResource Alter1}"
+                 CancelButtonColor="{StaticResource Alter2}"
+                 MaximumHeightRequest="60"
+                 MinimumWidthRequest="300"
+                 MaximumWidthRequest="300"
+                 Grid.Row="0">
+                
+            </SearchBar>
+
+            <Image 
+               Grid.Row="1"
+               Source="logo_hospital.png"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               HeightRequest="200"/>
+
+
+            <Grid 
+                VerticalOptions="EndAndExpand"
+                ColumnDefinitions="*,*" 
+                RowDefinitions="*,*"               
+                ColumnSpacing="100"
+                Grid.Row="2"
+                BackgroundColor="{StaticResource Secundario}">
+
+                <Button
                     x:Name="BtnCancel"
                     Clicked="BtnCancel_Clicked"
                     Text="Cancelar"
+                    MinimumWidthRequest="160"
+                    HorizontalOptions="Start"
                     Grid.Column="0"
-                    HorizontalOptions="Center"/>
+                    Grid.Row="1"
+                    BackgroundColor="{StaticResource Alter1}"
+                    TextColor="{StaticResource Principal}"
+                    VerticalOptions="End">
 
-                    <Button
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+
+                </Button>
+
+                <Button
+                    Grid.Row="1"
+                    BackgroundColor="{StaticResource Alter1}"
+                    TextColor="{StaticResource Principal}"
                     x:Name="BtnConfirmar"
+                    HorizontalOptions="End"
+                    MinimumWidthRequest="160"
                     Clicked="BtnConfirmar_Clicked"
-                    Text="Confirmar"
-                    Grid.Column="1"
-                    HorizontalOptions="Center"
-                    IsEnabled="False"/>
-            </Grid>
-        </VerticalStackLayout>
-        
+                    Text="Confirmar Paciente"
+                    Grid.Column="1"                  
+                    IsEnabled="False">
 
-    </ScrollView>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+
+
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>   
 </ContentPage>

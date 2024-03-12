@@ -9,12 +9,13 @@ public partial class RoomControll : ContentPage
 	public RoomControll(Rooms room)
 	{
 		InitializeComponent();
-        if(room.Nombre != "missing")
+        if(room != null)
         {
             
             this.room = room;
             EntryName.Text = room.Nombre;
             EditorDescripcion.Text = room.Descripcion;
+            EnableDisable(false);
         }
         else
         {
@@ -59,6 +60,7 @@ public partial class RoomControll : ContentPage
         bool confirm = await DisplayAlert("Cancelar", "Desea cancelar el registro?", "No", "Si");
         if (!confirm)
         {
+            await DisplayAlert("Cancelado", "No se ha realizado ningun cambio", "Ok");
             await Shell.Current.GoToAsync("..");
         }
     }
@@ -72,5 +74,23 @@ public partial class RoomControll : ContentPage
             await DisplayAlert("Exito", $"Se elimino la habitacion {room.Nombre}", "OK");
             await Shell.Current.GoToAsync("..");
         }
+    }
+    private void EnableDisable(bool x)
+    {
+        BtnEdit.IsVisible = !x;
+        BtnEdit.IsEnabled = !x;
+        BtnDelete.IsVisible = !x;
+        BtnDelete.IsEnabled = !x;
+        EntryName.IsEnabled = x;
+        EditorDescripcion.IsEnabled = x;
+        BtnCancel.IsVisible = x;
+        BtnCancel.IsEnabled = x;
+        BtnGuardar.IsVisible = x;
+        BtnGuardar.IsEnabled = x;
+    }
+
+    private void BtnEdit_Clicked(object sender, EventArgs e)
+    {
+        EnableDisable(true);
     }
 }

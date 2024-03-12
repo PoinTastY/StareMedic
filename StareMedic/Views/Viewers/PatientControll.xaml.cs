@@ -8,7 +8,6 @@ public partial class PatientControll : ContentPage
     Patient paciente;
     Cercano cercano;
     Fiador fiador;
-    readonly List<int> agelist = new();
 
     public PatientControll(Patient pacientEdit)
 	{
@@ -140,6 +139,7 @@ public partial class PatientControll : ContentPage
         bool confirm = await DisplayAlert("Cancelar", "Desea cancelar el registro?", "No", "Si");
         if (!confirm)
         {
+            await DisplayAlert("Cancelado", "No se ha realizado ningun cambio", "Ok");
             await Shell.Current.GoToAsync("..");
         }
     }

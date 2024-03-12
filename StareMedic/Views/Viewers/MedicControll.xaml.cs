@@ -8,16 +8,15 @@ public partial class MedicControll : ContentPage
 	public MedicControll(Medic doctor)
 	{
 		InitializeComponent();
-        if(doctor.Nombre != "missing")
+        if(doctor != null)
         {
             this.doctor = doctor;
             EntryName.Text = doctor.Nombre;
             EntryTelefono.Text = doctor.Telefono;
+            EnableDisable(false);
         }
         else
         {
-            BtnDelete.IsVisible = false;
-            BtnDelete.IsEnabled = false;
             this.doctor = new(MainRepo.GetCurrentMedicIndex());
         }
 		
@@ -67,18 +66,43 @@ public partial class MedicControll : ContentPage
         bool confirm = await DisplayAlert("Cancelar", "Desea cancelar el registro?", "No", "Si");
         if (!confirm)
         {
+            await DisplayAlert("Cancelado", "No se ha realizado ningun cambio", "Ok");
             await Navigation.PopAsync();
         }
     }
 
     private async void BtnDelete_Clicked(object sender, EventArgs e)
     {
-        bool del = await DisplayAlert("Confirmar:", $"Se eliminara al Medico:{doctor.Nombre}", "Cancelar", "Confirmar"); 
-        if (!del)
+        bool confirm = await DisplayAlert("Eliminar", $"Desea eliminar al Doctor: {doctor.Nombre}?", "No", "Si");
+        if (!confirm)
         {
-            await DisplayAlert("Confirmado", $"Se ha eliminado al Medico:\n{doctor.Nombre}", "Ok");
             MainRepo.DeleteMedic(doctor.Id);
+            await DisplayAlert("Exito", $"Medico eliminado: {doctor.Nombre}", "OK");
             await Shell.Current.GoToAsync("..");
         }
+        else
+        {
+            await DisplayAlert("Cancelado", "Operacion cancelada, no se ha borrado nada", "OK");
+            return;
+        }
+    }
+
+    private void EnableDisable(bool x)
+    {
+        BtnEdit.IsVisible = !x;
+        BtnEdit.IsEnabled = !x;
+        BtnDelete.IsVisible = !x;
+        BtnDelete.IsEnabled = !x;
+        EntryName.IsEnabled = x;
+        EntryTelefono.IsEnabled = x;
+        BtnCancel.IsVisible = x;
+        BtnCancel.IsEnabled = x;
+        BtnGuardar.IsVisible = x;
+        BtnGuardar.IsEnabled = x;
+    }
+
+    private void BtnEdit_Clicked(object sender, EventArgs e)
+    {
+        EnableDisable(true);
     }
 }

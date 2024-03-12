@@ -4,7 +4,13 @@
              x:Class="StareMedic.Views.Viewers.RoomControll"
              Title="RoomControll">
     <VerticalStackLayout Style="{StaticResource mainVerticalStackLayout}">
-        <!--Display ID-->
+        <Button Text="Editar"
+                x:Name="BtnEdit"
+                Clicked="BtnEdit_Clicked"
+                VerticalOptions="Center"
+                HorizontalOptions="End"
+                IsVisible="false"
+                IsEnabled="False"/>
         <Button 
             Text="Eliminar"
             x:Name="BtnDelete"

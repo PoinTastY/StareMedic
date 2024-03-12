@@ -127,9 +127,9 @@ namespace StareMedic.Models
                 return roomreturned;
         }
 
-        public static CasoClinico GetCasoById(string caseId)
+        public static CasoClinico GetCasoById(int caseId)
         {
-            return _db.CasoClinicos.FirstOrDefault(x => x.Id == caseId);
+            return _db.CasoClinicos.FirstOrDefault(x => x.IdDB == caseId);
         }
 
         public static Medic GetMedicById(int medicId)
