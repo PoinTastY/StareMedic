@@ -3,30 +3,41 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StareMedic.Views.Viewers.RoomControll"
              Title="RoomControll">
-    <VerticalStackLayout Style="{StaticResource mainVerticalStackLayout}">
-        <Button Text="Editar"
-                x:Name="BtnEdit"
-                Clicked="BtnEdit_Clicked"
-                VerticalOptions="Center"
-                HorizontalOptions="End"
-                IsVisible="false"
-                IsEnabled="False"/>
-        <Button 
-            Text="Eliminar"
-            x:Name="BtnDelete"
-            Clicked="BtnDelete_Clicked"
-            VerticalOptions="Center" 
-            HorizontalOptions="End"/>
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
+
+    <ContentPage.Resources>
+        <Color x:Key="Principal">#FFFBF5</Color>
+        <Color x:Key="Secundario">#F7EFE5</Color>
+        <Color x:Key="Alter1">#C3ACD0</Color>
+        <Color x:Key="Alter2">#7743DB</Color>
+        <Color x:Key="Black">#000</Color>
+    </ContentPage.Resources>
+    
+    <VerticalStackLayout 
+        Padding="20"
+        BackgroundColor="{StaticResource Secundario}">
+        
+
 
         <!--NameCap-->
         <HorizontalStackLayout>
-            <Label Text="*Nombre:"
-                    Style="{StaticResource labelEntry}"/>
-            <Entry x:Name="EntryName"
-                    Style="{StaticResource entryName}"
-                    Placeholder="Nombre de la Habitacion..."
-                    TextChanged="EntryName_TextChanged"/>
+            <Label 
+                Text="Nombre:"
+                VerticalOptions="Center"
+                Style="{StaticResource labelEntry}"/>
+            <Entry 
+                x:Name="EntryName"
+                WidthRequest="800"
+                Style="{StaticResource entryName}"
+                Placeholder="Nombre de la Habitacion..."
+                TextChanged="EntryName_TextChanged"/>
+            
         </HorizontalStackLayout>
+        
+        
         <HorizontalStackLayout HorizontalOptions="Start">
             <Label Text="Descripcion:"
                     Style="{StaticResource labelEntry}"/>
@@ -42,7 +53,11 @@
         </HorizontalStackLayout>
 
         <!--confirm buttons-->
-        <Grid ColumnDefinitions="*,*" HorizontalOptions="Start" Margin="10,0,0,0" ColumnSpacing="15">
+        <Grid 
+            ColumnDefinitions="*,*" 
+            HorizontalOptions="Start"
+            Margin="10,0,0,0"
+            ColumnSpacing="15">
 
             <Button
             x:Name="BtnCancel"
@@ -57,6 +72,22 @@
             Text="Guardar:)"
             Grid.Column="1"
             HorizontalOptions="Center"/>
+
+            <Button
+                Text="Editar"
+                x:Name="BtnEdit"
+                Clicked="BtnEdit_Clicked"
+                VerticalOptions="Center"
+                HorizontalOptions="End"
+                IsVisible="false"
+                IsEnabled="False"/>
+            <Button 
+                Text="Eliminar"
+                x:Name="BtnDelete"
+                Clicked="BtnDelete_Clicked"
+                VerticalOptions="Center" 
+                HorizontalOptions="End"/>
+            
         </Grid>
     </VerticalStackLayout>
 </ContentPage>

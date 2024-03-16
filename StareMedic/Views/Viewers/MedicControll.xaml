@@ -3,65 +3,177 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StareMedic.Views.Viewers.MedicControll"
              Title="MedicControll">
-    <VerticalStackLayout Style="{StaticResource mainVerticalStackLayout}">
-        <Button Text="Editar"
-                x:Name="BtnEdit"
-                Clicked="BtnEdit_Clicked"
-                VerticalOptions="Center"
-                HorizontalOptions="End"
-                IsVisible="false"
-                IsEnabled="False"/>
-        <Button 
-               Text="Eliminar"
-               x:Name="BtnDelete"
-                Clicked="BtnDelete_Clicked"
-               VerticalOptions="Center" 
-               HorizontalOptions="End"
-            IsVisible="false"
-            IsEnabled="false"/>
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
+
+    <ContentPage.Resources>
+        <Color x:Key="Principal">#FFFBF5</Color>
+        <Color x:Key="Secundario">#F7EFE5</Color>
+        <Color x:Key="Alter1">#C3ACD0</Color>
+        <Color x:Key="Alter2">#7743DB</Color>
+        <Color x:Key="Black">#000</Color>
+    </ContentPage.Resources>
+    
+    <VerticalStackLayout 
+        Padding="20"
+        BackgroundColor="{StaticResource Secundario}">
+        
+
 
         <!--Name & Phone cap-->
-        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" Padding="10">
-            <HorizontalStackLayout Grid.Column="0" Grid.Row="0" Margin="10,15,0,0">
+        <Grid
+            ColumnDefinitions="*" 
+            RowDefinitions="*,*"
+            Padding="10">
+            <HorizontalStackLayout 
+                Grid.Column="0" 
+                Grid.Row="0" 
+                HorizontalOptions="StartAndExpand"
+                VerticalOptions="CenterAndExpand">
 
-                <Label Text="*Nombre"
+                <Label Text="Nombre:"
+                       TextColor="{StaticResource Alter2}"
+                       VerticalOptions="Center"
                        Style="{StaticResource labelEntry}"/>
                 <Entry x:Name="EntryName"
+                       WidthRequest="800"
                        Style="{StaticResource entryName}"
                        Placeholder="Nombre del Medico..."
                        TextChanged="EntryName_TextChanged"/>
 
             </HorizontalStackLayout>
-            <HorizontalStackLayout Grid.Column="1" Grid.Row="0" Margin="10,15,0,0">
+            
+            <HorizontalStackLayout 
+                Grid.Column="0"
+                Grid.Row="1">
 
                 <Label Text="Telefono:"
                        Style="{StaticResource labelEntry}"/>
                 <Entry x:Name="EntryTelefono"
+                       VerticalOptions="Center"
                        Style="{StaticResource entryPhone}"
                        TextChanged="EntryTelefono_TextChanged"/>
 
             </HorizontalStackLayout>
-            <BoxView Style="{StaticResource BreakLine}" Grid.ColumnSpan="2" Grid.Row="1"/>
+            
+            <BoxView 
+                Style="{StaticResource BreakLine}" 
+                Grid.ColumnSpan="2" 
+                Grid.Row="1"/>
 
 
         </Grid>
 
         <!--Confirm things-->
-        <Grid ColumnDefinitions="*,*" HorizontalOptions="Start" Margin="10,0,0,0" ColumnSpacing="15">
+        <Grid 
+            ColumnDefinitions="*,*,*,*" 
+            HorizontalOptions="Start" 
+            Margin="10,0,0,0" 
+            ColumnSpacing="15">
 
             <Button
                     x:Name="BtnCancel"
+                    TextColor="{StaticResource Principal}"
+                    BackgroundColor="{StaticResource Alter1}"
                     Clicked="BtnCancel_Clicked"
                     Text="Cancelar"
                     Grid.Column="0"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="Center">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+                
+            </Button>
 
             <Button
                     x:Name="BtnGuardar"
+                    TextColor="{StaticResource Principal}"
+                    BackgroundColor="{StaticResource Alter1}"
                     Clicked="BtnGuardar_Clicked"
                     Text="Guardar:)"
                     Grid.Column="1"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="Center">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+                
+            </Button>
+
+            <Button 
+                Text="Editar"
+                x:Name="BtnEdit"
+                Grid.Column="2"
+                TextColor="{StaticResource Principal}"
+                BackgroundColor="{StaticResource Alter1}"
+                Clicked="BtnEdit_Clicked"
+                VerticalOptions="Center"
+                HorizontalOptions="End"
+                IsVisible="false"
+                IsEnabled="False">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+
+            </Button>
+            
+            <Button 
+                Text="Eliminar"
+                x:Name="BtnDelete"
+                Grid.Column="3"
+                TextColor="{StaticResource Principal}"
+                BackgroundColor="{StaticResource Alter1}"
+                Clicked="BtnDelete_Clicked"
+                VerticalOptions="Center" 
+                HorizontalOptions="End"
+                IsVisible="false"
+                IsEnabled="false">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+
+            </Button>
         </Grid>
     </VerticalStackLayout>
 </ContentPage>
