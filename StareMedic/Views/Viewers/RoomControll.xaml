@@ -17,7 +17,7 @@
     </ContentPage.Resources>
     
     <VerticalStackLayout 
-        Padding="20"
+        Padding="30"
         BackgroundColor="{StaticResource Secundario}">
         
 
@@ -26,68 +26,202 @@
         <HorizontalStackLayout>
             <Label 
                 Text="Nombre:"
+                TextColor="{StaticResource Alter2}"
                 VerticalOptions="Center"
                 Style="{StaticResource labelEntry}"/>
             <Entry 
                 x:Name="EntryName"
                 WidthRequest="800"
+                Margin="30,0,30,0"
                 Style="{StaticResource entryName}"
                 Placeholder="Nombre de la Habitacion..."
                 TextChanged="EntryName_TextChanged"/>
             
         </HorizontalStackLayout>
-        
-        
-        <HorizontalStackLayout HorizontalOptions="Start">
-            <Label Text="Descripcion:"
-                    Style="{StaticResource labelEntry}"/>
-            <Editor x:Name="EditorDescripcion"
-                    Placeholder="Descripcion..."
-                    TextChanged="EditorDescripcion_TextChanged"
-                    VerticalOptions="StartAndExpand"
-                    HorizontalOptions="FillAndExpand"
-                    MinimumWidthRequest="300"
-                    MaximumWidthRequest="300"
-                    MaximumHeightRequest="100"
-                    AutoSize="TextChanges"/>
-        </HorizontalStackLayout>
 
-        <!--confirm buttons-->
-        <Grid 
-            ColumnDefinitions="*,*" 
-            HorizontalOptions="Start"
-            Margin="10,0,0,0"
-            ColumnSpacing="15">
+        <BoxView Style="{StaticResource BreakLine}"/>
 
-            <Button
-            x:Name="BtnCancel"
-            Clicked="BtnCancel_Clicked"
-            Text="Cancelar"
-            Grid.Column="0"
-            HorizontalOptions="Center"/>
+        <Grid
+            VerticalOptions="EndAndExpand"
+            Padding="30">
 
-            <Button
-            x:Name="BtnGuardar"
-            Clicked="BtnGuardar_Clicked"
-            Text="Guardar:)"
-            Grid.Column="1"
-            HorizontalOptions="Center"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-            <Button
-                Text="Editar"
-                x:Name="BtnEdit"
-                Clicked="BtnEdit_Clicked"
-                VerticalOptions="Center"
-                HorizontalOptions="End"
-                IsVisible="false"
-                IsEnabled="False"/>
-            <Button 
-                Text="Eliminar"
-                x:Name="BtnDelete"
-                Clicked="BtnDelete_Clicked"
-                VerticalOptions="Center" 
-                HorizontalOptions="End"/>
-            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <HorizontalStackLayout 
+                HorizontalOptions="Start">
+
+                <Label Text="Descripcion:"
+                       Grid.Column="0"
+                       VerticalOptions="Center"
+                       Grid.Row="1"
+                        Style="{StaticResource labelEntry}"/>
+
+                <Editor x:Name="EditorDescripcion"
+                        Grid.Column="1"
+                        Style="{StaticResource Editor}"
+                        Grid.Row="1"
+                        Margin="30,0,30,0"
+                        BackgroundColor="{StaticResource Alter1}"
+                        Placeholder="Descripcion..."
+                        TextChanged="EditorDescripcion_TextChanged"
+                        VerticalOptions="StartAndExpand"
+                        HorizontalOptions="FillAndExpand"
+                        HorizontalTextAlignment="Start"
+                        HeightRequest="100"
+                        WidthRequest="600"
+                        MaximumHeightRequest="100"
+                        AutoSize="TextChanges">
+
+                </Editor>
+            </HorizontalStackLayout>
         </Grid>
+        <VerticalStackLayout 
+                Padding="30" 
+                BackgroundColor="{StaticResource Secundario}">
+            <!--confirm buttons-->
+            <Grid
+                VerticalOptions="EndAndExpand"
+                Padding="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+            
+                <BoxView 
+                    Grid.Row="0"
+                    Grid.ColumnSpan="3"
+                    Style="{StaticResource BreakLine}"/>
+
+
+                <Button
+                    x:Name="BtnCancel"
+                    Clicked="BtnCancel_Clicked"
+                    BackgroundColor="{StaticResource Alter1}"
+                    TextColor="{StaticResource Principal}"
+                    Text="Cancelar"
+                    WidthRequest="90"
+                    Grid.Column="0"
+                    Grid.Row="3"
+                    VerticalOptions="FillAndExpand"
+                    HorizontalOptions="Start">
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </Button>
+
+                <Button
+                    x:Name="BtnGuardar"
+                    Clicked="BtnGuardar_Clicked"
+                    TextColor="{StaticResource Principal}"
+                    BackgroundColor="{StaticResource Alter1}"
+                    Text="Guardar"
+                    WidthRequest="90"
+                    Grid.Column="1"
+                    Grid.Row="3"
+                    VerticalOptions="Start"
+                    HorizontalOptions="StartAndExpand">
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </Button>
+
+                <Button
+                    Text="Editar"
+                    x:Name="BtnEdit"
+                    Clicked="BtnEdit_Clicked"
+                    VerticalOptions="StartAndExpand"
+                    WidthRequest="90"
+                    HorizontalOptions="End"
+                    TextColor="{StaticResource Principal}"
+                    BackgroundColor="{StaticResource Alter1}"
+                    Grid.Column="2"
+                    Grid.Row="3"
+                    IsVisible="false"
+                    IsEnabled="False">
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+
+                </Button>
+                <Button 
+                    Text="Eliminar"
+                    x:Name="BtnDelete"
+                    Clicked="BtnDelete_Clicked"
+                    TextColor="{StaticResource Principal}"
+                    BackgroundColor="{StaticResource Alter1}"
+                    Grid.Column="3"
+                    Grid.Row="3"
+                    WidthRequest="90"
+                    VerticalOptions="StartAndExpand" 
+                    HorizontalOptions="End"
+                    IsVisible="false"
+                    IsEnabled="False">
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+
+                </Button>
+            </Grid>
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
