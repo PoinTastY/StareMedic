@@ -291,8 +291,8 @@ public partial class PatientControll : ContentPage
         BtnEdit.IsVisible = !x;
         BtnGuardar.IsEnabled = x;
         BtnGuardar.IsVisible = x;
-        BtnCancel.IsEnabled = x;
-        BtnCancel.IsVisible = x;
+        BtnCancel.IsEnabled = !x;
+        BtnCancel.IsVisible = !x;
         BtnDelete.IsEnabled = !x;
         BtnDelete.IsVisible = !x;
         entryNombreCercano.IsEnabled = x;

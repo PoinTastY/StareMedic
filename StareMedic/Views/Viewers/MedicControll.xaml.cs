@@ -78,6 +78,16 @@ public partial class MedicControll : ContentPage
         }
     }
 
+    private async void BtnCancel2_Clicked(object sender, EventArgs e)
+    {
+        BtnCancel.Opacity = 0;
+
+        await BtnCancel.FadeTo(1, 300);
+
+        await Shell.Current.GoToAsync("..");
+    }
+
+
     private async void BtnDelete_Clicked(object sender, EventArgs e)
     {
         BtnDelete.Opacity = 0;
@@ -107,6 +117,8 @@ public partial class MedicControll : ContentPage
         EntryTelefono.IsEnabled = x;
         BtnCancel.IsVisible = x;
         BtnCancel.IsEnabled = x;
+        BtnCancel2.IsVisible = !x;
+        BtnCancel2.IsEnabled = !x;
         BtnGuardar.IsVisible = x;
         BtnGuardar.IsEnabled = x;
     }
