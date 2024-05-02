@@ -136,6 +136,9 @@ public partial class PatientControll : ContentPage
     //confirm buttons
     private async void BtnCancel_Clicked(object sender, EventArgs e)
     {
+        BtnCancel.Opacity = 0;
+
+        await BtnCancel.FadeTo(1, 300);
         bool confirm = await DisplayAlert("Cancelar", "Desea cancelar el registro?", "No", "Si");
         if (!confirm)
         {
@@ -146,6 +149,10 @@ public partial class PatientControll : ContentPage
 
     private async void BtnGuardar_Clicked(object sender, EventArgs e)
     {
+        BtnGuardar.Opacity = 0;
+
+        await BtnGuardar.FadeTo(1, 300);
+
         if (paciente)
         {
             //the cancel and confirm buttons are switched bcs i like it that way
@@ -239,14 +246,20 @@ public partial class PatientControll : ContentPage
         paciente.Edad = EntryEdad.Text;
     }
 
-    private void BtnEdit_Clicked(object sender, EventArgs e)
+    private async void BtnEdit_Clicked(object sender, EventArgs e)
     {
+        BtnEdit.Opacity = 0;
+
+        await BtnEdit.FadeTo(1, 300);
         enableEdit(true);
     }
 
 
     private async void BtnDelete_Clicked(object sender, EventArgs e)
     {
+        BtnDelete.Opacity = 0;
+        
+        await BtnDelete.FadeTo(1, 300);
         bool confirm = await DisplayAlert("Eliminar", $"Desea eliminar al paciente: {paciente.Nombre}?", "No", "Si");
         if (!confirm)
         {
@@ -278,8 +291,8 @@ public partial class PatientControll : ContentPage
         BtnEdit.IsVisible = !x;
         BtnGuardar.IsEnabled = x;
         BtnGuardar.IsVisible = x;
-        BtnCancel.IsEnabled = x;
-        BtnCancel.IsVisible = x;
+        BtnCancel.IsEnabled = !x;
+        BtnCancel.IsVisible = !x;
         BtnDelete.IsEnabled = !x;
         BtnDelete.IsVisible = !x;
         entryNombreCercano.IsEnabled = x;
