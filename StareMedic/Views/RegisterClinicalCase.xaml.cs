@@ -43,29 +43,44 @@ public partial class RegisterClinicalCase : ContentPage
     }
 
     private void PickerDoctor_SelectedIndexChanged(object sender, EventArgs e)
-    {
+    {      
+        PickerDoctor.Opacity = 0;
+        PickerDoctor.FadeTo(1, 200);
+
         if(PickerDoctor.SelectedItem != null)
             caso.IdDoctor = ((Medic)PickerDoctor.SelectedItem).Id;
     }
 
     private async void BtnAddPatient_Clicked(object sender, EventArgs e)
     {
+        BtnAddPatient.Opacity = 0;
+        await BtnAddPatient.FadeTo(1, 200);
+
         await Navigation.PushModalAsync(new PatientControll(null));
     }
 
     private void PickerHabitacion_SelectedIndexChanged(object sender, EventArgs e)
     {
+        PickerHabitacion.Opacity = 0;
+        PickerHabitacion.FadeTo(1, 400);
+
         if (PickerDoctor.SelectedItem != null)
-            caso.IdHabitacion = ((Rooms)PickerHabitacion.SelectedItem).Id;
+           caso.IdHabitacion = ((Rooms)PickerHabitacion.SelectedItem).Id;
     }
 
     private async void BtnPickPatient_Clicked(object sender, EventArgs e)
     {
+        BtnPickPatient.Opacity = 0;
+        await BtnPickPatient.FadeTo(1, 200);
+
         await Navigation.PushModalAsync(new PickPatientView());
     }
 
     private async void BtnGuardar_Clicked(object sender, EventArgs e)
     {
+        BtnGuardar.Opacity = 0; 
+        await BtnGuardar.FadeTo(1, 200);
+
         if (caso)
         {
             MakeStringID();
@@ -111,6 +126,9 @@ public partial class RegisterClinicalCase : ContentPage
 
     private async void BtnCancel_Clicked(object sender, EventArgs e)
     {
+        BtnCancel.Opacity = 0;
+        await BtnCancel.FadeTo(1, 200);
+
         bool answer = await DisplayAlert("Cancelar", "¿Estas seguro de cancelar?", "No", "Si");
         if (!answer)
         {
@@ -131,6 +149,9 @@ public partial class RegisterClinicalCase : ContentPage
 
     private void DateIngreso_DateSelected(object sender, DateChangedEventArgs e)
     {
+        DateIngreso.Opacity = 0;
+        DateIngreso.FadeTo(1, 200);
+
         caso.FechaIngreso = e.NewDate.ToUniversalTime();
     }
 

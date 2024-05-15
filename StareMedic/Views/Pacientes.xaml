@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="StareMedic.Views.Pacientes"
+             x:Class="StareMedic.Views.Pacientes"          
              Title="Pacientes">
-    <Grid ColumnDefinitions="3*,*" BackgroundColor="#F7EFE5">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
+
+    <ContentPage.Resources>
+        <Color x:Key="Principal">#FFFBF5</Color>
+        <Color x:Key="Secundario">#F7EFE5</Color>
+        <Color x:Key="Alter1">#C3ACD0</Color>
+        <Color x:Key="Alter2">#7743DB</Color>
+        <Color x:Key="Black">#000</Color>
+    </ContentPage.Resources>
+    
+    <Grid 
+        ColumnDefinitions="2*,*" 
+        BackgroundColor="{StaticResource Secundario}">
 
         <ListView
             Grid.Column="0"
             x:Name="listPatients"
-            BackgroundColor="#C3ACD0"
+            BackgroundColor="{StaticResource Alter1}"
             Style="{StaticResource listviewShowEntity}"
             ItemSelected="ListPatients_ItemSelected"
             ItemTapped="ListPatients_ItemTapped"
@@ -16,95 +31,144 @@
             MinimumWidthRequest="600">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Nombre}"
-                              Detail="{Binding Path=Id}"
-                              DetailColor="Black"
-                              TextColor="Black">
-                    </TextCell>
+                    <ViewCell>
+                        <StackLayout 
+                            Orientation="Horizontal">
+
+                            <Grid 
+                                Padding="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Label 
+                                    Grid.Column="0"
+                                    Grid.Row="0"
+                                    Text="{Binding Path=Id, StringFormat='ID: {0} '}"
+                                    FontFamily="OpenSansRegular"
+                                    TextColor="{StaticResource Alter2}"
+                                    FontSize="15"
+                                    HorizontalOptions="StartAndExpand"
+                                    HorizontalTextAlignment="Start"/>
+
+                                <Label 
+                                    Grid.Column="0"
+                                    Grid.Row="1"
+                                    Text="{Binding Nombre, StringFormat='Nombre: {0} '}"
+                                    FontFamily="OpenSansRegular"
+                                    FontSize="15"
+                                    TextColor="{StaticResource Black}"
+                                    HorizontalOptions="StartAndExpand"
+                                    HorizontalTextAlignment="Center"/>
+
+                            </Grid>
+                        </StackLayout>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
         <Grid  
-              VerticalOptions="FillAndExpand" 
               Padding="10" 
               ColumnSpacing="-40"
               Grid.Column="1">
 
-            <!-- Fila 0: SearchBar y Picker -->
+            <!-- Fila 0: SearchBar -->
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
 
             <SearchBar x:Name="SearchBarPatients"
                         VerticalOptions="Start"
-                        Background="#C3ACD0"
-                        CancelButtonColor="#7743DB"
+                        Placeholder="Buscar Paciente"
+                        Background="{StaticResource Alter1}"
+                        CancelButtonColor="{StaticResource Alter2}"
                         SearchButtonPressed="SearchBarPatients_SearchButtonPressed"
                         TextChanged="SearchBarPatients_TextChanged"
                         MaximumHeightRequest="60"
                         MinimumWidthRequest="300"
                         MaximumWidthRequest="300"
-                        Grid.Row="0"/>
+                        Grid.Row="0">
+                        
 
-            <Image Grid.Row="1"
-                   Source="logo_hospital.png"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center"
-                   HeightRequest="200"/>
+            </SearchBar>
 
-
-            <Picker Grid.Column="1"
-                    HorizontalOptions="Center" 
-                    BackgroundColor="#C3ACD0"
-                    x:Name="PickerFilter"
-                    Grid.Row="1"
-                    Margin="0,0,0,10"               
-                    VerticalOptions="Start">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Nombre</x:String>
-                            <x:String>ID</x:String>
-                            <!--Si es otro, traer un entry para capturarlo xd-->
-                        </x:Array>
-                    </Picker.ItemsSource>
-            </Picker>
+            <Image 
+                Grid.Row="1"
+                Source="logo_hospital.png"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                HeightRequest="200"/>
 
             <Grid VerticalOptions="EndAndExpand" 
                   RowDefinitions="*,*" 
                   ColumnDefinitions="*,*" 
                   Grid.Row="2"
-                  ColumnSpacing="150"
-                  BackgroundColor="#F7EFE5">
-                
+                  ColumnSpacing="100"
+                  BackgroundColor="{StaticResource Secundario}">
 
                 <Button
                     Grid.Column="0"
-                    HorizontalOptions="Center"
-                    MinimumWidthRequest="150"
+                    HorizontalOptions="Start"
+                    MinimumWidthRequest="160"
                     Grid.Row="1"
                     x:Name="btnCancel"
                     Clicked="BtnCancel_Clicked"
-                    BackgroundColor="#C3ACD0"
-                    Text="Volver"
-                    TextColor="#F7EFE5"
-                    VerticalOptions="End"/>
+                    BackgroundColor="{StaticResource Alter1}"
+                    Text="Volver"                                   
+                    TextColor="{StaticResource Principal}"
+                    VerticalOptions="End">
+                    
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                    
+                </Button>
+
+
                 <Button
                     Grid.Column="1"
                     HorizontalOptions="End"
-                    MinimumWidthRequest="150"
+                    MinimumWidthRequest="160"                  
                     Grid.Row="1"
                     x:Name="BtnAddPatient"
                     Clicked="BtnAddPatient_Clicked"
-                    BackgroundColor="#C3ACD0"
-                    Text="Agregar"
-                    TextColor="#F7EFE5"
-                    VerticalOptions="End"/>
+                    BackgroundColor="{StaticResource Alter1}"
+                    Text="Agregar Paciente"
+                    TextColor="{StaticResource Principal}">
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                    
+                </Button>
+                
             </Grid>
 
         </Grid>

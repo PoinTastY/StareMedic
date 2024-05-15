@@ -75,6 +75,18 @@ public partial class SearchCC : ContentPage
 
     private async void BtnNewCC_Clicked(object sender, EventArgs e)
     {
+        BtnNewCC.Opacity = 0;
+        await BtnNewCC.FadeTo(1, 200);
+
         await Shell.Current.GoToAsync(nameof(RegisterClinicalCase));
+    }
+
+    private async void BtnCancel_Clicked(object sender, EventArgs e)
+    {
+        btnCancel.Opacity = 0;
+        await btnCancel.FadeTo(1, 300);
+
+        await Shell.Current.GoToAsync("..");
+
     }
 }
