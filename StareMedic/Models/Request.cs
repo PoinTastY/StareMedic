@@ -24,7 +24,7 @@ namespace StareMedic.Models
         public int FillPackAndPush(CasoClinico caso, Patient paciente, Rooms room, Medic medico, Diagnostico diagnostico)
         {
             Request req = new(Work);
-            TcpClient client = new TcpClient("26.116.39.19", 42069);
+            TcpClient client = new TcpClient("localhost", 42069);
             NetworkStream stream = client.GetStream();
             SDK.tDocumento docto = new SDK.tDocumento();
             docto.aCodConcepto = "REM3";

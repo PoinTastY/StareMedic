@@ -180,7 +180,7 @@ A QUIEN SE LE DENOMINARA ""EL PACIENTE"", Y QUE CELEBRARAN MEDIANTE LAS SIGUIENT
             string baseDirectory = AppContext.BaseDirectory;
             string filePath = Path.Combine(baseDirectory, "Resources\\Images\\logo_hospital.png");
 
-            iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance("C:\\Users\\kbece\\Source\\Repos\\PoinTastY\\StareMedic\\StareMedic\\Resources\\Images\\logo_hospital.png");
+            iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance("C:\\Users\\KEVIN\\Source\\Repos\\PoinTastY\\StareMedic\\StareMedic\\Resources\\Images\\logo_hospital.png");
 
             logo.ScaleToFit(60f, 60f);
             cell = new(); cell.Border = Rectangle.NO_BORDER;
