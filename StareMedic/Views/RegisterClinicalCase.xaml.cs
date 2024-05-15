@@ -92,19 +92,27 @@ public partial class RegisterClinicalCase : ContentPage
                 MainRepo.AddCaso(caso);
                 MainRepo.PatientIdSolver = new();
                 await DisplayAlert("Exito", $"Se ha guardado el caso con id: {caso.Id}", "Ok");
-                var Confirm = await DisplayAlert("Exportar", $"Se exportara el caso:\n{caso.Id}", "Cancelar", "Confirmar");
-                if (!Confirm)
+                
+                if (DoCreate.GenerateDocument(caso))
                 {
-                    if (DoCreate.GenerateDocument(caso))
-                    {
-                        await DisplayAlert("Confirmado", $"Se ha exportado el caso:\n{caso.Nombre}", "Ok");
-                    }
-                    else
-                    {
-                        await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
-                    }//TODO: EXCEPTION MANAGEMENT
-
+                    await DisplayAlert("Confirmado", $"Se ha exportado el caso:\n{caso.Nombre}", "Ok");
                 }
+                else
+                {
+                    await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
+                }//TODO: EXCEPTION MANAGEMENT
+
+                Request request = new(1);
+
+                if (request.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico()) != 0)
+                {
+                    await DisplayAlert("Exito!", "Se ha generado la remision de la admision", "Ok");
+                }
+                else
+                {
+                    await DisplayAlert("Error", "No se ha generado la remision en Contpaqi, intenta mas tarde", "OK");
+                }
+
 
                 await Shell.Current.GoToAsync("..");
             }
