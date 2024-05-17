@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using StareMedic.Models.Entities;
+using StareMedic.Models;
+
 
 namespace StareMedic.Data
 {
@@ -14,19 +17,35 @@ namespace StareMedic.Data
         public DbSet<Cercano> Cercanos { get; set; }
 
         //es: localhost // 192.168.3.3 // 26.101.17.190
-        static readonly string server = "26.101.17.190";// create dns or external service to find server
-
-        static readonly string db = "staremedic";
-        static readonly string user = "admin";
-        static readonly string pass = "staremedic1";
-        static readonly string port = "5432";
-
-        readonly string connString = $"Server={server};Port={port};User Id={user};Password={pass};Database={db};";
+        //Check config.json
+        //$"Server={server};Port={port};User Id={user};Password={pass};Database={db};";
+        private string connString;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             try
             {
+                string confPath = Path.Combine(AppContext.BaseDirectory, "Data/config.json"); // Ruta completa al archivo JSON
+                                                                                              // Verificar si el archivo existe
+                if (!File.Exists(confPath))
+                {
+                    return;
+                }
+
+                // Leer el contenido del archivo
+                string jsonString = File.ReadAllText(confPath);
+
+                // Verificar que el contenido no sea nulo ni vacío
+                if (string.IsNullOrWhiteSpace(jsonString))
+                {
+                    return;
+                }
+
+                // Deserializar el contenido en un objeto Config
+                Config config = JsonConvert.DeserializeObject<Config>(jsonString);
+
+                connString = config.ConnString;
+
                 optionsBuilder.UseNpgsql(connString);
             }
             catch (Exception ex)
@@ -241,6 +260,9 @@ namespace StareMedic.Data
                 .HasColumnName("_fechaingreso")
                 .HasColumnType("timestamp with time zone")
                 .IsRequired(true);
+            modelBuilder.Entity<CasoClinico>()
+                .Property(c => c.FolioSDK)
+                .HasColumnName("_foliosdk");
 
 
             //diagnostic entity
