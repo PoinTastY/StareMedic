@@ -133,20 +133,20 @@ namespace StareMedic.Models
             displayinfo.AddCell(new Phrase("Habitacion: ", fuente)); Col2 = new(new Phrase(room.Nombre, fuente)); Col2.Colspan = 4;
             Col2.Border = Rectangle.NO_BORDER; displayinfo.AddCell(Col2);//br
 
-            ///////////////////////////////////////////////////////////new row
-            displayinfo.AddCell(new Phrase("Fiador: ", fuente)); Col2 = new(new Phrase(fiador.Nombre, fuente)); Col2.Colspan = 2;
-            Col2.Border = Rectangle.NO_BORDER; displayinfo.AddCell(Col2);
-            displayinfo.AddCell(new Phrase("Telefono: ", fuente)); displayinfo.AddCell(new Phrase(fiador.Telefono, fuente));//br
+            ///////////////////////////////////////////////////////////new row REMOVED FIADOR UWU
+            //displayinfo.AddCell(new Phrase("Fiador: ", fuente)); Col2 = new(new Phrase(fiador.Nombre, fuente)); Col2.Colspan = 2;
+            //Col2.Border = Rectangle.NO_BORDER; displayinfo.AddCell(Col2);
+            //displayinfo.AddCell(new Phrase("Telefono: ", fuente)); displayinfo.AddCell(new Phrase(fiador.Telefono, fuente));//br
 
-            ///////////////////////////////////////////////////////////new row
-            displayinfo.AddCell(new Phrase("Domicilio: ", fuente)); Col2 = new(new Phrase(fiador.Direccion, fuente)); Col2.Colspan = 4;
-            Col2.Border = Rectangle.NO_BORDER; displayinfo.AddCell(Col2);//br
+            /////////////////////////////////////////////////////////////new row
+            //displayinfo.AddCell(new Phrase("Domicilio: ", fuente)); Col2 = new(new Phrase(fiador.Direccion, fuente)); Col2.Colspan = 4;
+            //Col2.Border = Rectangle.NO_BORDER; displayinfo.AddCell(Col2);//br
 
-            ///////////////////////////////////////////////////////////new row
-            displayinfo.AddCell(new Phrase("Ciudad: ", fuente)); Col2 = new(new Phrase(fiador.Ciudad, fuente)); Col2.Colspan = 2;
-            Col2.Border = Rectangle.NO_BORDER; displayinfo.AddCell(Col2);
-            displayinfo.AddCell(new Phrase("Estado: ", fuente)); displayinfo.AddCell(new Phrase(fiador.Estado, fuente));//br
-            displayinfo.WidthPercentage = 90f;
+            /////////////////////////////////////////////////////////////new row
+            //displayinfo.AddCell(new Phrase("Ciudad: ", fuente)); Col2 = new(new Phrase(fiador.Ciudad, fuente)); Col2.Colspan = 2;
+            //Col2.Border = Rectangle.NO_BORDER; displayinfo.AddCell(Col2);
+            //displayinfo.AddCell(new Phrase("Estado: ", fuente)); displayinfo.AddCell(new Phrase(fiador.Estado, fuente));//br
+            //displayinfo.WidthPercentage = 90f;
 
             return displayinfo;
         }
