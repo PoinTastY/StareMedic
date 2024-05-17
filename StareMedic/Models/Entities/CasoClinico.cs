@@ -20,6 +20,8 @@
 
         private string _tipocaso;
 
+        private double? _folioSDK;
+
 
         public CasoClinico(int id)
         {
@@ -74,6 +76,12 @@
         {
             get => _idDiagnostico;
             set => _idDiagnostico = value;
+        }
+
+        public double? FolioSDK
+        {
+            get => _folioSDK;
+            set => _folioSDK = value;
         }
 
         public string TipoCaso

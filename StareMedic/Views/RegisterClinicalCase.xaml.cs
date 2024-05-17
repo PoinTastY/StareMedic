@@ -87,24 +87,48 @@ public partial class RegisterClinicalCase : ContentPage
             bool answer = await DisplayAlert("Guardar", $"Se guardara el caso: {caso.Nombre}\nEsta seguro?", "No", "Si");
             if (!answer)
             {
+                Request request = new(1);
+
+                //guardar diagnostico
                 diag.Contenido = EditorDiagnostico.Text;
                 MainRepo.AddDiagnostico(diag);
-                MainRepo.AddCaso(caso);
-                MainRepo.PatientIdSolver = new();
-                await DisplayAlert("Exito", $"Se ha guardado el caso con id: {caso.Id}", "Ok");
-                var Confirm = await DisplayAlert("Exportar", $"Se exportara el caso:\n{caso.Id}", "Cancelar", "Confirmar");
-                if (!Confirm)
+
+                //push to SDK
+                try
                 {
-                    if (DoCreate.GenerateDocument(caso))
+                    double x = request.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
+                    if (x > 0)
                     {
-                        await DisplayAlert("Confirmado", $"Se ha exportado el caso:\n{caso.Nombre}", "Ok");
+                        await DisplayAlert("Exito!", $"Se ha generado la remision de la admision\nFolio: {x}", "Ok");
+                        caso.FolioSDK = x;
                     }
                     else
                     {
-                        await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
-                    }//TODO: EXCEPTION MANAGEMENT
-
+                        await DisplayAlert("Error", $"No se ha generado la remision en Contpaqi, intenta mas tarde\nRespuesta del servidor: {x}", "OK");
+                    }
                 }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error SDK", $"Hubo un problema generando el documento en Contpaqi: {ex}", "Enterado");
+                }
+
+                //caso to DB
+                MainRepo.AddCaso(caso);
+                MainRepo.PatientIdSolver = new();
+
+                await DisplayAlert("Exito", $"Se ha guardado el caso con id: {caso.Id}", "Ok");
+                
+                if (DoCreate.GenerateDocument(caso))
+                {
+                    await DisplayAlert("Confirmado", $"Se ha exportado el caso:\n{caso.Nombre}", "Ok");
+                }
+                else
+                {
+                    await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
+                }//TODO: EXCEPTION MANAGEMENT
+
+                
+
 
                 await Shell.Current.GoToAsync("..");
             }

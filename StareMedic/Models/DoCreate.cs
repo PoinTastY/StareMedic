@@ -133,20 +133,20 @@ namespace StareMedic.Models
             displayinfo.AddCell(new Phrase("Habitacion: ", fuente)); Col2 = new(new Phrase(room.Nombre, fuente)); Col2.Colspan = 4;
             Col2.Border = Rectangle.NO_BORDER; displayinfo.AddCell(Col2);//br
 
-            ///////////////////////////////////////////////////////////new row
-            displayinfo.AddCell(new Phrase("Fiador: ", fuente)); Col2 = new(new Phrase(fiador.Nombre, fuente)); Col2.Colspan = 2;
-            Col2.Border = Rectangle.NO_BORDER; displayinfo.AddCell(Col2);
-            displayinfo.AddCell(new Phrase("Telefono: ", fuente)); displayinfo.AddCell(new Phrase(fiador.Telefono, fuente));//br
+            ///////////////////////////////////////////////////////////new row REMOVED FIADOR UWU
+            //displayinfo.AddCell(new Phrase("Fiador: ", fuente)); Col2 = new(new Phrase(fiador.Nombre, fuente)); Col2.Colspan = 2;
+            //Col2.Border = Rectangle.NO_BORDER; displayinfo.AddCell(Col2);
+            //displayinfo.AddCell(new Phrase("Telefono: ", fuente)); displayinfo.AddCell(new Phrase(fiador.Telefono, fuente));//br
 
-            ///////////////////////////////////////////////////////////new row
-            displayinfo.AddCell(new Phrase("Domicilio: ", fuente)); Col2 = new(new Phrase(fiador.Direccion, fuente)); Col2.Colspan = 4;
-            Col2.Border = Rectangle.NO_BORDER; displayinfo.AddCell(Col2);//br
+            /////////////////////////////////////////////////////////////new row
+            //displayinfo.AddCell(new Phrase("Domicilio: ", fuente)); Col2 = new(new Phrase(fiador.Direccion, fuente)); Col2.Colspan = 4;
+            //Col2.Border = Rectangle.NO_BORDER; displayinfo.AddCell(Col2);//br
 
-            ///////////////////////////////////////////////////////////new row
-            displayinfo.AddCell(new Phrase("Ciudad: ", fuente)); Col2 = new(new Phrase(fiador.Ciudad, fuente)); Col2.Colspan = 2;
-            Col2.Border = Rectangle.NO_BORDER; displayinfo.AddCell(Col2);
-            displayinfo.AddCell(new Phrase("Estado: ", fuente)); displayinfo.AddCell(new Phrase(fiador.Estado, fuente));//br
-            displayinfo.WidthPercentage = 90f;
+            /////////////////////////////////////////////////////////////new row
+            //displayinfo.AddCell(new Phrase("Ciudad: ", fuente)); Col2 = new(new Phrase(fiador.Ciudad, fuente)); Col2.Colspan = 2;
+            //Col2.Border = Rectangle.NO_BORDER; displayinfo.AddCell(Col2);
+            //displayinfo.AddCell(new Phrase("Estado: ", fuente)); displayinfo.AddCell(new Phrase(fiador.Estado, fuente));//br
+            //displayinfo.WidthPercentage = 90f;
 
             return displayinfo;
         }
@@ -177,8 +177,12 @@ A QUIEN SE LE DENOMINARA ""EL PACIENTE"", Y QUE CELEBRARAN MEDIANTE LAS SIGUIENT
             cell.Colspan = 4; cell.Border = Rectangle.NO_BORDER;
             cell.VerticalAlignment = Element.ALIGN_MIDDLE;
             logoClausules.AddCell(cell);
+            string baseDirectory = AppContext.BaseDirectory;
+            string filePath = Path.Combine(baseDirectory, "Resources\\Images\\logo_hospital.png");
 
-            iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance("C:\\Users\\erick\\Source\\Repos\\PoinTastY\\StareMedic\\StareMedic\\Resources\\Images\\logo_hospital.png");
+
+            iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(filePath);
+
 
             logo.ScaleToFit(60f, 60f);
             cell = new(); cell.Border = Rectangle.NO_BORDER;

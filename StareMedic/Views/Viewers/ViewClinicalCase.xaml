@@ -33,8 +33,17 @@
 
 
             <VerticalStackLayout class="DataStack">
-                <Label Text="ID: "
+                <HorizontalStackLayout>
+                    <Label Text="ID: "
                            x:Name="LblId"/>
+                    <Label Text="Sin Remision en Contpaqi"
+                           x:Name="LblFolioSDK"
+                           TextColor="DarkRed"/>
+                    <Button Text="Enviar"
+                            x:Name="BtnSendSDK"
+                            Clicked="BtnSendSDK_Clicked"/>
+                </HorizontalStackLayout>
+                
                 <!--Name CC & patient-->
                 <HorizontalStackLayout>
                     <Label Text="Caso: "/>
