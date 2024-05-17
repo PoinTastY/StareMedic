@@ -22,6 +22,18 @@ public partial class ViewClinicalCase : ContentPage
 		room = caso.Habitacion();
 		diagnostico = caso.Diagnostico();
 
+        if (medic.Nombre == "missing" || room.Nombre == "missing")
+            BtnSendSDK.IsEnabled = false;
+
+
+        if (caso.FolioSDK != 0 && caso.FolioSDK != null)
+        {
+            LblFolioSDK.Text = $"Folio Contpaqi: {caso.FolioSDK}";
+            LblFolioSDK.TextColor = Color.FromRgb(0,161,53);
+            BtnSendSDK.IsEnabled = false;
+            BtnSendSDK.IsVisible = false;
+        }
+
         PickMedic.ItemsSource = MainRepo.GetMedics();
         PickRoom.ItemsSource = MainRepo.GetRooms();
 
@@ -143,6 +155,8 @@ public partial class ViewClinicalCase : ContentPage
             MainRepo.UpdateClinicalCase(caso);
             await DisplayAlert("Confirmado", $"Se han guardado los cambios en el caso:\n{caso.Nombre}", "Ok");
             enabledisable(false);
+            if (medic.Nombre != "missing" && room.Nombre != "missing")
+                BtnSendSDK.IsEnabled = true;
 
         }
         else
@@ -163,6 +177,7 @@ public partial class ViewClinicalCase : ContentPage
         if (medic.Nombre == "missing" || room.Nombre == "missing")
         {
             await DisplayAlert("Advertencia:", "Si el medico o habitaciones asignadas no son validos,\nSe recomienda elegir a uno", "Ok");
+            BtnSendSDK.IsEnabled = false;
         }
         enabledisable(true);
 
@@ -176,6 +191,7 @@ public partial class ViewClinicalCase : ContentPage
         if(medic.Nombre == "missing" || room.Nombre == "missing")
         {
             await DisplayAlert("Advertencia:", "Si el medico o habitaciones asignadas no son validos,\nSe recomienda elegir a uno", "Ok");
+            BtnSendSDK.IsEnabled = false;
         }
 
         bool choice = await DisplayAlert("Deshacer", $"Deseas cancelar los cambios?\nEl caso volvera al estado anterior", "No", "Si");
@@ -256,5 +272,34 @@ public partial class ViewClinicalCase : ContentPage
         RadioMedico.IsEnabled = status;
         RadioQuirurgico.IsEnabled = status;
         RadioObstetrico.IsEnabled = status;
+    }
+
+    private async void BtnSendSDK_Clicked(object sender, EventArgs e)
+    {
+        Request req = new(1);
+        try
+        {
+            double x = req.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
+            if (x > 0)
+            {
+                await DisplayAlert("Exito!", $"Se ha generado la remision de la admision\nFolio: {x}", "Ok");
+                caso.FolioSDK = x;
+                LblFolioSDK.Text = $"Folio Contpaqi: {caso.FolioSDK}";
+                LblFolioSDK.TextColor = Color.FromRgb(0, 161, 53);
+                BtnSendSDK.IsEnabled = false;
+                BtnSendSDK.IsVisible = false;
+            }
+            else
+            {
+                await DisplayAlert("Error", $"No se ha generado la remision en Contpaqi, intenta mas tarde\nRespuesta del servidor: {x}", "OK");
+                caso.FolioSDK = x;
+            }
+            MainRepo.UpdateClinicalCase(caso);
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error SDK", $"Hubo un problema generando el documento en Contpaqi: {ex}", "Enterado");
+        }
+
     }
 }

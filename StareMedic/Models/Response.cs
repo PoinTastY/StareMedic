@@ -14,6 +14,5 @@ namespace StareMedic.Models
         }
         public double ResponseCode { get; set; }
 
-        public string ResponseContent { get; set; }
     }
 }
