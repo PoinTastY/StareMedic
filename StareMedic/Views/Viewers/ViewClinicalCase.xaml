@@ -2,139 +2,500 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StareMedic.Views.ViewClinicalCase"
-             Title="ViewClinicalCase">
+             Title="Control de Admisiones">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
+
+    <ContentPage.Resources>
+        <Color x:Key="Principal">#FFFBF5</Color>
+        <Color x:Key="Secundario">#F7EFE5</Color>
+        <Color x:Key="Alter1">#C3ACD0</Color>
+        <Color x:Key="Alter2">#7743DB</Color>
+        <Color x:Key="Black">#000</Color>
+    </ContentPage.Resources>
+    
     <ScrollView>
-        <VerticalStackLayout HorizontalOptions="StartAndExpand">
+        <VerticalStackLayout 
+            Spacing="30"
+            Padding="20"
+            BackgroundColor="{StaticResource Secundario}">
 
-            <HorizontalStackLayout>
-                <Label 
-                            Text="Welcome to .NET MAUI!"
-                            x:Name="LblName"
-                            VerticalOptions="Center" 
-                            HorizontalOptions="Center"/>
-                <Button x:Name="BtnEdit"
-                            Text="Editar"
-                            Clicked="BtnEdit_Clicked"/>
-                <Button x:Name="BtnSaveAll"
-                            Text="Guardar Cambios"
-                            IsVisible="False"
-                            IsEnabled="False"
-                            Clicked="BtnSaveAll_Clicked"/>
-                <Button x:Name="BtnCancelAll"
-                            Text="Cancelar Cambios"
-                            IsVisible="False"
-                            IsEnabled="False"
-                            Clicked="BtnCancelAll_Clicked"/>
-                <Button x:Name="BtnDelete"
-                            Text="Eliminar"
-                            Clicked="BtnDelete_Clicked"
-                            />
-            </HorizontalStackLayout>
+            <Label 
+                x:Name="LblName" 
+                Text="Admision ID:"
+                FontSize="Title"
+                TextColor="{StaticResource Alter2}"
+                HorizontalOptions="Start"/>
 
+            
+            <VerticalStackLayout 
+                Spacing="20"
+                class="DataStack">
 
-            <VerticalStackLayout class="DataStack">
-                <HorizontalStackLayout>
+                <Grid 
+                        ColumnSpacing="20"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="EndAndExpand"
+                        RowDefinitions="Auto,*"
+                        ColumnDefinitions="Auto,*,Auto">
+                    
                     <Label Text="ID: "
-                           x:Name="LblId"/>
+                                x:Name="LblId"
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                FontSize="Subtitle"
+                                VerticalOptions="Center"
+                                TextColor="{StaticResource Alter2}"
+                                HorizontalOptions="Start"/>
                     <Label Text="Sin Remision en Contpaqi"
-                           x:Name="LblFolioSDK"
-                           TextColor="DarkRed"/>
+                                 x:Name="LblFolioSDK"
+                                 Grid.Column="1"
+                                 Grid.Row="0"
+                                  HorizontalOptions="Start"
+                                 VerticalOptions="Center"
+                                 TextColor="{StaticResource Black}"/>
                     <Button Text="Enviar"
-                            x:Name="BtnSendSDK"
-                            Clicked="BtnSendSDK_Clicked"/>
-                </HorizontalStackLayout>
-                
-                <!--Name CC & patient-->
-                <HorizontalStackLayout>
-                    <Label Text="Caso: "/>
-                    <Entry x:Name="EntryName"
-                               Style="{StaticResource entryName}"
-                               IsEnabled="False"/>
+                                    x:Name="BtnSendSDK"
+                                    HorizontalOptions="EndAndExpand"
+                                    Grid.Column="2"      
+                                     Grid.Row="0"
+                                    TextColor="{StaticResource Principal}"
+                                    BackgroundColor="{StaticResource Alter1}"
+                                    Clicked="BtnSendSDK_Clicked">
 
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="PointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="LightGray" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+
+                    </Button>
+
+                    <BoxView            
+                        Grid.Row="1"
+                        Grid.ColumnSpan="3"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="StartAndExpand" 
+                        Style="{StaticResource BreakLine}"/>
+
+                </Grid>
+
+
+                <!--Name CC & patient-->
+                <HorizontalStackLayout
+                    Spacing="20"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand">
 
                     <!--Implement btn "View Patient Details"-->
-                    <Label Text="Paciente: "/>
+                    <Label Text="Paciente: "
+                           VerticalOptions="Center"
+                           Style="{StaticResource labelEntry}"/>
                     <Entry x:Name="EntryPatient"
-                               Style="{StaticResource entryName}"
+                               Style="{StaticResource entryName}"                        
                                IsEnabled="False"/>
+
+                    <Label Text="Caso: "
+                           VerticalOptions="Center"
+                           Style="{StaticResource labelEntry}"
+                           WidthRequest="70"/>
+                    <Entry x:Name="EntryName"
+                            Style="{StaticResource entryName}"
+                            IsEnabled="False"/>
 
                 </HorizontalStackLayout>
 
                 <!--Name Medic & Room-->
-                <HorizontalStackLayout x:Name="Editables">
-                    <Label Text="Medico: "/>
+                <HorizontalStackLayout 
+                    Spacing="20"
+                    x:Name="Editables"
+                    Padding="20">
+                    <Label Text="Medico: "
+                           VerticalOptions="Center"
+                           Style="{StaticResource labelEntry}"/>
                     <Picker x:Name="PickMedic"
+                            HorizontalOptions="CenterAndExpand"
+                            VerticalOptions="CenterAndExpand"
+                            BackgroundColor="{StaticResource Alter1}"                 
+                            WidthRequest="400"
                             IsEnabled="False">
                         <Picker.ItemDisplayBinding>
                             <Binding Path="Nombre"/>
                         </Picker.ItemDisplayBinding>
                     </Picker>
 
-                    <Label Text="Habitacion: "/>
+                    <Label Text="Habitacion: "
+                           VerticalOptions="Center"
+                           Style="{StaticResource labelEntry}"/>
                     <Picker x:Name="PickRoom"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            BackgroundColor="{StaticResource Alter1}"
+                            WidthRequest="400"
                             IsEnabled="False">
                         <Picker.ItemDisplayBinding>
                             <Binding Path="Nombre"/>
                         </Picker.ItemDisplayBinding>
                     </Picker>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout>
-                    
-                    <HorizontalStackLayout>
-                        <Label Text="*Fecha de Ingreso:"
-                               Style="{StaticResource labelEntry}"/>
-                        <DatePicker x:Name="DateIngreso"
-                                    IsEnabled="False"/>
-                    </HorizontalStackLayout>
-                    
-                    
-                    <Label Text="Tipo de Caso: "/>
 
-                    <RadioButton Content="Medico"
-                                Value="Medico"
-                                x:Name="RadioMedico"
-                                 IsEnabled="False"/>
-                    <RadioButton Content="Quirurgico"
-                                Value="Quirurgico"
-                                x:Name="RadioQuirurgico"
-                                 IsEnabled="False"/>
-                    <RadioButton Content="Obstetrico"
-                                Value="Obstetrico"
-                                x:Name="RadioObstetrico"
-                                 IsEnabled="False"/>
+                <!--Date Ingreso & Tipo Caso-->
+                <HorizontalStackLayout
+                    Spacing="20"
+                    Padding="20">
+
+
+                    <Label Text="Fecha de Ingreso:"
+                           Style="{StaticResource labelEntry}"/>
+
+                    <DatePicker x:Name="DateIngreso"
+                                BackgroundColor="{StaticResource Alter1}"
+                                WidthRequest="250"
+                                IsEnabled="False"/>
 
                 </HorizontalStackLayout>
+
+                <Grid
+                    ColumnDefinitions="Auto,Auto,Auto,*"     
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="FillAndExpand"               
+                    ColumnSpacing="100"
+                    Padding="20">
+
+
+                    <Label Text="Tipo de Caso: "
+                           Grid.Column="0"
+                           HorizontalOptions="Start"
+                           Style="{StaticResource labelEntry}"
+                           VerticalOptions="Center"/>
+
+                    <RadioButton 
+                            Content="Medico"
+                            Value="Medico"
+                            Grid.Column="1"                          
+                            VerticalOptions="Center"
+                            x:Name="RadioMedico"
+                            BackgroundColor="{StaticResource Alter1}"
+                            CornerRadius="20"
+                            FontSize="Medium"         
+                            TextColor="{StaticResource Black}"
+                            IsEnabled="False"/>
+                    
+                    <RadioButton 
+                            Content="Quirurgico"
+                            Value="Quirurgico"
+                            Grid.Column="2"
+                            HorizontalOptions="Start"
+                            x:Name="RadioQuirurgico"
+                            BackgroundColor="{StaticResource Alter1}"
+                            CornerRadius="20"
+                            FontSize="Medium"
+                            TextColor="{StaticResource Black}"
+                            IsEnabled="False"/>
+                    
+                    <RadioButton 
+                            Content="Obstetrico"
+                            Value="Obstetrico"
+                            Grid.Column="3"
+                            HorizontalOptions="Start"
+                            x:Name="RadioObstetrico"
+                            FontSize="Medium"
+                            BackgroundColor="{StaticResource Alter1}"
+                            CornerRadius="20"
+                            TextColor="{StaticResource Black}"
+                            IsEnabled="False"/>
+
+                </Grid>
 
                 <!--Diagnoose-->
-                <VerticalStackLayout>
+                <HorizontalStackLayout
+                    Spacing="20"
+                    Padding="20">
+                    <Label 
+                        Text="Diagnóstico: "               
+                        HorizontalOptions="StartAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        Style="{StaticResource labelEntry}"/>
+
                     <Editor x:Name="EditorDiagnoose"
-                                MaximumWidthRequest="1000"
-                                MinimumHeightRequest="200"
-                                MinimumWidthRequest="500"
-                                IsReadOnly="True"/>
+                            BackgroundColor="{StaticResource Alter1}"
+                            HorizontalTextAlignment="Start"
+                            HorizontalOptions="FillAndExpand" 
+                            TextColor="{StaticResource Black}"
+                            VerticalOptions="CenterAndExpand"
+                            HeightRequest="100"
+                            WidthRequest="500"
+                            IsReadOnly="True"/>
+
+                </HorizontalStackLayout>
+
+                <!--Buttons-->
+                <Grid
+                    RowDefinitions="*,Auto"
+                    ColumnDefinitions="*"
+                    Padding="20">
+
+                    <BoxView                                           
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Center" 
+                        Grid.Row="0"
+                        Style="{StaticResource BreakLine}"/>
+                    
+                    
+
+                    <Grid
+                        Grid.Row="1"
+                        ColumnSpacing="40"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="End"
+                        ColumnDefinitions="Auto,*,*,*,*,*,*,Auto">
+
+                        <Button
+                            x:Name="BtnCancel2"
+                            Clicked="BtnCancel2_Clicked"
+                            BackgroundColor="{StaticResource Alter2}"
+                            TextColor="{StaticResource Principal}"
+                            Text="Regresar"
+                            WidthRequest="100"
+                            HeightRequest="50"
+                            Grid.Column="0"
+                            HorizontalOptions="Start"
+                            IsVisible="True"
+                            IsEnabled="True">
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="LightGray" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                        </Button>
+
+                        <Button Text="Generar hoja de admision"
+                            x:Name="BtnExportCase"                           
+                            Grid.Column="2"
+                            HorizontalOptions="Start"
+                            VerticalOptions="End"
+                            WidthRequest="300"
+                            HeightRequest="50"
+                            IsVisible="True"
+                            IsEnabled="True"
+                            BackgroundColor="{StaticResource Alter2}"
+                            TextColor="{StaticResource Principal}"
+                            Clicked="BtnExportCase_Clicked">
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="LightGray" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                        
+                    </Button>
 
                     <Button x:Name="BtnEditDiagnoose"
-                                Text="Editar"
-                                Clicked="BtnEditDiagnoose_Clicked"/>
+                            Text="Editar Diagnostico"
+                            HeightRequest="50"
+                            WidthRequest="150"
+                            Grid.Column="5"
+                            HorizontalOptions="Start"
+                            BackgroundColor="{StaticResource Alter2}"
+                            TextColor="{StaticResource Principal}"
+                            Clicked="BtnEditDiagnoose_Clicked">
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="LightGray" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                    </Button>
+
+                    <Button x:Name="BtnEdit"
+                            Text="Editar Admision"
+                            HeightRequest="50"
+                            Grid.Column="6"
+                            HorizontalOptions="Start"
+                            BackgroundColor="{StaticResource Alter2}"
+                            TextColor="{StaticResource Principal}"
+                            Clicked="BtnEdit_Clicked">
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="LightGray" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                    </Button>
+
+                    <Button x:Name="BtnDelete"
+                            Text="Eliminar"
+                            HeightRequest="50"
+                            Grid.Column="7"
+                            HorizontalOptions="EndAndExpand"
+                            BackgroundColor="{StaticResource Alter2}"
+                            TextColor="{StaticResource Principal}"
+                            Clicked="BtnDelete_Clicked">
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="LightGray" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                    </Button>
 
                     <!--enable edition-->
-                    <Button x:Name="BtnSaveDiagnoose"
+                        <Button x:Name="BtnSaveDiagnoose"
                                 Text="Guardar"
                                 IsVisible="False"
                                 IsEnabled="False"
-                                Clicked="BtnSaveDiagnoose_Clicked"/>
-                    <Button x:Name="BtnCancelEditionDiagnoose"
+                                Grid.Column="2"
+                                WidthRequest="125"
+                                HeightRequest="50"
+                                BackgroundColor="{StaticResource Alter2}"
+                                TextColor="{StaticResource Principal}"
+                                HorizontalOptions="Start"
+                                Clicked="BtnSaveDiagnoose_Clicked">
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="LightGray" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                            
+                        </Button>
+
+                        <Button x:Name="BtnCancelEditionDiagnoose"
                                 Text="Cancelar"
                                 IsVisible="false"
                                 IsEnabled="false"
-                                Clicked="BtnCancelEditionDiagnoose_Clicked"/>
+                                HeightRequest="50"
+                                WidthRequest="125"
+                                BackgroundColor="{StaticResource Alter2}"
+                                TextColor="{StaticResource Principal}"
+                                HorizontalOptions="Start"
+                                Grid.Column="0"
+                                Clicked="BtnCancelEditionDiagnoose_Clicked">
 
-                </VerticalStackLayout>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="LightGray" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                            
+                        </Button>
 
+                        <Button x:Name="BtnSaveAll"
+                            Text="Guardar Cambios"
+                            IsVisible="False"
+                            IsEnabled="False"
+                            HeightRequest="50"
+                            WidthRequest="150"
+                            BackgroundColor="{StaticResource Alter2}"
+                            TextColor="{StaticResource Principal}"
+                            HorizontalOptions="Start"
+                            Grid.Column="2"
+                            Clicked="BtnSaveAll_Clicked">
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="LightGray" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                            
+                        </Button>
+
+                        <Button x:Name="BtnCancelAll"
+                            Text="Cancelar Cambios"
+                            IsVisible="False"
+                            IsEnabled="False"
+                            HeightRequest="50"
+                            WidthRequest="150"
+                            BackgroundColor="{StaticResource Alter2}"
+                            TextColor="{StaticResource Principal}"
+                            HorizontalOptions="Start"
+                            Grid.Column="0"
+                            Clicked="BtnCancelAll_Clicked">
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="LightGray" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                            
+                        </Button>
+                    </Grid>
+                
+                </Grid>
             </VerticalStackLayout>
-            <Button Text="Generar hoja de admision"
-                        x:Name="BtnExportCase"
-                        Clicked="BtnExportCase_Clicked"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

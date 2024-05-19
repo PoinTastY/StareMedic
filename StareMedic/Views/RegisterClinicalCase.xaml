@@ -21,18 +21,20 @@
         BackgroundColor="{StaticResource Secundario}">
         <Grid                               
             BackgroundColor="{StaticResource Secundario}"
-            HorizontalOptions="StartAndExpand"
+            HorizontalOptions="FillAndExpand"
             VerticalOptions="CenterAndExpand"
             Padding="30">
             
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+                </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
 
             <Label 
@@ -50,7 +52,14 @@
                 Placeholder="Nombre de la admision clinica..."
                 Style="{StaticResource entryName}"
                 TextChanged="EntryName_TextChanged"/>
-        </Grid>
+
+                <BoxView            
+                    Grid.Row="1"
+                    Grid.ColumnSpan="3"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="StartAndExpand" 
+                    Style="{StaticResource BreakLine}"/>
+            </Grid>
 
         <Grid
             Padding="30">
@@ -283,6 +292,8 @@
                          FontSize="Medium"
                          TextColor="{StaticResource Black}"                        
                          x:Name="RadioMedico"
+                         BackgroundColor="{StaticResource Alter1}"
+                         CornerRadius="20"
                          Margin="40,0,40,0"
                          CheckedChanged="RadioMedico_CheckedChanged"/>
                     <RadioButton 
@@ -291,7 +302,9 @@
                          Grid.Column="2"
                          TextColor="{StaticResource Black}"
                          Value="Quirurgico"
-                         Margin="40,0,40,0"                                            
+                         Margin="40,0,40,0"         
+                         BackgroundColor="{StaticResource Alter1}"
+                         CornerRadius="20"
                          x:Name="RadioQuirurgico"
                          CheckedChanged="RadioQuirurgico_CheckedChanged"/>
                     <RadioButton                       
@@ -301,6 +314,8 @@
                          HorizontalOptions="CenterAndExpand"
                          TextColor="{StaticResource Black}"
                          FontSize="Medium"
+                         BackgroundColor="{StaticResource Alter1}"
+                         CornerRadius="20"
                          Margin="40,0,40,0"
                          Value="Obstetrico"
                          x:Name="RadioObstetrico"
@@ -355,22 +370,32 @@
         <Grid
             Padding="30"
             HorizontalOptions="StartAndExpand"
-            VerticalOptions="CenterAndExpand">
+            VerticalOptions="FillAndExpand"
+            RowDefinitions="Auto,*">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button
+                <BoxView            
+                Grid.Row="0"
+                Grid.ColumnSpan="3"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="StartAndExpand" 
+                Style="{StaticResource BreakLine}"/>
+            
+                <Button
                 x:Name="BtnCancel"
                 Clicked="BtnCancel_Clicked"
                 Text="Cancelar"
-                HeightRequest="80"
-                BackgroundColor="{StaticResource Alter1}"
+                HeightRequest="50"
+                BackgroundColor="{StaticResource Alter2}"
                 TextColor="{StaticResource Principal}"
                 WidthRequest="200"
-                Grid.Column="0"              
+                Grid.Column="0"   
+                Grid.Row="1"
+                VerticalOptions="End"
                 HorizontalOptions="Center">
 
                 <VisualStateManager.VisualStateGroups>
@@ -393,13 +418,15 @@
                 x:Name="BtnGuardar"
                 Clicked="BtnGuardar_Clicked"
                 Text="Confirmar Admision"
-                HeightRequest="80"
-                BackgroundColor="{StaticResource Alter1}"
+                HeightRequest="50"
+                BackgroundColor="{StaticResource Alter2}"
                 TextColor="{StaticResource Principal}"
                 Margin="200,0,200,0"
                 WidthRequest="200"
+                VerticalOptions="End"
                 Grid.Column="1"
-                HorizontalOptions="Center">
+                Grid.Row="1"
+                HorizontalOptions="End">
 
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroupList>
