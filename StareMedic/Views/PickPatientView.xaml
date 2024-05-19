@@ -124,7 +124,7 @@
                     HorizontalOptions="Start"
                     Grid.Column="0"
                     Grid.Row="1"
-                    BackgroundColor="{StaticResource Alter1}"
+                    BackgroundColor="{StaticResource Alter2}"
                     TextColor="{StaticResource Principal}"
                     VerticalOptions="End">
 
@@ -145,7 +145,7 @@
 
                 <Button
                     Grid.Row="1"
-                    BackgroundColor="{StaticResource Alter1}"
+                    BackgroundColor="{StaticResource Alter2}"
                     TextColor="{StaticResource Principal}"
                     x:Name="BtnConfirmar"
                     HorizontalOptions="End"

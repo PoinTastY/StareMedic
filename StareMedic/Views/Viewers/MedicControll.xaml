@@ -104,9 +104,9 @@
                 Style="{StaticResource BreakLine}"/>
             
             <Button
-                    x:Name="BtnCancel"
+                    x:Name="BtnCancel"                  
+                    BackgroundColor="{StaticResource Alter2}"
                     TextColor="{StaticResource Principal}"
-                    BackgroundColor="{StaticResource Alter1}"
                     Clicked="BtnCancel_Clicked"
                     Text="Cancelar"
                     WidthRequest="100"
@@ -133,8 +133,8 @@
             <Button
                 x:Name="BtnCancel2"
                 Clicked="BtnCancel2_Clicked"
-                BackgroundColor="{StaticResource Alter1}"
                 TextColor="{StaticResource Principal}"
+                BackgroundColor="{StaticResource Alter2}"               
                 Text="Cancelar"
                 WidthRequest="100"
                 HeightRequest="50"
@@ -161,7 +161,7 @@
             <Button
                     x:Name="BtnGuardar"
                     TextColor="{StaticResource Principal}"
-                    BackgroundColor="{StaticResource Alter1}"
+                    BackgroundColor="{StaticResource Alter2}"
                     Clicked="BtnGuardar_Clicked"
                     Text="Guardar"
                     WidthRequest="100"
@@ -192,7 +192,7 @@
                 WidthRequest="100"
                 HeightRequest="50"
                 TextColor="{StaticResource Principal}"
-                BackgroundColor="{StaticResource Alter1}"
+                BackgroundColor="{StaticResource Alter2}"
                 Clicked="BtnEdit_Clicked"
                 HorizontalOptions="Start"
                 IsVisible="false"
@@ -219,7 +219,7 @@
                 Grid.Column="3"
                 Grid.Row="1"
                 TextColor="{StaticResource Principal}"
-                BackgroundColor="{StaticResource Alter1}"
+                BackgroundColor="{StaticResource Alter2}"
                 Clicked="BtnDelete_Clicked"
                 HorizontalOptions="Start"
                 WidthRequest="100"

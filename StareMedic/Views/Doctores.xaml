@@ -122,7 +122,7 @@
                     Clicked="btnCancel_Clicked"
                     Text="Volver"
                     TextColor="{StaticResource Principal}"
-                    BackgroundColor="{StaticResource Alter1}">
+                    BackgroundColor="{StaticResource Alter2}">
 
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroupList>
@@ -147,7 +147,7 @@
                     Grid.Row="1"
                     x:Name="BtnAddMedic"
                     Clicked="BtnAddMedic_Clicked"
-                    BackgroundColor="{StaticResource Alter1}"
+                    BackgroundColor="{StaticResource Alter2}"
                     Text="Agregar Medico"
                     TextColor="{StaticResource Principal}">
 

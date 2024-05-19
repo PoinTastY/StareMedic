@@ -71,8 +71,11 @@ public partial class ViewClinicalCase : ContentPage
 
 	}
 
-    private void BtnEditDiagnoose_Clicked(object sender, EventArgs e)
+    private async void BtnEditDiagnoose_Clicked(object sender, EventArgs e)
     {
+        BtnEditDiagnoose.Opacity = 0;
+
+        await BtnEditDiagnoose.FadeTo(1, 300);
         //maybe display a hint os something bcs this emptyness gives me anxiety
         enabledisableDiag(true);
     }
@@ -87,10 +90,22 @@ public partial class ViewClinicalCase : ContentPage
         BtnSaveDiagnoose.IsVisible = status;
         BtnCancelEditionDiagnoose.IsEnabled = status;
         BtnCancelEditionDiagnoose.IsVisible = status;
+        BtnCancel2.IsEnabled = !status;
+        BtnCancel2.IsVisible = !status;
+        BtnExportCase.IsEnabled = !status;
+        BtnExportCase.IsVisible = !status;
+        BtnEdit.IsEnabled = !status;
+        BtnEdit.IsVisible = !status;
+        BtnDelete.IsEnabled = !status;
+        BtnDelete.IsVisible = !status;
+
     }
 
     private async void BtnSaveDiagnoose_Clicked(object sender, EventArgs e)
     {
+        BtnSaveDiagnoose.Opacity = 0;
+
+        await BtnSaveDiagnoose.FadeTo(1, 300);
         bool confirm = await DisplayAlert("Confirmar", $"Se guardaran los cambios en el diagnostico:\n{caso.Id}", "Cancelar", "Confirmar");
         if (!confirm)
         {
@@ -114,6 +129,9 @@ public partial class ViewClinicalCase : ContentPage
 
     private async void BtnCancelEditionDiagnoose_Clicked(object sender, EventArgs e)
     {
+        BtnCancelEditionDiagnoose.Opacity = 0;
+
+        await BtnCancelEditionDiagnoose.FadeTo(1, 300);
         bool done = await DisplayAlert("Confirmar", $"Deseas cancelar la edicion del diagnostico?", "No", "Si");
         if (!done)
         {
@@ -131,6 +149,9 @@ public partial class ViewClinicalCase : ContentPage
 
     private async void BtnSaveAll_Clicked(object sender, EventArgs e)
     { 
+        BtnSaveAll.Opacity = 0;
+
+        await BtnSaveAll.FadeTo(1, 300);
         if(PickMedic.SelectedItem == null || PickRoom.SelectedItem == null || string.IsNullOrWhiteSpace(EntryName.Text))
         {
             await DisplayAlert("Error:", "No se puede guardar, verifica que todo este bien", "Ok");
@@ -174,6 +195,9 @@ public partial class ViewClinicalCase : ContentPage
 
     private async void BtnEdit_Clicked(object sender, EventArgs e)
     {
+        BtnEdit.Opacity = 0;
+
+        await BtnEdit.FadeTo(1, 300);
         if (medic.Nombre == "missing" || room.Nombre == "missing")
         {
             await DisplayAlert("Advertencia:", "Si el medico o habitaciones asignadas no son validos,\nSe recomienda elegir a uno", "Ok");
@@ -188,6 +212,9 @@ public partial class ViewClinicalCase : ContentPage
     //btn to abort changes and get back to the previous state
     private async void BtnCancelAll_Clicked(object sender, EventArgs e)
     {
+        BtnCancelAll.Opacity = 0;
+
+        await BtnCancelAll.FadeTo(1, 300);
         if(medic.Nombre == "missing" || room.Nombre == "missing")
         {
             await DisplayAlert("Advertencia:", "Si el medico o habitaciones asignadas no son validos,\nSe recomienda elegir a uno", "Ok");
@@ -213,9 +240,21 @@ public partial class ViewClinicalCase : ContentPage
 
     }
 
+    private async void BtnCancel2_Clicked(object sender, EventArgs e)
+    {
+        BtnCancel2.Opacity = 0;
+
+        await BtnCancel2.FadeTo(1, 300);
+
+        await Shell.Current.GoToAsync("..");
+    }
+
     //Btn to delete the case
     private async void BtnDelete_Clicked(object sender, EventArgs e)
     {
+        BtnDelete.Opacity = 0;
+
+        await BtnDelete.FadeTo(1, 300);
         bool confirm = await DisplayAlert("Confirmar", $"Se eliminara el caso:\n{caso.Id}", "Cancelar", "Confirmar");
         if (!confirm)
         {
@@ -234,6 +273,9 @@ public partial class ViewClinicalCase : ContentPage
     //Btn to call DoCreate and export the case
     private async void BtnExportCase_Clicked(object sender, EventArgs e)
     {
+        BtnExportCase.Opacity = 0;
+
+        await BtnExportCase.FadeTo(1, 300);
         var Confirm = await DisplayAlert("Confirmar", $"Se exportara el caso:\n{caso.Id}", "Cancelar", "Confirmar");
         if (!Confirm)
         {
@@ -252,6 +294,7 @@ public partial class ViewClinicalCase : ContentPage
     //View elements visibility and interaction
     private void enabledisable(bool status)
     {
+        
         //interaction of edit buttons
         BtnEdit.IsEnabled = !status;
         BtnEdit.IsVisible = !status;
@@ -261,7 +304,15 @@ public partial class ViewClinicalCase : ContentPage
         BtnSaveAll.IsEnabled = status;
         BtnCancelAll.IsVisible = status;
         BtnCancelAll.IsEnabled = status;
-        
+        BtnCancel2.IsEnabled = !status;
+        BtnCancel2.IsVisible = !status;
+        BtnExportCase.IsEnabled = !status;
+        BtnExportCase.IsVisible = !status;
+
+        BtnEditDiagnoose.IsVisible = !status;
+        BtnEditDiagnoose.IsEnabled = !status;
+
+
         //interaction on data
         EntryName.IsEnabled = status;
         PickMedic.IsEnabled = status;
@@ -276,6 +327,9 @@ public partial class ViewClinicalCase : ContentPage
 
     private async void BtnSendSDK_Clicked(object sender, EventArgs e)
     {
+        BtnSendSDK.Opacity = 0;
+
+        await BtnSendSDK.FadeTo(1, 300);
         Request req = new(1);
         try
         {
