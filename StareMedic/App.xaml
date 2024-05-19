@@ -81,7 +81,7 @@
 
             <Style x:Key="entryName" TargetType="Entry">
                 <Setter Property="MinimumWidthRequest" Value="400"/>
-                <Setter Property="MaximumWidthRequest" Value="1000"/>
+                <Setter Property="MaximumWidthRequest" Value="750"/>
                 <Setter Property="HeightRequest" Value="50"/>
                 <Setter Property="BackgroundColor" Value="#C3ACD0"/>
                 <Setter Property="FontSize" Value="Medium"/>
@@ -109,6 +109,16 @@
                 <Setter Property="TextColor" Value="White"/>
             </Style>
 
+            <Style x:Key="RoundedBorderStyle" TargetType="Border">
+                <Setter Property="Stroke" Value="#7743DB" />
+                <Setter Property="StrokeThickness" Value="2" />
+                <Setter Property="WidthRequest" Value="300"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="StrokeShape" Value="RoundRectangle 30,30,30,30" />
+                <Setter Property="HeightRequest" Value="100"/>
+            </Style>
+            
             <Style x:Key="mainVerticalStackLayout" TargetType="VerticalStackLayout">
                 <Setter Property="Spacing" Value="10"/>
                 <Setter Property="Padding" Value="10"/>

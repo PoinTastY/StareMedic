@@ -127,7 +127,7 @@
             <Picker 
                 Grid.Row="1"
                 VerticalOptions="Start"
-                BackgroundColor="{StaticResource Alter1}"
+                BackgroundColor="{StaticResource Alter2}"
                 Title="    Filtrar por"
                 TitleColor="{StaticResource Black}"
                 HorizontalOptions="Center"
@@ -157,7 +157,7 @@
                     Grid.Row="1"
                     x:Name="btnCancel"
                     Clicked="BtnCancel_Clicked"
-                    BackgroundColor="{StaticResource Alter1}"
+                    BackgroundColor="{StaticResource Alter2}"
                     Text="Volver"                                   
                     TextColor="{StaticResource Principal}"
                     VerticalOptions="End">
@@ -182,7 +182,7 @@
                     x:Name="BtnNewCC"
                     Clicked="BtnNewCC_Clicked"
                     Grid.Column="1"
-                    BackgroundColor="{StaticResource Alter1}"
+                    BackgroundColor="{StaticResource Alter2}"
                     TextColor="{StaticResource Principal}"
                     HorizontalOptions="End"
                     MinimumWidthRequest="160"

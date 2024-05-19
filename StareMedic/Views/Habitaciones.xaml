@@ -116,7 +116,7 @@
                     MinimumWidthRequest="160"
                     x:Name="btnCancel"
                     Clicked="btnCancel_Clicked"
-                    BackgroundColor="{StaticResource Alter1}"
+                    BackgroundColor="{StaticResource Alter2}"
                     Text="Volver"
                     TextColor="{StaticResource Principal}"
                     VerticalOptions="End">
@@ -143,7 +143,7 @@
                     Grid.Row="1"
                     x:Name="BtnAddRoom"
                     Clicked="BtnAddRoom_Clicked"
-                    BackgroundColor="{StaticResource Alter1}"
+                    BackgroundColor="{StaticResource Alter2}"
                     Text="Agregar Habitacion"
                     TextColor="{StaticResource Principal}">
 
