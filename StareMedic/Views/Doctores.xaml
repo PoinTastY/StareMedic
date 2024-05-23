@@ -32,45 +32,58 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout 
-                            Orientation="Horizontal">
+                        <Frame
+                            Margin="10"
+                            Padding="13"
+                            HeightRequest="75"
+                            CornerRadius="25"
+                            BorderColor="{StaticResource Alter2}"
+                            HasShadow="True"
+                            BackgroundColor="{StaticResource Secundario}">
 
-                            <Grid 
-                                Padding="20">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-
-
-                                <Label 
-                                    Grid.Column="0"
-                                    Grid.Row="0"
-                                    Text="{Binding Path=Id, StringFormat='ID: {0} '}"
-                                    FontFamily="OpenSansRegular"
-                                    TextColor="{StaticResource Alter2}"
-                                    FontSize="15"
-                                    HorizontalOptions="StartAndExpand"
-                                    HorizontalTextAlignment="Start"/>
+                                
+                                <StackLayout
+                                    Orientation="Vertical"
+                                    Padding="0,0,20,0">
+                                    
 
 
-                                <Label 
-                                    Grid.Column="0"
-                                    Grid.Row="1"
-                                    Text="{Binding Nombre, StringFormat='Nombre: {0} '}"
-                                    FontFamily="OpenSansRegular"
-                                    FontSize="15"
-                                    TextColor="{StaticResource Black}"
-                                    HorizontalOptions="StartAndExpand"
-                                    HorizontalTextAlignment="Center"/>
+                                    <Label 
+                                        Grid.Column="0"
+                                        Grid.Row="0"
+                                        Text="{Binding Path=Id, StringFormat='ID: {0} '}"
+                                        FontFamily="OpenSansRegular"
+                                        TextColor="{StaticResource Alter2}"
+                                        FontSize="15"
+                                        HorizontalOptions="StartAndExpand"
+                                        HorizontalTextAlignment="Start"/>
 
-                            </Grid>
-                        </StackLayout>
+
+                                    <Label 
+                                        Grid.Column="0"
+                                        Grid.Row="1"
+                                        Text="{Binding Nombre, StringFormat='Nombre: {0} '}"
+                                        FontFamily="OpenSansRegular"
+                                        FontSize="15"
+                                        TextColor="{StaticResource Black}"
+                                        HorizontalOptions="StartAndExpand"
+                                        HorizontalTextAlignment="Center"/>
+                                </StackLayout>
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="LightGray" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

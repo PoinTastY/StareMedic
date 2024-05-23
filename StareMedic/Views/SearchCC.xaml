@@ -24,7 +24,7 @@
             Grid.Column="0"
             x:Name="ListViewCC"
             BackgroundColor="{StaticResource Alter1}"
-            Style="{StaticResource listviewShowEntity}"
+            Style="{StaticResource listviewShowEntityAC}"
             ItemSelected="ListViewCC_ItemSelected"
             ItemTapped="ListViewCC_ItemTapped"
             HorizontalOptions="FillAndExpand"   
@@ -32,58 +32,66 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout                          
-                            Orientation="Horizontal">
+                        <Frame
+                        Margin="5"
+                        Padding="13"                      
+                        HeightRequest="100"
+                        CornerRadius="25"
+                        BorderColor="{StaticResource Alter2}"
+                        HasShadow="True"                      
+                        BackgroundColor="{StaticResource Secundario}">
 
-                            <Grid
-                                Padding="20">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+ 
+                                <StackLayout                               
+                                Orientation="Vertical"
+                                Padding="0,0,10,0">
 
-                                <Label 
-                                    Text="{Binding Nombre}"
-                                    FontFamily="OpenSansRegular"
-                                    Grid.Column="0"
-                                    Grid.Row="0"
-                                    FontSize="15"
-                                    Style="{StaticResource labelEntry}"
-                                    TextColor="{StaticResource Alter2}"
-                                    HorizontalOptions="StartAndExpand"
-                                    HorizontalTextAlignment="Center"/>
+                                    <Label 
+                                        Text="{Binding Nombre}"
+                                        FontFamily="OpenSansRegular"
+                                        Grid.Column="0"
+                                        Grid.Row="0"
+                                        FontSize="15"
+                                        Style="{StaticResource labelEntry}"
+                                        TextColor="{StaticResource Alter2}"
+                                        HorizontalOptions="StartAndExpand"
+                                        HorizontalTextAlignment="Center"/>
 
-                                <Label 
-                                    Text ="{Binding Path=Id, StringFormat='ID: {0} '}"
-                                    FontFamily="OpenSansRegular"
-                                    TextColor="{StaticResource Black}"
-                                    FontSize="15"
-                                    Grid.Row="1"
-                                    HorizontalOptions="StartAndExpand"
-                                    Style="{StaticResource labelEntry}"
-                                    HorizontalTextAlignment="Start"
-                                    Grid.Column="0"/>
+                                    <Label 
+                                        Text ="{Binding Path=Id, StringFormat='ID: {0} '}"
+                                        FontFamily="OpenSansRegular"
+                                        TextColor="{StaticResource Black}"
+                                        FontSize="15"
+                                        Grid.Row="1"
+                                        HorizontalOptions="StartAndExpand"
+                                        Style="{StaticResource labelEntry}"
+                                        HorizontalTextAlignment="Start"
+                                        Grid.Column="0"/>
 
-                                <Label 
-                                    Text="{Binding PatientName, StringFormat='Nombre: {0} '}"
-                                    Grid.Column="0"     
-                                    Grid.Row="2"
-                                    FontFamily="OpenSansRegular"
-                                    Style="{StaticResource labelEntry}"
-                                    FontSize="15"
-                                    TextColor="{StaticResource Black}"
-                                    HorizontalOptions="StartAndExpand"
-                                    HorizontalTextAlignment="Start"/>
-
-                            </Grid>
-                            
-                        </StackLayout>
+                                    <Label 
+                                        Text="{Binding PatientName, StringFormat='Nombre: {0} '}"
+                                        Grid.Column="0"     
+                                        Grid.Row="2"
+                                        FontFamily="OpenSansRegular"
+                                        Style="{StaticResource labelEntry}"
+                                        FontSize="15"
+                                        TextColor="{StaticResource Black}"
+                                        HorizontalOptions="StartAndExpand"
+                                        HorizontalTextAlignment="Start"/>
+                                </StackLayout>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="LightGray" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

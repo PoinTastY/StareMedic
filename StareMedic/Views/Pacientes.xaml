@@ -21,35 +21,34 @@
         BackgroundColor="{StaticResource Secundario}">
 
         <ListView
-            Grid.Column="0"
-            x:Name="listPatients"
-            BackgroundColor="{StaticResource Alter1}"
-            Style="{StaticResource listviewShowEntity}"
-            ItemSelected="ListPatients_ItemSelected"
-            ItemTapped="ListPatients_ItemTapped"
-            HorizontalOptions="FillAndExpand"
-            MinimumWidthRequest="600">
+        Grid.Column="0"
+        x:Name="listPatients"
+        BackgroundColor="{StaticResource Alter1}"
+        Style="{StaticResource listviewShowEntity}"
+        ItemSelected="ListPatients_ItemSelected"
+        ItemTapped="ListPatients_ItemTapped"
+        HorizontalOptions="FillAndExpand"
+        MinimumWidthRequest="600">
+
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout 
-                            Orientation="Horizontal">
+                        <Frame
+                        Margin="10"
+                        Padding="13"
+                        HeightRequest="75"
+                        CornerRadius="25"
+                        BorderColor="{StaticResource Alter2}"
+                        HasShadow="True"
+                        BackgroundColor="{StaticResource Secundario}">
+                            
+                                                   
+                                
+                                <StackLayout 
+                                Orientation="Vertical"
+                                Padding="0,0,20,0">
 
-                            <Grid 
-                                Padding="20">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-
-                                <Label 
-                                    Grid.Column="0"
-                                    Grid.Row="0"
+                                    <Label 
                                     Text="{Binding Path=Id, StringFormat='ID: {0} '}"
                                     FontFamily="OpenSansRegular"
                                     TextColor="{StaticResource Alter2}"
@@ -57,18 +56,29 @@
                                     HorizontalOptions="StartAndExpand"
                                     HorizontalTextAlignment="Start"/>
 
-                                <Label 
-                                    Grid.Column="0"
-                                    Grid.Row="1"
+                                    <Label 
                                     Text="{Binding Nombre, StringFormat='Nombre: {0} '}"
                                     FontFamily="OpenSansRegular"
                                     FontSize="15"
                                     TextColor="{StaticResource Black}"
                                     HorizontalOptions="StartAndExpand"
-                                    HorizontalTextAlignment="Center"/>
+                                    HorizontalTextAlignment="Start"/>
+                                </StackLayout>
 
-                            </Grid>
-                        </StackLayout>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="LightGray" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

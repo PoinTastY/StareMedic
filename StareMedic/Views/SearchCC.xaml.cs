@@ -43,6 +43,7 @@ public partial class SearchCC : ContentPage
 
     private void ListViewCC_ItemTapped(object sender, ItemTappedEventArgs e)
     {
+       
         ListViewCC.SelectedItem = null;
     }
 

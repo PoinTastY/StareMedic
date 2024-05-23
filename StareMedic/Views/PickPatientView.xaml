@@ -31,19 +31,23 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout
-                                Orientation="Horizontal">
-                            <Grid
-                                Padding="20">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                        <Frame
+                        Margin="10"
+                        Padding="13"
+                        HeightRequest="75"
+                        CornerRadius="25"
+                        BorderColor="{StaticResource Alter2}"
+                        HasShadow="True"
+                        BackgroundColor="{StaticResource Secundario}">
 
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+                            
+
+
+                            <StackLayout 
+                                    Orientation="Vertical"
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Padding="0,0,20,0">
 
                                 <Label
                                     Grid.Column="0"
@@ -56,17 +60,31 @@
                                     HorizontalTextAlignment="Start"/>
 
                                 <Label
-                                    Grid.Column="0"
-                                    Grid.Row="1"
-                                    Text="{Binding Nombre, StringFormat='> {0} '}"
-                                    Style="{StaticResource labelEntry}"                              
-                                    FontSize="15"
-                                    HorizontalOptions="StartAndExpand"
-                                    HorizontalTextAlignment="Start"/>
+                                        Grid.Column="0"
+                                        Grid.Row="1"
+                                        Text="{Binding Nombre, StringFormat='> {0} '}"
+                                        Style="{StaticResource labelEntry}"                              
+                                        FontSize="15"
+                                        HorizontalOptions="StartAndExpand"
+                                        HorizontalTextAlignment="Start"/>
 
-                            </Grid>
+                            </StackLayout>
 
-                        </StackLayout>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="LightGray" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+
+                            
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
