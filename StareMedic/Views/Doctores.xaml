@@ -47,29 +47,41 @@
                                 <StackLayout
                                     Orientation="Vertical"
                                     Padding="0,0,20,0">
+
+                                <HorizontalStackLayout>
+
+                                    <Label
+                                        Text="Medico:  "
+                                        FontFamily="HelveticaNeue"
+                                        TextColor="{StaticResource Alter2}"
+                                        FontSize="15"                                   
+                                        HorizontalOptions="StartAndExpand"
+                                        HorizontalTextAlignment="Start">
+                                    </Label>
                                     
-
-
                                     <Label 
                                         Grid.Column="0"
                                         Grid.Row="0"
-                                        Text="{Binding Path=Id, StringFormat='ID: {0} '}"
+                                        Text="{Binding Path=Id, StringFormat=' ID: {0} '}"
                                         FontFamily="HelveticaNeue"
-                                        TextColor="{StaticResource Alter2}"
-                                        FontSize="15"
+                                        TextColor="{StaticResource Alter1}"
+                                        FontSize="12"
+                                        VerticalTextAlignment="End"
                                         HorizontalOptions="StartAndExpand"
-                                        HorizontalTextAlignment="Start"/>
+                                        HorizontalTextAlignment="Center"/>
 
-
+                                </HorizontalStackLayout>
+                            
                                     <Label 
                                         Grid.Column="0"
                                         Grid.Row="1"
-                                        Text="{Binding Nombre, StringFormat='Nombre: {0} '}"
+                                        Text="{Binding Nombre, StringFormat='{0} '}"
                                         FontFamily="HelveticaNeue"
                                         FontSize="15"
                                         TextColor="{StaticResource Black}"
                                         HorizontalOptions="StartAndExpand"
-                                        HorizontalTextAlignment="Center"/>
+                                        HorizontalTextAlignment="Start"/>
+                                        
                                 </StackLayout>
 
                             <VisualStateManager.VisualStateGroups>
@@ -90,19 +102,70 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <HorizontalStackLayout Grid.Column="0"
-                               Grid.Row="1"
-                               HorizontalOptions="End">
-            <Button Text="&lt;"
-                    x:Name="BtnPrevListPage"
-                    FontFamily="HelveticaNeue"
-                    Clicked="BtnPrevListPage_Clicked"/>
-            <Button Text=">"
-                    x:Name="BtnNextListPage"
-                    FontFamily="HelveticaNeue"
-                    Clicked="BtnNextListPage_Clicked"/>
+        
+        
+        <Grid
+            ColumnDefinitions="Auto,*"
+            BackgroundColor="{StaticResource Alter1}"
+            Grid.Column="0"
+            Grid.Row="1"
+            Padding="10"
+            HorizontalOptions="FillAndExpand">
 
-        </HorizontalStackLayout>
+            <Button Text="&lt;"
+                HeightRequest="50"
+                WidthRequest="75"
+                Grid.Column="0"
+                HorizontalOptions="StartAndExpand"
+                x:Name="BtnPrevListPage"
+                FontFamily="HelveticaNeue"
+                BackgroundColor="{StaticResource Alter2}"
+                TextColor="{StaticResource Principal}"
+                Clicked="BtnPrevListPage_Clicked">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+
+            </Button>
+
+            <Button Text=">"
+                HorizontalOptions="EndAndExpand"
+                Grid.Column="1"
+                HeightRequest="50"
+                WidthRequest="75"
+                BackgroundColor="{StaticResource Alter2}"
+                TextColor="{StaticResource Principal}"
+                x:Name="BtnNextListPage"
+                FontFamily="HelveticaNeue"
+                Clicked="BtnNextListPage_Clicked">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+
+            </Button>
+
+
+        </Grid>
         <Grid 
             Padding="10"
             ColumnSpacing="-40"
@@ -149,6 +212,7 @@
                     HorizontalOptions="Start"
                     MinimumWidthRequest="160"
                     x:Name="btnCancel"
+                    HeightRequest="50"
                     FontFamily="HelveticaNeue"
                     Clicked="btnCancel_Clicked"
                     Text="Volver"
@@ -176,6 +240,7 @@
                     HorizontalOptions="End"
                     MinimumWidthRequest="160"
                     Grid.Row="1"
+                    HeightRequest="50"
                     FontFamily="HelveticaNeue"
                     x:Name="BtnAddMedic"
                     Clicked="BtnAddMedic_Clicked"

@@ -41,21 +41,30 @@
                         Grid.Column="0" 
                         BackgroundColor="{StaticResource Alter2}"     
                         ColumnDefinitions="Auto, *"
+                        RowDefinitions="*,Auto"
                         Padding="18">
-                        <Image Grid.Column="0"
-                               Source="logo_hospital.png"
-                               Aspect="AspectFit"
-                               HeightRequest="50"
-                               VerticalOptions="Start"                     
-                               HorizontalOptions="Start"/>
+                        
                         <Label Grid.Column="1"
                                Text="Stare Medic"
                                FontSize="Large"
+                               Grid.Row="0"
                                FontAttributes="Bold"
                                FontFamily="HelveticaNeue"
                                TextColor="{StaticResource Principal}"
                                VerticalOptions="Center"                
                                HorizontalOptions="Center"/>
+
+                        <Label
+                            Text="Ver 1.0"
+                            Grid.Row="1"        
+                            Grid.Column="1"
+                            FontAttributes="Bold"
+                            FontFamily="HelveticaNeue"
+                            TextColor="{StaticResource Principal}"
+                            VerticalOptions="Center"                
+                            HorizontalOptions="Center"
+                            FontSize="10">
+                        </Label>
                     </Grid>
                 </Border>
 
@@ -121,7 +130,7 @@
                             </VisualStateGroupList>
                         </VisualStateManager.VisualStateGroups>
                         <Image Grid.Column="0"
-                               Source="medic.png"
+                               Source="medicos.png"
                                Aspect="AspectFit"
                                HeightRequest="50"
                                VerticalOptions="Center"

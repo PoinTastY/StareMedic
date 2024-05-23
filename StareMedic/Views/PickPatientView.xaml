@@ -18,7 +18,7 @@
 
     <Grid
         ColumnDefinitions="2*,*"
-        RowDefinitions="4*,*"
+        RowDefinitions="10*,*"
         BackgroundColor="{StaticResource Secundario}">
 
         <ListView 
@@ -43,8 +43,6 @@
                         BackgroundColor="{StaticResource Secundario}">
 
                             
-
-
                             <StackLayout 
                                     Orientation="Vertical"
                                     Grid.Row="0"
@@ -92,20 +90,69 @@
             </ListView.ItemTemplate>
 
         </ListView>
-        <HorizontalStackLayout Grid.Column="0"
-                               Grid.Row="1"
-                               HorizontalOptions="End">
-            <Button Text="&lt;"
-                    x:Name="BtnPrevListPage"
-                    FontFamily="HelveticaNeue"
-                    Clicked="BtnPrevListPage_Clicked"/>
-            <Button Text=">"
-                    x:Name="BtnNextListPage"
-                    FontFamily="HelveticaNeue"
-                    Clicked="BtnNextListPage_Clicked"/>
-
-        </HorizontalStackLayout>
         
+        <Grid
+            ColumnDefinitions="Auto,*"
+            BackgroundColor="{StaticResource Alter1}"
+            Grid.Column="0"       
+            Padding="10"
+            Grid.Row="1"
+            HorizontalOptions="FillAndExpand">
+
+            <Button Text="&lt;"
+            HeightRequest="50"
+            WidthRequest="75"
+            Grid.Column="0"
+            HorizontalOptions="StartAndExpand"
+            x:Name="BtnPrevListPage"
+            FontFamily="HelveticaNeue"
+            BackgroundColor="{StaticResource Alter2}"
+            TextColor="{StaticResource Principal}"
+            Clicked="BtnPrevListPage_Clicked">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+
+            </Button>
+
+            <Button Text=">"
+            HorizontalOptions="EndAndExpand"
+            Grid.Column="1"
+            HeightRequest="50"
+            WidthRequest="75"
+            BackgroundColor="{StaticResource Alter2}"
+            TextColor="{StaticResource Principal}"
+            x:Name="BtnNextListPage"
+            FontFamily="HelveticaNeue"
+            Clicked="BtnNextListPage_Clicked">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+
+            </Button>
+
+        </Grid>
+
         <Grid
             Padding="10"
             ColumnSpacing="-40"
@@ -171,6 +218,7 @@
                     x:Name="BtnCancel"
                     Clicked="BtnCancel_Clicked"
                     Text="Cancelar"
+                    HeightRequest="50"
                     FontFamily="HelveticaNeue"
                     MinimumWidthRequest="160"
                     HorizontalOptions="Start"
@@ -196,10 +244,11 @@
                 </Button>
 
                 <Button
-                    Grid.Row="1"
                     BackgroundColor="{StaticResource Alter2}"
                     TextColor="{StaticResource Principal}"
+                    Grid.Row="1"                
                     x:Name="BtnConfirmar"
+                    HeightRequest="50"
                     FontFamily="HelveticaNeue"
                     HorizontalOptions="End"
                     MinimumWidthRequest="160"
