@@ -546,8 +546,7 @@
                     FontFamily="HelveticaNeue"
                     Grid.Column="0"
                     HorizontalOptions="Start"
-                    IsVisible="False"
-                    IsEnabled="False">
+                    IsVisible="False">
 
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroupList>
@@ -601,8 +600,7 @@
                     WidthRequest="100"
                     HeightRequest="50"
                     VerticalOptions="Start"
-                    IsVisible="false"
-                    IsEnabled="False">
+                    IsVisible="false">
 
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroupList>
@@ -631,8 +629,7 @@
                     VerticalOptions="Start"
                     WidthRequest="100"
                     HeightRequest="50"
-                    IsVisible="false"
-                    IsEnabled="False">
+                    IsVisible="false">
 
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroupList>

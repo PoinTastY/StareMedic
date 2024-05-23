@@ -118,11 +118,11 @@ public partial class RegisterClinicalCase : ContentPage
                 MainRepo.AddCaso(caso);
                 MainRepo.PatientIdSolver = new();
 
-                await DisplayAlert("Exito", $"Se ha guardado el caso con id: {caso.Id}", "Ok");
                 
                 if (DoCreate.GenerateDocument(caso))
                 {
-                    await DisplayAlert("Confirmado", $"Se ha exportado el caso:\n{caso.Nombre}", "Ok");
+                    await DisplayAlert("Exito", $"Se ha guardado el caso con id: {caso.Id}", "Ok");
+
                 }
                 else
                 {

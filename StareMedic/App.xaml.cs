@@ -1,9 +1,8 @@
-﻿
-
-namespace StareMedic;
+﻿namespace StareMedic;
 
 public partial class App : Application
 {
+
 	public App()
 	{
 		InitializeComponent();
@@ -13,6 +12,8 @@ public partial class App : Application
 		MainPage = new AppShell();
 
     }
+
+     
 
     protected override Window CreateWindow(IActivationState activationState)
     {

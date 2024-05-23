@@ -1,4 +1,6 @@
 ﻿using iTextSharp.text;
+using System.Diagnostics;
+using System.IO;
 using iTextSharp.text.pdf;
 using StareMedic.Models.Entities;
 using Element = iTextSharp.text.Element;
@@ -22,44 +24,54 @@ namespace StareMedic.Models
 
             //this thing can be done later with an html or sometghing more simple lol
             Document doc = new();
-            PdfWriter.GetInstance(doc, new FileStream(_path + $"\\Admision {CasoReferenciado.Id}.pdf", FileMode.Create));
-            doc.Open();
+            try
+            {
+                PdfWriter.GetInstance(doc, new FileStream(_path + $"\\Admision {CasoReferenciado.Id}.pdf", FileMode.Create));
+                doc.Open();
 
-        //header
-        Paragraph HojaAdmision = new(@"HOJA DE ADMISION
+                //header
+                Paragraph HojaAdmision = new(@"HOJA DE ADMISION
 ", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12f));
-            HojaAdmision.Alignment = Element.ALIGN_CENTER;
-            doc.Add(HojaAdmision);
+                HojaAdmision.Alignment = Element.ALIGN_CENTER;
+                doc.Add(HojaAdmision);
 
-            //Hoja de admision
-            doc.Add(GenerateContentTable(CasoReferenciado, patient, cercano, fiador));
+                //Hoja de admision
+                doc.Add(GenerateContentTable(CasoReferenciado, patient, cercano, fiador));
 
-            //Diagnosis
-            doc.Add(Diagnosis(CasoReferenciado.IdDiagnostico));
+                //Diagnosis
+                doc.Add(Diagnosis(CasoReferenciado.IdDiagnostico));
 
-            //logo and clausules
-            doc.Add(logoYtal(fiador.Nombre));
+                //logo and clausules
+                doc.Add(logoYtal(fiador.Nombre));
 
-            //clausulas
-            doc.Add(Clausule());
+                //clausulas
+                doc.Add(Clausule());
 
-            //signs
-            doc.Add(Sign());
+                //signs
+                doc.Add(Sign());
 
-            //sumario clinico
-            doc.NewPage();
-            Paragraph SumarioClinico = new(@"HOJA DE SUMARIO CLINICO
+                //sumario clinico
+                doc.NewPage();
+                Paragraph SumarioClinico = new(@"HOJA DE SUMARIO CLINICO
 ", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12f));
-            SumarioClinico.Alignment = Element.ALIGN_CENTER;
-            doc.Add(SumarioClinico);
-            doc.Add(GenerateContentTable(CasoReferenciado, patient, cercano, fiador));
 
-            doc.Add(SumarioTemplate(CasoReferenciado, MainRepo.GetMedicById(CasoReferenciado.IdDoctor)));
+                SumarioClinico.Alignment = Element.ALIGN_CENTER;
+                doc.Add(SumarioClinico);
+                doc.Add(GenerateContentTable(CasoReferenciado, patient, cercano, fiador));
+
+                doc.Add(SumarioTemplate(CasoReferenciado, MainRepo.GetMedicById(CasoReferenciado.IdDoctor)));
 
 
-            //close file
-            doc.Close();
-            return true;
+                //close file
+                doc.Close();
+                OpenPdf(_path + $"\\Admision {CasoReferenciado.Id}.pdf");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            
         }
 
         private static PdfPTable GenerateContentTable(CasoClinico CasoReferenciado, Patient patient, Cercano cercano, Fiador fiador)
@@ -314,5 +326,21 @@ Completos:     ______________________                                 __________
 
             return template;
         }
+        private static void OpenPdf(string filePath)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = filePath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al abrir el PDF: {ex.Message}");
+            }
+        }
     }
+    
 }

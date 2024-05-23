@@ -173,14 +173,13 @@
                     Clicked="BtnCancel2_Clicked"
                     BackgroundColor="{StaticResource Alter1}"
                     TextColor="{StaticResource Principal}"
-                    Text="Cancelar"
+                    Text="Regresar"
                     WidthRequest="100"
                     HeightRequest="50"
                     Grid.Column="0"
                     Grid.Row="1"
                     HorizontalOptions="Start"
-                    IsVisible="false"
-                    IsEnabled="False">
+                    IsVisible="false">
 
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroupList>
@@ -233,8 +232,7 @@
                     BackgroundColor="{StaticResource Alter1}"
                     Grid.Column="2"
                     Grid.Row="1"
-                    IsVisible="false"
-                    IsEnabled="False">
+                    IsVisible="false">
 
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroupList>
@@ -261,8 +259,7 @@
                     WidthRequest="100"
                     HeightRequest="50"
                     HorizontalOptions="Start"
-                    IsVisible="false"
-                    IsEnabled="False">
+                    IsVisible="false">
 
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroupList>

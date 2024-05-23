@@ -22,7 +22,6 @@ public partial class PatientControll : ContentPage
         else
         {
             paciente = new(MainRepo.GetCurrentPatientIndex());
-            paciente = new(MainRepo.GetCurrentPatientIndex());
             cercano = new(MainRepo.GetCurrentCercanoIndex());
             fiador = new(MainRepo.GetCurrentFiadorIndex());
         }

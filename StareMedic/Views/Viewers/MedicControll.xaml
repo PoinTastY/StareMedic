@@ -136,15 +136,14 @@
                 Clicked="BtnCancel2_Clicked"
                 TextColor="{StaticResource Principal}"
                 BackgroundColor="{StaticResource Alter2}"               
-                Text="Cancelar"
+                Text="Regresar"
                 WidthRequest="100"
                 FontFamily="HelveticaNeue"
                 HeightRequest="50"
                 Grid.Column="0"
                 Grid.Row="1"
                 HorizontalOptions="Start"
-                IsVisible="false"
-                IsEnabled="False">
+                IsVisible="false">
 
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroupList>
@@ -199,8 +198,7 @@
                 Clicked="BtnEdit_Clicked"
                 FontFamily="HelveticaNeue"
                 HorizontalOptions="Start"
-                IsVisible="false"
-                IsEnabled="False">
+                IsVisible="false">
 
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroupList>
@@ -229,8 +227,7 @@
                 FontFamily="HelveticaNeue"
                 WidthRequest="100"
                 HeightRequest="50"
-                IsVisible="false"
-                IsEnabled="false">
+                IsVisible="false">
 
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroupList>
