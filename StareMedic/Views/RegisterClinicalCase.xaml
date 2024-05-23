@@ -40,7 +40,7 @@
             <Label 
                 Text="Nombre:"
                 TextColor="{StaticResource Black}"
-                Grid.Column="0"
+                Grid.Column="0"              
                 VerticalOptions="Center"
                 Grid.Row="0"
                 Style="{StaticResource labelEntry}"/>
@@ -96,7 +96,7 @@
                     x:Name="LblPaciente"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"
-                    FontFamily="OpenSansRegular"
+                    FontFamily="HelveticaNeue"
                     FontSize="Body"
                     TextColor="{StaticResource Black}"
                     Grid.Row="0"
@@ -106,6 +106,7 @@
                     x:Name="BtnPickPatient"
                     Grid.Column="1"
                     Grid.Row="0"
+                    FontFamily="HelveticaNeue"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"
                     HeightRequest="50"
@@ -136,6 +137,7 @@
                     Grid.Column="1"
                     Grid.Row="0"
                     HeightRequest="50"
+                    FontFamily="HelveticaNeue"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"                       
                     BackgroundColor="{StaticResource Alter1}"
@@ -179,6 +181,7 @@
 
                 <Picker 
                     x:Name="PickerDoctor"
+                    FontFamily="HelveticaNeue"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"
                     BackgroundColor="{StaticResource Alter1}"                 
@@ -214,6 +217,7 @@
                      x:Name="PickerHabitacion"
                      HorizontalOptions="Center"
                      VerticalOptions="Center"
+                     FontFamily="HelveticaNeue"
                      BackgroundColor="{StaticResource Alter1}"    
                      Margin="50,0,0,0"
                      WidthRequest="400"                     
@@ -242,6 +246,7 @@
                 <Label 
                     Text="Fecha de Ingreso:"                    
                     Grid.Column="0"
+                    
                     Grid.Row="2"
                     Style="{StaticResource labelEntry}"/>
 
@@ -249,6 +254,7 @@
                     x:Name="DateIngreso"        
                     Grid.Column="1"
                     Grid.Row="2"
+                    FontFamily="HelveticaNeue"
                     BackgroundColor="{StaticResource Alter1}"
                     Margin="50,0,0,0"
                     WidthRequest="250"
@@ -290,6 +296,7 @@
                          Grid.Column="1"
                          Value="Medico"
                          FontSize="Medium"
+                         FontFamily="HelveticaNeue"
                          TextColor="{StaticResource Black}"                        
                          x:Name="RadioMedico"
                          BackgroundColor="{StaticResource Alter1}"
@@ -300,6 +307,7 @@
                          Content="Quirurgico"
                          FontSize="Medium"
                          Grid.Column="2"
+                         FontFamily="HelveticaNeue"
                          TextColor="{StaticResource Black}"
                          Value="Quirurgico"
                          Margin="40,0,40,0"         
@@ -310,6 +318,7 @@
                     <RadioButton                       
                          Content="Obstetrico"
                          Grid.Column="3"
+                         FontFamily="HelveticaNeue"
                          VerticalOptions="CenterAndExpand"
                          HorizontalOptions="CenterAndExpand"
                          TextColor="{StaticResource Black}"
@@ -350,6 +359,7 @@
                 x:Name="EditorDiagnostico"
                 BackgroundColor="{StaticResource Alter1}"
                 HorizontalTextAlignment="Start"
+                FontFamily="HelveticaNeue"
                 HorizontalOptions="FillAndExpand" 
                 TextColor="{StaticResource Black}"
                 VerticalOptions="CenterAndExpand"        
@@ -359,7 +369,7 @@
                 Grid.Row="1"/>
 
             <Image 
-                Source="logo_hospital.png"
+                Source="logo.png"
                 VerticalOptions="Start"
                 HorizontalOptions="Start"              
                 Grid.Column="2"
@@ -389,6 +399,7 @@
                 x:Name="BtnCancel"
                 Clicked="BtnCancel_Clicked"
                 Text="Cancelar"
+                    FontFamily="HelveticaNeue"
                 HeightRequest="50"
                 BackgroundColor="{StaticResource Alter2}"
                 TextColor="{StaticResource Principal}"
@@ -419,6 +430,7 @@
                 Clicked="BtnGuardar_Clicked"
                 Text="Confirmar Admision"
                 HeightRequest="50"
+                FontFamily="HelveticaNeue"
                 BackgroundColor="{StaticResource Alter2}"
                 TextColor="{StaticResource Principal}"
                 Margin="200,0,200,0"

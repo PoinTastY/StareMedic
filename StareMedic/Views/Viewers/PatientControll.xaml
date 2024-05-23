@@ -26,6 +26,7 @@
                 HorizontalOptions="Start"
                 TextColor="{StaticResource Alter2}"
                 FontSize="Title"
+                FontFamily="HelveticaNeue"
                 Text="ID:"
                 x:Name="lblID"/>
             <!--Name (forced capture)-->
@@ -65,6 +66,7 @@
                 <Label 
                     Text="Telefono:"
                     VerticalOptions="Center"
+                    FontFamily="HelveticaNeue"
                     TextColor="{StaticResource Black}"/>
                 <Entry 
                     x:Name="entryTelefono"
@@ -81,10 +83,12 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Center"
                        Grid.Column="0"
+                        FontFamily="HelveticaNeue"
                        TextColor="{StaticResource Black}"/>
                     <Picker 
                        x:Name="pickerSexo"
                        MaximumWidthRequest="120"
+                        FontFamily="HelveticaNeue"
                        TextColor="{StaticResource Principal}"
                        BackgroundColor="{StaticResource Alter1}"
                        Grid.Column="1"
@@ -105,6 +109,7 @@
                     <Label 
                         Text="Estado Civil:"                      
                         Grid.Column="2"
+                        FontFamily="HelveticaNeue"
                         VerticalOptions="Center"
                         TextColor="{StaticResource Black}"/>
                     
@@ -112,6 +117,7 @@
                         x:Name="pickerEdoCivil"
                         MaximumWidthRequest="250"
                         Grid.Column="3"
+                        FontFamily="HelveticaNeue"
                         TextColor="{StaticResource Principal}"
                         BackgroundColor="{StaticResource Alter1}"
                         VerticalOptions="Center"
@@ -154,9 +160,11 @@
                         Text="Edad:"
                         Grid.Column="4"
                         VerticalOptions="Center"
+                        FontFamily="HelveticaNeue"
                         TextColor="{StaticResource Black}"/>
                     <Entry
                         Placeholder="Edad:"
+                        FontFamily="HelveticaNeue"
                         Grid.Column="5"
                         TextColor="{StaticResource Principal}"
                         BackgroundColor="{StaticResource Alter1}"
@@ -184,6 +192,7 @@
 
                     <Label Text="Direccion (Calle, Numero, Numero int., C.P., Colonia...):"
                            HorizontalOptions="Start"
+                           FontFamily="HelveticaNeue"
                            TextColor="{StaticResource Black}"/>
                     
                     <Entry x:Name="entryDomicilio"
@@ -203,6 +212,7 @@
 
                     <Label Text="Ciudad:"
                            HorizontalOptions="Start"
+                           FontFamily="HelveticaNeue"
                            TextColor="{StaticResource Black}"/>
                     
                     <Entry x:Name="entryCiudad"
@@ -222,6 +232,7 @@
 
                     <Label Text="Estado:"
                            HorizontalOptions="Start"
+                           FontFamily="HelveticaNeue"
                            TextColor="{StaticResource Black}"/>
                     
                     <Entry x:Name="entryEstado"
@@ -241,6 +252,7 @@
                     
                     <Label Text="Nacionalidad:"
                            HorizontalOptions="Start"
+                           FontFamily="HelveticaNeue"
                            TextColor="{StaticResource Black}"/>
                     
                     <Entry x:Name="entryNacionalidad"
@@ -265,6 +277,7 @@
 
                 <Label 
                     Text="Contacto Cercano" 
+                    FontFamily="HelveticaNeue"
                     TextColor="{StaticResource Alter2}"
                     FontSize="20"
                     Grid.Column="0" 
@@ -280,6 +293,7 @@
 
                     <Label 
                         Text="Nombre:"
+                        FontFamily="HelveticaNeue"
                         HorizontalOptions="Start"
                         TextColor="{StaticResource Black}"/>
                     
@@ -303,6 +317,7 @@
                     <Label 
                         Text="Telefono:"
                            HorizontalOptions="Start"
+                        FontFamily="HelveticaNeue"
                            TextColor="{StaticResource Black}"/>
                     
                     <Entry x:Name="entryTelefonoCercano"
@@ -322,6 +337,7 @@
 
                     <Label Text="Direccion (Calle, Numero, Numero int., C.P., Colonia...):"
                            HorizontalOptions="Start"
+                           FontFamily="HelveticaNeue"
                            TextColor="{StaticResource Black}"/>
                     
                     <Entry x:Name="entryDomicilioCercano"
@@ -342,6 +358,7 @@
 
                     <Label Text="Ciudad:"
                            HorizontalOptions="Start"
+                           FontFamily="HelveticaNeue"
                            TextColor="{StaticResource Black}"/>
                     
                     <Entry x:Name="entryCiudadCercano"
@@ -361,6 +378,7 @@
 
                     <Label Text="Estado:"
                            HorizontalOptions="Start"
+                           FontFamily="HelveticaNeue"
                            TextColor="{StaticResource Black}"/>
                     
                     <Entry x:Name="entryEstadoCercano"
@@ -380,6 +398,7 @@
 
                     <Label Text="Relacion:"
                            HorizontalOptions="Start"
+                           FontFamily="HelveticaNeue"
                            TextColor="{StaticResource Black}"/>
                     
                     <Entry x:Name="entryRelacionCercano"
@@ -491,11 +510,44 @@
                 <Button
                     x:Name="BtnCancel"
                     Clicked="BtnCancel_Clicked"
-                    TextColor="{StaticResource Principal}"
+                    FontFamily="HelveticaNeue"
                     BackgroundColor="{StaticResource Alter2}"
+                    TextColor="{StaticResource Principal}"                   
                     Text="Cancelar"
+                    WidthRequest="100"
+                    HeightRequest="50"
                     Grid.Column="0"
+                    IsVisible="True"
+                    IsEnabled="True"
                     HorizontalOptions="Center">
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </Button>
+
+                <Button
+                    x:Name="BtnCancel2"
+                    Clicked="BtnCancel2_Clicked"
+                    BackgroundColor="{StaticResource Alter2}"
+                    TextColor="{StaticResource Principal}"
+                    Text="Regresar"
+                    WidthRequest="100"
+                    HeightRequest="50"
+                    FontFamily="HelveticaNeue"
+                    Grid.Column="0"
+                    HorizontalOptions="Start"
+                    IsVisible="False"
+                    IsEnabled="False">
 
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroupList>
@@ -514,9 +566,12 @@
                 <Button
                     x:Name="BtnGuardar"
                     Clicked="BtnGuardar_Clicked"
-                    TextColor="{StaticResource Principal}"
+                    FontFamily="HelveticaNeue"                  
                     BackgroundColor="{StaticResource Alter2}"
+                    TextColor="{StaticResource Principal}"
                     Text="Guardar Paciente"
+                    WidthRequest="150"
+                    HeightRequest="50"
                     Grid.Column="1"
                     HorizontalOptions="Center">
 
@@ -538,10 +593,13 @@
                     x:Name="BtnEdit"
                     Text="Editar"
                     Grid.Column="2"
-                    TextColor="{StaticResource Principal}"
+                    FontFamily="HelveticaNeue"
                     BackgroundColor="{StaticResource Alter2}"
+                    TextColor="{StaticResource Principal}"
                     Clicked="BtnEdit_Clicked"
                     HorizontalOptions="End"
+                    WidthRequest="100"
+                    HeightRequest="50"
                     VerticalOptions="Start"
                     IsVisible="false"
                     IsEnabled="False">
@@ -564,12 +622,15 @@
                 <Button 
                     x:Name="BtnDelete"
                     Grid.Column="3"
+                    FontFamily="HelveticaNeue"
                     Text="Eliminar"
-                    TextColor="{StaticResource Principal}"
                     BackgroundColor="{StaticResource Alter2}"
+                    TextColor="{StaticResource Principal}"                  
                     Clicked="BtnDelete_Clicked"
                     HorizontalOptions="End"
                     VerticalOptions="Start"
+                    WidthRequest="100"
+                    HeightRequest="50"
                     IsVisible="false"
                     IsEnabled="False">
 

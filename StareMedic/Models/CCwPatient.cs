@@ -6,19 +6,21 @@
         private int _iddb;
         private string _name;
         private string _patientName;
+        private string _medic;
 
-        public CCwPatient(int iddb, string id, string name, string patientName)
+        public CCwPatient(int iddb, string id, string name, string patientName, string medic)
         {
             _iddb = iddb;
             _id = id;
             _name = name;
-            if (patientName != null )
-                _patientName = patientName;
+            _patientName = patientName;
+            _medic = medic;
         }
 
         public string Id { get { return _id; } set { _id = value; } }
         public string Nombre { get { return _name;} set { _name = value; } }
         public string PatientName { get { return _patientName; } set { _patientName = value; } }
+        public string Medic { get { return _medic; } set { _medic = value; } }
         public int Iddb
         {
             get => _iddb;

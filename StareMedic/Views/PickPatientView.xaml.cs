@@ -59,9 +59,15 @@ public partial class PickPatientView : ContentPage
         await Navigation.PopModalAsync();
     }
 
+
     private void ListViewPatients_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
-        BtnConfirmar.IsEnabled = true;
+        if (e.SelectedItem != null)
+        {
+            var selectedPatient = (Patient)e.SelectedItem;
+            SelectedPatientLabel.Text = selectedPatient.Nombre;
+            BtnConfirmar.IsEnabled = true;
+        }
     }
 
     private void SearchbarPatient_TextChanged(object sender, TextChangedEventArgs e)

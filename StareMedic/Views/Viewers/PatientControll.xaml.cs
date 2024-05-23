@@ -246,6 +246,15 @@ public partial class PatientControll : ContentPage
         paciente.Edad = EntryEdad.Text;
     }
 
+    private async void BtnCancel2_Clicked(object sender, EventArgs e)
+    {
+        BtnCancel2.Opacity = 0;
+
+        await BtnCancel2.FadeTo(1, 300);
+
+        await Shell.Current.GoToAsync("..");
+    }
+
     private async void BtnEdit_Clicked(object sender, EventArgs e)
     {
         BtnEdit.Opacity = 0;
@@ -296,8 +305,10 @@ public partial class PatientControll : ContentPage
         BtnEdit.IsVisible = !x;
         BtnGuardar.IsEnabled = x;
         BtnGuardar.IsVisible = x;
-        BtnCancel.IsEnabled = !x;
-        BtnCancel.IsVisible = !x;
+        BtnCancel.IsEnabled = x;
+        BtnCancel.IsVisible = x;
+        BtnCancel2.IsEnabled = !x;
+        BtnCancel2.IsVisible = !x;
         BtnDelete.IsEnabled = !x;
         BtnDelete.IsVisible = !x;
         entryNombreCercano.IsEnabled = x;
