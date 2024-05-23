@@ -54,7 +54,7 @@ public partial class Doctores : ContentPage
         if(!string.IsNullOrWhiteSpace(SearchBarMedics.Text))
         {
             medics.Clear();
-            foreach(var medic in MainRepo.SearchMedic(SearchBarMedics.Text))
+            foreach(var medic in MainRepo.SearchMedic(SearchBarMedics.Text.ToUpper()))
             {
                 medics.Add(medic);
             }

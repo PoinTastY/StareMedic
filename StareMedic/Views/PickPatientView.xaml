@@ -97,9 +97,11 @@
                                HorizontalOptions="End">
             <Button Text="&lt;"
                     x:Name="BtnPrevListPage"
+                    FontFamily="HelveticaNeue"
                     Clicked="BtnPrevListPage_Clicked"/>
             <Button Text=">"
                     x:Name="BtnNextListPage"
+                    FontFamily="HelveticaNeue"
                     Clicked="BtnNextListPage_Clicked"/>
 
         </HorizontalStackLayout>
@@ -122,6 +124,7 @@
                  x:Name="SearchbarPatient"
                  VerticalOptions="Start"
                  Placeholder="Buscar Paciente"
+                 FontFamily="HelveticaNeue"
                  TextChanged="SearchbarPatient_TextChanged"            
                  SearchButtonPressed="SearchbarPatient_SearchButtonPressed"
                  Background="{StaticResource Alter1}"
@@ -133,12 +136,27 @@
                 
             </SearchBar>
 
-            <Image 
-               Grid.Row="1"
-               Source="logo_hospital.png"
-               VerticalOptions="Center"
-               HorizontalOptions="Center"
-               HeightRequest="200"/>
+            <Border
+                Grid.Row="1"
+                Stroke="{StaticResource Alter2}"
+                StrokeThickness="2"
+                StrokeShape="RoundRectangle 20,20,20,20"
+                WidthRequest="300"
+                HeightRequest="100"
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+                
+                <Label 
+                    x:Name="SelectedPatientLabel"
+                    BackgroundColor="{StaticResource Alter1}"
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"
+                    Text="Seleccione un paciente"
+                    FontFamily="HelveticaNeue"
+                    TextColor="{StaticResource Black}"
+                    FontSize="15"/>
+
+            </Border>
 
 
             <Grid 
@@ -153,6 +171,7 @@
                     x:Name="BtnCancel"
                     Clicked="BtnCancel_Clicked"
                     Text="Cancelar"
+                    FontFamily="HelveticaNeue"
                     MinimumWidthRequest="160"
                     HorizontalOptions="Start"
                     Grid.Column="0"
@@ -181,6 +200,7 @@
                     BackgroundColor="{StaticResource Alter2}"
                     TextColor="{StaticResource Principal}"
                     x:Name="BtnConfirmar"
+                    FontFamily="HelveticaNeue"
                     HorizontalOptions="End"
                     MinimumWidthRequest="160"
                     Clicked="BtnConfirmar_Clicked"

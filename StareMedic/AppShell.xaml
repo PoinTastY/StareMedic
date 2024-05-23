@@ -28,7 +28,7 @@
                           Padding="25"
                           ColumnSpacing="20">
                 <Image Grid.Column="0"
-                       Source="logo_hospital.png"
+                       Source="logo.png"
                        Aspect="AspectFill"
                        HeightRequest="50"
                        WidthRequest="50"/>
@@ -37,7 +37,7 @@
                        Text="StareMedic"
                        VerticalTextAlignment="Center"
                        TextColor="{StaticResource Principal}"
-                       FontFamily="Sans Serif"
+                       FontFamily="HelveticaNeue"
                        FontSize="28"
                        FontAttributes="Bold"/>
 
@@ -91,14 +91,14 @@
                     <Label Grid.Column="1"
                            Text="Control de Pacientes"
                            TextColor="{StaticResource Black}"
-                           FontFamily="Sans Serif"
+                           FontFamily="HelveticaNeue"
                            FontSize="16"/>
 
                     <Label Grid.Column="2"
                            Text=">"
                            FontAttributes="Bold"
                            TextColor="{StaticResource Black}"
-                           FontFamily="Sans Serif"
+                           FontFamily="HelveticaNeue"
                            Scale="1.5"/>
 
                     <Grid.GestureRecognizers>
@@ -137,7 +137,7 @@
 
                     <Label Grid.Column="1"
                            Text="Control de Medicos"
-                           FontFamily="Sans Serif"
+                           FontFamily="HelveticaNeue"
                            TextColor="{StaticResource Black}"
                            FontSize="16"/>
 
@@ -146,7 +146,7 @@
                            Text=">"
                            FontAttributes="Bold"
                            TextColor="{StaticResource Black}"
-                           FontFamily="Sans Serif"
+                           FontFamily="HelveticaNeue"
                            Scale="1.5"/>
 
                     <Grid.GestureRecognizers>
@@ -154,52 +154,7 @@
                     </Grid.GestureRecognizers>
                 </Grid>
 
-                <!--Grids to separate -->
-                <Grid ColumnDefinitions="Auto"
-                      Padding="15"/>
-
-                <Grid x:Name="RoomsFly"
-                      ColumnDefinitions="Auto, *, Auto"
-                      Padding="20"  
-                      ColumnSpacing="20">
-
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroupList>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal" />
-                                <VisualState x:Name="PointerOver">
-                                    <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="LightGray" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateGroupList>
-                    </VisualStateManager.VisualStateGroups>
-
-                    <Image Grid.Column="0"
-                           Source="rooms_control.png"
-                           Aspect="AspectFill"
-                           HeightRequest="30"
-                           WidthRequest="25"/>
-
-                    <Label Grid.Column="1"
-                           Text="Control de Habitaciones"
-                           TextColor="{StaticResource Black}"
-                           FontFamily="Sans Serif"
-                           FontSize="16"/>
-
-                    <Label Grid.Column="2"
-                           Text="      >"
-                           FontAttributes="Bold"
-                           TextColor="{StaticResource Black}"
-                           FontFamily="Sans Serif"
-                           Scale="1.5"/>
-
-                    <Grid.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="BtnRooms_Clicked"/>
-                    </Grid.GestureRecognizers>
-
-                </Grid>
+                
 
                 <!--Grids to separate -->
                 <Grid ColumnDefinitions="Auto"
@@ -232,7 +187,7 @@
                     <Label Grid.Column="1"
                            Text="Busqueda de Admisiones"
                            TextColor="{StaticResource Black}"
-                           FontFamily="Sans Serif"
+                           FontFamily="HelveticaNeue"
                            FontSize="16"/>
 
 
@@ -240,7 +195,7 @@
                            Text="    >"
                            FontAttributes="Bold"
                            TextColor="{StaticResource Black}"
-                           FontFamily="Sans Serif"
+                           FontFamily="HelveticaNeue"
                            Scale="1.5"/>
 
                     <Grid.GestureRecognizers>
@@ -249,7 +204,55 @@
 
                 </Grid>
 
-          
+                <!--Grids to separate -->
+                <Grid 
+                    ColumnDefinitions="Auto"
+                    Padding="15"/>
+
+                <Grid x:Name="RoomsFly"
+                      ColumnDefinitions="Auto, *, Auto"
+                      Padding="20"  
+                      ColumnSpacing="20">
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+
+                    <Image Grid.Column="0"
+                           Source="clinical_case.png"
+                           Aspect="AspectFill"
+                           HeightRequest="25"
+                           WidthRequest="25"/>
+
+                    <Label Grid.Column="1"
+                           Text="Registro de Admision"
+                           TextColor="{StaticResource Black}"
+                           FontFamily="HelveticaNeue"
+                           FontSize="16"/>
+
+                    <Label Grid.Column="2"
+                           Text="      >"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Black}"
+                           FontFamily="HelveticaNeue"
+                           Scale="1.5"/>
+
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnRegCasoCli_Clicked"/>
+                    </Grid.GestureRecognizers>
+
+                </Grid>
+
+
                 <!--A Column to fill out the elements-->
                 
                 <Grid ColumnDefinitions="Auto"

@@ -96,7 +96,9 @@ public partial class RegisterClinicalCase : ContentPage
                 //push to SDK
                 try
                 {
+
                     double x = request.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
+
                     if (x > 0)
                     {
                         await DisplayAlert("Exito!", $"Se ha generado la remision de la admision\nFolio: {x}", "Ok");

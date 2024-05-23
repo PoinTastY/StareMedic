@@ -12,6 +12,8 @@ public static class MauiProgram
 			.UseMauiApp<App>()
 			.ConfigureFonts(fonts =>
 			{
+				fonts.AddFont("HelveticaNeue.ttf", "HelveticaNeue");
+				fonts.AddFont("CascadiaCode.ttf", "CascadiaCode-Regular");
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 				fonts.AddFont("ComicSansMS.ttf", "ComicSansMS");
@@ -25,6 +27,8 @@ public static class MauiProgram
             // After initializing the .NET MAUI Community Toolkit, optionally add additional fonts
             .ConfigureFonts(fonts =>
             {
+                fonts.AddFont("HelveticaNeue.ttf", "HelveticaNeue");
+                fonts.AddFont("CascadiaCode.ttf", "CascadiaCode-Regular");
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddFont("ComicSansMS.ttf", "ComicSansMS");

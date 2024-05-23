@@ -23,7 +23,7 @@ public partial class SearchCC : ContentPage
         var listCasos = MainRepo.GetCasos(50, listpage);
         foreach (CasoClinico caso in listCasos)
         {
-            CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre);
+            CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
             casos.Add(vista);
         }
         ListViewCC.ItemsSource = casos;
@@ -60,7 +60,7 @@ public partial class SearchCC : ContentPage
             casos.Clear();
             foreach (CasoClinico caso in MainRepo.GetCasos(50, listpage))
             {
-                CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre);
+                CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
                 casos.Add(vista);
             }
             ListViewCC.ItemsSource = casos;
@@ -88,7 +88,7 @@ public partial class SearchCC : ContentPage
                 casos.Clear();
                 foreach(var caso in MainRepo.SearchCasoClinico(SearchBarentry.Text.ToUpper(), 1))
                 {
-                    CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre);
+                    CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
                     casos.Add(vista);
                 }
                 ListViewCC.ItemsSource = casos;
@@ -98,7 +98,7 @@ public partial class SearchCC : ContentPage
                 casos.Clear();
                 foreach (var caso in MainRepo.SearchCasoClinico(SearchBarentry.Text.ToUpper(), 2))
                 {
-                    CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre);
+                    CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
                     casos.Add(vista);
                 }
                 ListViewCC.ItemsSource = casos;
@@ -108,7 +108,7 @@ public partial class SearchCC : ContentPage
                 casos.Clear();
                 foreach (var caso in MainRepo.SearchCasoClinico(SearchBarentry.Text.ToUpper(), 3))
                 {
-                    CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre);
+                    CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
                     casos.Add(vista);
                 }
                 ListViewCC.ItemsSource = casos;
@@ -118,7 +118,7 @@ public partial class SearchCC : ContentPage
                 casos.Clear();
                 foreach (var caso in MainRepo.SearchCasoClinico(SearchBarentry.Text.ToUpper(), 4))
                 {
-                    CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre);
+                    CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
                     casos.Add(vista);
                 }
                 ListViewCC.ItemsSource = casos;
@@ -158,7 +158,7 @@ public partial class SearchCC : ContentPage
 
         foreach (CasoClinico caso in nextCasos)
         {
-            CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre);
+            CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
             casos.Add(vista);
         }
 
@@ -178,7 +178,7 @@ public partial class SearchCC : ContentPage
         casos.Clear();
         foreach (CasoClinico caso in nextCasos)
         {
-            CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre);
+            CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
             casos.Add(vista);
         }
         BtnPrevListPage.IsEnabled = true;

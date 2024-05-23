@@ -26,7 +26,7 @@
             Grid.Row="0"
             x:Name="ListViewCC"
             BackgroundColor="{StaticResource Alter1}"
-            Style="{StaticResource listviewShowEntityAC}"
+            Style="{StaticResource listviewShowEntity}"
             ItemSelected="ListViewCC_ItemSelected"
             ItemTapped="ListViewCC_ItemTapped"
             HorizontalOptions="FillAndExpand"   
@@ -35,9 +35,9 @@
                 <DataTemplate>
                     <ViewCell>
                         <Frame
-                        Margin="5"
+                        Margin="10"
                         Padding="13"                      
-                        HeightRequest="100"
+                        HeightRequest="75"
                         CornerRadius="25"
                         BorderColor="{StaticResource Alter2}"
                         HasShadow="True"                      
@@ -48,56 +48,77 @@
                                 Orientation="Vertical"
                                 Padding="0,0,10,0">
 
-                                    <Label 
-                                        Text="{Binding Nombre}"
-                                        FontFamily="OpenSansRegular"
-                                        Grid.Column="0"
-                                        Grid.Row="0"
-                                        FontSize="15"
-                                        Style="{StaticResource labelEntry}"
-                                        TextColor="{StaticResource Alter2}"
-                                        HorizontalOptions="StartAndExpand"
-                                        HorizontalTextAlignment="Center"/>
+                                    <HorizontalStackLayout>
+
 
                                     <Label 
-                                        Text ="{Binding Path=Id, StringFormat='ID: {0} '}"
-                                        FontFamily="OpenSansRegular"
-                                        TextColor="{StaticResource Black}"
-                                        FontSize="15"
-                                        Grid.Row="1"
-                                        HorizontalOptions="StartAndExpand"
-                                        Style="{StaticResource labelEntry}"
-                                        HorizontalTextAlignment="Start"
-                                        Grid.Column="0"/>
+                                         Text ="{Binding Path=Id, StringFormat=' {0} '}"
+                                         FontFamily="HelveticaNeue"
+                                         TextColor="{StaticResource Alter1}"
+                                         FontSize="12"
+                                         VerticalOptions="Center"
+                                         HorizontalOptions="StartAndExpand"
+                                         Style="{StaticResource labelEntry}"
+                                         HorizontalTextAlignment="Start"/>
 
                                     <Label 
-                                        Text="{Binding PatientName, StringFormat='Nombre: {0} '}"
-                                        Grid.Column="0"     
-                                        Grid.Row="2"
-                                        FontFamily="OpenSansRegular"
-                                        Style="{StaticResource labelEntry}"
-                                        FontSize="15"
-                                        TextColor="{StaticResource Black}"
-                                        HorizontalOptions="StartAndExpand"
-                                        HorizontalTextAlignment="Start"/>
-                                </StackLayout>
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroupList>
-                                    <VisualStateGroup x:Name="CommonStates">
-                                        <VisualState x:Name="Normal" />
-                                        <VisualState x:Name="PointerOver">
-                                            <VisualState.Setters>
-                                                <Setter Property="BackgroundColor" Value="LightGray" />
-                                            </VisualState.Setters>
-                                        </VisualState>
-                                    </VisualStateGroup>
-                                </VisualStateGroupList>
-                            </VisualStateManager.VisualStateGroups>
+                                            Text="{Binding Nombre, StringFormat=' {0} '}"
+                                            FontFamily="HelveticaNeue"                                      
+                                            FontSize="15"
+                                            Style="{StaticResource labelEntry}"
+                                            TextColor="{StaticResource Alter2}"
+                                            HorizontalOptions="StartAndExpand"
+                                            HorizontalTextAlignment="Center"/>
+                                                                                                             
+                                    </HorizontalStackLayout>
+
+                                    <Grid 
+                                        HorizontalOptions="FillAndExpand">
+                                        
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                                    <Label 
+                                                        Text="{Binding PatientName, StringFormat='{0} '}"
+                                                        FontFamily="HelveticaNeue"
+                                                        Style="{StaticResource labelEntry}"
+                                                        FontSize="15"
+                                                        TextColor="{StaticResource Black}"
+                                                        HorizontalOptions="Start"
+                                                        Grid.Column="0" />
+
+                                                    <Label
+                                                        Text="{Binding Medic, StringFormat='Medico: {0} '}"
+                                                        FontFamily="HelveticaNeue"
+                                                        FontSize="15"
+                                                        Style="{StaticResource labelEntry}"
+                                                        TextColor="{StaticResource Black}"
+                                                        HorizontalOptions="End"
+                                                        Grid.Column="1" />
+                                    </Grid>
+                            </StackLayout>
+                            
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroupList>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal" />
+                                            <VisualState x:Name="PointerOver">
+                                                <VisualState.Setters>
+                                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateGroupList>
+                                </VisualStateManager.VisualStateGroups>
+                            
                         </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+            
         <HorizontalStackLayout Grid.Column="0"
                                Grid.Row="1"
                                HorizontalOptions="End">
@@ -126,6 +147,7 @@
             <SearchBar 
                 x:Name="SearchBarentry"
                 VerticalOptions="Start"
+                FontFamily="HelveticaNeue"
                 Placeholder="Buscar Amision Clinica"
                 TextChanged="SearchBarentry_TextChanged"
                 SearchButtonPressed="SearchBarentry_SearchButtonPressed"
@@ -141,13 +163,14 @@
             <Image 
                 Grid.Row="2"
                 Margin="0,-150,0,0"
-                Source="logo_hospital.png"
+                Source="logo.png"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
                 HeightRequest="200"/>
             
             <Picker 
                 Grid.Row="1"
+                FontFamily="HelveticaNeue"
                 VerticalOptions="Start"
                 BackgroundColor="{StaticResource Alter2}"
                 Title="    Filtrar por"
@@ -179,6 +202,7 @@
                     MinimumWidthRequest="160"
                     Grid.Row="1"
                     x:Name="btnCancel"
+                    FontFamily="HelveticaNeue"
                     Clicked="BtnCancel_Clicked"
                     BackgroundColor="{StaticResource Alter2}"
                     Text="Volver"                                   
@@ -204,6 +228,7 @@
                     Text="Nuevo Caso Clinico"               
                     x:Name="BtnNewCC"
                     Clicked="BtnNewCC_Clicked"
+                    FontFamily="HelveticaNeue"
                     Grid.Column="1"
                     BackgroundColor="{StaticResource Alter2}"
                     TextColor="{StaticResource Principal}"

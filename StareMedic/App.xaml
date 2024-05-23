@@ -25,6 +25,7 @@
                 <Setter Property="MinimumWidthRequest" Value="500"/>
                 <Setter Property="MaximumWidthRequest" Value="650"/>
                 <Setter Property="HeightRequest" Value="35"/>
+                <Setter Property="FontFamily" Value="HelveticaNeue"/>
                 <Setter Property="BackgroundColor" Value="#C3ACD0"/>
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="TextColor" Value="#FFFBF5"/>
@@ -57,6 +58,7 @@
                 <Setter Property="FontSize" Value="Medium" />
                 <Setter Property="Keyboard" Value="Numeric"/>
                 <Setter Property="MaxLength" Value="10"/>
+                <Setter Property="FontFamily" Value="HelveticaNeue"/>
                 <Setter Property="TextColor" Value="#FFFBF5"/>
                 <Setter Property="BackgroundColor" Value="#C3ACD0"/>
                 <Setter Property="MinimumWidthRequest" Value="200"/>
@@ -75,6 +77,7 @@
             </Style>
 
             <Style x:Key="labelEntry" TargetType="Label">
+                <Setter Property="FontFamily" Value="HelveticaNeue"/>
                 <Setter Property="TextColor" Value="#000"/>
                 <Setter Property="FontSize" Value="Title"/>
             </Style>
@@ -85,6 +88,7 @@
                 <Setter Property="HeightRequest" Value="50"/>
                 <Setter Property="BackgroundColor" Value="#C3ACD0"/>
                 <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="FontFamily" Value="HelveticaNeue"/>
                 <Setter Property="TextColor" Value="#FFFBF5"/>
                 <Setter Property="TextTransform" Value="Uppercase"/>
 
@@ -104,6 +108,7 @@
                 <Setter Property="MinimumWidthRequest" Value="400"/>
                 <Setter Property="MaximumWidthRequest" Value="550"/>
                 <Setter Property="HeightRequest" Value="45"/>
+                <Setter Property="FontFamily" Value="HelveticaNeue"/>
                 <Setter Property="BackgroundColor" Value="#6f6f6f"/>
                 <Setter Property="FontSize" Value="Title"/>
                 <Setter Property="TextColor" Value="White"/>
@@ -112,7 +117,7 @@
             <Style x:Key="RoundedBorderStyle" TargetType="Border">
                 <Setter Property="Stroke" Value="#7743DB" />
                 <Setter Property="StrokeThickness" Value="2" />
-                <Setter Property="WidthRequest" Value="300"/>
+                <Setter Property="WidthRequest" Value="250"/>
                 <Setter Property="HorizontalOptions" Value="Center"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
                 <Setter Property="StrokeShape" Value="RoundRectangle 30,30,30,30" />
@@ -133,7 +138,7 @@
 
             <Style x:Key="listviewShowEntityAC" TargetType="ListView">
                 <Setter Property="BackgroundColor" Value="Transparent"/>
-                <Setter Property="RowHeight" Value="115"/>
+                <Setter Property="RowHeight" Value="105"/>
             </Style>
 
             <Style x:Key="listViewPacientes" TargetType="ListView">

@@ -44,6 +44,7 @@ public partial class Pacientes : ContentPage
 
     private async void ListPatients_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
+       
 		if(listPatients.SelectedItem != null)
 		{
 			//It will send to de detailed patient view, or the edit pg, rn is edit?
@@ -54,6 +55,7 @@ public partial class Pacientes : ContentPage
 
     private void ListPatients_ItemTapped(object sender, ItemTappedEventArgs e)
     {
+
 		listPatients.SelectedItem = null;
     }
 
@@ -62,7 +64,7 @@ public partial class Pacientes : ContentPage
         if (!string.IsNullOrWhiteSpace(SearchBarPatients.Text))
         {
             patients.Clear();
-            foreach(var paciente in MainRepo.SearchPatient(SearchBarPatients.Text))
+            foreach(var paciente in MainRepo.SearchPatient(SearchBarPatients.Text.ToUpper()))
             {
                 patients.Add(paciente);
             }

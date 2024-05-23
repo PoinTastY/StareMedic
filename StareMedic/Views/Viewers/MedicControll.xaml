@@ -104,7 +104,8 @@
                 Style="{StaticResource BreakLine}"/>
             
             <Button
-                    x:Name="BtnCancel"                  
+                    x:Name="BtnCancel"          
+                    FontFamily="HelveticaNeue"
                     BackgroundColor="{StaticResource Alter2}"
                     TextColor="{StaticResource Principal}"
                     Clicked="BtnCancel_Clicked"
@@ -115,18 +116,18 @@
                     Grid.Row="1"
                     HorizontalOptions="Start">
 
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroupList>
-                        <VisualStateGroup x:Name="CommonStates">
-                            <VisualState x:Name="Normal" />
-                            <VisualState x:Name="PointerOver">
-                                <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="LightGray" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </VisualStateManager.VisualStateGroups>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
                 
             </Button>
 
@@ -137,6 +138,7 @@
                 BackgroundColor="{StaticResource Alter2}"               
                 Text="Cancelar"
                 WidthRequest="100"
+                FontFamily="HelveticaNeue"
                 HeightRequest="50"
                 Grid.Column="0"
                 Grid.Row="1"
@@ -165,6 +167,7 @@
                     Clicked="BtnGuardar_Clicked"
                     Text="Guardar"
                     WidthRequest="100"
+                    FontFamily="HelveticaNeue"
                     Grid.Column="1"
                     Grid.Row="1"
                     HorizontalOptions="Start">
@@ -194,6 +197,7 @@
                 TextColor="{StaticResource Principal}"
                 BackgroundColor="{StaticResource Alter2}"
                 Clicked="BtnEdit_Clicked"
+                FontFamily="HelveticaNeue"
                 HorizontalOptions="Start"
                 IsVisible="false"
                 IsEnabled="False">
@@ -222,6 +226,7 @@
                 BackgroundColor="{StaticResource Alter2}"
                 Clicked="BtnDelete_Clicked"
                 HorizontalOptions="Start"
+                FontFamily="HelveticaNeue"
                 WidthRequest="100"
                 HeightRequest="50"
                 IsVisible="false"
