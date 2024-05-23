@@ -18,10 +18,12 @@
 
     <Grid
         ColumnDefinitions="2*,*" 
+        RowDefinitions="10*,*"
         BackgroundColor="{StaticResource Secundario}">
         
         <ListView 
             Grid.Column="0"
+            Grid.Row="0"
             x:Name="ListViewCC"
             BackgroundColor="{StaticResource Alter1}"
             Style="{StaticResource listviewShowEntity}"
@@ -88,10 +90,22 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        
+        <HorizontalStackLayout Grid.Column="0"
+                               Grid.Row="1"
+                               HorizontalOptions="End">
+            <Button Text="&lt;"
+                    x:Name="BtnPrevListPage"
+                    Clicked="BtnPrevListPage_Clicked"/>
+            <Button Text=">"
+                    x:Name="BtnNextListPage"
+                    Clicked="BtnNextListPage_Clicked"/>
+
+        </HorizontalStackLayout>
         <Grid 
             Padding="10"
             ColumnSpacing="-40"
+            Grid.Row="0"
+            Grid.RowSpan="2"
             Grid.Column="1">
 
             <Grid.RowDefinitions>
@@ -138,6 +152,7 @@
                         <x:String>Paciente</x:String>
                         <x:String>Nombre</x:String>
                         <x:String>Id</x:String>
+                        <x:String>Medico</x:String>
                     </x:Array>
                 </Picker.ItemsSource>
             </Picker>

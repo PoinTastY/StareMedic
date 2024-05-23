@@ -263,9 +263,14 @@ public partial class PatientControll : ContentPage
         bool confirm = await DisplayAlert("Eliminar", $"Desea eliminar al paciente: {paciente.Nombre}?", "No", "Si");
         if (!confirm)
         {
-            MainRepo.DeletePatient(paciente);
-            await DisplayAlert("Exito", $"Paciente eliminado: {paciente.Nombre}", "OK");
-            await Shell.Current.GoToAsync("..");
+            var done = MainRepo.DeletePatient(paciente);
+            if (done)
+            {
+                await DisplayAlert("Exito", $"Paciente eliminado: {paciente.Nombre}", "OK");
+                await Shell.Current.GoToAsync("..");
+            }
+            else
+                await DisplayAlert("Error", $"El paciente tiene admisiones registradas", "OK");
         }
         else
         {
