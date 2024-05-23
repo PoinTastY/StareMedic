@@ -10,27 +10,30 @@ public partial class Doctores : ContentPage
 
 	ObservableCollection<Medic> medics = new();
 
+    int listpage;
 	public Doctores()
 	{
 		InitializeComponent();
-        foreach (Medic medic in MainRepo.GetMedics())
-        {
-            medics.Add(medic);
-        }
+        listpage = 1;
+        BtnPrevListPage.IsEnabled = false;
 
-        listMedics.ItemsSource = medics;
-	}
+    }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
         medics.Clear();
-        foreach (Medic medic in MainRepo.GetMedics())
+        foreach (Medic medic in MainRepo.GetMedicsLight(listpage, 50))
         {
             medics.Add(medic);
         }
-        listMedics.ItemsSource = medics;
+        listMedics.ItemsSource = medics.OrderBy(m => m.Id);
+        if (medics.Count < 50)
+        {
+            BtnNextListPage.IsEnabled = false;
+        }
     }
+
 
 
     private async void listMedics_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -48,14 +51,27 @@ public partial class Doctores : ContentPage
 
     private void SearchBarMedics_SearchButtonPressed(object sender, EventArgs e)
     {
-        listMedics.ItemsSource = medics.Where(medic => medic.Nombre.Contains(SearchBarMedics.Text.ToUpper()));
+        if(!string.IsNullOrWhiteSpace(SearchBarMedics.Text))
+        {
+            medics.Clear();
+            foreach(var medic in MainRepo.SearchMedic(SearchBarMedics.Text))
+            {
+                medics.Add(medic);
+            }
+            listMedics.ItemsSource = medics.OrderBy(m => m.Id);
+        }
     }
 
     private void SearchBarMedics_TextChanged(object sender, TextChangedEventArgs e)
     {
         if (string.IsNullOrWhiteSpace(SearchBarMedics.Text))
         {
-            listMedics.ItemsSource = medics;
+            medics.Clear();
+            foreach (Medic medic in MainRepo.GetMedicsLight(listpage, 50))
+            {
+                medics.Add(medic);
+            }
+            listMedics.ItemsSource = medics.OrderBy(m => m.Id);
         }
     }
 
@@ -73,5 +89,44 @@ public partial class Doctores : ContentPage
         await BtnAddMedic.FadeTo(1, 300);
 
         await  Navigation.PushAsync(new MedicControll(null));
+    }
+
+    private void BtnPrevListPage_Clicked(object sender, EventArgs e)
+    {
+        if (listpage == 1)
+        {
+            BtnPrevListPage.IsEnabled = false;
+            return;
+        }
+
+        medics.Clear();
+
+        var nextMedics = MainRepo.GetMedicsLight(50, --listpage);
+
+        foreach (Medic medic in nextMedics)
+        {
+            medics.Add(medic);
+        }
+
+        listMedics.ItemsSource = medics.OrderBy(p => p.Nombre);
+    }
+
+    private void BtnNextListPage_Clicked(object sender, EventArgs e)
+    {
+        var nextMedics = MainRepo.GetMedicsLight(50, ++listpage);
+        if (nextMedics.Count < 50)
+        {
+            BtnNextListPage.IsEnabled = false;
+            if (nextMedics.Count == 0)
+                return;
+        }
+
+        medics.Clear();
+        foreach (Medic medic in nextMedics)
+        {
+            medics.Add(medic);
+        }
+        BtnPrevListPage.IsEnabled = true;
+        listMedics.ItemsSource = medics.OrderBy(p => p.Nombre);
     }
 }

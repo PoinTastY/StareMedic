@@ -12,7 +12,8 @@
             _iddb = iddb;
             _id = id;
             _name = name;
-            _patientName = patientName;
+            if (patientName != null )
+                _patientName = patientName;
         }
 
         public string Id { get { return _id; } set { _id = value; } }

@@ -18,6 +18,7 @@
     
     <Grid 
         ColumnDefinitions="2*,*" 
+        RowDefinitions="9*,*"
         BackgroundColor="{StaticResource Secundario}">
 
         <ListView
@@ -83,11 +84,23 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <HorizontalStackLayout Grid.Column="0"
+                               Grid.Row="1"
+                               HorizontalOptions="End">
+            <Button Text="&lt;"
+                    x:Name="BtnPrevListPage"
+                    Clicked="BtnPrevListPage_Clicked"/>
+            <Button Text=">"
+                    x:Name="BtnNextListPage"
+                    Clicked="BtnNextListPage_Clicked"/>
 
+        </HorizontalStackLayout>
         <Grid  
               Padding="10" 
               ColumnSpacing="-40"
-              Grid.Column="1">
+              Grid.Column="1"
+              Grid.Row="0"
+              Grid.RowSpan="2">
 
             <!-- Fila 0: SearchBar -->
             <Grid.RowDefinitions>

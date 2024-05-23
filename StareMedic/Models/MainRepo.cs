@@ -10,16 +10,42 @@ namespace StareMedic.Models
         //dbshit
         static AppDbContext _db = new();
 
+        #region Get Lists
         //getters
-        public static List<Patient> GetPatients() { return _db.Patients.OrderBy(p => p.Nombre).ToList(); }//the framework sents an order by clause to the db, so eficiency is not impacted
-        public static List<Fiador> GetFiadores() => _db.Fiadores.ToList();//igual, 2 formas de declararse xd
-        public static List<Cercano> GetCercanos() { return _db.Cercanos.ToList(); }
-        public static List<Rooms> GetRooms() { return _db.Rooms.OrderBy(p => p.Nombre).ToList(); }
-        public static List<CasoClinico> GetCasos() => _db.CasoClinicos.OrderByDescending(p => p.IdDB).ToList();
-        public static List<Medic> GetMedics() => _db.Medics.OrderBy(p => p.Nombre).ToList();
-        public static List<Diagnostico> GetDiagnosticos() => _db.Diagnosticos.ToList();
+        public static List<Patient> GetPatients(int cantidadElementos, int paginaActual) 
+        {
+            return _db.Patients.OrderByDescending(p => p.Nombre).Skip((paginaActual - 1) * cantidadElementos).Take(cantidadElementos).ToList(); 
+        }//the framework sents an order by clause to the db, so eficiency is not impacted
+        //public static List<Fiador> GetFiadores() => _db.Fiadores.ToList();//igual, 2 formas de declararse xd // not used
+        //public static List<Cercano> GetCercanos() { return _db.Cercanos.ToList(); } not used 4 now
+        public static List<Rooms> GetRooms() 
+        {
+            //return _db.Rooms.Skip((paginaActual - 1) * cantidadElementos).Take(cantidadElementos).ToList(); not 4 now
+            return _db.Rooms.ToList();
+        }
+        public static List<CasoClinico> GetCasos(int cantidadElementos, int paginaActual)
+        {
+            return _db.CasoClinicos
+              .OrderByDescending(c => c.IdDB)  // Ordenar por el campo deseado en orden descendente
+              .Skip((paginaActual - 1) * cantidadElementos)
+              .Take(cantidadElementos)
+              .ToList(); ;
+        }
+        public static List<Medic> GetMedics()
+        {
+            //return _db.Medics.Skip((paginaActual - 1) * cantidadElementos).Take(cantidadElementos).ToList(); we need it full 4 now
+            return _db.Medics.ToList();
+        }
 
+        public static List<Medic> GetMedicsLight(int paginaActual, int cantidadElementos)
+        {
+            return _db.Medics.OrderByDescending(m => m.Id).Skip((paginaActual - 1) * cantidadElementos).Take(cantidadElementos).ToList();
+        }
+        //public static List<Diagnostico> GetDiagnosticos() => _db.Diagnosticos.ToList(); no needed
+
+        #endregion
         //adders
+        #region AddRows
         public static void AddPatient(Patient patient)
         {
             if(!(patient.Id <= GetCurrentPatientIndex()-1))
@@ -97,6 +123,9 @@ namespace StareMedic.Models
             _db.SaveChanges();
         }
 
+        #endregion
+
+        #region Getters
         //finders
         public static Patient GetPatientById(int patientId)
         {
@@ -147,7 +176,9 @@ namespace StareMedic.Models
         {
             return _db.Diagnosticos.FirstOrDefault(x => x.Id == diagnosticoId);
         }
+        #endregion
 
+        #region GetIndexes
         //indexers
         public static int GetCurrentPatientIndex()//Implement exception handling here
         {
@@ -201,6 +232,8 @@ namespace StareMedic.Models
             return (maxId ?? 0) + 1;
         }
 
+        #endregion
+
         //solvers
         public static Patient PatientIdSolver//this is for the interaction btween pickpatientview and registerCC, for it to pick and  show thepatient
         {
@@ -208,7 +241,7 @@ namespace StareMedic.Models
             set { _tmpPatient = value; }
         }
 
-        //updaters
+        #region UpdateRows
 
         public static void UpdatePatient(Patient patient)
         {
@@ -267,12 +300,19 @@ namespace StareMedic.Models
             _db.Entry(case2update).CurrentValues.SetValues(caso);
             _db.SaveChanges();
         }
+        #endregion
 
 
+        #region DeleteRows
         //deleters
 
-        public static void DeletePatient(Patient patient)
+        public static bool DeletePatient(Patient patient)
         {
+            var validate = SearchCasoClinico(patient.Nombre, 1);
+            if(validate.Count > 0)
+            {
+                return false;
+            }
             var cercano2delete = _db.Cercanos.FirstOrDefault(x => x.Id == patient.IdCercano);
             var fiador2delete = _db.Fiadores.FirstOrDefault(x => x.Id == patient.IdFiador);
             var patient2delete = _db.Patients.FirstOrDefault(x => x.Id == patient.Id);
@@ -280,6 +320,7 @@ namespace StareMedic.Models
             _db.Fiadores.Remove(fiador2delete);
             _db.Patients.Remove(patient2delete);
             _db.SaveChanges();
+            return true;
         }
 
         public static void DeleteClinicalCase(CasoClinico casodel)
@@ -297,11 +338,15 @@ namespace StareMedic.Models
             _db.SaveChanges();
         }
 
-        public static void DeleteMedic(int id)
+        public static bool DeleteMedic(int id)
         {
+            var validate = SearchCasoClinico(GetMedicById(id).Nombre, 4);
+            if(validate.Count > 0)
+                return false;
             var medic2delete = _db.Medics.FirstOrDefault(x => x.Id == id);
             _db.Medics.Remove(medic2delete);
             _db.SaveChanges();
+            return true;
         }
 
         public static void DeleteRoom(int id)
@@ -310,5 +355,54 @@ namespace StareMedic.Models
             _db.Rooms.Remove(room2delete);
             _db.SaveChanges();
         }
+        #endregion
+
+        #region Search
+
+        public static List<Patient> SearchPatient(string nombrePaciente)
+        {
+            return _db.Patients.Where(p => p.Nombre.Contains(nombrePaciente)).ToList();
+        }
+
+        public static List<Medic> SearchMedic(string nombreMedico)
+        {
+            return _db.Medics.Where(m => m.Nombre.Contains(nombreMedico)).ToList();
+        }
+
+        public static List<CasoClinico> SearchCasoClinico(string datoCasoClinico, int searchCriteria)
+        {
+            if(searchCriteria == 1)
+            {
+                //search by paciente we need this join
+                var query = from casoclinico in _db.CasoClinicos
+                            join patient in _db.Patients
+                            on casoclinico.IdPaciente equals patient.Id
+                            where patient.Nombre.Contains(datoCasoClinico)
+                            select casoclinico;
+
+                return query.ToList();
+            }
+            else if (searchCriteria == 2)
+            {
+                //search by name
+                return _db.CasoClinicos.Where(c => c.Nombre.Contains(datoCasoClinico)).ToList();
+            }
+            else if (searchCriteria == 3)
+            {
+                //search by id
+                return _db.CasoClinicos.Where(c => c.Id.Contains(datoCasoClinico)).ToList();
+            }
+            else
+            {
+                var query = from casoclinico in _db.CasoClinicos
+                            join medic in _db.Medics
+                            on casoclinico.IdDoctor equals medic.Id
+                            where medic.Nombre.Contains(datoCasoClinico)
+                            select casoclinico;
+
+                return query.ToList();
+            }
+        }
+        #endregion
     }
 }

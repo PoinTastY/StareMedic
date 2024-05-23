@@ -9,30 +9,28 @@ using Patient = Models.Entities.Patient; //this is to declare what are we exactl
 public partial class Pacientes : ContentPage
 {
 	ObservableCollection<Patient> patients = new();
+    private int listpage;
 	public Pacientes()
 	{
 		InitializeComponent();
-		foreach (Patient patient in MainRepo.GetPatients())
-		{
-            patients.Add(patient);
-        }
+        listpage = 1;
+        BtnPrevListPage.IsEnabled = false;
 
-        //implement sort first
-
-		listPatients.ItemsSource = patients;
-	}
+    }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
         patients.Clear();
-        foreach (Patient patient in MainRepo.GetPatients())
+        foreach (Patient patient in MainRepo.GetPatients(50, listpage))
         {
             patients.Add(patient);
         }
-        listPatients.ItemsSource = patients;
-        
-
+        listPatients.ItemsSource = patients.OrderBy(p => p.Id);
+        if (patients.Count < 50)
+        {
+            BtnNextListPage.IsEnabled = false;
+        }
     }
 
     private async void BtnCancel_Clicked(object sender, EventArgs e)
@@ -63,9 +61,13 @@ public partial class Pacientes : ContentPage
     {
         if (!string.IsNullOrWhiteSpace(SearchBarPatients.Text))
         {
-       
-            listPatients.ItemsSource = patients.Where(patient => patient.Nombre.Contains(SearchBarPatients.Text.ToUpper()));
-            
+            patients.Clear();
+            foreach(var paciente in MainRepo.SearchPatient(SearchBarPatients.Text))
+            {
+                patients.Add(paciente);
+            }
+
+            listPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
           
         }
     }
@@ -74,7 +76,12 @@ public partial class Pacientes : ContentPage
     {
         if(string.IsNullOrWhiteSpace(SearchBarPatients.Text))
         {
-            listPatients.ItemsSource = patients;
+            patients.Clear();
+            foreach (Patient patient in MainRepo.GetPatients(50, listpage))
+            {
+                patients.Add(patient);
+            }
+            listPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
         }
     }
 
@@ -84,5 +91,44 @@ public partial class Pacientes : ContentPage
         await BtnAddPatient.FadeTo(1, 200);
 
         await Navigation.PushAsync(new PatientControll(null));
+    }
+
+    private void BtnPrevListPage_Clicked(object sender, EventArgs e)
+    {
+        if (listpage == 1)
+        {
+            BtnPrevListPage.IsEnabled = false;
+            return;
+        }
+
+        patients.Clear();
+
+        var nextPatients = MainRepo.GetPatients(50, --listpage);
+
+        foreach (Patient patient in nextPatients)
+        {
+            patients.Add(patient);
+        }
+
+        listPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
+    }
+
+    private void BtnNextListPage_Clicked(object sender, EventArgs e)
+    {
+        var nextPatients = MainRepo.GetPatients(50, ++listpage);
+        if (nextPatients.Count < 50)
+        {
+            BtnNextListPage.IsEnabled = false;
+            if (nextPatients.Count == 0)
+                return;
+        }
+
+        patients.Clear();
+        foreach (Patient patient in nextPatients)
+        {
+            patients.Add(patient);
+        }
+        BtnPrevListPage.IsEnabled = true;
+        listPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
     }
 }
