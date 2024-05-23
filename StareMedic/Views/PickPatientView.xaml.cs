@@ -6,19 +6,24 @@ namespace StareMedic.Views;
 
 public partial class PickPatientView : ContentPage
 {
+    private int listpage;
     private readonly ObservableCollection<Patient> patients = new();
     public PickPatientView()
 	{
-
         InitializeComponent();
-        foreach (Patient patient in MainRepo.GetPatients())
+        listpage = 1;
+        BtnPrevListPage.IsEnabled = false;
+        foreach (Patient patient in MainRepo.GetPatients(50,listpage))
         {
             patients.Add(patient);
         }
-
+        if(patients.Count < 50)
+        {
+            BtnNextListPage.IsEnabled = false;
+        }
         //implement sort later
 
-        ListViewPatients.ItemsSource = patients;
+        ListViewPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
 	}
 
     private async void BtnConfirmar_Clicked(object sender, EventArgs e)
@@ -70,7 +75,44 @@ public partial class PickPatientView : ContentPage
 
     private void SearchbarPatient_SearchButtonPressed(object sender, EventArgs e)
     {
-        ListViewPatients.ItemsSource = patients.Where(patient => patient.Nombre.Contains(SearchbarPatient.Text.ToUpper()));
+        ListViewPatients.ItemsSource = MainRepo.SearchPatient(SearchbarPatient.Text.ToUpper());
         BtnConfirmar.IsEnabled = false;
+    }
+
+    private void BtnPrevListPage_Clicked(object sender, EventArgs e)
+    {
+        if (listpage == 1)
+            return;
+
+        patients.Clear();
+
+        var nextPatients = MainRepo.GetPatients(50, --listpage);
+        
+        foreach (Patient patient in nextPatients)
+        {
+            patients.Add(patient);
+        }
+        
+        ListViewPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
+    }
+
+    private void BtnNextListPage_Clicked(object sender, EventArgs e)
+    {
+        var nextPatients = MainRepo.GetPatients(50, ++listpage);
+        if (nextPatients.Count < 50)
+        {
+            BtnNextListPage.IsEnabled = false;
+            if (nextPatients.Count == 0)
+                return;
+        }
+
+        patients.Clear();
+        foreach (Patient patient in nextPatients)
+        {
+            patients.Add(patient);
+        }
+        BtnPrevListPage.IsEnabled = true;
+        ListViewPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
+
     }
 }

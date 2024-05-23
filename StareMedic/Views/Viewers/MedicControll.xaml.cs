@@ -96,9 +96,14 @@ public partial class MedicControll : ContentPage
         bool confirm = await DisplayAlert("Eliminar", $"Desea eliminar al Doctor: {doctor.Nombre}?", "No", "Si");
         if (!confirm)
         {
-            MainRepo.DeleteMedic(doctor.Id);
-            await DisplayAlert("Exito", $"Medico eliminado: {doctor.Nombre}", "OK");
-            await Shell.Current.GoToAsync("..");
+            var done = MainRepo.DeleteMedic(doctor.Id);
+            if (done)
+            {
+                await DisplayAlert("Exito", $"Medico eliminado: {doctor.Nombre}", "OK");
+                await Shell.Current.GoToAsync("..");
+            }
+            else
+                await DisplayAlert("Error", $"El medico tiene admisiones registradas", "OK");
         }
         else
         {
