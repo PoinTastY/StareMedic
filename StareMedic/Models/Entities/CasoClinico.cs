@@ -105,7 +105,7 @@
 
         public static implicit operator bool(CasoClinico x)
         {
-            return (x._name != null || x._name != "") && x._idDoctor != 0 && x._idHabitacion != 0 && x._idPacient != 0;
+            return (x._name != null || x._name != "") && x._idDoctor != 0 && x._idHabitacion != 0 && x._idPacient != 0 && !string.IsNullOrWhiteSpace(x._name);
         }
 
         public Patient Paciente()

@@ -1,17 +1,35 @@
-﻿namespace StareMedic;
+﻿using System.Runtime.InteropServices;
+
+namespace StareMedic;
 
 public partial class App : Application
 {
+#if WINDOWS
+    [DllImport("user32.dll")]
+    public static extern bool ShowWindow(IntPtr hWnd, int cmdShow);
+#endif
 
-	public App()
+
+
+public App()
 	{
 		InitializeComponent();
-		
-		//Implement db validation here i think
 
-		MainPage = new AppShell();
+        //fullscreen
+        Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) =>
+        {
+#if WINDOWS
+            var nativeWindow = handler.PlatformView;
+            nativeWindow.Activate();
+            IntPtr windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(nativeWindow);
+            ShowWindow(windowHandle, 3);
+#endif
+        });
+
+        MainPage = new AppShell();
 
     }
+
 
      
 

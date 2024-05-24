@@ -97,11 +97,7 @@ public partial class Pacientes : ContentPage
 
     private void BtnPrevListPage_Clicked(object sender, EventArgs e)
     {
-        if (listpage == 1)
-        {
-            BtnPrevListPage.IsEnabled = false;
-            return;
-        }
+        
 
         patients.Clear();
 
@@ -113,6 +109,12 @@ public partial class Pacientes : ContentPage
         }
 
         listPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
+        if (listpage == 1)
+        {
+            BtnPrevListPage.IsEnabled = false;
+            BtnNextListPage.IsEnabled = true;
+            return;
+        }
     }
 
     private void BtnNextListPage_Clicked(object sender, EventArgs e)

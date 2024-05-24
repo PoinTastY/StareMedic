@@ -46,46 +46,71 @@ namespace StareMedic.Models
         #endregion
         //adders
         #region AddRows
-        public static void AddPatient(Patient patient)
+        public static bool AddPatient(Patient patient)
         {
-            if(!(patient.Id <= GetCurrentPatientIndex()-1))
+            try
             {
-                _db.Patients.Add(patient);
-                _db.SaveChanges();
+                if (!(patient.Id <= GetCurrentPatientIndex() - 1))
+                {
+                    _db.Patients.Add(patient);
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    UpdatePatient(patient);
+                }
+                return true;
             }
-            else
+            catch
             {
-                UpdatePatient(patient);
+                return false;
             }
         }
 
-        public static void AddFiador(Fiador fiador)
+        public static bool AddFiador(Fiador fiador)
         {
-            if(!(fiador.Id <= GetCurrentFiadorIndex()-1))
+            try
             {
-                _db.Fiadores.Add(fiador);
-                _db.SaveChanges();
+                if (!(fiador.Id <= GetCurrentFiadorIndex() - 1))
+                {
+                    _db.Fiadores.Add(fiador);
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    UpdateFiador(fiador);
+                }
+                return true;
             }
-            else
+            catch
             {
-                UpdateFiador(fiador);
+                return false;
             }
         }
 
-        public static void AddCercano(Cercano cercano)
+        public static bool AddCercano(Cercano cercano)
         {
-            if(!(cercano.Id <= GetCurrentCercanoIndex()-1))
+            try
             {
-                _db.Cercanos.Add(cercano);
-                _db.SaveChanges();
+                if (!(cercano.Id <= GetCurrentCercanoIndex() - 1))
+                {
+                    _db.Cercanos.Add(cercano);
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    UpdateCercano(cercano);
+                }
+                return true;
             }
-            else
+            catch
             {
-                UpdateCercano(cercano);
+                return false;
             }
+            
         }
 
-        public static void AddRoom(Rooms room)
+        public static void AddRoom(Rooms room)//this thing is not used 4 now
         {
             if(!(room.Id <= GetCurrentRoomIndex()-1))
             {
@@ -98,29 +123,54 @@ namespace StareMedic.Models
             }
         }
 
-        public static void AddCaso(CasoClinico caso)
+        public static bool AddCaso(CasoClinico caso)
         {
-            _db.CasoClinicos.Add(caso);
-            _db.SaveChanges();
-        }
-
-        public static void AddMedic(Medic medic)
-        {
-            if(!(medic.Id <= GetCurrentMedicIndex()-1))
+            try
             {
-                _db.Medics.Add(medic);
+                _db.CasoClinicos.Add(caso);
                 _db.SaveChanges();
+                return true;
             }
-            else
+            catch
             {
-                UpdateMedic(medic);
+                return false;
+            }
+            
+        }
+
+        public static bool AddMedic(Medic medic)
+        {
+            try
+            {
+                if (!(medic.Id <= GetCurrentMedicIndex() - 1))
+                {
+                    _db.Medics.Add(medic);
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    UpdateMedic(medic);
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 
-        public static void AddDiagnostico(Diagnostico diagnostico)
+        public static bool AddDiagnostico(Diagnostico diagnostico)
         {
-            _db.Diagnosticos.Add(diagnostico);
-            _db.SaveChanges();
+            try
+            {
+                _db.Diagnosticos.Add(diagnostico);
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         #endregion

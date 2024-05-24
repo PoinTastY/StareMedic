@@ -1,14 +1,24 @@
 using Microsoft.Maui.Graphics.Text;
+using Microsoft.UI.Xaml.Media.Animation;
 using StareMedic.Models;
 using StareMedic.Models.Entities;
 using System.Collections.ObjectModel;
+using Windows.Devices.Display.Core;
 
 namespace StareMedic.Views;
+
+public class PatientSelectedEventArgs : EventArgs
+{
+    public Patient SelectedPatient { get; set; }
+}
 
 public partial class PickPatientView : ContentPage
 {
     private int listpage;
     private readonly ObservableCollection<Patient> patients = new();
+
+    public event EventHandler<PatientSelectedEventArgs> PatientSelected;
+
     public PickPatientView()
 	{
         InitializeComponent();
@@ -32,23 +42,30 @@ public partial class PickPatientView : ContentPage
         BtnConfirmar.Opacity = 0;
         await BtnConfirmar.FadeTo(1, 200);
 
-        MainRepo.PatientIdSolver = (Patient)ListViewPatients.SelectedItem;
-        //implement R U Sure?
-        bool confirmacion = await DisplayAlert("Confirmacion", $"Seleccionar a: {MainRepo.PatientIdSolver.Nombre}?","Volver", "Confirmar");
+        Patient paciente = (Patient)ListViewPatients.SelectedItem;
+
+        //u sure?
+        bool confirmacion = await DisplayAlert("Confirmacion", $"Seleccionar a: {paciente.Nombre}?","Volver", "Confirmar");
+
+
         
         if (!confirmacion)
         {
-            //this if works as a try lol
-            if (MainRepo.PatientIdSolver != null)
+            try
             {
+                PatientSelected?.Invoke(this, new PatientSelectedEventArgs { SelectedPatient = paciente });
+                //await Navigation.PopModalAsync(); // esta en el evento mejor
+            }
+            catch
+            {
+                await DisplayAlert("Error", "Algo salio mal con el evento de seleccion.", "Volver");
                 await Navigation.PopModalAsync();
             }
-            else
-            {
-                await DisplayAlert("Error", "Parece que el paciente ya esta en un caso clinico", "Ok");
-                ListViewPatients.SelectedItem = null;
-                BtnConfirmar.IsEnabled = false;
-            }
+        }
+        else
+        {
+            await DisplayAlert("Error", "Se ha cancelado la eleccion del paciente.", "Ok");
+            await Navigation.PopModalAsync();
         }
     }
 
@@ -90,8 +107,6 @@ public partial class PickPatientView : ContentPage
 
     private void BtnPrevListPage_Clicked(object sender, EventArgs e)
     {
-        if (listpage == 1)
-            return;
 
         patients.Clear();
 
@@ -103,6 +118,13 @@ public partial class PickPatientView : ContentPage
         }
         
         ListViewPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
+
+        if (listpage == 1)
+        {
+            BtnPrevListPage.IsEnabled = false;
+            BtnNextListPage.IsEnabled = true;
+            return;
+        }
     }
 
     private void BtnNextListPage_Clicked(object sender, EventArgs e)

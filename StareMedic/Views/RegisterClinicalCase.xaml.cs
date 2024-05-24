@@ -23,19 +23,12 @@ public partial class RegisterClinicalCase : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        if(MainRepo.PatientIdSolver != null)
-        {
-            LblPaciente.Text = MainRepo.PatientIdSolver.Nombre;
-            caso.IdPaciente = MainRepo.PatientIdSolver.Id;
-            ShowDoctor.IsVisible = true;
-            ShowRoom.IsVisible = true;
-        }
+        
     }
 
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
-        MainRepo.PatientIdSolver = new();
     }
 
     private void EntryName_TextChanged(object sender, TextChangedEventArgs e)
@@ -74,9 +67,30 @@ public partial class RegisterClinicalCase : ContentPage
         BtnPickPatient.Opacity = 0;
         await BtnPickPatient.FadeTo(1, 200);
 
+        var pickPatientView = new PickPatientView();
+
+        pickPatientView.PatientSelected += OnPatientSelected;
+
         await Navigation.PushModalAsync(new PickPatientView());
-        patient = MainRepo.PatientIdSolver;
+    }
+
+    private void OnPatientSelected(object sender, PatientSelectedEventArgs e)
+    {
+        // Aquí recibo el objeto seleccionado
+        var selectedPatient = e.SelectedPatient;
+
+        //asignar eleccion
+        patient = selectedPatient;
         caso.IdPaciente = patient.Id;
+
+        //cargar visual
+        LblPaciente.Text = patient.Nombre;
+        caso.IdPaciente = patient.Id;
+        ShowDoctor.IsVisible = true;
+        ShowRoom.IsVisible = true;
+
+        // Cierra la página modal
+        Navigation.PopModalAsync();
     }
 
     private async void BtnGuardar_Clicked(object sender, EventArgs e)
@@ -84,10 +98,6 @@ public partial class RegisterClinicalCase : ContentPage
         BtnGuardar.Opacity = 0; 
         await BtnGuardar.FadeTo(1, 200);
         Thread.Sleep(1000);
-        if (!caso)
-        {
-            caso.IdPaciente = patient.Id;
-        }
         if (caso)
         {
             MakeStringID();
@@ -99,49 +109,52 @@ public partial class RegisterClinicalCase : ContentPage
                 //guardar diagnostico
                 diag.Contenido = EditorDiagnostico.Text;
                 MainRepo.AddDiagnostico(diag);
+                //caso to DB
 
-                //push to SDK
-                try
+                if (MainRepo.AddCaso(caso))
                 {
-
-                    double x = request.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
-
-                    if (x > 0)
+                    //push to SDK
+                    try
                     {
-                        await DisplayAlert("Exito!", $"Se ha generado la remision de la admision\nFolio: {x}", "Ok");
-                        caso.FolioSDK = x;
+
+                        double x = request.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
+
+                        if (x > 0)
+                        {
+                            await DisplayAlert("Exito!", $"Se ha generado la remision de la admision\nFolio: {x}", "Ok");
+                            caso.FolioSDK = x;
+                        }
+                        else
+                        {
+                            await DisplayAlert("Error", $"No se ha generado la remision en Contpaqi, intenta mas tarde\nRespuesta del servidor: {x}", "OK");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await DisplayAlert("Error SDK", $"Hubo un problema generando el documento en Contpaqi: {ex}", "Enterado");
+                    }
+
+
+
+
+                    if (DoCreate.GenerateDocument(caso))
+                    {
+                        await DisplayAlert("Exito", $"Se ha guardado el caso con id: {caso.Id}", "Ok");
+
                     }
                     else
                     {
-                        await DisplayAlert("Error", $"No se ha generado la remision en Contpaqi, intenta mas tarde\nRespuesta del servidor: {x}", "OK");
+                        await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
                     }
-                }
-                catch (Exception ex)
-                {
-                    await DisplayAlert("Error SDK", $"Hubo un problema generando el documento en Contpaqi: {ex}", "Enterado");
-                }
 
-                //caso to DB
-                MainRepo.AddCaso(caso);
-                MainRepo.PatientIdSolver = new();
 
-                
-                if (DoCreate.GenerateDocument(caso))
-                {
-                    await DisplayAlert("Exito", $"Se ha guardado el caso con id: {caso.Id}", "Ok");
 
+
+                    await Shell.Current.GoToAsync("..");
                 }
                 else
-                {
-                    await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
-                }
-
-                
-
-
-                await Shell.Current.GoToAsync("..");
+                    await DisplayAlert("Error :(", "Hubo un problema guardando el caso clinico en la base, intentalo mas tarde", "Ok");
             }
-            
         }
         else
         {

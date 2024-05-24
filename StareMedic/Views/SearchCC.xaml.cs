@@ -149,11 +149,7 @@ public partial class SearchCC : ContentPage
         BtnPrevListPage.Opacity = 0;
 
         await BtnPrevListPage.FadeTo(1, 300);
-        if (listpage == 1)
-        {
-            BtnPrevListPage.IsEnabled = false;
-            return;
-        }
+        
 
         casos.Clear();
 
@@ -166,6 +162,12 @@ public partial class SearchCC : ContentPage
         }
 
         ListViewCC.ItemsSource = casos;
+        if (listpage == 1)
+        {
+            BtnPrevListPage.IsEnabled = false;
+            BtnNextListPage.IsEnabled = true;
+            return;
+        }
     }
 
     private async void BtnNextListPage_Clicked(object sender, EventArgs e)
