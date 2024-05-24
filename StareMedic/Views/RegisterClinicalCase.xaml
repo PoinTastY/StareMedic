@@ -17,13 +17,17 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <VerticalStackLayout
+        <Grid
+            RowDefinitions="Auto,*,*,*,*,*,*"
+        Padding="20"
         BackgroundColor="{StaticResource Secundario}">
-        <Grid                               
+            
+        <Grid            
+            Grid.Row="0"
             BackgroundColor="{StaticResource Secundario}"
             HorizontalOptions="FillAndExpand"
-            VerticalOptions="CenterAndExpand"
-            Padding="30">
+            ColumnSpacing="20"
+            VerticalOptions="CenterAndExpand">
             
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -39,11 +43,12 @@
 
             <Label 
                 Text="Nombre:"
-                TextColor="{StaticResource Black}"
+                FontSize="Title"
                 Grid.Column="0"              
                 VerticalOptions="Center"
                 Grid.Row="0"
-                Style="{StaticResource labelEntry}"/>
+                FontFamily="HelveticaNeue"
+                TextColor="{StaticResource Alter2}"/>
             <Entry 
                 x:Name="EntryName"
                 Grid.Column="1"
@@ -53,15 +58,17 @@
                 Style="{StaticResource entryName}"
                 TextChanged="EntryName_TextChanged"/>
 
-                <BoxView            
-                    Grid.Row="1"
-                    Grid.ColumnSpan="3"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="StartAndExpand" 
-                    Style="{StaticResource BreakLine}"/>
+                
             </Grid>
-
-        <Grid
+            <BoxView     
+                
+            Grid.Row="1"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="CenterAndExpand" 
+            Style="{StaticResource BreakLine}"/>
+            
+            <Grid
+            Grid.Row="2"
             Padding="30">
 
             <Grid.ColumnDefinitions>
@@ -94,11 +101,12 @@
 
                 <Label 
                     x:Name="LblPaciente"
+                    Margin="10"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"
                     FontFamily="HelveticaNeue"
-                    FontSize="Body"
-                    TextColor="{StaticResource Black}"
+                    FontSize="Small"
+                    TextColor="{StaticResource Alter2}"
                     Grid.Row="0"
                     Grid.Column="1"/>
 
@@ -267,7 +275,8 @@
 
 
 
-        <Grid>
+        <Grid
+            Grid.Row="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -335,6 +344,7 @@
 
 
         <Grid 
+            Grid.Row="4"
             Padding="30">
             
             <Grid.RowDefinitions>
@@ -377,23 +387,24 @@
                 HeightRequest="150"/>
         </Grid>
 
-        <Grid
+        <BoxView            
+                Grid.Row="5"              
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="StartAndExpand" 
+                Style="{StaticResource BreakLine}"/>
+
+            <Grid
+            Grid.Row="6"
             Padding="30"
             HorizontalOptions="StartAndExpand"
-            VerticalOptions="FillAndExpand"
-            RowDefinitions="Auto,*">
+            VerticalOptions="EndAndExpand">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-                <BoxView            
-                Grid.Row="0"
-                Grid.ColumnSpan="3"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="StartAndExpand" 
-                Style="{StaticResource BreakLine}"/>
+                
             
                 <Button
                 x:Name="BtnCancel"
@@ -404,8 +415,7 @@
                 BackgroundColor="{StaticResource Alter2}"
                 TextColor="{StaticResource Principal}"
                 WidthRequest="200"
-                Grid.Column="0"   
-                Grid.Row="1"
+                Grid.Column="0"                
                 VerticalOptions="End"
                 HorizontalOptions="Center">
 
@@ -422,7 +432,20 @@
                     </VisualStateGroupList>
                 </VisualStateManager.VisualStateGroups>
 
-            </Button>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem 
+                                Text="Back"
+                                x:Name="Back"
+                                Clicked="BtnCancel_Clicked">
+                                <MenuFlyoutItem.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Escape" Modifiers="None"/>
+                                </MenuFlyoutItem.KeyboardAccelerators>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
+
+                </Button>
 
             
             <Button
@@ -437,7 +460,6 @@
                 WidthRequest="200"
                 VerticalOptions="End"
                 Grid.Column="1"
-                Grid.Row="1"
                 HorizontalOptions="End">
 
                 <VisualStateManager.VisualStateGroups>
@@ -453,10 +475,23 @@
                     </VisualStateGroupList>
                 </VisualStateManager.VisualStateGroups>
 
-            </Button>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem 
+                                Text="Addcc"
+                                x:Name="Addcc"
+                                Clicked="BtnGuardar_Clicked">
+                                <MenuFlyoutItem.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Enter" Modifiers="None"/>
+                                </MenuFlyoutItem.KeyboardAccelerators>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
+
+                </Button>
             
         </Grid>
 
-       </VerticalStackLayout>
+       </Grid>
     </ScrollView>
 </ContentPage>

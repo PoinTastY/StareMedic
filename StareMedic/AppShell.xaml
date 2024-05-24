@@ -24,15 +24,11 @@
     <Shell.FlyoutHeader>
         <Border BackgroundColor="{StaticResource Alter2}"
                 StrokeThickness="0">
-            <Grid ColumnDefinitions="Auto, *"
+            <Grid x:Name="MainMenu"
+                ColumnDefinitions="Auto, *"
                           Padding="25"
                           ColumnSpacing="20">
-                <Image Grid.Column="0"
-                       Source="logo.png"
-                       Aspect="AspectFill"
-                       HeightRequest="50"
-                       WidthRequest="50"/>
-
+                
                 <Label Grid.Column="1"
                        Text="StareMedic"
                        VerticalTextAlignment="Center"
@@ -40,6 +36,37 @@
                        FontFamily="HelveticaNeue"
                        FontSize="28"
                        FontAttributes="Bold"/>
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="BtnAllBack_Clicked"/>
+                </Grid.GestureRecognizers>
+
+                <FlyoutBase.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem 
+                            Text="BtnAllBack"
+                            x:Name="BtnAllBack"
+                            Clicked="BtnAllBack_Clicked">
+                            <MenuFlyoutItem.KeyboardAccelerators>
+                                <KeyboardAccelerator Key="F12" Modifiers="None"/>
+                            </MenuFlyoutItem.KeyboardAccelerators>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </FlyoutBase.ContextFlyout>
+
 
             </Grid>
         </Border>

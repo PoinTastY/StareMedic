@@ -29,13 +29,13 @@ public partial class MainPage : ContentPage
         await Shell.Current.GoToAsync(nameof(Pacientes));
     }
 
-    private async void BtnRooms_Clicked(object sender, EventArgs e)
+    /*private async void BtnRooms_Clicked(object sender, EventArgs e)
     {
         RoomsMain.Opacity = 0;
         await RoomsMain.FadeTo(1, 200);
 
 		await Shell.Current.GoToAsync(nameof(Habitaciones));
-	}
+	}         */
 
     private async void BtnRegCasoCli_Clicked(object sender, EventArgs e)
     {
@@ -47,7 +47,9 @@ public partial class MainPage : ContentPage
 
     private async void BtnSearchCC_Clicked(object sender, EventArgs e)
     {
+        Search.Opacity = 0;
 
+        await Search.FadeTo(1, 200);
 		await Shell.Current.GoToAsync(nameof(SearchCC));
     }
 
@@ -58,6 +60,7 @@ public partial class MainPage : ContentPage
 
         await Shell.Current.GoToAsync(nameof(Doctores));
     }
+
 
   
 

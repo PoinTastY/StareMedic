@@ -17,12 +17,13 @@
     </ContentPage.Resources>
     
     <ScrollView>
-        <VerticalStackLayout 
-            Spacing="30"
+        <Grid
+            RowDefinitions="Auto,*"
             Padding="20"
             BackgroundColor="{StaticResource Secundario}">
 
             <Label 
+                Grid.Row="0"
                 x:Name="LblName" 
                 Text="Admision ID:"
                 FontSize="Title"
@@ -31,12 +32,16 @@
                 HorizontalOptions="Start"/>
 
             
-            <VerticalStackLayout 
-                Spacing="20"
+            <Grid
+                RowDefinitions="Auto,*,*,*,*,*,*,*"
+                Grid.Row="1"
+                ColumnSpacing="20"
                 class="DataStack">
 
                 <Grid 
+                    
                         ColumnSpacing="20"
+                        Grid.Row="0"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="EndAndExpand"
                         RowDefinitions="Auto,*"
@@ -96,19 +101,23 @@
 
                 <!--Name CC & patient-->
                 <HorizontalStackLayout
-                    Spacing="20"
+                    Grid.Row="1"
+                    Spacing="50"
+                    Padding="20"
                     HorizontalOptions="FillAndExpand"
-                    VerticalOptions="CenterAndExpand">
+                    VerticalOptions="StartAndExpand">
 
                     <!--Implement btn "View Patient Details"-->
                     <Label Text="Paciente: "
-                           VerticalOptions="Center"
+                           VerticalOptions="Center"                        
                            Style="{StaticResource labelEntry}"/>
+                    
                     <Entry x:Name="EntryPatient"
                                Style="{StaticResource entryName}"                        
                                IsEnabled="False"/>
 
                     <Label Text="Caso: "
+                           Margin="0,0,50,0"
                            VerticalOptions="Center"
                            Style="{StaticResource labelEntry}"
                            WidthRequest="70"/>
@@ -120,13 +129,16 @@
 
                 <!--Name Medic & Room-->
                 <HorizontalStackLayout 
-                    Spacing="20"
+                    Grid.Row="2"
+                    Spacing="50"
                     x:Name="Editables"
                     Padding="20">
                     <Label Text="Medico: "
+                           Margin="0,0,10,0"
                            VerticalOptions="Center"
                            Style="{StaticResource labelEntry}"/>
                     <Picker x:Name="PickMedic"
+                            
                             HorizontalOptions="CenterAndExpand"
                             VerticalOptions="CenterAndExpand"
                             FontFamily="HelveticaNeue"
@@ -156,15 +168,18 @@
 
                 <!--Date Ingreso & Tipo Caso-->
                 <HorizontalStackLayout
+                    Grid.Row="3"
                     Spacing="20"
                     Padding="20">
 
 
                     <Label Text="Fecha de Ingreso:"
+                           VerticalOptions="Center"
                            Style="{StaticResource labelEntry}"/>
 
                     <DatePicker x:Name="DateIngreso"
                                 FontFamily="HelveticaNeue"
+                                VerticalOptions="Center"
                                 BackgroundColor="{StaticResource Alter1}"
                                 WidthRequest="250"
                                 IsEnabled="False"/>
@@ -172,6 +187,7 @@
                 </HorizontalStackLayout>
 
                 <Grid
+                    Grid.Row="4"
                     ColumnDefinitions="Auto,Auto,Auto,*"     
                     VerticalOptions="CenterAndExpand"
                     HorizontalOptions="FillAndExpand"               
@@ -228,6 +244,7 @@
 
                 <!--Diagnoose-->
                 <HorizontalStackLayout
+                    Grid.Row="5"
                     Spacing="20"
                     Padding="20">
                     <Label 
@@ -249,18 +266,21 @@
 
                 </HorizontalStackLayout>
 
+                <BoxView                                           
+                 HorizontalOptions="FillAndExpand"
+                 VerticalOptions="End" 
+                 Grid.Row="6"
+                 Style="{StaticResource BreakLine}"/>
+
                 <!--Buttons-->
                 <Grid
+                    Grid.Row="7"
+                    VerticalOptions="EndAndExpand"
                     RowDefinitions="*,Auto"
                     ColumnDefinitions="*"
                     Padding="20">
 
-                    <BoxView                                           
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="Center" 
-                        Grid.Row="0"
-                        Style="{StaticResource BreakLine}"/>
-                    
+
                     
 
                     <Grid
@@ -482,7 +502,8 @@
                                     </VisualStateGroup>
                                 </VisualStateGroupList>
                             </VisualStateManager.VisualStateGroups>
-                            
+
+
                         </Button>
 
                         <Button x:Name="BtnCancelAll"
@@ -515,7 +536,7 @@
                     </Grid>
                 
                 </Grid>
-            </VerticalStackLayout>
-        </VerticalStackLayout>
+            </Grid>
+        </Grid>
     </ScrollView>
 </ContentPage>

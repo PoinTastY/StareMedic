@@ -61,12 +61,12 @@
                                     </Label>
 
                                     <Label 
-                                    Text="{Binding Path=Id, StringFormat='  ID: {0} '}"
+                                    Text="{Binding Path=Id, StringFormat=' ID: {0} '}"
                                     FontFamily="HelveticaNeue"
                                     TextColor="{StaticResource Alter1}"
                                     FontSize="12"                                   
-                                    HorizontalOptions="StartAndExpand"
                                     VerticalTextAlignment="End"
+                                    HorizontalOptions="StartAndExpand"
                                     HorizontalTextAlignment="Center"/>
                                     
                                     
@@ -232,7 +232,20 @@
                             </VisualStateGroup>
                         </VisualStateGroupList>
                     </VisualStateManager.VisualStateGroups>
-                    
+
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem 
+                                    Text="Back"
+                                    x:Name="Back"
+                                    Clicked="BtnCancel_Clicked">
+                                <MenuFlyoutItem.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Escape" Modifiers="None"/>
+                                </MenuFlyoutItem.KeyboardAccelerators>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
+
                 </Button>
 
 
@@ -261,7 +274,20 @@
                             </VisualStateGroup>
                         </VisualStateGroupList>
                     </VisualStateManager.VisualStateGroups>
-                    
+
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem 
+                                    Text="Addpatient"
+                                    x:Name="Addpatient"
+                                    Clicked="BtnAddPatient_Clicked">
+                                <MenuFlyoutItem.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Enter" Modifiers="None"/>
+                                </MenuFlyoutItem.KeyboardAccelerators>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
+
                 </Button>
                 
             </Grid>

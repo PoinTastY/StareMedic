@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StareMedic.Views.Doctores"
-             Title="Doctores">
+             Title="Medicos">
 
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsEnabled="False" IsVisible="False" />
@@ -136,6 +136,8 @@
                     </VisualStateGroupList>
                 </VisualStateManager.VisualStateGroups>
 
+                
+
             </Button>
 
             <Button Text=">"
@@ -162,6 +164,7 @@
                     </VisualStateGroupList>
                 </VisualStateManager.VisualStateGroups>
 
+                
             </Button>
 
 
@@ -232,6 +235,19 @@
                         </VisualStateGroupList>
                     </VisualStateManager.VisualStateGroups>
 
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem 
+                                    Text="Back"
+                                    x:Name="Back"
+                                    Clicked="btnCancel_Clicked">
+                                <MenuFlyoutItem.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Escape" Modifiers="None"/>
+                                </MenuFlyoutItem.KeyboardAccelerators>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
+
                 </Button>
 
 
@@ -260,6 +276,21 @@
                             </VisualStateGroup>
                         </VisualStateGroupList>
                     </VisualStateManager.VisualStateGroups>
+
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem 
+                                    Text="Addmedic"
+                                    x:Name="Addmedic"
+                                    Clicked="BtnAddMedic_Clicked">
+                                <MenuFlyoutItem.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Enter" Modifiers="None"/>
+                                </MenuFlyoutItem.KeyboardAccelerators>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
+
+
 
                 </Button>
                 
