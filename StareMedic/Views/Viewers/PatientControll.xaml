@@ -17,12 +17,14 @@
     </ContentPage.Resources>
     
     <ScrollView>
-        <VerticalStackLayout 
+        <Grid
+            RowDefinitions="Auto,*,*,*,*,*,*,*,*"
             Padding="20"
             BackgroundColor="{StaticResource Secundario}">
                        
             <!--Display the id-->
             <Label  
+                Grid.Row="0"
                 HorizontalOptions="Start"
                 TextColor="{StaticResource Alter2}"
                 FontSize="Title"
@@ -32,6 +34,7 @@
             <!--Name (forced capture)-->
             
             <Grid 
+                Grid.Row="1"
                 ColumnDefinitions="*,*">
                 <HorizontalStackLayout      
                     Spacing="20"
@@ -43,7 +46,9 @@
                         Text="Nombre:"
                         Grid.Column="0"
                         VerticalOptions="Center"
-                        Style="{StaticResource labelEntry}"/>
+                        FontFamily="HelveticaNeue"
+                        FontSize="Title"
+                        TextColor="{StaticResource Alter2}"/>
                     <Entry 
                         x:Name="entryName"
                         Grid.Column="1"
@@ -54,15 +59,21 @@
 
                 </HorizontalStackLayout>
 
-
+           
                 <!--Not forced Data-->
                 
             </Grid>
-
+            
+            <BoxView 
+            Grid.Row="2"
+            Style="{StaticResource BreakLine}"/>
+            
             <!--Phone capture bellow name lol-->
             <HorizontalStackLayout
+                Grid.Row="3"
                 Spacing="20" 
                 Margin="10,15,0,0">
+                
                 <Label 
                     Text="Telefono:"
                     VerticalOptions="Center"
@@ -158,7 +169,7 @@
 
                     <Label 
                         Text="Edad:"
-                        Grid.Column="4"
+                        Grid.Column="4"                      
                         VerticalOptions="Center"
                         FontFamily="HelveticaNeue"
                         TextColor="{StaticResource Black}"/>
@@ -166,6 +177,7 @@
                         Placeholder="Edad:"
                         FontFamily="HelveticaNeue"
                         Grid.Column="5"
+                        HeightRequest="25"
                         TextColor="{StaticResource Principal}"
                         BackgroundColor="{StaticResource Alter1}"
                         MinimumWidthRequest="100"
@@ -178,6 +190,7 @@
 
             <!--Direccion shit-->
             <Grid 
+                Grid.Row="4"
                 ColumnDefinitions="*,*" 
                 RowDefinitions="*,*" 
                 HorizontalOptions="FillAndExpand" 
@@ -265,11 +278,14 @@
 
             </Grid>
 
-            <BoxView Style="{StaticResource BreakLine}"/>
+            <BoxView 
+                Grid.Row="5"
+                Style="{StaticResource BreakLine}"/>
             <!--Separador-->
 
             <!--Cercano-->
             <Grid 
+                Grid.Row="6"
                 ColumnDefinitions="*,*" 
                 RowDefinitions="*,*,*,*" 
                 HorizontalOptions="FillAndExpand" 
@@ -410,7 +426,9 @@
 
             </Grid>
 
-            <BoxView Style="{StaticResource BreakLine}"/>
+            <BoxView 
+                Grid.Row="7"
+                Style="{StaticResource BreakLine}"/>
             <!--Separador-->
 
             <!--Show or hide Fiador-->
@@ -502,8 +520,10 @@
 
             <!--confirm buttons-->
             <Grid 
-                ColumnDefinitions="*,*,*,*" 
-                HorizontalOptions="Start" 
+                Grid.Row="8"
+                ColumnDefinitions="Auto,*,*,*" 
+                HorizontalOptions="FillAndExpand" 
+                VerticalOptions="EndAndExpand"
                 Margin="10,0,0,0" 
                 ColumnSpacing="50">
 
@@ -586,6 +606,19 @@
                             </VisualStateGroup>
                         </VisualStateGroupList>
                     </VisualStateManager.VisualStateGroups>
+
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem 
+                                    Text="Addpient"
+                                    x:Name="Addpatient"
+                                    Clicked="BtnGuardar_Clicked">
+                                <MenuFlyoutItem.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Enter" Modifiers="None"/>
+                                </MenuFlyoutItem.KeyboardAccelerators>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                 </Button>
 
                 <Button 
@@ -647,6 +680,6 @@
             </Grid>
 
 
-        </VerticalStackLayout>
+        </Grid>
     </ScrollView>
 </ContentPage>

@@ -18,7 +18,7 @@
     
     <Grid 
         ColumnDefinitions="2*,*" 
-        RowDefinitions="9*,*"
+        RowDefinitions="10*,*"
         BackgroundColor="{StaticResource Secundario}">
 
         <ListView
@@ -49,21 +49,38 @@
                                 Orientation="Vertical"
                                 Padding="0,0,20,0">
 
-                                    <Label 
-                                    Text="{Binding Path=Id, StringFormat='ID: {0} '}"
-                                    FontFamily="HelveticaNeue"
-                                    TextColor="{StaticResource Alter2}"
-                                    FontSize="15"                                   
-                                    HorizontalOptions="StartAndExpand"
-                                    HorizontalTextAlignment="Start"/>
+                                <HorizontalStackLayout>
+
+                                    <Label
+                                        Text="Paciente:  "
+                                        FontFamily="HelveticaNeue"
+                                        TextColor="{StaticResource Alter2}"
+                                        FontSize="15"                                   
+                                        HorizontalOptions="StartAndExpand"
+                                        HorizontalTextAlignment="Start">
+                                    </Label>
 
                                     <Label 
-                                    Text="{Binding Nombre, StringFormat='Nombre: {0} '}"
+                                    Text="{Binding Path=Id, StringFormat=' ID: {0} '}"
+                                    FontFamily="HelveticaNeue"
+                                    TextColor="{StaticResource Alter1}"
+                                    FontSize="12"                                   
+                                    VerticalTextAlignment="End"
+                                    HorizontalOptions="StartAndExpand"
+                                    HorizontalTextAlignment="Center"/>
+                                    
+                                    
+
+                                </HorizontalStackLayout>
+
+                                <Label 
+                                    Text="{Binding Nombre, StringFormat='{0} '}"
                                     FontFamily="HelveticaNeue"
                                     FontSize="15"
                                     TextColor="{StaticResource Black}"
                                     HorizontalOptions="StartAndExpand"
                                     HorizontalTextAlignment="Start"/>
+                                    
                                 </StackLayout>
 
                             <VisualStateManager.VisualStateGroups>
@@ -84,19 +101,67 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <HorizontalStackLayout Grid.Column="0"
-                               Grid.Row="1"
-                               HorizontalOptions="End">
+        <Grid
+            ColumnDefinitions="Auto,*"
+            BackgroundColor="{StaticResource Alter1}"
+            Grid.Column="0"       
+            Padding="10"
+            Grid.Row="1"
+            HorizontalOptions="FillAndExpand">
+            
             <Button Text="&lt;"
+                    HeightRequest="50"
+                    WidthRequest="75"
+                    Grid.Column="0"
+                    HorizontalOptions="StartAndExpand"
                     x:Name="BtnPrevListPage"
                     FontFamily="HelveticaNeue"
-                    Clicked="BtnPrevListPage_Clicked"/>
+                    BackgroundColor="{StaticResource Alter2}"
+                    TextColor="{StaticResource Principal}"
+                    Clicked="BtnPrevListPage_Clicked">
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                
+            </Button>
+            
             <Button Text=">"
+                    HorizontalOptions="EndAndExpand"
+                    Grid.Column="1"
+                    HeightRequest="50"
+                    WidthRequest="75"
+                    BackgroundColor="{StaticResource Alter2}"
+                    TextColor="{StaticResource Principal}"
                     x:Name="BtnNextListPage"
                     FontFamily="HelveticaNeue"
-                    Clicked="BtnNextListPage_Clicked"/>
+                    Clicked="BtnNextListPage_Clicked">
 
-        </HorizontalStackLayout>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+
+            </Button>
+
+        </Grid>
         <Grid  
               Padding="10" 
               ColumnSpacing="-40"
@@ -147,6 +212,7 @@
                     MinimumWidthRequest="160"
                     Grid.Row="1"
                     FontFamily="HelveticaNeue"
+                    HeightRequest="50"
                     x:Name="btnCancel"
                     Clicked="BtnCancel_Clicked"
                     BackgroundColor="{StaticResource Alter2}"
@@ -166,7 +232,20 @@
                             </VisualStateGroup>
                         </VisualStateGroupList>
                     </VisualStateManager.VisualStateGroups>
-                    
+
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem 
+                                    Text="Back"
+                                    x:Name="Back"
+                                    Clicked="BtnCancel_Clicked">
+                                <MenuFlyoutItem.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Escape" Modifiers="None"/>
+                                </MenuFlyoutItem.KeyboardAccelerators>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
+
                 </Button>
 
 
@@ -176,6 +255,7 @@
                     MinimumWidthRequest="160"                  
                     Grid.Row="1"
                     FontFamily="HelveticaNeue"
+                    HeightRequest="50"
                     x:Name="BtnAddPatient"
                     Clicked="BtnAddPatient_Clicked"
                     BackgroundColor="{StaticResource Alter2}"
@@ -194,7 +274,20 @@
                             </VisualStateGroup>
                         </VisualStateGroupList>
                     </VisualStateManager.VisualStateGroups>
-                    
+
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem 
+                                    Text="Addpatient"
+                                    x:Name="Addpatient"
+                                    Clicked="BtnAddPatient_Clicked">
+                                <MenuFlyoutItem.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Enter" Modifiers="None"/>
+                                </MenuFlyoutItem.KeyboardAccelerators>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
+
                 </Button>
                 
             </Grid>

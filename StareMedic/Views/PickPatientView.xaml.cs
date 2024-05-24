@@ -60,14 +60,16 @@ public partial class PickPatientView : ContentPage
         await Navigation.PopModalAsync();
     }
 
-
+    [Obsolete]
     private void ListViewPatients_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
         if (e.SelectedItem != null)
         {
             var selectedPatient = (Patient)e.SelectedItem;
-            SelectedPatientLabel.Text = selectedPatient.Nombre;
+            SelectedPatientLabel.Text = selectedPatient.Nombre;         
             BtnConfirmar.IsEnabled = true;
+            BtnConfirmar.TextColor = Color.FromHex("#FFFBF5");
+            BtnConfirmar.BackgroundColor = Color.FromHex("#7743DB");
         }
     }
 

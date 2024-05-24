@@ -24,9 +24,10 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(MedicControll), typeof(MedicControll));
 		Routing.RegisterRoute(nameof(PatientControll), typeof(PatientControll));
 		Routing.RegisterRoute(nameof(RoomControll), typeof(RoomControll));
-        
-	
-	}
+
+       
+
+    }
 
     private async void BtnPacientes_Clicked(object sender, EventArgs e)
     {
@@ -41,14 +42,15 @@ public partial class AppShell : Shell
 
     private async void BtnRooms_Clicked(object sender, EventArgs e)
     {
-        RoomsFly.Opacity = 0;
-        await RoomsFly.FadeTo(1, 200);
+        
 
         await Shell.Current.GoToAsync(nameof(Habitaciones));
     }
 
     private async void BtnRegCasoCli_Clicked(object sender, EventArgs e)
     {
+        RoomsFly.Opacity = 0;
+        await RoomsFly.FadeTo(1, 200);
 
         await Shell.Current.GoToAsync(nameof(RegisterClinicalCase));
     }
@@ -69,6 +71,13 @@ public partial class AppShell : Shell
         await Shell.Current.GoToAsync(nameof(Doctores));
     }
 
+    private async void BtnAllBack_Clicked(object sender, EventArgs e)
+    {
+        MainMenu.Opacity = 0;
+
+        await MainMenu.FadeTo(1, 200);
+        await Shell.Current.GoToAsync("//MainPage");
+    }
    
 
 
