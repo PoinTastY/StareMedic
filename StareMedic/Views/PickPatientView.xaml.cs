@@ -1,3 +1,4 @@
+using Microsoft.Maui.Graphics.Text;
 using StareMedic.Models;
 using StareMedic.Models.Entities;
 using System.Collections.ObjectModel;
@@ -22,7 +23,7 @@ public partial class PickPatientView : ContentPage
             BtnNextListPage.IsEnabled = false;
         }
         //implement sort later
-
+        BtnConfirmar.IsEnabled = false;
         ListViewPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
 	}
 
