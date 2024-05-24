@@ -5,8 +5,7 @@ using StareMedic.Models;
 using StareMedic.Views;
 using StareMedic.Views.Viewers;
 using Microsoft.Maui.Controls;
-
-
+using CommunityToolkit.Maui.Views;
 
 public partial class MainPage : ContentPage
 {
@@ -15,8 +14,6 @@ public partial class MainPage : ContentPage
     public MainPage()
 	{
 		InitializeComponent();
-        
-       
     }
 
 
@@ -26,7 +23,16 @@ public partial class MainPage : ContentPage
         PatientsMain.Opacity = 0;
         await PatientsMain.FadeTo(1, 200);
 
-        await Shell.Current.GoToAsync(nameof(Pacientes));
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
+        {
+            await Shell.Current.GoToAsync(nameof(Pacientes));
+        }
+        finally
+        {
+            popup.Close();
+        }
     }
 
     /*private async void BtnRooms_Clicked(object sender, EventArgs e)
@@ -42,26 +48,52 @@ public partial class MainPage : ContentPage
         RegCCMain.Opacity = 0;
         await RegCCMain.FadeTo(1, 200);
 
-		await Shell.Current.GoToAsync(nameof(RegisterClinicalCase));
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
+        {
+            await Shell.Current.GoToAsync(nameof(RegisterClinicalCase));
+        }
+        finally
+        {
+            popup.Close();
+        }
+
     }
 
     private async void BtnSearchCC_Clicked(object sender, EventArgs e)
     {
         Search.Opacity = 0;
 
-        await Search.FadeTo(1, 200);
-		await Shell.Current.GoToAsync(nameof(SearchCC));
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+
+        await Search.FadeTo(1, 200); 
+        try
+        {
+            // Realizar la navegación
+            await Shell.Current.GoToAsync(nameof(SearchCC));
+        }
+        finally
+        {
+            // Cerrar el popup después de la navegación
+            popup.Close();
+        }
     }
 
     private async void BtnMedics_Clicked(object sender, EventArgs e)
     {
         MedicsMain.Opacity = 0;
         await MedicsMain.FadeTo(1, 200);
-
-        await Shell.Current.GoToAsync(nameof(Doctores));
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
+        {
+            await Shell.Current.GoToAsync(nameof(Doctores));
+        }
+        finally
+        {
+            popup.Close();
+        }
     }
-
-
-  
-
 }

@@ -2,13 +2,16 @@ using StareMedic.Models;
 using System.Collections.ObjectModel;
 using StareMedic.Models.Entities;
 using StareMedic.Views.Viewers;
+using CommunityToolkit.Maui.Views;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace StareMedic.Views;
 
 public partial class RegisterClinicalCase : ContentPage
 {
-    readonly CasoClinico caso = new(MainRepo.GetCurrentCaseIndex());
-    readonly Diagnostico diag = new(MainRepo.GetCurrentDiagnosticoIndex());
+    private readonly CasoClinico caso = new(MainRepo.GetCurrentCaseIndex());
+    private readonly Diagnostico diag = new(MainRepo.GetCurrentDiagnosticoIndex());
+    private Patient patient = new();
 
     public RegisterClinicalCase()
     {
@@ -22,19 +25,12 @@ public partial class RegisterClinicalCase : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        if(MainRepo.PatientIdSolver != null)
-        {
-            LblPaciente.Text = MainRepo.PatientIdSolver.Nombre;
-            caso.IdPaciente = MainRepo.PatientIdSolver.Id;
-            ShowDoctor.IsVisible = true;
-            ShowRoom.IsVisible = true;
-        }
+        
     }
 
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
-        MainRepo.PatientIdSolver = new();
     }
 
     private void EntryName_TextChanged(object sender, TextChangedEventArgs e)
@@ -73,17 +69,45 @@ public partial class RegisterClinicalCase : ContentPage
         BtnPickPatient.Opacity = 0;
         await BtnPickPatient.FadeTo(1, 200);
 
-        await Navigation.PushModalAsync(new PickPatientView());
+        var pickPatientView = new PickPatientView();
+
+        pickPatientView.PatientSelected += OnPatientSelected;
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
+        {
+            await Navigation.PushModalAsync(pickPatientView);
+        }
+        finally
+        {
+            popup.Close();
+        }
+    }
+
+    private void OnPatientSelected(object sender, PatientSelectedEventArgs e)
+    {
+        // Aquí recibo el objeto seleccionado
+        var selectedPatient = e.SelectedPatient;
+
+        //asignar eleccion
+        patient = selectedPatient;
+        caso.IdPaciente = patient.Id;
+
+        //cargar visual
+        LblPaciente.Text = patient.Nombre;
+        caso.IdPaciente = patient.Id;
+        ShowDoctor.IsVisible = true;
+        ShowRoom.IsVisible = true;
+
+        // Cierra la página modal
+        Navigation.PopModalAsync();
     }
 
     private async void BtnGuardar_Clicked(object sender, EventArgs e)
     {
         BtnGuardar.Opacity = 0; 
         await BtnGuardar.FadeTo(1, 200);
-        if (!caso)
-        {
-            caso.IdPaciente = MainRepo.PatientIdSolver.Id;
-        }
+        Thread.Sleep(1000);
         if (caso)
         {
             MakeStringID();
@@ -95,49 +119,79 @@ public partial class RegisterClinicalCase : ContentPage
                 //guardar diagnostico
                 diag.Contenido = EditorDiagnostico.Text;
                 MainRepo.AddDiagnostico(diag);
-
-                //push to SDK
+                //caso to DB
+                var popup = new SpinnerPopup();
+                this.ShowPopup(popup);
+                bool done = false;
                 try
                 {
+                    done = MainRepo.AddCaso(caso);
+                }
+                finally
+                {
+                    popup.Close();
+                }
 
-                    double x = request.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
-
-                    if (x > 0)
+                if (done)
+                {
+                    //push to SDK
+                    try
                     {
-                        await DisplayAlert("Exito!", $"Se ha generado la remision de la admision\nFolio: {x}", "Ok");
-                        caso.FolioSDK = x;
+                        double x = 0;
+                        popup = new SpinnerPopup();
+                        this.ShowPopup(popup);
+                        try
+                        {
+                            x = request.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
+
+                        }
+                        finally
+                        {
+                            popup.Close();
+                        }
+
+                        if (x > 0)
+                        {
+                            await DisplayAlert("Exito!", $"Se ha generado la remision de la admision\nFolio: {x}", "Ok");
+                            caso.FolioSDK = x;
+                        }
+                        else
+                        {
+                            await DisplayAlert("Error", $"No se ha generado la remision en Contpaqi, intenta mas tarde\nRespuesta del servidor: {x}", "OK");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await DisplayAlert("Error SDK", $"Hubo un problema generando el documento en Contpaqi: {ex}", "Enterado");
+                    }
+
+
+                    bool documento = false;
+                    popup = new SpinnerPopup();
+                    this.ShowPopup(popup);
+                    try
+                    {
+                        documento = DoCreate.GenerateDocument(caso);
+                    }
+                    finally
+                    {
+                        popup.Close();
+                    }
+
+                    if (documento)
+                    {
+                        await DisplayAlert("Exito", $"Se ha guardado el caso con id: {caso.Id}", "Ok");
+
                     }
                     else
                     {
-                        await DisplayAlert("Error", $"No se ha generado la remision en Contpaqi, intenta mas tarde\nRespuesta del servidor: {x}", "OK");
+                        await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
                     }
-                }
-                catch (Exception ex)
-                {
-                    await DisplayAlert("Error SDK", $"Hubo un problema generando el documento en Contpaqi: {ex}", "Enterado");
-                }
-
-                //caso to DB
-                MainRepo.AddCaso(caso);
-                MainRepo.PatientIdSolver = new();
-
-                
-                if (DoCreate.GenerateDocument(caso))
-                {
-                    await DisplayAlert("Exito", $"Se ha guardado el caso con id: {caso.Id}", "Ok");
-
+                    await Shell.Current.GoToAsync("..");
                 }
                 else
-                {
-                    await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
-                }
-
-                
-
-
-                await Shell.Current.GoToAsync("..");
+                    await DisplayAlert("Error :(", "Hubo un problema guardando el caso clinico en la base, intentalo mas tarde", "Ok");
             }
-            
         }
         else
         {
@@ -154,7 +208,6 @@ public partial class RegisterClinicalCase : ContentPage
         if (!answer)
         {
             await Shell.Current.GoToAsync("..");
-            MainRepo.PatientIdSolver = new();
         }
     }
     

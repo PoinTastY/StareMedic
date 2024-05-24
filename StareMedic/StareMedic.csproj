@@ -33,11 +33,11 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\starepng.png" ForegroundScale="1"/>
+		<MauiIcon Include="Resources\AppIcon\starepng.png" ForegroundScale="1" />
 
 		<!-- Splash Screen -->
 		
-		<MauiSplashScreen Include="Resources\Splash\staresplash.png" BaseSize="128,128"/> 
+		<MauiSplashScreen Include="Resources\Splash\staresplash.png" BaseSize="128,128" /> 
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -109,6 +109,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Viewers\RoomControll.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Viewers\SpinnerPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Viewers\ViewClinicalCase.xaml">

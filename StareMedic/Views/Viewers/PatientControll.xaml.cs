@@ -176,8 +176,10 @@ public partial class PatientControll : ContentPage
                     return;
                 }
 
-                MainRepo.AddPatient(paciente);
-                await DisplayAlert("Exito", $"Paciente registrado: {paciente.Nombre}", "OK");
+                if (MainRepo.AddPatient(paciente))
+                    await DisplayAlert("Exito", $"Paciente registrado: {paciente.Nombre}", "OK");
+                else
+                    await DisplayAlert("Error", "Hubo un problema registrando al paciente, intentalo mas tarde.", "Ok");
                 //go back
                 await Shell.Current.GoToAsync("..");
             }
