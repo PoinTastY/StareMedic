@@ -1,8 +1,10 @@
 namespace StareMedic.Views;
 
 using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Views;
 using StareMedic.Models;
 using StareMedic.Models.Entities;
+using StareMedic.Views.Viewers;
 
 public partial class SearchCC : ContentPage
 {
@@ -20,7 +22,7 @@ public partial class SearchCC : ContentPage
     {
         base.OnAppearing();
         casos.Clear();
-        var listCasos = MainRepo.GetCasos(50, listpage);
+        var listCasos = MainRepo.GetCasos(50, listpage);//maybe get a temporal list to optimize this
         foreach (CasoClinico caso in listCasos)
         {
             CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
@@ -42,8 +44,16 @@ public partial class SearchCC : ContentPage
             //It will send to de detailed patient view, or the edit pg, rn is edit?
             //Shell.Current.GoToAsync($"{nameof(ViewClinicalCase)}?Id={((CasoClinico)ListViewCC.SelectedItem).Id}");
             CCwPatient element = ListViewCC.SelectedItem as CCwPatient;
-            await Navigation.PushAsync(new ViewClinicalCase(MainRepo.GetCasoById(element.Iddb)));
-            //maybe directly to edit page, but ill add a button to enable edit
+            var popup = new SpinnerPopup();
+            this.ShowPopup(popup);
+            try
+            {
+                await Navigation.PushAsync(new ViewClinicalCase(MainRepo.GetCasoById(element.Iddb)));
+            }
+            finally
+            {
+                popup.Close();
+            }
         }
     }
 
@@ -57,23 +67,31 @@ public partial class SearchCC : ContentPage
     {
         if (string.IsNullOrWhiteSpace(SearchBarentry.Text))
         {
-            casos.Clear();
-            foreach (CasoClinico caso in MainRepo.GetCasos(50, listpage))
+            var popup = new SpinnerPopup();
+            this.ShowPopup(popup);
+            try
             {
-                CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
-                casos.Add(vista);
+                casos.Clear();
+                foreach (CasoClinico caso in MainRepo.GetCasos(50, listpage))
+                {
+                    CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
+                    casos.Add(vista);
+                }
+                ListViewCC.ItemsSource = casos;
+                if (listpage == 1)
+                    BtnPrevListPage.IsEnabled = false;
+                else
+                    BtnPrevListPage.IsEnabled = true;
+
+                if (casos.Count < 50)
+                    BtnNextListPage.IsEnabled = false;
+                else
+                    BtnNextListPage.IsEnabled = true;
             }
-            ListViewCC.ItemsSource = casos;
-            if (listpage == 1)
-                BtnPrevListPage.IsEnabled = false;
-            else
-                BtnPrevListPage.IsEnabled = true;
-
-            if(casos.Count < 50)
-                BtnNextListPage.IsEnabled = false;
-            else 
-                BtnNextListPage.IsEnabled = true;
-
+            finally
+            {
+                popup.Close();
+            }
         }
     }
 
@@ -83,47 +101,55 @@ public partial class SearchCC : ContentPage
         {
             BtnPrevListPage.IsEnabled = false;
             BtnNextListPage.IsEnabled = false;
-            if (PickerFilterSearch.SelectedItem.ToString() == "Paciente")
+            var popup = new SpinnerPopup();
+            this.ShowPopup(popup);
+            try
             {
-                casos.Clear();
-                foreach(var caso in MainRepo.SearchCasoClinico(SearchBarentry.Text.ToUpper(), 1))
+                if (PickerFilterSearch.SelectedItem.ToString() == "Paciente")
                 {
-                    CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
-                    casos.Add(vista);
+                    casos.Clear();
+                    foreach (var caso in MainRepo.SearchCasoClinico(SearchBarentry.Text.ToUpper(), 1))
+                    {
+                        CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
+                        casos.Add(vista);
+                    }
+                    ListViewCC.ItemsSource = casos;
                 }
-                ListViewCC.ItemsSource = casos;
+                else if (PickerFilterSearch.SelectedItem.ToString() == "Nombre")
+                {
+                    casos.Clear();
+                    foreach (var caso in MainRepo.SearchCasoClinico(SearchBarentry.Text.ToUpper(), 2))
+                    {
+                        CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
+                        casos.Add(vista);
+                    }
+                    ListViewCC.ItemsSource = casos;
+                }
+                else if (PickerFilterSearch.SelectedItem.ToString() == "Id")
+                {
+                    casos.Clear();
+                    foreach (var caso in MainRepo.SearchCasoClinico(SearchBarentry.Text.ToUpper(), 3))
+                    {
+                        CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
+                        casos.Add(vista);
+                    }
+                    ListViewCC.ItemsSource = casos;
+                }
+                else//implicit "medic"
+                {
+                    casos.Clear();
+                    foreach (var caso in MainRepo.SearchCasoClinico(SearchBarentry.Text.ToUpper(), 4))
+                    {
+                        CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
+                        casos.Add(vista);
+                    }
+                    ListViewCC.ItemsSource = casos;
+                }
             }
-            else if(PickerFilterSearch.SelectedItem.ToString() == "Nombre")
+            finally
             {
-                casos.Clear();
-                foreach (var caso in MainRepo.SearchCasoClinico(SearchBarentry.Text.ToUpper(), 2))
-                {
-                    CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
-                    casos.Add(vista);
-                }
-                ListViewCC.ItemsSource = casos;
+                popup.Close();
             }
-            else if(PickerFilterSearch.SelectedItem.ToString() == "Id")
-            {
-                casos.Clear();
-                foreach (var caso in MainRepo.SearchCasoClinico(SearchBarentry.Text.ToUpper(), 3))
-                {
-                    CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
-                    casos.Add(vista);
-                }
-                ListViewCC.ItemsSource = casos;
-            }
-            else//implicit "medic"
-            {
-                casos.Clear();
-                foreach (var caso in MainRepo.SearchCasoClinico(SearchBarentry.Text.ToUpper(), 4))
-                {
-                    CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
-                    casos.Add(vista);
-                }
-                ListViewCC.ItemsSource = casos;
-            }
-            
         }
     }
 
@@ -149,24 +175,32 @@ public partial class SearchCC : ContentPage
         BtnPrevListPage.Opacity = 0;
 
         await BtnPrevListPage.FadeTo(1, 300);
-        
 
-        casos.Clear();
-
-        var nextCasos = MainRepo.GetCasos(50, --listpage);
-
-        foreach (CasoClinico caso in nextCasos)
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
         {
-            CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
-            casos.Add(vista);
+            casos.Clear();
+
+            var nextCasos = MainRepo.GetCasos(50, --listpage);
+
+            foreach (CasoClinico caso in nextCasos)
+            {
+                CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
+                casos.Add(vista);
+            }
+
+            ListViewCC.ItemsSource = casos;
+            if (listpage == 1)
+            {
+                BtnPrevListPage.IsEnabled = false;
+                BtnNextListPage.IsEnabled = true;
+                return;
+            }
         }
-
-        ListViewCC.ItemsSource = casos;
-        if (listpage == 1)
+        finally
         {
-            BtnPrevListPage.IsEnabled = false;
-            BtnNextListPage.IsEnabled = true;
-            return;
+            popup.Close();
         }
     }
 
@@ -175,27 +209,35 @@ public partial class SearchCC : ContentPage
         BtnNextListPage.Opacity = 0;
         
         await BtnNextListPage.FadeTo(1, 300);
-        var nextCasos = MainRepo.GetCasos(50, ++listpage);
-        if (nextCasos.Count < 50)
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
         {
-            BtnNextListPage.IsEnabled = false;
-            if (nextCasos.Count == 0)
-                return;
- 
+            var nextCasos = MainRepo.GetCasos(50, ++listpage);
+            if (nextCasos.Count < 50)
+            {
+                BtnNextListPage.IsEnabled = false;
+                if (nextCasos.Count == 0)
+                    return;
+
+
+            }
+
+
+            casos.Clear();
+            foreach (CasoClinico caso in nextCasos)
+            {
+                CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
+                casos.Add(vista);
+            }
+
+            BtnPrevListPage.IsEnabled = true;
+            ListViewCC.ItemsSource = casos;
 
         }
-        
-
-        casos.Clear();
-        foreach (CasoClinico caso in nextCasos)
+        finally
         {
-            CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
-            casos.Add(vista);
+            popup.Close();
         }
-
-        BtnPrevListPage.IsEnabled = true;
-        
-        
-        ListViewCC.ItemsSource = casos;
     }
 }

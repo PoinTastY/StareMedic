@@ -1,7 +1,9 @@
+using CommunityToolkit.Maui.Views;
 using Microsoft.Maui.Graphics.Text;
 using Microsoft.UI.Xaml.Media.Animation;
 using StareMedic.Models;
 using StareMedic.Models.Entities;
+using StareMedic.Views.Viewers;
 using System.Collections.ObjectModel;
 using Windows.Devices.Display.Core;
 
@@ -24,17 +26,29 @@ public partial class PickPatientView : ContentPage
         InitializeComponent();
         listpage = 1;
         BtnPrevListPage.IsEnabled = false;
-        foreach (Patient patient in MainRepo.GetPatients(50,listpage))
+
+        foreach (Patient patient in MainRepo.GetPatients(50, listpage))
         {
             patients.Add(patient);
         }
-        if(patients.Count < 50)
+        if (patients.Count < 50)
         {
             BtnNextListPage.IsEnabled = false;
         }
         //implement sort later
         BtnConfirmar.IsEnabled = false;
         ListViewPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
+
+        //var popup = new SpinnerPopup(); // this crashes lul, check logic
+        //this.ShowPopup(popup);
+        //try
+        //{
+            
+        //}
+        //finally
+        //{
+        //    popup.Close();
+        //}
 	}
 
     private async void BtnConfirmar_Clicked(object sender, EventArgs e)
@@ -46,7 +60,6 @@ public partial class PickPatientView : ContentPage
 
         //u sure?
         bool confirmacion = await DisplayAlert("Confirmacion", $"Seleccionar a: {paciente.Nombre}?","Volver", "Confirmar");
-
 
         
         if (!confirmacion)
@@ -101,35 +114,58 @@ public partial class PickPatientView : ContentPage
 
     private void SearchbarPatient_SearchButtonPressed(object sender, EventArgs e)
     {
-        ListViewPatients.ItemsSource = MainRepo.SearchPatient(SearchbarPatient.Text.ToUpper());
-        BtnConfirmar.IsEnabled = false;
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
+        {
+            ListViewPatients.ItemsSource = MainRepo.SearchPatient(SearchbarPatient.Text.ToUpper());
+            BtnConfirmar.IsEnabled = false;
+        }
+        finally
+        {
+            popup.Close();
+        }
     }
 
     private void BtnPrevListPage_Clicked(object sender, EventArgs e)
     {
-
-        patients.Clear();
-
-        var nextPatients = MainRepo.GetPatients(50, --listpage);
-        
-        foreach (Patient patient in nextPatients)
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
         {
-            patients.Add(patient);
+            patients.Clear();
+
+            var nextPatients = MainRepo.GetPatients(50, --listpage);
+
+            
+        
+            foreach (Patient patient in nextPatients)
+            {
+                patients.Add(patient);
+            }
+
+            ListViewPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
+
+            if (listpage == 1)
+            {
+                BtnPrevListPage.IsEnabled = false;
+                BtnNextListPage.IsEnabled = true;
+            }
+        }
+        finally
+        {
+            popup.Close();
         }
         
-        ListViewPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
-
-        if (listpage == 1)
-        {
-            BtnPrevListPage.IsEnabled = false;
-            BtnNextListPage.IsEnabled = true;
-            return;
-        }
     }
 
     private void BtnNextListPage_Clicked(object sender, EventArgs e)
     {
-        var nextPatients = MainRepo.GetPatients(50, ++listpage);
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
+        {
+            var nextPatients = MainRepo.GetPatients(50, ++listpage);
         if (nextPatients.Count < 50)
         {
             BtnNextListPage.IsEnabled = false;
@@ -138,12 +174,18 @@ public partial class PickPatientView : ContentPage
         }
 
         patients.Clear();
-        foreach (Patient patient in nextPatients)
-        {
-            patients.Add(patient);
+        
+        
+            foreach (Patient patient in nextPatients)
+            {
+                patients.Add(patient);
+            }
+            BtnPrevListPage.IsEnabled = true;
+            ListViewPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
         }
-        BtnPrevListPage.IsEnabled = true;
-        ListViewPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
-
+        finally
+        {
+            popup.Close();
+        }
     }
 }

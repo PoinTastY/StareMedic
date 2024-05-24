@@ -2,6 +2,8 @@ using StareMedic.Models;
 using System.Collections.ObjectModel;
 using StareMedic.Models.Entities;
 using StareMedic.Views.Viewers;
+using CommunityToolkit.Maui.Views;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace StareMedic.Views;
 
@@ -70,8 +72,16 @@ public partial class RegisterClinicalCase : ContentPage
         var pickPatientView = new PickPatientView();
 
         pickPatientView.PatientSelected += OnPatientSelected;
-
-        await Navigation.PushModalAsync(new PickPatientView());
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
+        {
+            await Navigation.PushModalAsync(pickPatientView);
+        }
+        finally
+        {
+            popup.Close();
+        }
     }
 
     private void OnPatientSelected(object sender, PatientSelectedEventArgs e)
@@ -110,14 +120,35 @@ public partial class RegisterClinicalCase : ContentPage
                 diag.Contenido = EditorDiagnostico.Text;
                 MainRepo.AddDiagnostico(diag);
                 //caso to DB
+                var popup = new SpinnerPopup();
+                this.ShowPopup(popup);
+                bool done = false;
+                try
+                {
+                    done = MainRepo.AddCaso(caso);
+                }
+                finally
+                {
+                    popup.Close();
+                }
 
-                if (MainRepo.AddCaso(caso))
+                if (done)
                 {
                     //push to SDK
                     try
                     {
+                        double x = 0;
+                        popup = new SpinnerPopup();
+                        this.ShowPopup(popup);
+                        try
+                        {
+                            x = request.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
 
-                        double x = request.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
+                        }
+                        finally
+                        {
+                            popup.Close();
+                        }
 
                         if (x > 0)
                         {
@@ -135,9 +166,19 @@ public partial class RegisterClinicalCase : ContentPage
                     }
 
 
+                    bool documento = false;
+                    popup = new SpinnerPopup();
+                    this.ShowPopup(popup);
+                    try
+                    {
+                        documento = DoCreate.GenerateDocument(caso);
+                    }
+                    finally
+                    {
+                        popup.Close();
+                    }
 
-
-                    if (DoCreate.GenerateDocument(caso))
+                    if (documento)
                     {
                         await DisplayAlert("Exito", $"Se ha guardado el caso con id: {caso.Id}", "Ok");
 
@@ -146,10 +187,6 @@ public partial class RegisterClinicalCase : ContentPage
                     {
                         await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
                     }
-
-
-
-
                     await Shell.Current.GoToAsync("..");
                 }
                 else
@@ -171,7 +208,6 @@ public partial class RegisterClinicalCase : ContentPage
         if (!answer)
         {
             await Shell.Current.GoToAsync("..");
-            MainRepo.PatientIdSolver = new();
         }
     }
     

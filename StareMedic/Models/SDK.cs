@@ -5,7 +5,7 @@ namespace StareMedic.Models
     public class SDK
     {
         #region Constantes
-        public class constantes
+        public class Constantes
         {
             public const int kLongFecha = 24;
             public const int kLongSerie = 12;
@@ -56,17 +56,17 @@ namespace StareMedic.Models
             public double aDescuentoDoc1;
             public double aDescuentoDoc2;
             public int aSistemaOrigen;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = constantes.kLongCodigo)]
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constantes.kLongCodigo)]
             public string aCodConcepto;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = constantes.kLongSerie)]
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constantes.kLongSerie)]
             public string aSerie;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = constantes.kLongFecha)]
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constantes.kLongFecha)]
             public string aFecha;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = constantes.kLongCodigo)]
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constantes.kLongCodigo)]
             public string aCodigoCteProv;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = constantes.kLongCodigo)]
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constantes.kLongCodigo)]
             public string aCodigoAgente;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = constantes.kLongReferencia)]
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constantes.kLongReferencia)]
             public string aReferencia;
             public int aAfecta;
             public double aGasto1;

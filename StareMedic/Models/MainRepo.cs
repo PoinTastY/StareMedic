@@ -5,16 +5,15 @@ namespace StareMedic.Models
 {
     public static class MainRepo
     {
-        private static Patient _tmpPatient = new();
 
-        //dbshit
+        //dbcontext lul
         static AppDbContext _db = new();
 
         #region Get Lists
         //getters
         public static List<Patient> GetPatients(int cantidadElementos, int paginaActual) 
         {
-            return _db.Patients.OrderByDescending(p => p.Nombre).Skip((paginaActual - 1) * cantidadElementos).Take(cantidadElementos).ToList(); 
+            return _db.Patients.OrderBy(p => p.Nombre).Skip((paginaActual - 1) * cantidadElementos).Take(cantidadElementos).ToList(); 
         }//the framework sents an order by clause to the db, so eficiency is not impacted
         //public static List<Fiador> GetFiadores() => _db.Fiadores.ToList();//igual, 2 formas de declararse xd // not used
         //public static List<Cercano> GetCercanos() { return _db.Cercanos.ToList(); } not used 4 now
@@ -39,12 +38,12 @@ namespace StareMedic.Models
 
         public static List<Medic> GetMedicsLight(int paginaActual, int cantidadElementos)
         {
-            return _db.Medics.OrderByDescending(m => m.Id).Skip((paginaActual - 1) * cantidadElementos).Take(cantidadElementos).ToList();
+            return _db.Medics.OrderBy(m => m.Nombre).Skip((paginaActual - 1) * cantidadElementos).Take(cantidadElementos).ToList();
         }
         //public static List<Diagnostico> GetDiagnosticos() => _db.Diagnosticos.ToList(); no needed
 
         #endregion
-        //adders
+
         #region AddRows
         public static bool AddPatient(Patient patient)
         {
@@ -284,12 +283,6 @@ namespace StareMedic.Models
 
         #endregion
 
-        //solvers
-        public static Patient PatientIdSolver//this is for the interaction btween pickpatientview and registerCC, for it to pick and  show thepatient
-        {
-            get { return _tmpPatient; }
-            set { _tmpPatient = value; }
-        }
 
         #region UpdateRows
 
