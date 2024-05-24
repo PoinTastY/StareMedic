@@ -7,8 +7,9 @@ namespace StareMedic.Views;
 
 public partial class RegisterClinicalCase : ContentPage
 {
-    readonly CasoClinico caso = new(MainRepo.GetCurrentCaseIndex());
-    readonly Diagnostico diag = new(MainRepo.GetCurrentDiagnosticoIndex());
+    private readonly CasoClinico caso = new(MainRepo.GetCurrentCaseIndex());
+    private readonly Diagnostico diag = new(MainRepo.GetCurrentDiagnosticoIndex());
+    private Patient patient = new();
 
     public RegisterClinicalCase()
     {
@@ -74,15 +75,18 @@ public partial class RegisterClinicalCase : ContentPage
         await BtnPickPatient.FadeTo(1, 200);
 
         await Navigation.PushModalAsync(new PickPatientView());
+        patient = MainRepo.PatientIdSolver;
+        caso.IdPaciente = patient.Id;
     }
 
     private async void BtnGuardar_Clicked(object sender, EventArgs e)
     {
         BtnGuardar.Opacity = 0; 
         await BtnGuardar.FadeTo(1, 200);
+        Thread.Sleep(1000);
         if (!caso)
         {
-            caso.IdPaciente = MainRepo.PatientIdSolver.Id;
+            caso.IdPaciente = patient.Id;
         }
         if (caso)
         {
