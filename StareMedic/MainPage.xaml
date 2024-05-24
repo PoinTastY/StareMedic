@@ -41,21 +41,32 @@
                         Grid.Column="0" 
                         BackgroundColor="{StaticResource Alter2}"     
                         ColumnDefinitions="Auto, *"
+                        RowDefinitions="*,Auto"
                         Padding="18">
-                        <Image Grid.Column="0"
-                               Source="logo_hospital.png"
-                               Aspect="AspectFit"
-                               HeightRequest="50"
-                               VerticalOptions="Start"                     
-                               HorizontalOptions="Start"/>
+                        
                         <Label Grid.Column="1"
                                Text="Stare Medic"
                                FontSize="Large"
+                               Grid.Row="0"
                                FontAttributes="Bold"
                                FontFamily="HelveticaNeue"
                                TextColor="{StaticResource Principal}"
                                VerticalOptions="Center"                
                                HorizontalOptions="Center"/>
+
+                        <Label
+                            Text="Ver 1.0"
+                            Grid.Row="1"        
+                            Grid.Column="1"
+                            FontAttributes="Bold"
+                            FontFamily="HelveticaNeue"
+                            TextColor="{StaticResource Principal}"
+                            VerticalOptions="Center"                
+                            HorizontalOptions="Center"
+                            FontSize="10">
+                        </Label>
+
+                        
                     </Grid>
                 </Border>
 
@@ -98,6 +109,19 @@
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Tapped="BtnPacientes_Clicked"/>
                         </Grid.GestureRecognizers>
+
+                        <FlyoutBase.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem 
+                                    Text="Pacientes"
+                                    x:Name="Patients"
+                                    Clicked="BtnPacientes_Clicked">
+                                    <MenuFlyoutItem.KeyboardAccelerators>
+                                        <KeyboardAccelerator Key="F1" Modifiers="None"/>
+                                    </MenuFlyoutItem.KeyboardAccelerators>
+                                </MenuFlyoutItem>
+                            </MenuFlyout>
+                        </FlyoutBase.ContextFlyout>
                     </Grid>
                 </Border>
 
@@ -121,7 +145,7 @@
                             </VisualStateGroupList>
                         </VisualStateManager.VisualStateGroups>
                         <Image Grid.Column="0"
-                               Source="medic.png"
+                               Source="medicos.png"
                                Aspect="AspectFit"
                                HeightRequest="50"
                                VerticalOptions="Center"
@@ -136,16 +160,31 @@
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Tapped="BtnMedics_Clicked"/>
                         </Grid.GestureRecognizers>
+
+                        <FlyoutBase.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem 
+                                Text="Medicos"
+                                x:Name="Medics"
+                                Clicked="BtnMedics_Clicked">
+                                    <MenuFlyoutItem.KeyboardAccelerators>
+                                        <KeyboardAccelerator Key="F2" Modifiers="None"/>
+                                    </MenuFlyoutItem.KeyboardAccelerators>
+                                </MenuFlyoutItem>
+                            </MenuFlyout>
+                        </FlyoutBase.ContextFlyout>
+                        
                     </Grid>
                 </Border>
 
                 <Border 
                     Style="{StaticResource RoundedBorderStyle}"
                     Grid.Column="3">
-                    <Grid x:Name="RoomsMain"
+                    <Grid x:Name="Search"
                           Grid.Column="3" 
                           BackgroundColor="{StaticResource Alter1}" 
                           ColumnDefinitions="*, *">
+                        
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroupList>
                                 <VisualStateGroup x:Name="CommonStates">
@@ -158,6 +197,7 @@
                                 </VisualStateGroup>
                             </VisualStateGroupList>
                         </VisualStateManager.VisualStateGroups>
+                        
                         <Image Grid.Column="0"
                                Source="search_cc.png"
                                Aspect="AspectFit"
@@ -174,6 +214,19 @@
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Tapped="BtnSearchCC_Clicked"/>
                         </Grid.GestureRecognizers>
+
+                        <FlyoutBase.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem 
+                                        Text="Admision"
+                                        x:Name="Admision"
+                                        Clicked="BtnSearchCC_Clicked">
+                                    <MenuFlyoutItem.KeyboardAccelerators>
+                                        <KeyboardAccelerator Key="F3" Modifiers="None"/>
+                                    </MenuFlyoutItem.KeyboardAccelerators>
+                                </MenuFlyoutItem>
+                            </MenuFlyout>
+                        </FlyoutBase.ContextFlyout>
                     </Grid>
                 </Border>
 
@@ -196,8 +249,9 @@
                                 </VisualStateGroup>
                             </VisualStateGroupList>
                         </VisualStateManager.VisualStateGroups>
+                        
                         <Image Grid.Column="0"
-                               Source="clinical_case.png"
+                               Source="admision.png"
                                Aspect="AspectFit"
                                HeightRequest="50"
                                VerticalOptions="Center"
@@ -212,6 +266,19 @@
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Tapped="BtnRegCasoCli_Clicked"/>
                         </Grid.GestureRecognizers>
+
+                        <FlyoutBase.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem 
+                                    Text="Registro"
+                                    x:Name="Registro"
+                                    Clicked="BtnRegCasoCli_Clicked">
+                                    <MenuFlyoutItem.KeyboardAccelerators>
+                                        <KeyboardAccelerator Key="F4" Modifiers="None"/>
+                                    </MenuFlyoutItem.KeyboardAccelerators>
+                                </MenuFlyoutItem>
+                            </MenuFlyout>
+                        </FlyoutBase.ContextFlyout>
                     </Grid>
                 </Border>
                 

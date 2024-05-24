@@ -144,8 +144,11 @@ public partial class SearchCC : ContentPage
 
     }
 
-    private void BtnPrevListPage_Clicked(object sender, EventArgs e)
+    private async void BtnPrevListPage_Clicked(object sender, EventArgs e)
     {
+        BtnPrevListPage.Opacity = 0;
+
+        await BtnPrevListPage.FadeTo(1, 300);
         if (listpage == 1)
         {
             BtnPrevListPage.IsEnabled = false;
@@ -165,15 +168,21 @@ public partial class SearchCC : ContentPage
         ListViewCC.ItemsSource = casos;
     }
 
-    private void BtnNextListPage_Clicked(object sender, EventArgs e)
+    private async void BtnNextListPage_Clicked(object sender, EventArgs e)
     {
+        BtnNextListPage.Opacity = 0;
+        
+        await BtnNextListPage.FadeTo(1, 300);
         var nextCasos = MainRepo.GetCasos(50, ++listpage);
         if (nextCasos.Count < 50)
         {
             BtnNextListPage.IsEnabled = false;
             if (nextCasos.Count == 0)
                 return;
+ 
+
         }
+        
 
         casos.Clear();
         foreach (CasoClinico caso in nextCasos)
@@ -181,7 +190,10 @@ public partial class SearchCC : ContentPage
             CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
             casos.Add(vista);
         }
+
         BtnPrevListPage.IsEnabled = true;
+        
+        
         ListViewCC.ItemsSource = casos;
     }
 }
