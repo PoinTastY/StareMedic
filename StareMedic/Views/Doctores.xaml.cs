@@ -3,6 +3,7 @@ using StareMedic.Models.Entities;
 using StareMedic.Models;
 using StareMedic.Views.Viewers;
 using CommunityToolkit.Maui.Views;
+using Windows.UI.Input.Spatial;
 
 namespace StareMedic.Views;
 
@@ -115,20 +116,29 @@ public partial class Doctores : ContentPage
 
     private async void btnCancel_Clicked(object sender, EventArgs e)
     {
-        btnCancel.Opacity = 0;
-        await btnCancel.FadeTo(1, 300);
-
-        await Shell.Current.GoToAsync("..");
-    }
-
-    private async void BtnAddMedic_Clicked(object sender, EventArgs e)
-    {
-        BtnAddMedic.Opacity = 0;
-        await BtnAddMedic.FadeTo(1, 300);
         var popup = new SpinnerPopup();
         this.ShowPopup(popup);
         try
         {
+            btnCancel.Opacity = 0;
+            await btnCancel.FadeTo(1, 300);
+
+            await Shell.Current.GoToAsync("..");
+        }
+        finally
+        {
+            popup.Close();
+        }
+    }
+
+    private async void BtnAddMedic_Clicked(object sender, EventArgs e)
+    {
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
+        {
+            BtnAddMedic.Opacity = 0;
+            await BtnAddMedic.FadeTo(1, 300);
             await Navigation.PushAsync(new MedicControll(null));
         }
         finally
@@ -139,7 +149,6 @@ public partial class Doctores : ContentPage
 
     private void BtnPrevListPage_Clicked(object sender, EventArgs e)
     {
-
         var popup = new SpinnerPopup();
         this.ShowPopup(popup);
         try
