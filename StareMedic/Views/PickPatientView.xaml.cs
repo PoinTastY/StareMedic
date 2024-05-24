@@ -78,16 +78,34 @@ public partial class PickPatientView : ContentPage
         else
         {
             await DisplayAlert("Error", "Se ha cancelado la eleccion del paciente.", "Ok");
-            await Navigation.PopModalAsync();
+            var popup = new SpinnerPopup();
+            this.ShowPopup(popup);
+            try
+            {
+                await Navigation.PopModalAsync();
+            }
+            finally
+            {
+                popup.Close();
+            }
         }
     }
 
     private async void BtnCancel_Clicked(object sender, EventArgs e)
     {
-        BtnCancel.Opacity = 0;
-        await BtnCancel.FadeTo(1, 200);
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
+        {
+            BtnCancel.Opacity = 0;
+            await BtnCancel.FadeTo(1, 200);
 
-        await Navigation.PopModalAsync();
+            await Navigation.PopModalAsync();
+        }
+        finally
+        {
+            popup.Close();
+        }
     }
 
     [Obsolete]

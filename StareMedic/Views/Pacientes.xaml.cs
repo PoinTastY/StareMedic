@@ -49,10 +49,19 @@ public partial class Pacientes : ContentPage
 
     private async void BtnCancel_Clicked(object sender, EventArgs e)
     {
-        btnCancel.Opacity = 0;
-        await btnCancel.FadeTo(1, 300);
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
+        {
+            btnCancel.Opacity = 0;
+            await btnCancel.FadeTo(1, 300);
 
-		await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync("..");
+        }
+        finally
+        {
+            popup.Close();
+        }
 
     }
 
@@ -61,9 +70,17 @@ public partial class Pacientes : ContentPage
        
 		if(listPatients.SelectedItem != null)
 		{
-			
-            await Navigation.PushAsync(new PatientControll((Patient)listPatients.SelectedItem));
-		}
+            var popup = new SpinnerPopup();
+            this.ShowPopup(popup);
+            try
+            {
+                await Navigation.PushAsync(new PatientControll((Patient)listPatients.SelectedItem));
+            }
+            finally
+            {
+                popup.Close();
+            }
+        }
     }
 
     private void ListPatients_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -76,11 +93,11 @@ public partial class Pacientes : ContentPage
     {
         if (!string.IsNullOrWhiteSpace(SearchBarPatients.Text))
         {
-            patients.Clear();
             var popup = new SpinnerPopup();
             this.ShowPopup(popup);
             try
             {
+                patients.Clear();
                 foreach (var paciente in MainRepo.SearchPatient(SearchBarPatients.Text.ToUpper()))
                 {
                     patients.Add(paciente);
@@ -99,11 +116,12 @@ public partial class Pacientes : ContentPage
     {
         if(string.IsNullOrWhiteSpace(SearchBarPatients.Text))
         {
-            patients.Clear();
             var popup = new SpinnerPopup();
             this.ShowPopup(popup);
             try
             {
+                patients.Clear();
+
                 foreach (Patient patient in MainRepo.GetPatients(50, listpage))
                 {
                     patients.Add(patient);
@@ -119,12 +137,12 @@ public partial class Pacientes : ContentPage
 
     private async void BtnAddPatient_Clicked(object sender, EventArgs e)
     {
-        BtnAddPatient.Opacity = 0;
-        await BtnAddPatient.FadeTo(1, 200);
         var popup = new SpinnerPopup();
         this.ShowPopup(popup);
         try
         {
+            BtnAddPatient.Opacity = 0;
+            await BtnAddPatient.FadeTo(1, 200);
             await Navigation.PushAsync(new PatientControll(null));
         }
         finally
@@ -160,7 +178,6 @@ public partial class Pacientes : ContentPage
         {
             popup.Close();
         }
-        
     }
 
     private void BtnNextListPage_Clicked(object sender, EventArgs e)

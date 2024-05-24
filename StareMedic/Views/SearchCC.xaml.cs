@@ -43,11 +43,11 @@ public partial class SearchCC : ContentPage
         {
             //It will send to de detailed patient view, or the edit pg, rn is edit?
             //Shell.Current.GoToAsync($"{nameof(ViewClinicalCase)}?Id={((CasoClinico)ListViewCC.SelectedItem).Id}");
-            CCwPatient element = ListViewCC.SelectedItem as CCwPatient;
             var popup = new SpinnerPopup();
             this.ShowPopup(popup);
             try
             {
+                CCwPatient element = ListViewCC.SelectedItem as CCwPatient;
                 await Navigation.PushAsync(new ViewClinicalCase(MainRepo.GetCasoById(element.Iddb)));
             }
             finally
@@ -99,12 +99,13 @@ public partial class SearchCC : ContentPage
     {
         if (!string.IsNullOrWhiteSpace(SearchBarentry.Text))
         {
-            BtnPrevListPage.IsEnabled = false;
-            BtnNextListPage.IsEnabled = false;
+            
             var popup = new SpinnerPopup();
             this.ShowPopup(popup);
             try
             {
+                BtnPrevListPage.IsEnabled = false;
+                BtnNextListPage.IsEnabled = false;
                 if (PickerFilterSearch.SelectedItem.ToString() == "Paciente")
                 {
                     casos.Clear();
@@ -155,31 +156,48 @@ public partial class SearchCC : ContentPage
 
     private async void BtnNewCC_Clicked(object sender, EventArgs e)
     {
-        BtnNewCC.Opacity = 0;
-        await BtnNewCC.FadeTo(1, 200);
-
-        await Shell.Current.GoToAsync(nameof(RegisterClinicalCase));
-    }
-
-    private async void BtnCancel_Clicked(object sender, EventArgs e)
-    {
-        btnCancel.Opacity = 0;
-        await btnCancel.FadeTo(1, 300);
-
-        await Shell.Current.GoToAsync("..");
-
-    }
-
-    private async void BtnPrevListPage_Clicked(object sender, EventArgs e)
-    {
-        BtnPrevListPage.Opacity = 0;
-
-        await BtnPrevListPage.FadeTo(1, 300);
-
         var popup = new SpinnerPopup();
         this.ShowPopup(popup);
         try
         {
+            BtnNewCC.Opacity = 0;
+            await BtnNewCC.FadeTo(1, 200);
+
+            await Shell.Current.GoToAsync(nameof(RegisterClinicalCase));
+        }
+        finally
+        {
+            popup.Close();
+        }
+    }
+
+    private async void BtnCancel_Clicked(object sender, EventArgs e)
+    {
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
+        {
+            btnCancel.Opacity = 0;
+            await btnCancel.FadeTo(1, 300);
+
+            await Shell.Current.GoToAsync("..");
+        }
+        finally
+        {
+            popup.Close();
+        }
+    }
+
+    private async void BtnPrevListPage_Clicked(object sender, EventArgs e)
+    {
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
+        {
+            BtnPrevListPage.Opacity = 0;
+
+            await BtnPrevListPage.FadeTo(1, 300);
+
             casos.Clear();
 
             var nextCasos = MainRepo.GetCasos(50, --listpage);
@@ -206,13 +224,13 @@ public partial class SearchCC : ContentPage
 
     private async void BtnNextListPage_Clicked(object sender, EventArgs e)
     {
-        BtnNextListPage.Opacity = 0;
-        
-        await BtnNextListPage.FadeTo(1, 300);
         var popup = new SpinnerPopup();
         this.ShowPopup(popup);
         try
         {
+            BtnNextListPage.Opacity = 0;
+
+            await BtnNextListPage.FadeTo(1, 300);
             var nextCasos = MainRepo.GetCasos(50, ++listpage);
             if (nextCasos.Count < 50)
             {

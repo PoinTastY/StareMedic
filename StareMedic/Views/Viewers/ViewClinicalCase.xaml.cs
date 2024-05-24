@@ -1,5 +1,7 @@
+using CommunityToolkit.Maui.Views;
 using StareMedic.Models;
 using StareMedic.Models.Entities;
+using StareMedic.Views.Viewers;
 
 namespace StareMedic.Views;
 
@@ -11,7 +13,6 @@ public partial class ViewClinicalCase : ContentPage
     private Medic medic;
     private Rooms room;
     
-
     public ViewClinicalCase(CasoClinico caso)
 	{
 		InitializeComponent();
@@ -103,28 +104,36 @@ public partial class ViewClinicalCase : ContentPage
 
     private async void BtnSaveDiagnoose_Clicked(object sender, EventArgs e)
     {
-        BtnSaveDiagnoose.Opacity = 0;
-
-        await BtnSaveDiagnoose.FadeTo(1, 300);
-        bool confirm = await DisplayAlert("Confirmar", $"Se guardaran los cambios en el diagnostico:\n{caso.Id}", "Cancelar", "Confirmar");
-        if (!confirm)
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
         {
-            //update changefs
-            diagnostico.Contenido = EditorDiagnoose.Text;
-            MainRepo.UpdateDiagnoose(diagnostico);
-            await DisplayAlert("Confirmado", $"Se han guardado los cambios en el diagnostico:\n{caso.Id}", "Ok");
-            enabledisableDiag(false);
+            BtnSaveDiagnoose.Opacity = 0;
 
+            await BtnSaveDiagnoose.FadeTo(1, 300);
+            bool confirm = await DisplayAlert("Confirmar", $"Se guardaran los cambios en el diagnostico:\n{caso.Id}", "Cancelar", "Confirmar");
+            if (!confirm)
+            {
+                //update changefs
+                diagnostico.Contenido = EditorDiagnoose.Text;
+                MainRepo.UpdateDiagnoose(diagnostico);
+                await DisplayAlert("Confirmado", $"Se han guardado los cambios en el diagnostico:\n{caso.Id}", "Ok");
+                enabledisableDiag(false);
+
+            }
+            else
+            {
+                //get back
+                await DisplayAlert("Cancelado", $"NO se han guardado los cambios en el diagnostico:\n{caso.Id}", "Ok");
+                EditorDiagnoose.Text = diagnostico.Contenido;
+                enabledisableDiag(false);
+                return;
+            }
         }
-        else
+        finally
         {
-            //get back
-            await DisplayAlert("Cancelado", $"NO se han guardado los cambios en el diagnostico:\n{caso.Id}", "Ok");
-            EditorDiagnoose.Text = diagnostico.Contenido;
-            enabledisableDiag(false);
-            return;
+            popup.Close();
         }
-		
     }
 
     private async void BtnCancelEditionDiagnoose_Clicked(object sender, EventArgs e)
@@ -148,49 +157,57 @@ public partial class ViewClinicalCase : ContentPage
     }
 
     private async void BtnSaveAll_Clicked(object sender, EventArgs e)
-    { 
-        BtnSaveAll.Opacity = 0;
-
-        await BtnSaveAll.FadeTo(1, 300);
-        if(PickMedic.SelectedItem == null || PickRoom.SelectedItem == null || string.IsNullOrWhiteSpace(EntryName.Text))
+    {
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
         {
-            await DisplayAlert("Error:", "No se puede guardar, verifica que todo este bien", "Ok");
-            return;
-        }
-        bool choice = await DisplayAlert("Confirmar:", $"Se guardaran los cambios en el caso:\n{caso.Id}", "Cancelar", "Confirmar");
-        if (!choice)
-        {
-            //update changefs
-            if (RadioMedico.IsChecked)
-                caso.TipoCaso = "Medico";
-            if (RadioQuirurgico.IsChecked)
-                caso.TipoCaso = "Quirurgico";
-            if (RadioObstetrico.IsChecked)
-                caso.TipoCaso = "Obstetrico";
-            caso.FechaIngreso = DateIngreso.Date.ToUniversalTime();
-            medic = (Medic)PickMedic.SelectedItem;
-            room = (Rooms)PickRoom.SelectedItem;
-            caso.IdDoctor = medic.Id;
-            caso.IdHabitacion = room.Id;
-            caso.Nombre = EntryName.Text;
-            MainRepo.UpdateClinicalCase(caso);
-            await DisplayAlert("Confirmado", $"Se han guardado los cambios en el caso:\n{caso.Nombre}", "Ok");
-            enabledisable(false);
-            if (medic.Nombre != "missing" && room.Nombre != "missing")
-                BtnSendSDK.IsEnabled = true;
+            BtnSaveAll.Opacity = 0;
 
-        }
-        else
-        {
-            await DisplayAlert("Cancelado", $"NO se han guardado los cambios en el caso:\n{caso.Nombre}", "Ok");
-            PickMedic.SelectedItem = medic;
-            PickRoom.SelectedItem = room;
-            EntryName.Text = caso.Nombre;
+            await BtnSaveAll.FadeTo(1, 300);
+            if (PickMedic.SelectedItem == null || PickRoom.SelectedItem == null || string.IsNullOrWhiteSpace(EntryName.Text))
+            {
+                await DisplayAlert("Error:", "No se puede guardar, verifica que todo este bien", "Ok");
+                return;
+            }
+            bool choice = await DisplayAlert("Confirmar:", $"Se guardaran los cambios en el caso:\n{caso.Id}", "Cancelar", "Confirmar");
+            if (!choice)
+            {
+                //update changefs
+                if (RadioMedico.IsChecked)
+                    caso.TipoCaso = "Medico";
+                if (RadioQuirurgico.IsChecked)
+                    caso.TipoCaso = "Quirurgico";
+                if (RadioObstetrico.IsChecked)
+                    caso.TipoCaso = "Obstetrico";
+                caso.FechaIngreso = DateIngreso.Date.ToUniversalTime();
+                medic = (Medic)PickMedic.SelectedItem;
+                room = (Rooms)PickRoom.SelectedItem;
+                caso.IdDoctor = medic.Id;
+                caso.IdHabitacion = room.Id;
+                caso.Nombre = EntryName.Text;
+                MainRepo.UpdateClinicalCase(caso);
+                await DisplayAlert("Confirmado", $"Se han guardado los cambios en el caso:\n{caso.Nombre}", "Ok");
+                enabledisable(false);
+                if (medic.Nombre != "missing" && room.Nombre != "missing")
+                    BtnSendSDK.IsEnabled = true;
 
-            enabledisable(false);
-            return;
+            }
+            else
+            {
+                await DisplayAlert("Cancelado", $"NO se han guardado los cambios en el caso:\n{caso.Nombre}", "Ok");
+                PickMedic.SelectedItem = medic;
+                PickRoom.SelectedItem = room;
+                EntryName.Text = caso.Nombre;
+
+                enabledisable(false);
+                return;
+            }
         }
-        
+        finally
+        {
+            popup.Close();
+        }
     }
 
     private async void BtnEdit_Clicked(object sender, EventArgs e)
@@ -237,57 +254,82 @@ public partial class ViewClinicalCase : ContentPage
         {
             return;
         }
-
     }
 
     private async void BtnCancel2_Clicked(object sender, EventArgs e)
     {
-        BtnCancel2.Opacity = 0;
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
+        {
+            BtnCancel2.Opacity = 0;
 
-        await BtnCancel2.FadeTo(1, 300);
-
-        await Shell.Current.GoToAsync("..");
+            await BtnCancel2.FadeTo(1, 300);
+            await Shell.Current.GoToAsync("..");
+        }
+        finally
+        {
+            popup.Close();
+        }
     }
 
     //Btn to delete the case
     private async void BtnDelete_Clicked(object sender, EventArgs e)
     {
-        BtnDelete.Opacity = 0;
-
-        await BtnDelete.FadeTo(1, 300);
-        bool confirm = await DisplayAlert("Confirmar", $"Se eliminara el caso:\n{caso.Id}", "Cancelar", "Confirmar");
-        if (!confirm)
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
         {
+            BtnDelete.Opacity = 0;
 
-            MainRepo.DeleteClinicalCase(caso);
-            await DisplayAlert("Confirmado", $"Se ha eliminado el caso:\n{caso.Nombre}", "Ok");
-            await Navigation.PopAsync();
+            await BtnDelete.FadeTo(1, 300);
+            bool confirm = await DisplayAlert("Confirmar", $"Se eliminara el caso:\n{caso.Id}", "Cancelar", "Confirmar");
+            if (!confirm)
+            {
+
+                MainRepo.DeleteClinicalCase(caso);
+                await DisplayAlert("Confirmado", $"Se ha eliminado el caso:\n{caso.Nombre}", "Ok");
+                await Navigation.PopAsync();
+            }
+            else
+            {
+                await DisplayAlert("Cancelado", $"NO se ha eliminado el caso", "Ok");
+                return;
+            }
         }
-        else
+        finally
         {
-            await DisplayAlert("Cancelado", $"NO se ha eliminado el caso", "Ok");
-            return;
+            popup.Close();
         }
     }
 
     //Btn to call DoCreate and export the case
     private async void BtnExportCase_Clicked(object sender, EventArgs e)
     {
-        BtnExportCase.Opacity = 0;
-
-        await BtnExportCase.FadeTo(1, 300);
-        var Confirm = await DisplayAlert("Confirmar", $"Se exportara el caso:\n{caso.Id}", "Cancelar", "Confirmar");
-        if (!Confirm)
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
         {
-            if (DoCreate.GenerateDocument(caso))
-            {
-                await DisplayAlert("Confirmado", $"Se ha exportado el caso:\n{caso.Nombre}", "Ok");
-            }
-            else
-            {
-                await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
-            }//TODO: EXCEPTION MANAGEMENT
+            var Confirm = await DisplayAlert("Confirmar", $"Se exportara el caso:\n{caso.Id}", "Cancelar", "Confirmar");
 
+            BtnExportCase.Opacity = 0;
+            await BtnExportCase.FadeTo(1, 300);
+            if (!Confirm)
+            {
+                var documento = DoCreate.GenerateDocument(caso);
+                if (documento)
+                {
+                    await DisplayAlert("Confirmado", $"Se ha exportado el caso:\n{caso.Nombre}", "Ok");
+                }
+                else
+                {
+                    await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
+                }//TODO: EXCEPTION MANAGEMENT
+            }
+        }
+        finally
+        {
+            popup.Close();
         }
     }
 
@@ -327,33 +369,41 @@ public partial class ViewClinicalCase : ContentPage
 
     private async void BtnSendSDK_Clicked(object sender, EventArgs e)
     {
-        BtnSendSDK.Opacity = 0;
-
-        await BtnSendSDK.FadeTo(1, 300);
-        Request req = new(1);
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
         try
         {
-            double x = req.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
-            if (x > 0)
-            {
-                await DisplayAlert("Exito!", $"Se ha generado la remision de la admision\nFolio: {x}", "Ok");
-                caso.FolioSDK = x;
-                LblFolioSDK.Text = $"Folio Contpaqi: {caso.FolioSDK}";
-                LblFolioSDK.TextColor = Color.FromRgb(0, 161, 53);
-                BtnSendSDK.IsEnabled = false;
-                BtnSendSDK.IsVisible = false;
-            }
-            else
-            {
-                await DisplayAlert("Error", $"No se ha generado la remision en Contpaqi, intenta mas tarde\nRespuesta del servidor: {x}", "OK");
-                caso.FolioSDK = x;
-            }
-            MainRepo.UpdateClinicalCase(caso);
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Error SDK", $"Hubo un problema generando el documento en Contpaqi: {ex}", "Enterado");
-        }
+            BtnSendSDK.Opacity = 0;
 
+            await BtnSendSDK.FadeTo(1, 300);
+            Request req = new(1);
+            try
+            {
+                double x = req.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
+                if (x > 0)
+                {
+                    await DisplayAlert("Exito!", $"Se ha generado la remision de la admision\nFolio: {x}", "Ok");
+                    caso.FolioSDK = x;
+                    LblFolioSDK.Text = $"Folio Contpaqi: {caso.FolioSDK}";
+                    LblFolioSDK.TextColor = Color.FromRgb(0, 161, 53);
+                    BtnSendSDK.IsEnabled = false;
+                    BtnSendSDK.IsVisible = false;
+                }
+                else
+                {
+                    await DisplayAlert("Error", $"No se ha generado la remision en Contpaqi, intenta mas tarde\nRespuesta del servidor: {x}", "OK");
+                    caso.FolioSDK = x;
+                }
+                MainRepo.UpdateClinicalCase(caso);
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error SDK", $"Hubo un problema generando el documento en Contpaqi: {ex}", "Enterado");
+            }
+        }
+        finally
+        {
+            popup.Close();
+        }
     }
 }
