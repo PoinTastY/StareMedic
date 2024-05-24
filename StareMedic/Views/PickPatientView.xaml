@@ -205,8 +205,7 @@
                     MinimumWidthRequest="160"
                     Clicked="BtnConfirmar_Clicked"
                     Text="Confirmar Paciente"
-                    Grid.Column="1"                  
-                    IsEnabled="False">
+                    Grid.Column="1">
 
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroupList>

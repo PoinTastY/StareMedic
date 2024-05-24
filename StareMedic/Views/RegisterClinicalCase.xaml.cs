@@ -80,7 +80,10 @@ public partial class RegisterClinicalCase : ContentPage
     {
         BtnGuardar.Opacity = 0; 
         await BtnGuardar.FadeTo(1, 200);
-
+        if (!caso)
+        {
+            caso.IdPaciente = MainRepo.PatientIdSolver.Id;
+        }
         if (caso)
         {
             MakeStringID();
@@ -127,7 +130,7 @@ public partial class RegisterClinicalCase : ContentPage
                 else
                 {
                     await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
-                }//TODO: EXCEPTION MANAGEMENT
+                }
 
                 
 
