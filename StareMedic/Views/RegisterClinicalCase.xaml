@@ -18,7 +18,7 @@
 
     <ScrollView>
         <Grid
-            RowDefinitions="Auto,*,*,*,*,*,*"
+        RowDefinitions="Auto,*,*,*,*,*,*"
         Padding="20"
         BackgroundColor="{StaticResource Secundario}">
             

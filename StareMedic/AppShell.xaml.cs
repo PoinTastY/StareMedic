@@ -40,12 +40,12 @@ public partial class AppShell : Shell
     }
 
 
-    private async void BtnRooms_Clicked(object sender, EventArgs e)
+    /*private async void BtnRooms_Clicked(object sender, EventArgs e)
     {
         
 
         await Shell.Current.GoToAsync(nameof(Habitaciones));
-    }
+    } */
 
     private async void BtnRegCasoCli_Clicked(object sender, EventArgs e)
     {

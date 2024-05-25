@@ -257,7 +257,7 @@
                                VerticalOptions="Center"
                                HorizontalOptions="Center"/>
                         <Label Grid.Column="1"
-                               Text="Admisiones Clinicas"
+                               Text="Nueva Admision"
                                FontSize="Subtitle"
                                FontFamily="HelveticaNeue"
                                TextColor="{StaticResource Black}"
