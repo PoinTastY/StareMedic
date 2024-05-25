@@ -322,7 +322,7 @@
                                     x:Name="Addcc"
                                     Clicked="BtnNewCC_Clicked">
                                 <MenuFlyoutItem.KeyboardAccelerators>
-                                    <KeyboardAccelerator Key="Enter" Modifiers="None"/>
+                                    <KeyboardAccelerator Key="Enter" Modifiers="Ctrl"/>
                                 </MenuFlyoutItem.KeyboardAccelerators>
                             </MenuFlyoutItem>
                         </MenuFlyout>
