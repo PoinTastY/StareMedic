@@ -2,6 +2,8 @@ using System.Collections.ObjectModel;
 using StareMedic.Models.Entities;
 using StareMedic.Models;
 using StareMedic.Views.Viewers;
+using CommunityToolkit.Maui.Views;
+using Windows.UI.Input.Spatial;
 
 namespace StareMedic.Views;
 
@@ -32,7 +34,20 @@ public partial class Doctores : ContentPage
         {
             BtnNextListPage.IsEnabled = false;
         }
+
+        //var popup = new SpinnerPopup();
+        //this.ShowPopup(popup);
+        //try
+        //{
+            
+
+        //}
+        //finally
+        //{
+        //    popup.Close();
+        //}
     }
+        
 
 
 
@@ -40,7 +55,13 @@ public partial class Doctores : ContentPage
     {
         if(listMedics.SelectedItem != null)
         {
-            await Navigation.PushAsync(new MedicControll((Medic)listMedics.SelectedItem));
+            var popup = new SpinnerPopup();
+            this.ShowPopup(popup);
+            try
+            {
+                await Navigation.PushAsync(new MedicControll((Medic)listMedics.SelectedItem));
+            }
+            finally { popup.Close(); }
         }
     }
 
@@ -53,12 +74,21 @@ public partial class Doctores : ContentPage
     {
         if(!string.IsNullOrWhiteSpace(SearchBarMedics.Text))
         {
-            medics.Clear();
-            foreach(var medic in MainRepo.SearchMedic(SearchBarMedics.Text.ToUpper()))
+            var popup = new SpinnerPopup();
+            this.ShowPopup(popup);
+            try
             {
-                medics.Add(medic);
+                medics.Clear();
+                foreach (var medic in MainRepo.SearchMedic(SearchBarMedics.Text.ToUpper()))
+                {
+                    medics.Add(medic);
+                }
+                listMedics.ItemsSource = medics.OrderBy(m => m.Id);
             }
-            listMedics.ItemsSource = medics.OrderBy(m => m.Id);
+            finally
+            {
+                popup.Close();
+            }
         }
     }
 
@@ -66,67 +96,111 @@ public partial class Doctores : ContentPage
     {
         if (string.IsNullOrWhiteSpace(SearchBarMedics.Text))
         {
-            medics.Clear();
-            foreach (Medic medic in MainRepo.GetMedicsLight(listpage, 50))
+            var popup = new SpinnerPopup();
+            this.ShowPopup(popup);
+            try
             {
-                medics.Add(medic);
+                medics.Clear();
+                foreach (Medic medic in MainRepo.GetMedicsLight(listpage, 50))
+                {
+                    medics.Add(medic);
+                }
+                listMedics.ItemsSource = medics;
             }
-            listMedics.ItemsSource = medics.OrderBy(m => m.Id);
+            finally
+            {
+                popup.Close();
+            }
         }
     }
 
     private async void btnCancel_Clicked(object sender, EventArgs e)
     {
-        btnCancel.Opacity = 0;
-        await btnCancel.FadeTo(1, 300);
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
+        {
+            btnCancel.Opacity = 0;
+            await btnCancel.FadeTo(1, 300);
 
-        await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync("..");
+        }
+        finally
+        {
+            popup.Close();
+        }
     }
 
     private async void BtnAddMedic_Clicked(object sender, EventArgs e)
     {
-        BtnAddMedic.Opacity = 0;
-        await BtnAddMedic.FadeTo(1, 300);
-
-        await  Navigation.PushAsync(new MedicControll(null));
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
+        {
+            BtnAddMedic.Opacity = 0;
+            await BtnAddMedic.FadeTo(1, 300);
+            await Navigation.PushAsync(new MedicControll(null));
+        }
+        finally
+        {
+            popup.Close();
+        }
     }
 
     private void BtnPrevListPage_Clicked(object sender, EventArgs e)
     {
-        if (listpage == 1)
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
         {
-            BtnPrevListPage.IsEnabled = false;
-            return;
+            medics.Clear();
+
+            var nextMedics = MainRepo.GetMedicsLight(50, --listpage);
+
+            foreach (Medic medic in nextMedics)
+            {
+                medics.Add(medic);
+            }
+
+            listMedics.ItemsSource = medics.OrderBy(p => p.Nombre);
+            if (listpage == 1)
+            {
+                BtnPrevListPage.IsEnabled = false;
+                BtnNextListPage.IsEnabled = true;
+                return;
+            }
         }
-
-        medics.Clear();
-
-        var nextMedics = MainRepo.GetMedicsLight(50, --listpage);
-
-        foreach (Medic medic in nextMedics)
+        finally
         {
-            medics.Add(medic);
+            popup.Close();
         }
-
-        listMedics.ItemsSource = medics.OrderBy(p => p.Nombre);
     }
 
     private void BtnNextListPage_Clicked(object sender, EventArgs e)
     {
-        var nextMedics = MainRepo.GetMedicsLight(50, ++listpage);
-        if (nextMedics.Count < 50)
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
         {
-            BtnNextListPage.IsEnabled = false;
-            if (nextMedics.Count == 0)
-                return;
-        }
+            var nextMedics = MainRepo.GetMedicsLight(50, ++listpage);
+            if (nextMedics.Count < 50)
+            {
+                BtnNextListPage.IsEnabled = false;
+                if (nextMedics.Count == 0)
+                    return;
+            }
 
-        medics.Clear();
-        foreach (Medic medic in nextMedics)
-        {
-            medics.Add(medic);
+            medics.Clear();
+            foreach (Medic medic in nextMedics)
+            {
+                medics.Add(medic);
+            }
+            BtnPrevListPage.IsEnabled = true;
+            listMedics.ItemsSource = medics.OrderBy(p => p.Nombre);
         }
-        BtnPrevListPage.IsEnabled = true;
-        listMedics.ItemsSource = medics.OrderBy(p => p.Nombre);
+        finally
+        {
+            popup.Close();
+        }
     }
 }

@@ -1,6 +1,7 @@
 using StareMedic.Models;
 using System.Collections.ObjectModel;
 using StareMedic.Views.Viewers;
+using CommunityToolkit.Maui.Views;
 
 namespace StareMedic.Views;
 
@@ -22,6 +23,7 @@ public partial class Pacientes : ContentPage
     {
         base.OnAppearing();
         patients.Clear();
+
         foreach (Patient patient in MainRepo.GetPatients(50, listpage))
         {
             patients.Add(patient);
@@ -31,14 +33,35 @@ public partial class Pacientes : ContentPage
         {
             BtnNextListPage.IsEnabled = false;
         }
+
+        //var popup = new SpinnerPopup();
+        //this.ShowPopup(popup);
+        //try
+        //{
+
+            
+        //}
+        //finally
+        //{
+        //    popup.Close();
+        //}
     }
 
     private async void BtnCancel_Clicked(object sender, EventArgs e)
     {
-        btnCancel.Opacity = 0;
-        await btnCancel.FadeTo(1, 300);
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
+        {
+            btnCancel.Opacity = 0;
+            await btnCancel.FadeTo(1, 300);
 
-		await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync("..");
+        }
+        finally
+        {
+            popup.Close();
+        }
 
     }
 
@@ -47,10 +70,17 @@ public partial class Pacientes : ContentPage
        
 		if(listPatients.SelectedItem != null)
 		{
-			//It will send to de detailed patient view, or the edit pg, rn is edit?
-			//maybe directly to edit page, but ill add a button to enable edit
-            await Navigation.PushAsync(new PatientControll((Patient)listPatients.SelectedItem));
-		}
+            var popup = new SpinnerPopup();
+            this.ShowPopup(popup);
+            try
+            {
+                await Navigation.PushAsync(new PatientControll((Patient)listPatients.SelectedItem));
+            }
+            finally
+            {
+                popup.Close();
+            }
+        }
     }
 
     private void ListPatients_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -63,14 +93,22 @@ public partial class Pacientes : ContentPage
     {
         if (!string.IsNullOrWhiteSpace(SearchBarPatients.Text))
         {
-            patients.Clear();
-            foreach(var paciente in MainRepo.SearchPatient(SearchBarPatients.Text.ToUpper()))
+            var popup = new SpinnerPopup();
+            this.ShowPopup(popup);
+            try
             {
-                patients.Add(paciente);
-            }
+                patients.Clear();
+                foreach (var paciente in MainRepo.SearchPatient(SearchBarPatients.Text.ToUpper()))
+                {
+                    patients.Add(paciente);
+                }
 
-            listPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
-          
+                listPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
+            }
+            finally
+            {
+                popup.Close();
+            }
         }
     }
 
@@ -78,59 +116,95 @@ public partial class Pacientes : ContentPage
     {
         if(string.IsNullOrWhiteSpace(SearchBarPatients.Text))
         {
-            patients.Clear();
-            foreach (Patient patient in MainRepo.GetPatients(50, listpage))
+            var popup = new SpinnerPopup();
+            this.ShowPopup(popup);
+            try
             {
-                patients.Add(patient);
+                patients.Clear();
+
+                foreach (Patient patient in MainRepo.GetPatients(50, listpage))
+                {
+                    patients.Add(patient);
+                }
+                listPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
             }
-            listPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
+            finally
+            {
+                popup.Close();
+            }
         }
     }
 
     private async void BtnAddPatient_Clicked(object sender, EventArgs e)
     {
-        BtnAddPatient.Opacity = 0;
-        await BtnAddPatient.FadeTo(1, 200);
-
-        await Navigation.PushAsync(new PatientControll(null));
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
+        {
+            BtnAddPatient.Opacity = 0;
+            await BtnAddPatient.FadeTo(1, 200);
+            await Navigation.PushAsync(new PatientControll(null));
+        }
+        finally
+        {
+            popup.Close();
+        }
     }
 
     private void BtnPrevListPage_Clicked(object sender, EventArgs e)
     {
-        if (listpage == 1)
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
         {
-            BtnPrevListPage.IsEnabled = false;
-            return;
+            patients.Clear();
+
+            var nextPatients = MainRepo.GetPatients(50, --listpage);
+
+            foreach (Patient patient in nextPatients)
+            {
+                patients.Add(patient);
+            }
+
+            listPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
+            if (listpage == 1)
+            {
+                BtnPrevListPage.IsEnabled = false;
+                BtnNextListPage.IsEnabled = true;
+                return;
+            }
         }
-
-        patients.Clear();
-
-        var nextPatients = MainRepo.GetPatients(50, --listpage);
-
-        foreach (Patient patient in nextPatients)
+        finally
         {
-            patients.Add(patient);
+            popup.Close();
         }
-
-        listPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
     }
 
     private void BtnNextListPage_Clicked(object sender, EventArgs e)
     {
-        var nextPatients = MainRepo.GetPatients(50, ++listpage);
-        if (nextPatients.Count < 50)
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
         {
-            BtnNextListPage.IsEnabled = false;
-            if (nextPatients.Count == 0)
-                return;
-        }
+            var nextPatients = MainRepo.GetPatients(50, ++listpage);
+            if (nextPatients.Count < 50)
+            {
+                BtnNextListPage.IsEnabled = false;
+                if (nextPatients.Count == 0)
+                    return;
+            }
 
-        patients.Clear();
-        foreach (Patient patient in nextPatients)
-        {
-            patients.Add(patient);
+            patients.Clear();
+            foreach (Patient patient in nextPatients)
+            {
+                patients.Add(patient);
+            }
+            BtnPrevListPage.IsEnabled = true;
+            listPatients.ItemsSource = patients;
         }
-        BtnPrevListPage.IsEnabled = true;
-        listPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
+        finally
+        {
+            popup.Close();
+        }
     }
 }

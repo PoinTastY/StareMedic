@@ -46,23 +46,22 @@ public static class MauiProgram
                 fonts.AddFont("Hospital-Regular.ttf", "HospitalRegular");
 
             });
-        builder.ConfigureLifecycleEvents(events =>
-        {
-        #if WINDOWS
-                    events.AddWindows(w =>
-                    {
-                        w.OnWindowCreated(window =>
-                        {
-                            window.ExtendsContentIntoTitleBar = true; //If you need to completely hide the minimized maximized close button, you need to set this value to false.
-                            IntPtr hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
-                            ShowWindow(hWnd, SW_MAXIMIZE);
-                            ////WindowId myWndId = Win32Interop.GetWindowIdFromWindow(hWnd); // esto funciona tambien, quitando la importacion al dll y la linea anterior
-                            ////var _appWindow = AppWindow.GetFromWindowId(myWndId);// pero esta fullscreen no muestra los botones para abrir o cerrar y oculta la barra
-                            ////_appWindow.SetPresenter(AppWindowPresenterKind.FullScreen);
-                        });
-                    });
-        #endif
-                });
+//        builder.ConfigureLifecycleEvents(events => // this is for literally fullscreen
+//        {
+//#if WINDOWS
+//            events.AddWindows(w =>
+//            {
+//                w.OnWindowCreated(window =>
+//                {
+//                    window.ExtendsContentIntoTitleBar = true; //If you need to completely hide the minimized maximized close button, you need to set this value to false.
+//                    IntPtr hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
+//                    WindowId myWndId = Win32Interop.GetWindowIdFromWindow(hWnd); // esto funciona tambien, quitando la importacion al dll y la linea anterior
+//                    var _appWindow = AppWindow.GetFromWindowId(myWndId);// pero esta fullscreen no muestra los botones para abrir o cerrar y oculta la barra
+//                    _appWindow.SetPresenter(AppWindowPresenterKind.FullScreen);
+//                });
+//            });
+//#endif
+//        });
 
 #if DEBUG
         builder.Logging.AddDebug();

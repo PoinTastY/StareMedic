@@ -5,16 +5,15 @@ namespace StareMedic.Models
 {
     public static class MainRepo
     {
-        private static Patient _tmpPatient = new();
 
-        //dbshit
+        //dbcontext lul
         static AppDbContext _db = new();
 
         #region Get Lists
         //getters
         public static List<Patient> GetPatients(int cantidadElementos, int paginaActual) 
         {
-            return _db.Patients.OrderByDescending(p => p.Nombre).Skip((paginaActual - 1) * cantidadElementos).Take(cantidadElementos).ToList(); 
+            return _db.Patients.OrderBy(p => p.Nombre).Skip((paginaActual - 1) * cantidadElementos).Take(cantidadElementos).ToList(); 
         }//the framework sents an order by clause to the db, so eficiency is not impacted
         //public static List<Fiador> GetFiadores() => _db.Fiadores.ToList();//igual, 2 formas de declararse xd // not used
         //public static List<Cercano> GetCercanos() { return _db.Cercanos.ToList(); } not used 4 now
@@ -39,53 +38,78 @@ namespace StareMedic.Models
 
         public static List<Medic> GetMedicsLight(int paginaActual, int cantidadElementos)
         {
-            return _db.Medics.OrderByDescending(m => m.Id).Skip((paginaActual - 1) * cantidadElementos).Take(cantidadElementos).ToList();
+            return _db.Medics.OrderBy(m => m.Nombre).Skip((paginaActual - 1) * cantidadElementos).Take(cantidadElementos).ToList();
         }
         //public static List<Diagnostico> GetDiagnosticos() => _db.Diagnosticos.ToList(); no needed
 
         #endregion
-        //adders
+
         #region AddRows
-        public static void AddPatient(Patient patient)
+        public static bool AddPatient(Patient patient)
         {
-            if(!(patient.Id <= GetCurrentPatientIndex()-1))
+            try
             {
-                _db.Patients.Add(patient);
-                _db.SaveChanges();
+                if (!(patient.Id <= GetCurrentPatientIndex() - 1))
+                {
+                    _db.Patients.Add(patient);
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    UpdatePatient(patient);
+                }
+                return true;
             }
-            else
+            catch
             {
-                UpdatePatient(patient);
+                return false;
             }
         }
 
-        public static void AddFiador(Fiador fiador)
+        public static bool AddFiador(Fiador fiador)
         {
-            if(!(fiador.Id <= GetCurrentFiadorIndex()-1))
+            try
             {
-                _db.Fiadores.Add(fiador);
-                _db.SaveChanges();
+                if (!(fiador.Id <= GetCurrentFiadorIndex() - 1))
+                {
+                    _db.Fiadores.Add(fiador);
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    UpdateFiador(fiador);
+                }
+                return true;
             }
-            else
+            catch
             {
-                UpdateFiador(fiador);
+                return false;
             }
         }
 
-        public static void AddCercano(Cercano cercano)
+        public static bool AddCercano(Cercano cercano)
         {
-            if(!(cercano.Id <= GetCurrentCercanoIndex()-1))
+            try
             {
-                _db.Cercanos.Add(cercano);
-                _db.SaveChanges();
+                if (!(cercano.Id <= GetCurrentCercanoIndex() - 1))
+                {
+                    _db.Cercanos.Add(cercano);
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    UpdateCercano(cercano);
+                }
+                return true;
             }
-            else
+            catch
             {
-                UpdateCercano(cercano);
+                return false;
             }
+            
         }
 
-        public static void AddRoom(Rooms room)
+        public static void AddRoom(Rooms room)//this thing is not used 4 now
         {
             if(!(room.Id <= GetCurrentRoomIndex()-1))
             {
@@ -98,29 +122,54 @@ namespace StareMedic.Models
             }
         }
 
-        public static void AddCaso(CasoClinico caso)
+        public static bool AddCaso(CasoClinico caso)
         {
-            _db.CasoClinicos.Add(caso);
-            _db.SaveChanges();
-        }
-
-        public static void AddMedic(Medic medic)
-        {
-            if(!(medic.Id <= GetCurrentMedicIndex()-1))
+            try
             {
-                _db.Medics.Add(medic);
+                _db.CasoClinicos.Add(caso);
                 _db.SaveChanges();
+                return true;
             }
-            else
+            catch
             {
-                UpdateMedic(medic);
+                return false;
+            }
+            
+        }
+
+        public static bool AddMedic(Medic medic)
+        {
+            try
+            {
+                if (!(medic.Id <= GetCurrentMedicIndex() - 1))
+                {
+                    _db.Medics.Add(medic);
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    UpdateMedic(medic);
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 
-        public static void AddDiagnostico(Diagnostico diagnostico)
+        public static bool AddDiagnostico(Diagnostico diagnostico)
         {
-            _db.Diagnosticos.Add(diagnostico);
-            _db.SaveChanges();
+            try
+            {
+                _db.Diagnosticos.Add(diagnostico);
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         #endregion
@@ -234,12 +283,6 @@ namespace StareMedic.Models
 
         #endregion
 
-        //solvers
-        public static Patient PatientIdSolver//this is for the interaction btween pickpatientview and registerCC, for it to pick and  show thepatient
-        {
-            get { return _tmpPatient; }
-            set { _tmpPatient = value; }
-        }
 
         #region UpdateRows
 
