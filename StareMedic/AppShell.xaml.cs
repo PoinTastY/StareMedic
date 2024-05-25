@@ -63,7 +63,7 @@ public partial class AppShell : Shell
     }
 
 
-    /*private async void BtnRooms_Clicked(object sender, EventArgs e)
+    private async void BtnRooms_Clicked(object sender, EventArgs e)
     {
         if (!await semaforo.WaitAsync(0))
             return;
