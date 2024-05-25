@@ -122,7 +122,7 @@
                     WidthRequest="200"
                     BackgroundColor="{StaticResource Alter1}"
                     Clicked="BtnPickPatient_Clicked"
-                    TextColor="{StaticResource Principal}"
+                    TextColor="{StaticResource Black}"
                     Text="Seleccionar Paciente">
 
                     <VisualStateManager.VisualStateGroups>
@@ -149,7 +149,7 @@
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"                       
                     BackgroundColor="{StaticResource Alter1}"
-                    TextColor="{StaticResource Principal}"
+                    TextColor="{StaticResource Black}"
                     Clicked="BtnAddPatient_Clicked"
                     Text="+"
                     FontSize="Medium">
@@ -483,7 +483,7 @@
                                 x:Name="Addcc"
                                 Clicked="BtnGuardar_Clicked">
                                 <MenuFlyoutItem.KeyboardAccelerators>
-                                    <KeyboardAccelerator Key="Enter" Modifiers="None"/>
+                                    <KeyboardAccelerator Key="S" Modifiers="Ctrl"/>
                                 </MenuFlyoutItem.KeyboardAccelerators>
                             </MenuFlyoutItem>
                         </MenuFlyout>

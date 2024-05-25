@@ -195,7 +195,7 @@
                             x:Name="Addmedic"
                             Clicked="BtnGuardar_Clicked">
                             <MenuFlyoutItem.KeyboardAccelerators>
-                                <KeyboardAccelerator Key="Enter" Modifiers="None"/>
+                                <KeyboardAccelerator Key="S" Modifiers="Ctrl"/>
                             </MenuFlyoutItem.KeyboardAccelerators>
                         </MenuFlyoutItem>
                     </MenuFlyout>
