@@ -1,4 +1,4 @@
-﻿
+﻿ 
 using CommunityToolkit.Maui.Views;
 using StareMedic.Views;
 using StareMedic.Views.Viewers;
@@ -93,7 +93,7 @@ public partial class AppShell : Shell
             semaforo.Release(); // Asegurarse de liberar el semáforo
         }
 
-    }
+    } */
 
     private async void BtnRegCasoCli_Clicked(object sender, EventArgs e)
     {

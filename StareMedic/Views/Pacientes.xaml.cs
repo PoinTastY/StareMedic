@@ -19,9 +19,16 @@ public partial class Pacientes : ContentPage
 
     }
 
+    [Obsolete]
     protected override void OnAppearing()
     {
         base.OnAppearing();
+
+        Device.BeginInvokeOnMainThread(() =>
+        {
+            SearchBarPatients.Focus();
+        });
+
         patients.Clear();
 
         foreach (Patient patient in MainRepo.GetPatients(50, listpage))
@@ -39,12 +46,14 @@ public partial class Pacientes : ContentPage
         //try
         //{
 
-            
+
         //}
         //finally
         //{
         //    popup.Close();
         //}
+
+        
     }
 
     private async void BtnCancel_Clicked(object sender, EventArgs e)

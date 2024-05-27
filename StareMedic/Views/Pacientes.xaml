@@ -176,10 +176,11 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <SearchBar x:Name="SearchBarPatients"
+            <SearchBar 
+                x:Name="SearchBarPatients"                      
                         VerticalOptions="Start"
                         Placeholder="Buscar Paciente"
-                        FontFamily="HelveticaNeue"
+                        FontFamily="HelveticaNeue"    
                         Background="{StaticResource Alter1}"
                         CancelButtonColor="{StaticResource Alter2}"
                         SearchButtonPressed="SearchBarPatients_SearchButtonPressed"
@@ -282,7 +283,7 @@
                                     x:Name="Addpatient"
                                     Clicked="BtnAddPatient_Clicked">
                                 <MenuFlyoutItem.KeyboardAccelerators>
-                                    <KeyboardAccelerator Key="Enter" Modifiers="None"/>
+                                    <KeyboardAccelerator Key="N" Modifiers="Ctrl"/>
                                 </MenuFlyoutItem.KeyboardAccelerators>
                             </MenuFlyoutItem>
                         </MenuFlyout>
