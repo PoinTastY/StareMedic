@@ -143,19 +143,23 @@ public partial class RegisterClinicalCase : ContentPage
                         //push to SDK
                         try
                         {
-                            double x = 0;
-                            x = request.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
+                            bool send = await DisplayAlert("Enviar Remision?", "Deseas enviar la admision a una Remision de Contpaqi?", "No", "Si");
+                            if (!send)
+                            {
+                                double x = 0;
+                                x = request.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
 
-                            if (x > 0)
-                            {
-                                await DisplayAlert("Exito!", $"Se ha generado la remision de la admision\nFolio: {x}", "Ok");
-                                caso.FolioSDK = x;
+                                if (x > 0)
+                                {
+                                    await DisplayAlert("Exito!", $"Se ha generado la remision de la admision\nFolio: {x}", "Ok");
+                                    caso.FolioSDK = x;
+                                }
+                                else
+                                {
+                                    await DisplayAlert("Error", $"No se ha generado la remision en Contpaqi, intenta mas tarde\nRespuesta del servidor: {x}", "OK");
+                                }
                             }
-                            else
-                            {
-                                await DisplayAlert("Error", $"No se ha generado la remision en Contpaqi, intenta mas tarde\nRespuesta del servidor: {x}", "OK");
-                            }
-                        }
+                        }   
                         catch (Exception ex)
                         {
                             await DisplayAlert("Error SDK", $"Hubo un problema generando el documento en Contpaqi: {ex}", "Enterado");

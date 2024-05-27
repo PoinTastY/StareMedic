@@ -379,26 +379,30 @@ public partial class ViewClinicalCase : ContentPage
             Request req = new(1);
             try
             {
-                double x = req.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
-                if (x > 0)
+                var confirm = await DisplayAlert("Confirmacion", "Quieres enviar la remision a Contpaqi?\nRecuerda validar todos los datos", "No", "Si");
+                if (!confirm)
                 {
-                    await DisplayAlert("Exito!", $"Se ha generado la remision de la admision\nFolio: {x}", "Ok");
-                    caso.FolioSDK = x;
-                    LblFolioSDK.Text = $"Folio Contpaqi: {caso.FolioSDK}";
-                    LblFolioSDK.TextColor = Color.FromRgb(0, 161, 53);
-                    BtnSendSDK.IsEnabled = false;
-                    BtnSendSDK.IsVisible = false;
+                    double x = req.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
+                    if (x > 0)
+                    {
+                        await DisplayAlert("Exito!", $"Se ha generado la remision de la admision\nFolio: {x}", "Ok");
+                        caso.FolioSDK = x;
+                        LblFolioSDK.Text = $"Folio Contpaqi: {caso.FolioSDK}";
+                        LblFolioSDK.TextColor = Color.FromRgb(0, 161, 53);
+                        BtnSendSDK.IsEnabled = false;
+                        BtnSendSDK.IsVisible = false;
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", $"No se ha generado la remision en Contpaqi, intenta mas tarde\nRespuesta del servidor: {x}", "OK");
+                        caso.FolioSDK = x;
+                    }
+                    MainRepo.UpdateClinicalCase(caso);
                 }
-                else
-                {
-                    await DisplayAlert("Error", $"No se ha generado la remision en Contpaqi, intenta mas tarde\nRespuesta del servidor: {x}", "OK");
-                    caso.FolioSDK = x;
-                }
-                MainRepo.UpdateClinicalCase(caso);
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error SDK", $"Hubo un problema generando el documento en Contpaqi: {ex}", "Enterado");
+                await DisplayAlert("Error SDK", $"Hubo un problema generando el documento en Contpaqi\nContacta al administrador para verificar el servicio del SDK en el servidor", "Enterado");
             }
         }
         finally
