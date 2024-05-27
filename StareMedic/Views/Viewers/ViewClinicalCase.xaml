@@ -142,6 +142,7 @@
                             HorizontalOptions="CenterAndExpand"
                             VerticalOptions="CenterAndExpand"
                             FontFamily="HelveticaNeue"
+                            Style="{StaticResource entryPicker}"
                             BackgroundColor="{StaticResource Alter1}"                 
                             WidthRequest="400"
                             IsEnabled="False">
@@ -156,6 +157,7 @@
                     <Picker x:Name="PickRoom"
                             HorizontalOptions="Center"
                             FontFamily="HelveticaNeue"
+                            Style="{StaticResource entryPicker}"
                             VerticalOptions="Center"
                             BackgroundColor="{StaticResource Alter1}"
                             WidthRequest="400"
@@ -180,7 +182,9 @@
                     <DatePicker x:Name="DateIngreso"
                                 FontFamily="HelveticaNeue"
                                 VerticalOptions="Center"
+                                Style="{StaticResource datePicker}"
                                 BackgroundColor="{StaticResource Alter1}"
+                                TextColor="{StaticResource Black}"
                                 WidthRequest="250"
                                 IsEnabled="False"/>
 
@@ -207,6 +211,7 @@
                             Grid.Column="1"                          
                             VerticalOptions="Center"
                             x:Name="RadioMedico"
+                            Style="{StaticResource RadioButton}"
                             FontFamily="HelveticaNeue"
                             BackgroundColor="{StaticResource Alter1}"
                             CornerRadius="20"
@@ -221,6 +226,7 @@
                             HorizontalOptions="Start"
                             x:Name="RadioQuirurgico"
                             FontFamily="HelveticaNeue"
+                            Style="{StaticResource RadioButton}"
                             BackgroundColor="{StaticResource Alter1}"
                             CornerRadius="20"
                             FontSize="Medium"
@@ -233,6 +239,7 @@
                             Grid.Column="3"
                             HorizontalOptions="Start"
                             x:Name="RadioObstetrico"
+                            Style="{StaticResource RadioButton}"
                             FontFamily="HelveticaNeue"
                             FontSize="Medium"
                             BackgroundColor="{StaticResource Alter1}"
@@ -280,9 +287,7 @@
                     ColumnDefinitions="*"
                     Padding="20">
 
-
-                    
-
+                   
                     <Grid
                         Grid.Row="1"
                         ColumnSpacing="40"
@@ -316,6 +321,19 @@
                                     </VisualStateGroup>
                                 </VisualStateGroupList>
                             </VisualStateManager.VisualStateGroups>
+
+                            <FlyoutBase.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem 
+                                            Text="Back"
+                                            x:Name="Back"
+                                            Clicked="BtnCancel2_Clicked">
+                                        <MenuFlyoutItem.KeyboardAccelerators>
+                                            <KeyboardAccelerator Key="Escape" Modifiers="None"/>
+                                        </MenuFlyoutItem.KeyboardAccelerators>
+                                    </MenuFlyoutItem>
+                                </MenuFlyout>
+                            </FlyoutBase.ContextFlyout>
                         </Button>
 
                         <Button Text="Generar hoja de admision"

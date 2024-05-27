@@ -38,6 +38,11 @@
                     <Trigger TargetType="Entry" Property="IsFocused" Value="False">
                         <Setter Property="BackgroundColor" Value="#C3ACD0" />
                     </Trigger>
+
+                    <DataTrigger TargetType="Entry" Binding="{Binding IsEnabled, Source={RelativeSource Self}}" Value="False">
+                        <Setter Property="TextColor" Value="#000" />
+                        
+                    </DataTrigger>
                 </Style.Triggers>
             </Style>
 
@@ -51,6 +56,11 @@
                     <Trigger TargetType="Editor" Property="IsFocused" Value="False">
                         <Setter Property="BackgroundColor" Value="#C3ACD0" />
                     </Trigger>
+
+                    <DataTrigger TargetType="Editor" Binding="{Binding IsEnabled, Source={RelativeSource Self}}" Value="False">
+                        <Setter Property="TextColor" Value="#000" />
+                    </DataTrigger>
+                    
                 </Style.Triggers>
             </Style>
             
@@ -73,7 +83,64 @@
                     <Trigger TargetType="Entry" Property="IsFocused" Value="False">
                         <Setter Property="BackgroundColor" Value="#C3ACD0" />
                     </Trigger>
+
+                    <DataTrigger TargetType="Entry" Binding="{Binding IsEnabled, Source={RelativeSource Self}}" Value="False">
+                        <Setter Property="TextColor" Value="#000" />
+                    </DataTrigger>
+                    
                 </Style.Triggers>
+            </Style>
+
+            <Style x:Key="entryPicker" TargetType="Picker">
+                
+                <Style.Triggers>
+                    <Trigger TargetType="Picker" Property="IsFocused" Value="True">
+                        <Setter Property="BackgroundColor" Value="#7743DB" />
+                    </Trigger>
+                    <Trigger TargetType="Picker" Property="IsFocused" Value="False">
+                        <Setter Property="BackgroundColor" Value="#C3ACD0" />
+                    </Trigger>
+
+                    <DataTrigger TargetType="Picker" Binding="{Binding IsEnabled, Source={RelativeSource Self}}" Value="False">
+                        <Setter Property="TextColor" Value="#000" />
+                    </DataTrigger>
+
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="datePicker" TargetType="DatePicker">
+                <Style.Triggers>
+                    <Trigger TargetType="DatePicker" Property="IsFocused" Value="True">
+                        <Setter Property="BackgroundColor" Value="#7743DB" />
+                    </Trigger>
+                    <Trigger TargetType="DatePicker" Property="IsFocused" Value="False">
+                        <Setter Property="BackgroundColor" Value="#C3ACD0" />
+                    </Trigger>
+
+                    <DataTrigger TargetType="DatePicker" Binding="{Binding IsEnabled, Source={RelativeSource Self}}" Value="False">
+                        <Setter Property="TextColor" Value="#000" />
+                    </DataTrigger>
+
+                </Style.Triggers>
+
+            </Style>
+
+            <Style x:Key="RadioButton" TargetType="RadioButton">
+                
+                <Style.Triggers>
+                    <Trigger TargetType="RadioButton" Property="IsFocused" Value="True">
+                        <Setter Property="BackgroundColor" Value="#7743DB" />
+                    </Trigger>
+                    <Trigger TargetType="RadioButton" Property="IsFocused" Value="False">
+                        <Setter Property="BackgroundColor" Value="#C3ACD0" />
+                    </Trigger>
+
+                    <DataTrigger TargetType="RadioButton" Binding="{Binding IsEnabled, Source={RelativeSource Self}}" Value="False">
+                        <Setter Property="TextColor" Value="#000" />
+                    </DataTrigger>
+
+                </Style.Triggers>
+                
             </Style>
 
             <Style x:Key="labelEntry" TargetType="Label">
@@ -100,6 +167,11 @@
                     <Trigger TargetType="Entry" Property="IsFocused" Value="False">
                         <Setter Property="BackgroundColor" Value="#C3ACD0" />
                     </Trigger>
+
+                    <DataTrigger TargetType="Entry" Binding="{Binding IsEnabled, Source={RelativeSource Self}}" Value="False">
+                        <Setter Property="TextColor" Value="#000" />
+                    </DataTrigger>
+                    
                 </Style.Triggers>
   
             </Style>
@@ -112,6 +184,8 @@
                 <Setter Property="BackgroundColor" Value="#6f6f6f"/>
                 <Setter Property="FontSize" Value="Title"/>
                 <Setter Property="TextColor" Value="White"/>
+                
+                
             </Style>
 
             <Style x:Key="RoundedBorderStyle" TargetType="Border">
