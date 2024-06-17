@@ -14,7 +14,10 @@ public partial class App : Application
 public App()
 	{
 		InitializeComponent();
+        
+        Application.Current.UserAppTheme = AppTheme.Dark;
 
+       
         //fullscreen
         Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) =>
         {
