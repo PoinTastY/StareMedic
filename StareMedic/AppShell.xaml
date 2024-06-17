@@ -4,11 +4,15 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:StareMedic"
+    Shell.TabBarBackgroundColor="#F7EFE5"
+    Shell.TabBarForegroundColor="#F7EFE5"
+    Shell.BackgroundColor="#7743DB"
     Shell.FlyoutBehavior="Flyout">
 
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsEnabled="False" IsVisible="False" />
     </Shell.BackButtonBehavior>
+    
 
 
     <Shell.Resources>
