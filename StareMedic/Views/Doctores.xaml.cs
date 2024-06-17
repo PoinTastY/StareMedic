@@ -59,7 +59,8 @@ public partial class Doctores : ContentPage
             this.ShowPopup(popup);
             try
             {
-                await Navigation.PushAsync(new MedicControll((Medic)listMedics.SelectedItem));
+                Medic medic = new((Medic)listMedics.SelectedItem);
+                await Navigation.PushAsync(new MedicControll(medic));
             }
             finally { popup.Close(); }
         }

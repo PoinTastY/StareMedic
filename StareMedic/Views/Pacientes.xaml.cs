@@ -83,7 +83,8 @@ public partial class Pacientes : ContentPage
             this.ShowPopup(popup);
             try
             {
-                await Navigation.PushAsync(new PatientControll((Patient)listPatients.SelectedItem));
+                Patient patient = new ((Patient)listPatients.SelectedItem);
+                await Navigation.PushAsync(new PatientControll(patient));
             }
             finally
             {

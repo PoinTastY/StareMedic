@@ -8,12 +8,18 @@
 
         private string _phone;//contmplate various phone numbers
 
-        //private string _email;//not forced rn
-
 
         public Medic(int id)
         {
             _id = id;
+        }
+
+        public Medic(Medic original)
+        {
+
+           _id = original._id;
+            _name = original._name;
+            _phone = original._phone;
         }
 
         //default builder, dont use or move, if u need new builder, do another one
