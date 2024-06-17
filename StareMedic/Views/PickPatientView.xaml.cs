@@ -1,11 +1,8 @@
 using CommunityToolkit.Maui.Views;
-using Microsoft.Maui.Graphics.Text;
-using Microsoft.UI.Xaml.Media.Animation;
 using StareMedic.Models;
 using StareMedic.Models.Entities;
 using StareMedic.Views.Viewers;
 using System.Collections.ObjectModel;
-using Windows.Devices.Display.Core;
 
 namespace StareMedic.Views;
 
@@ -35,20 +32,9 @@ public partial class PickPatientView : ContentPage
         {
             BtnNextListPage.IsEnabled = false;
         }
-        //implement sort later
+
         BtnConfirmar.IsEnabled = false;
         ListViewPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
-
-        //var popup = new SpinnerPopup(); // this crashes lul, check logic
-        //this.ShowPopup(popup);
-        //try
-        //{
-            
-        //}
-        //finally
-        //{
-        //    popup.Close();
-        //}
 	}
 
     private async void BtnConfirmar_Clicked(object sender, EventArgs e)
@@ -116,7 +102,7 @@ public partial class PickPatientView : ContentPage
             var selectedPatient = (Patient)e.SelectedItem;
             SelectedPatientLabel.Text = selectedPatient.Nombre;         
             BtnConfirmar.IsEnabled = true;
-            BtnConfirmar.TextColor = Color.FromHex("#FFFBF5");
+            BtnConfirmar.TextColor = Color.FromHex("#FFFBF5");  
             BtnConfirmar.BackgroundColor = Color.FromHex("#7743DB");
         }
     }
@@ -172,6 +158,10 @@ public partial class PickPatientView : ContentPage
         }
         finally
         {
+            if (listpage == 1)
+                BtnPrevListPage.IsEnabled = false;
+            else
+                BtnPrevListPage.IsEnabled = true;
             popup.Close();
         }
         
@@ -203,6 +193,10 @@ public partial class PickPatientView : ContentPage
         }
         finally
         {
+            if (patients.Count < 50)
+                BtnNextListPage.IsEnabled = false;
+            else
+                BtnNextListPage.IsEnabled = true;
             popup.Close();
         }
     }

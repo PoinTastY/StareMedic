@@ -22,6 +22,7 @@ public partial class SearchCC : ContentPage
     {
         base.OnAppearing();
         casos.Clear();
+        listpage = 1;
         var listCasos = MainRepo.GetCasos(50, listpage);//maybe get a temporal list to optimize this
         foreach (CasoClinico caso in listCasos)
         {
@@ -34,6 +35,8 @@ public partial class SearchCC : ContentPage
         
         if (casos.Count < 50)
             BtnNextListPage.IsEnabled = false;
+        else
+            BtnNextListPage.IsEnabled = true;
     }
 
 
@@ -41,8 +44,6 @@ public partial class SearchCC : ContentPage
     {
         if (ListViewCC.SelectedItem != null)
         {
-            //It will send to de detailed patient view, or the edit pg, rn is edit?
-            //Shell.Current.GoToAsync($"{nameof(ViewClinicalCase)}?Id={((CasoClinico)ListViewCC.SelectedItem).Id}");
             var popup = new SpinnerPopup();
             this.ShowPopup(popup);
             try
@@ -218,6 +219,10 @@ public partial class SearchCC : ContentPage
         }
         finally
         {
+            if (listpage == 1)
+                BtnPrevListPage.IsEnabled = false;
+            else
+                BtnPrevListPage.IsEnabled = true;
             popup.Close();
         }
     }
@@ -255,6 +260,10 @@ public partial class SearchCC : ContentPage
         }
         finally
         {
+            if(casos.Count < 50)
+                BtnNextListPage.IsEnabled = false;
+            else
+                BtnNextListPage.IsEnabled = true;
             popup.Close();
         }
     }

@@ -6,7 +6,6 @@ namespace StareMedic;
 
 public partial class MainPage : ContentPage
 {
-    private bool navegando = false;
     private SemaphoreSlim semaforo = new(1, 1);
 
     public MainPage()
