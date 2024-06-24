@@ -61,6 +61,10 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\logo_hospital.png" />
+	</ItemGroup>
+
 	<!--<ItemGroup>
 	  <MauiImage Remove="Resources\Images\logo_hospital.png" />
 	</ItemGroup>-->
@@ -68,13 +72,9 @@
 	<ItemGroup>
 	  <None Remove="Resources\AppIcon\starepng.png" />
 	  <None Remove="Resources\Images\hosplogo.jpg" />
+	  <None Remove="Resources\Images\logo.png" />
+	  <None Remove="Resources\Images\logo_hospital.png" />
 	  <None Remove="Resources\Splash\starepng.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Include="Resources\Images\logo_hospital.png">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -89,6 +89,12 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Resources\Images\logo_hospital.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
