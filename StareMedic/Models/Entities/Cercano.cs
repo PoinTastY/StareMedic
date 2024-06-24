@@ -23,6 +23,18 @@
             _relation = "";
 
         }
+
+        public Cercano(Cercano original)
+        {
+            _id = original._id;
+            _name = original._name;
+            _phone = original._phone;
+            _address = original._address;
+            _city = original._city;
+            _state = original._state;
+            _relation = original._relation;
+        }
+
         public Cercano() 
         {
             _id = null;

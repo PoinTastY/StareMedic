@@ -40,6 +40,23 @@
             _telefono = "";
         }
 
+        public Patient(Patient original)
+        {
+            _id = original._id;
+            _name = original._name;
+            _domicilio = original._domicilio;
+            _ciudad = original._ciudad;
+            _estado = original._estado;
+            _nacionalidad = original._nacionalidad;
+            _estadoCivil = original._estadoCivil;
+            _sexo = original._sexo;
+            _edad = original._edad;
+            _telefono = original._telefono;
+            _registered = original._registered;
+            _idCercano = original._idCercano;
+            _idFiador = original._idFiador;
+        }
+
         public Patient()
         {
         }

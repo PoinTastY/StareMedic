@@ -39,10 +39,10 @@
                         <Setter Property="BackgroundColor" Value="#C3ACD0" />
                     </Trigger>
 
-                    <DataTrigger TargetType="Entry" Binding="{Binding IsEnabled, Source={RelativeSource Self}}" Value="False">
+                    <Trigger TargetType="Entry" Property="IsEnabled" Value="False">
                         <Setter Property="TextColor" Value="#000" />
                         
-                    </DataTrigger>
+                    </Trigger>
                 </Style.Triggers>
             </Style>
 

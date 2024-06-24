@@ -13,22 +13,23 @@ namespace StareMedic.Models
         //getters
         public static List<Patient> GetPatients(int cantidadElementos, int paginaActual) 
         {
-            return _db.Patients.OrderBy(p => p.Nombre).Skip((paginaActual - 1) * cantidadElementos).Take(cantidadElementos).ToList(); 
-        }//the framework sents an order by clause to the db, so eficiency is not impacted
-        //public static List<Fiador> GetFiadores() => _db.Fiadores.ToList();//igual, 2 formas de declararse xd // not used
-        //public static List<Cercano> GetCercanos() { return _db.Cercanos.ToList(); } not used 4 now
+            return _db.Patients
+                .OrderBy(p => p.Nombre)
+                .Skip((paginaActual - 1) * cantidadElementos)
+                .Take(cantidadElementos)
+                .ToList(); 
+        }//the framework sents an order by clause to the db, so eficiency is not that impacted
         public static List<Rooms> GetRooms() 
         {
-            //return _db.Rooms.Skip((paginaActual - 1) * cantidadElementos).Take(cantidadElementos).ToList(); not 4 now
             return _db.Rooms.ToList();
         }
         public static List<CasoClinico> GetCasos(int cantidadElementos, int paginaActual)
         {
             return _db.CasoClinicos
-              .OrderByDescending(c => c.IdDB)  // Ordenar por el campo deseado en orden descendente
-              .Skip((paginaActual - 1) * cantidadElementos)
-              .Take(cantidadElementos)
-              .ToList(); ;
+                .OrderByDescending(c => c.IdDB)  // Ordenar por el campo deseado en orden descendente
+                .Skip((paginaActual - 1) * cantidadElementos)
+                .Take(cantidadElementos)
+                .ToList();
         }
         public static List<Medic> GetMedics()
         {
@@ -38,9 +39,12 @@ namespace StareMedic.Models
 
         public static List<Medic> GetMedicsLight(int paginaActual, int cantidadElementos)
         {
-            return _db.Medics.OrderBy(m => m.Nombre).Skip((paginaActual - 1) * cantidadElementos).Take(cantidadElementos).ToList();
+            return _db.Medics
+                .OrderBy(m => m.Nombre)
+                .Skip((paginaActual - 1) * cantidadElementos)
+                .Take(cantidadElementos)
+                .ToList();
         }
-        //public static List<Diagnostico> GetDiagnosticos() => _db.Diagnosticos.ToList(); no needed
 
         #endregion
 

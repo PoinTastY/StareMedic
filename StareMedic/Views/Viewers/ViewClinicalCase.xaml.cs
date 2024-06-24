@@ -400,7 +400,7 @@ public partial class ViewClinicalCase : ContentPage
                     MainRepo.UpdateClinicalCase(caso);
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 await DisplayAlert("Error SDK", $"Hubo un problema generando el documento en Contpaqi\nContacta al administrador para verificar el servicio del SDK en el servidor", "Enterado");
             }
