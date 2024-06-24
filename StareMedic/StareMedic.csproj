@@ -92,9 +92,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Resource Include="Resources\Images\logo_hospital.png">
+	  <Content Include="Resources\Images\logo_hospital.png">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Resource>
+	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
