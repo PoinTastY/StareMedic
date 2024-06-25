@@ -152,7 +152,9 @@
         public static implicit operator bool(Patient patient)
         {
             if(!string.IsNullOrEmpty(patient._name) &&
-                !string.IsNullOrEmpty(patient._domicilio))
+                !string.IsNullOrEmpty(patient._domicilio) &&
+                patient._sexo != 'N' &&
+                !string.IsNullOrEmpty(patient._edad))
             {
                 return true;
             }
