@@ -6,7 +6,13 @@
 
         private string _name;
 
-        private string _phone;//contmplate various phone numbers
+        private string _phone;
+
+        private string _domicilio;
+
+        private string _ciudad;
+
+        private string _estado;
 
 
         public Medic(int id)
@@ -20,6 +26,9 @@
            _id = original._id;
             _name = original._name;
             _phone = original._phone;
+            _domicilio = original._domicilio;
+            _ciudad = original._ciudad;
+            _estado = original._estado;
         }
 
         //default builder, dont use or move, if u need new builder, do another one
@@ -45,15 +54,35 @@
             set => _phone = value;
         }
 
-        //public string Correo
-        //{
-        //    get => _email;
-        //    set => _email = value;
-        //}
+        public string Domicilio
+        {
+            get => _domicilio;
+            set => _domicilio = value;
+        }
 
-        
+        public string Ciudad
+        {
+            get => _ciudad;
+            set => _ciudad = value;
+        }
 
+        public string Estado
+        {
+            get => _estado;
+            set => _estado = value;
+        }
 
-
+        public static implicit operator bool(Medic medic)
+        {
+            if (!string.IsNullOrEmpty(medic._name) &&
+                !string.IsNullOrEmpty(medic._phone) &&
+               !string.IsNullOrEmpty(medic._domicilio) &&
+               !string.IsNullOrEmpty(medic._ciudad) &&
+               !string.IsNullOrEmpty(medic._estado))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
