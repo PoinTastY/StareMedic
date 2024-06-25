@@ -145,4 +145,94 @@
 	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(RuntimeIdentifierOverride)' != ''">
 		<RuntimeIdentifier>$(RuntimeIdentifierOverride)</RuntimeIdentifier>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="C:\Users\kbece\.nuget\packages\microsoft.windowsappsdk\1.5.240311000\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+	</ItemGroup>
 </Project>

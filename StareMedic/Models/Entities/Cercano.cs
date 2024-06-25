@@ -92,12 +92,8 @@
         public static implicit operator bool(Cercano cercano)
         {
             if(!string.IsNullOrEmpty(cercano._name) &&
-               !string.IsNullOrEmpty(cercano._phone) &&
                !string.IsNullOrEmpty(cercano._address) &&
-               !string.IsNullOrEmpty(cercano._city) &&
-               !string.IsNullOrEmpty(cercano._state) &&
                !string.IsNullOrEmpty(cercano._relation) &&
-               cercano._phone.Length == 10 &&
                cercano._id != null)
                 
             {

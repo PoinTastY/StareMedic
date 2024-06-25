@@ -13,6 +13,7 @@
         private char _sexo;
         private string _edad;
         private string _telefono;
+        private string _curp;
 
         //controll info
         private DateTimeOffset _registered;
@@ -38,6 +39,7 @@
             _sexo = 'N';
             _edad = "";
             _telefono = "";
+            _curp = "";
         }
 
         public Patient(Patient original)
@@ -55,6 +57,7 @@
             _registered = original._registered;
             _idCercano = original._idCercano;
             _idFiador = original._idFiador;
+            _curp = original._curp;
         }
 
         public Patient()
@@ -122,6 +125,12 @@
             set => _telefono = value;
         }
 
+        public string Curp
+        {
+            get => _curp;
+            set => _curp = value;
+        }
+
         public DateTimeOffset Registered
         {
             get => _registered;
@@ -142,7 +151,12 @@
 
         public static implicit operator bool(Patient patient)
         {
-            return !string.IsNullOrEmpty(patient._name);
+            if(!string.IsNullOrEmpty(patient._name) &&
+                !string.IsNullOrEmpty(patient._domicilio))
+            {
+                return true;
+            }
+            return false;
         }
 
         public void Update(Patient patient)
@@ -160,7 +174,7 @@
             _registered = patient._registered;
             _idCercano = patient._idCercano;
             _idFiador = patient._idFiador;
-
+            _curp = patient._curp;
         }
 
         public string SubDomicilio()

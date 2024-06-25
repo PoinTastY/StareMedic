@@ -48,7 +48,7 @@ public partial class MedicControll : ContentPage
 
         await BtnGuardar.FadeTo(1, 300);
 
-        if (doctor.Nombre != null && doctor.Nombre != "")
+        if (doctor)
         {
             bool confirm = await DisplayAlert("Confirmar", $"Se registrara al Medico:\n{doctor.Nombre}", "Cancelar", "Confirmar");
             if (!confirm)
