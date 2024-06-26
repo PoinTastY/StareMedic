@@ -93,6 +93,11 @@ public partial class PatientControll : ContentPage
         paciente.Ciudad = entryCiudad.Text;
     }
 
+    private void EntryCurp_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        paciente.Curp = entryCurp.Text;
+    }
+
     //Cercano
     private void EntryNombreCercano_TextChanged(object sender, TextChangedEventArgs e)
     {
