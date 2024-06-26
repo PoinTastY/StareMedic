@@ -75,7 +75,7 @@ public partial class MedicControll : ContentPage
         }
         else
         {
-            await DisplayAlert("Error", "El nombre no puede estar vacio", "Ok");
+            await DisplayAlert("Error", $"Datos Faltantes: {ValidarFaltantes(doctor)}", "Ok");
         }
     }
 
@@ -152,5 +152,34 @@ public partial class MedicControll : ContentPage
         await BtnEdit.FadeTo(1, 300);
 
         EnableDisable(true);
+    }
+    private string ValidarFaltantes(Medic fallo)
+    {
+        string faltantes = "";
+
+        if (string.IsNullOrEmpty(fallo.Nombre))
+        {
+            faltantes += " Nombre ";
+        }
+        if (string.IsNullOrEmpty(fallo.Telefono))
+        {
+            faltantes += " Telefono ";
+        }
+        if (string.IsNullOrEmpty(fallo.Domicilio))
+        {
+            faltantes += " Domicilio ";
+        }
+
+        if (string.IsNullOrEmpty(fallo.Ciudad))
+        {
+            faltantes += " Ciudad ";
+        }
+
+        if (string.IsNullOrEmpty(fallo.Estado))
+        
+            faltantes += " Estado ";
+        
+        return faltantes;
+  
     }
 }
