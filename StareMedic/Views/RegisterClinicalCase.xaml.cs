@@ -251,4 +251,10 @@ public partial class RegisterClinicalCase : ContentPage
         if(RadioObstetrico.IsChecked)
             caso.TipoCaso = "Obstetrico";
     }
+
+    private void RadioPediatrico_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if (RadioPediatrico.IsChecked)
+            caso.TipoCaso = "Pediatrico";
+    }
 }
