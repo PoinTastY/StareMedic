@@ -96,7 +96,7 @@ public partial class PatientControll : ContentPage
     private void EntryCurp_TextChanged(object sender, TextChangedEventArgs e)
     {
         paciente.Curp = entryCurp.Text;
-    }
+    } 
 
     //Cercano
     private void EntryNombreCercano_TextChanged(object sender, TextChangedEventArgs e)
@@ -163,7 +163,7 @@ public partial class PatientControll : ContentPage
             bool confirmation = await DisplayAlert("Confirmar", $"Se registrara a:\n{paciente.Nombre}", "Cancelar", "Confirmar");
             if (!confirmation)//that is actually true lol
             {
-                //add 2 repo
+                //add 2 repo 
                 if (cercano)
                 {
 
@@ -323,5 +323,7 @@ public partial class PatientControll : ContentPage
         entryCiudadCercano.IsEnabled = x;
         entryEstadoCercano.IsEnabled = x;
         entryRelacionCercano.IsEnabled = x;
+        entryCurp.IsEnabled = x;
+        
     }
 }

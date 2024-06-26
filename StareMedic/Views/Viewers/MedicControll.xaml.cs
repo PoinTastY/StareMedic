@@ -54,7 +54,7 @@ public partial class MedicControll : ContentPage
     private void EntryEstado_TextChanged(object sender, TextChangedEventArgs e)
     {
         doctor.Estado = EntryEstado.Text;
-    }
+    } 
 
     private async void BtnGuardar_Clicked(object sender, EventArgs e)
     {
@@ -134,6 +134,9 @@ public partial class MedicControll : ContentPage
         BtnDelete.IsEnabled = !x;
         EntryName.IsEnabled = x;
         EntryTelefono.IsEnabled = x;
+        EntryDomicilio.IsEnabled = x;
+        EntryCiudad.IsEnabled = x;
+        EntryEstado.IsEnabled = x;
         BtnCancel.IsVisible = x;
         BtnCancel.IsEnabled = x;
         BtnCancel2.IsVisible = !x;
