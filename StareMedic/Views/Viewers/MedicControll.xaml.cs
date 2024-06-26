@@ -19,7 +19,6 @@ public partial class MedicControll : ContentPage
         {
             this.doctor = new(MainRepo.GetCurrentMedicIndex());
         }
-		
 	}
 
     private void EntryName_TextChanged(object sender, TextChangedEventArgs e)
@@ -40,6 +39,21 @@ public partial class MedicControll : ContentPage
         {
             doctor.Telefono = EntryTelefono.Text;
         }
+    }
+
+    private void EntryDomicilio_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        doctor.Domicilio = EntryDomicilio.Text;
+    }
+
+    private void EntryCiudad_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        doctor.Ciudad = EntryCiudad.Text;
+    }
+
+    private void EntryEstado_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        doctor.Estado = EntryEstado.Text;
     }
 
     private async void BtnGuardar_Clicked(object sender, EventArgs e)
