@@ -23,6 +23,18 @@
             _relation = "";
 
         }
+
+        public Cercano(Cercano original)
+        {
+            _id = original._id;
+            _name = original._name;
+            _phone = original._phone;
+            _address = original._address;
+            _city = original._city;
+            _state = original._state;
+            _relation = original._relation;
+        }
+
         public Cercano() 
         {
             _id = null;
@@ -80,12 +92,8 @@
         public static implicit operator bool(Cercano cercano)
         {
             if(!string.IsNullOrEmpty(cercano._name) &&
-               !string.IsNullOrEmpty(cercano._phone) &&
                !string.IsNullOrEmpty(cercano._address) &&
-               !string.IsNullOrEmpty(cercano._city) &&
-               !string.IsNullOrEmpty(cercano._state) &&
                !string.IsNullOrEmpty(cercano._relation) &&
-               cercano._phone.Length == 10 &&
                cercano._id != null)
                 
             {

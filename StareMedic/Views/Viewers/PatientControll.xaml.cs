@@ -5,9 +5,9 @@ namespace StareMedic.Views.Viewers;
 
 public partial class PatientControll : ContentPage
 {
-    Patient paciente;
-    Cercano cercano;
-    Fiador fiador;
+    private readonly Patient paciente;
+    private Cercano cercano;
+    private Fiador fiador;
 
     public PatientControll(Patient pacientEdit)
 	{
@@ -91,6 +91,11 @@ public partial class PatientControll : ContentPage
     private void EntryCiudad_TextChanged(object sender, TextChangedEventArgs e)
     {
         paciente.Ciudad = entryCiudad.Text;
+    }
+
+    private void EntryCurp_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        paciente.Curp = entryCurp.Text;
     }
 
     //Cercano
@@ -219,7 +224,7 @@ public partial class PatientControll : ContentPage
         //cercano
         if (paciente.IdCercano != null)
         {
-            cercano = MainRepo.GetCercanoById(paciente.IdCercano);
+            cercano = new (MainRepo.GetCercanoById(paciente.IdCercano));
             entryNombreCercano.Text = cercano.Nombre;
             entryTelefonoCercano.Text = cercano.Telefono;
             entryDomicilioCercano.Text = cercano.Direccion;

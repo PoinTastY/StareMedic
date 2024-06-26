@@ -19,7 +19,6 @@ public partial class MedicControll : ContentPage
         {
             this.doctor = new(MainRepo.GetCurrentMedicIndex());
         }
-		
 	}
 
     private void EntryName_TextChanged(object sender, TextChangedEventArgs e)
@@ -42,13 +41,28 @@ public partial class MedicControll : ContentPage
         }
     }
 
+    private void EntryDomicilio_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        doctor.Domicilio = EntryDomicilio.Text;
+    }
+
+    private void EntryCiudad_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        doctor.Ciudad = EntryCiudad.Text;
+    }
+
+    private void EntryEstado_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        doctor.Estado = EntryEstado.Text;
+    }
+
     private async void BtnGuardar_Clicked(object sender, EventArgs e)
     {
         BtnGuardar.Opacity = 0;
 
         await BtnGuardar.FadeTo(1, 300);
 
-        if (doctor.Nombre != null && doctor.Nombre != "")
+        if (doctor)
         {
             bool confirm = await DisplayAlert("Confirmar", $"Se registrara al Medico:\n{doctor.Nombre}", "Cancelar", "Confirmar");
             if (!confirm)

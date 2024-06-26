@@ -140,6 +140,10 @@ namespace StareMedic.Data
                 .Property(p => p.Nombre)
                 .HasColumnName("_name");
 
+            modelBuilder.Entity <Patient>()
+                .Property(p => p.Curp)
+                .HasColumnName("_curp");
+
             modelBuilder.Entity<Patient>()
                 .Property(p => p.Domicilio)
                 .HasColumnName("_domicilio");
@@ -281,6 +285,7 @@ namespace StareMedic.Data
             modelBuilder.Entity<Medic>()
                 .ToTable("medic")
                 .HasKey(d => d.Id);
+
             modelBuilder.Entity<Medic>()
                 .Property(d => d.Id)
                 .HasColumnName("_id");
@@ -292,6 +297,18 @@ namespace StareMedic.Data
             modelBuilder.Entity<Medic>()
                 .Property(d => d.Telefono)
                 .HasColumnName("_phone");
+
+            modelBuilder.Entity<Medic>()
+                .Property(p => p.Domicilio)
+                .HasColumnName("_domicilio");
+
+            modelBuilder.Entity<Medic>()
+                .Property(p => p.Ciudad)
+                .HasColumnName("_ciudad");
+
+            modelBuilder.Entity<Medic>()
+                .Property(p => p.Estado)
+                .HasColumnName("_estado");
 
             //room entity
             modelBuilder.Entity<Rooms>()

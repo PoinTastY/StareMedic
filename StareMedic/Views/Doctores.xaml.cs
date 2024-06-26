@@ -3,7 +3,6 @@ using StareMedic.Models.Entities;
 using StareMedic.Models;
 using StareMedic.Views.Viewers;
 using CommunityToolkit.Maui.Views;
-using Windows.UI.Input.Spatial;
 
 namespace StareMedic.Views;
 
@@ -30,22 +29,13 @@ public partial class Doctores : ContentPage
             medics.Add(medic);
         }
         listMedics.ItemsSource = medics.OrderBy(m => m.Id);
+        if (listpage == 1)
+            BtnPrevListPage.IsEnabled = false;
+
         if (medics.Count < 50)
-        {
             BtnNextListPage.IsEnabled = false;
-        }
-
-        //var popup = new SpinnerPopup();
-        //this.ShowPopup(popup);
-        //try
-        //{
-            
-
-        //}
-        //finally
-        //{
-        //    popup.Close();
-        //}
+        else
+            BtnNextListPage.IsEnabled = true;
     }
         
 
@@ -59,7 +49,8 @@ public partial class Doctores : ContentPage
             this.ShowPopup(popup);
             try
             {
-                await Navigation.PushAsync(new MedicControll((Medic)listMedics.SelectedItem));
+                Medic medic = new((Medic)listMedics.SelectedItem);
+                await Navigation.PushAsync(new MedicControll(medic));
             }
             finally { popup.Close(); }
         }
@@ -172,6 +163,10 @@ public partial class Doctores : ContentPage
         }
         finally
         {
+            if (listpage == 1)
+                BtnPrevListPage.IsEnabled = false;
+            else
+                BtnPrevListPage.IsEnabled = true;
             popup.Close();
         }
     }
@@ -200,6 +195,10 @@ public partial class Doctores : ContentPage
         }
         finally
         {
+            if (medics.Count < 50)
+                BtnNextListPage.IsEnabled = false;
+            else
+                BtnNextListPage.IsEnabled = true;
             popup.Close();
         }
     }

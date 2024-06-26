@@ -16,44 +16,27 @@ public partial class Pacientes : ContentPage
 		InitializeComponent();
         listpage = 1;
         BtnPrevListPage.IsEnabled = false;
-
     }
 
-    [Obsolete]
     protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        Device.BeginInvokeOnMainThread(() =>
-        {
-            SearchBarPatients.Focus();
-        });
-
         patients.Clear();
+        listpage = 1;
 
         foreach (Patient patient in MainRepo.GetPatients(50, listpage))
         {
             patients.Add(patient);
         }
         listPatients.ItemsSource = patients.OrderBy(p => p.Id);
+        if (listpage == 1)
+            BtnPrevListPage.IsEnabled = false;
+
         if (patients.Count < 50)
-        {
             BtnNextListPage.IsEnabled = false;
-        }
-
-        //var popup = new SpinnerPopup();
-        //this.ShowPopup(popup);
-        //try
-        //{
-
-
-        //}
-        //finally
-        //{
-        //    popup.Close();
-        //}
-
-        
+        else
+            BtnNextListPage.IsEnabled = true;
     }
 
     private async void BtnCancel_Clicked(object sender, EventArgs e)
@@ -83,7 +66,8 @@ public partial class Pacientes : ContentPage
             this.ShowPopup(popup);
             try
             {
-                await Navigation.PushAsync(new PatientControll((Patient)listPatients.SelectedItem));
+                Patient patient = new ((Patient)listPatients.SelectedItem);
+                await Navigation.PushAsync(new PatientControll(patient));
             }
             finally
             {
@@ -185,6 +169,10 @@ public partial class Pacientes : ContentPage
         }
         finally
         {
+            if (listpage == 1)
+                BtnPrevListPage.IsEnabled = false;
+            else
+                BtnPrevListPage.IsEnabled = true;
             popup.Close();
         }
     }
@@ -213,6 +201,10 @@ public partial class Pacientes : ContentPage
         }
         finally
         {
+            if (patients.Count < 50)
+                BtnNextListPage.IsEnabled = false;
+            else
+                BtnNextListPage.IsEnabled = true;
             popup.Close();
         }
     }
