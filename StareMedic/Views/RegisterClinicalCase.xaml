@@ -287,6 +287,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+           
             </Grid.ColumnDefinitions>
 
             <HorizontalStackLayout
@@ -309,6 +311,7 @@
                          FontFamily="HelveticaNeue"
                          TextColor="{StaticResource Black}"                        
                          x:Name="RadioMedico"
+                         Style="{StaticResource RadioButton}"
                          BackgroundColor="{StaticResource Alter1}"
                          CornerRadius="20"
                          Margin="40,0,40,0"
@@ -321,6 +324,7 @@
                          TextColor="{StaticResource Black}"
                          Value="Quirurgico"
                          Margin="40,0,40,0"         
+                         Style="{StaticResource RadioButton}"
                          BackgroundColor="{StaticResource Alter1}"
                          CornerRadius="20"
                          x:Name="RadioQuirurgico"
@@ -333,12 +337,28 @@
                          HorizontalOptions="CenterAndExpand"
                          TextColor="{StaticResource Black}"
                          FontSize="Medium"
+                         Style="{StaticResource RadioButton}"
                          BackgroundColor="{StaticResource Alter1}"
                          CornerRadius="20"
                          Margin="40,0,40,0"
                          Value="Obstetrico"
                          x:Name="RadioObstetrico"
                          CheckedChanged="RadioObstetrico_CheckedChanged"/>
+                    <RadioButton 
+                        Content="Pediatrico"
+                        Value="Pediatrico"
+                        Grid.Column="4"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        x:Name="RadioPediatrico"
+                        Style="{StaticResource RadioButton}"
+                        FontFamily="HelveticaNeue"
+                        FontSize="Medium"
+                        Margin="40,0,40,0"
+                        BackgroundColor="{StaticResource Alter1}"
+                        CornerRadius="20"
+                        TextColor="{StaticResource Black}"
+                        CheckedChanged="RadioPediatrico_CheckedChanged"/>
                 
             </HorizontalStackLayout>
          </Grid>

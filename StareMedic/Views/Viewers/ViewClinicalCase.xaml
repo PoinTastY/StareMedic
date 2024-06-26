@@ -192,7 +192,7 @@
 
                 <Grid
                     Grid.Row="4"
-                    ColumnDefinitions="Auto,Auto,Auto,*"     
+                    ColumnDefinitions="Auto,Auto,Auto,Auto,*"     
                     VerticalOptions="CenterAndExpand"
                     HorizontalOptions="FillAndExpand"               
                     ColumnSpacing="100"
@@ -242,6 +242,20 @@
                             Style="{StaticResource RadioButton}"
                             FontFamily="HelveticaNeue"
                             FontSize="Medium"
+                            BackgroundColor="{StaticResource Alter1}"
+                            CornerRadius="20"
+                            TextColor="{StaticResource Black}"
+                            IsEnabled="False"/>
+
+                    <RadioButton 
+                            Content="Pediatrico"
+                            Value="Pediatrico"
+                            Grid.Column="4"
+                            HorizontalOptions="Start"
+                            x:Name="RadioPediatrico"
+                            Style="{StaticResource RadioButton}"
+                            FontFamily="HelveticaNeue"
+                            FontSize="Medium"                          
                             BackgroundColor="{StaticResource Alter1}"
                             CornerRadius="20"
                             TextColor="{StaticResource Black}"

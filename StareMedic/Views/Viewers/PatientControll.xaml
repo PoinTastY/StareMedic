@@ -85,8 +85,8 @@
                     TextChanged="EntryTelefono_TextChanged"/>
 
                 <Grid 
-                    ColumnDefinitions="*,*,*,*,*,*"
-                    ColumnSpacing="20"
+                    ColumnDefinitions="*,*,*,*,*,*,*,*"
+                    ColumnSpacing="30"
                     HorizontalOptions="StartAndExpand">
 
                     <Label 
@@ -176,7 +176,7 @@
                         FontFamily="HelveticaNeue"
                         TextColor="{StaticResource Black}"/>
                     <Entry
-                        Placeholder="Edad:"
+                        Placeholder="Edad"
                         FontFamily="HelveticaNeue"
                         Grid.Column="5"
                         HeightRequest="25"
@@ -187,6 +187,28 @@
                         x:Name="EntryEdad"
                         TextChanged="EntryEdad_TextChanged">
                      </Entry>
+
+                    <Label
+                        Text="Curp:"
+                        Grid.Column="6"
+                        VerticalOptions="Center"
+                        FontFamily="HeleveticaNeue"
+                        TextColor="{StaticResource Black}"/>
+
+                    <Entry 
+                        Placeholder="Curp"
+                        Grid.Column="7"
+                        MaxLength="18"
+                        FontFamily="HelveticaNeue"
+                        HeightRequest="25"
+                        Style="{StaticResource Entrys}"
+                        TextColor="{StaticResource Principal}"
+                        BackgroundColor="{StaticResource Alter1}"
+                        MinimumWidthRequest="250"
+                        x:Name="entryCurp"
+                        TextChanged="EntryCurp_TextChanged">
+                    </Entry>
+
 
                 </Grid>
             </HorizontalStackLayout>
