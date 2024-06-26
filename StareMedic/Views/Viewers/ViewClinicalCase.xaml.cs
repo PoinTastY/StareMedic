@@ -69,6 +69,8 @@ public partial class ViewClinicalCase : ContentPage
             RadioObstetrico.IsChecked = true;
         if(caso.TipoCaso == "Quirurgico")
             RadioQuirurgico.IsChecked = true;
+        if (caso.TipoCaso == "Pediatrico")
+            RadioPediatrico.IsChecked = true;
 
 	}
 
@@ -365,6 +367,7 @@ public partial class ViewClinicalCase : ContentPage
         RadioMedico.IsEnabled = status;
         RadioQuirurgico.IsEnabled = status;
         RadioObstetrico.IsEnabled = status;
+        RadioPediatrico.IsEnabled = status;
     }
 
     private async void BtnSendSDK_Clicked(object sender, EventArgs e)
