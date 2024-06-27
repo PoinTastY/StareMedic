@@ -195,9 +195,9 @@ public partial class PatientControll : ContentPage
                 }
                 catch
                 {
-                    
+                    await DisplayAlert("Error", "Algo salio mal con el evento de seleccion.", "Volver");
+                    await Shell.Current.GoToAsync("..");
                 }
-                await Shell.Current.GoToAsync("..");
             }
         }
         else
@@ -218,6 +218,7 @@ public partial class PatientControll : ContentPage
         entryCiudad.Text = paciente.Ciudad;
         EntryEdad.Text = paciente.Edad;
         pickerEdoCivil.SelectedItem = paciente.EstadoCivil;
+        entryCurp.Text = paciente.Curp;
 
         if (paciente.Sexo == 'M')
         {

@@ -14,7 +14,7 @@ namespace StareMedic.Models.Documents
     {
         private readonly static string _path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Exported";
         private readonly static int line_length = 68;
-        public static string GenerateDocument(CasoClinico caso)
+        public static bool GenerateDocument(CasoClinico caso)
         {
             try
             {
@@ -62,11 +62,11 @@ namespace StareMedic.Models.Documents
                 canvas.Add(nacionalidad);
 
                 document.Close();
-                return "Exito";
+                return true;
             }
-            catch(Exception e)
+            catch
             {
-                return e.ToString();
+                return false;
             }
 
         }

@@ -4,6 +4,7 @@ using StareMedic.Models.Entities;
 using StareMedic.Views.Viewers;
 using CommunityToolkit.Maui.Views;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using StareMedic.Models.Documents;
 
 namespace StareMedic.Views;
 
@@ -56,7 +57,10 @@ public partial class RegisterClinicalCase : ContentPage
             BtnAddPatient.Opacity = 0;
             await BtnAddPatient.FadeTo(1, 200);
 
-            await Navigation.PushModalAsync(new PatientControll(null));
+            var addPatientView = new PatientControll(null);
+            addPatientView.PatientSelected += OnPatientSelected;
+
+            await Navigation.PushModalAsync(addPatientView);
         }
         finally
         {
@@ -140,19 +144,26 @@ public partial class RegisterClinicalCase : ContentPage
 
                     if (done)
                     {
-                        bool documento = false;
-                        documento = DoCreate.GenerateDocument(caso);
-
-                        if (documento)
+                        var choice = await DisplayAlert("Exito", "¿Desea exportar el caso a PDF?", "No", "Si");
+                        if (!choice)
                         {
-                            await DisplayAlert("Exito", $"Se ha guardado el caso con id: {caso.Id}", "Ok");
+                            var documento = GenerateAdmisionDoc.GenerateDocument(caso);
 
+                            if (documento)
+                            {
+                                await DisplayAlert("Exito", $"Se ha guardado el caso con id: {caso.Id}", "Ok");
+
+                            }
+                            else
+                            {
+                                await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
+                            }
+                            await Shell.Current.GoToAsync("..");
                         }
                         else
                         {
-                            await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
+                            await Shell.Current.GoToAsync("..");
                         }
-                        await Shell.Current.GoToAsync("..");
                     }
                     else
                         await DisplayAlert("Error :(", "Hubo un problema guardando el caso clinico en la base, intentalo mas tarde", "Ok");
