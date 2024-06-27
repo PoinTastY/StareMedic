@@ -13,6 +13,9 @@ public partial class MedicControll : ContentPage
             this.doctor = doctor;
             EntryName.Text = doctor.Nombre;
             EntryTelefono.Text = doctor.Telefono;
+            EntryDomicilio.Text = doctor.Domicilio;
+            EntryCiudad.Text = doctor.Ciudad;
+            EntryEstado.Text = doctor.Estado;
             EnableDisable(false);
         }
         else

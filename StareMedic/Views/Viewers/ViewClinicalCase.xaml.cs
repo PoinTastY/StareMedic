@@ -1,7 +1,9 @@
 using CommunityToolkit.Maui.Views;
 using StareMedic.Models;
+using StareMedic.Models.Documents;
 using StareMedic.Models.Entities;
 using StareMedic.Views.Viewers;
+using System.Reflection.Metadata;
 
 namespace StareMedic.Views;
 
@@ -318,14 +320,14 @@ public partial class ViewClinicalCase : ContentPage
             await BtnExportCase.FadeTo(1, 300);
             if (!Confirm)
             {
-                var documento = DoCreate.GenerateDocument(caso);
+                var documento = GenerateAdmisionDoc.GenerateDocument(caso);
                 if (documento)
                 {
                     await DisplayAlert("Confirmado", $"Se ha exportado el caso:\n{caso.Nombre}", "Ok");
                 }
                 else
                 {
-                    await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
+                    await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{documento}", "Ok");
                 }//TODO: EXCEPTION MANAGEMENT
             }
         }
