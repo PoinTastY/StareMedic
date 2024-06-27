@@ -23,43 +23,45 @@ namespace StareMedic.Models
 
 
             //this thing can be done later with an html or sometghing more simple lol
-            Document doc = new();
+            Document doc = new(PageSize.LETTER);
             try
             {
-                PdfWriter.GetInstance(doc, new FileStream(_path + $"\\Admision {CasoReferenciado.Id}.pdf", FileMode.Create));
+                PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(_path + $"\\Admision {CasoReferenciado.Id}.pdf", FileMode.Create));
                 doc.Open();
 
-                //header
-                Paragraph HojaAdmision = new(@"HOJA DE ADMISION
-", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12f));
-                HojaAdmision.Alignment = Element.ALIGN_CENTER;
-                doc.Add(HojaAdmision);
+                GenerarDataParaPlantilla(CasoReferenciado, patient, cercano, fiador, doc, writer);
 
-                //Hoja de admision
-                doc.Add(GenerateContentTable(CasoReferenciado, patient, cercano, fiador));
+//                //header
+//                Paragraph HojaAdmision = new(@"HOJA DE ADMISION
+//", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12f));
+//                HojaAdmision.Alignment = Element.ALIGN_CENTER;
+//                doc.Add(HojaAdmision);
 
-                //Diagnosis
-                doc.Add(Diagnosis(CasoReferenciado.IdDiagnostico));
+//                //Hoja de admision
+//                doc.Add(GenerateContentTable(CasoReferenciado, patient, cercano, fiador));
 
-                //logo and clausules
-                doc.Add(logoYtal(fiador.Nombre));
+//                //Diagnosis
+//                doc.Add(Diagnosis(CasoReferenciado.IdDiagnostico));
 
-                //clausulas
-                doc.Add(Clausule());
+//                //logo and clausules
+//                doc.Add(logoYtal(fiador.Nombre));
 
-                //signs
-                doc.Add(Sign());
+//                //clausulas
+//                doc.Add(Clausule());
 
-                //sumario clinico
-                doc.NewPage();
-                Paragraph SumarioClinico = new(@"HOJA DE SUMARIO CLINICO
-", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12f));
+//                //signs
+//                doc.Add(Sign());
 
-                SumarioClinico.Alignment = Element.ALIGN_CENTER;
-                doc.Add(SumarioClinico);
-                doc.Add(GenerateContentTable(CasoReferenciado, patient, cercano, fiador));
+//                //sumario clinico
+//                doc.NewPage();
+//                Paragraph SumarioClinico = new(@"HOJA DE SUMARIO CLINICO
+//", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12f));
 
-                doc.Add(SumarioTemplate(CasoReferenciado, MainRepo.GetMedicById(CasoReferenciado.IdDoctor)));
+//                SumarioClinico.Alignment = Element.ALIGN_CENTER;
+//                doc.Add(SumarioClinico);
+//                doc.Add(GenerateContentTable(CasoReferenciado, patient, cercano, fiador));
+
+//                doc.Add(SumarioTemplate(CasoReferenciado, MainRepo.GetMedicById(CasoReferenciado.IdDoctor)));
 
 
                 //close file
@@ -341,6 +343,25 @@ Completos:     ______________________                                 __________
                 Console.WriteLine($"Error al abrir el PDF: {ex.Message}");
             }
         }
+
+        private static void GenerarDataParaPlantilla(CasoClinico CasoReferenciado, Patient patient, Cercano cercano, Fiador fiador, Document doc, PdfWriter writer)
+        {
+            PdfContentByte ct = writer.DirectContent;
+
+            ct.BeginText();
+
+            BaseFont bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+
+            ct.SetFontAndSize(bf, 9);
+
+            ct.SetTextMatrix(110, 56);
+            ct.ShowText(MainRepo.GetRoomById(CasoReferenciado.IdHabitacion).Nombre);
+            ct.SetTextMatrix(227, 56);
+            //the current hour:
+            DateTime now = DateTime.Now;
+            ct.ShowText(now.ToString("t"));
+        }
+
     }
     
 }
