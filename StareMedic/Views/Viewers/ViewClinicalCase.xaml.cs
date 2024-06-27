@@ -1,5 +1,6 @@
 using CommunityToolkit.Maui.Views;
 using StareMedic.Models;
+using StareMedic.Models.Documents;
 using StareMedic.Models.Entities;
 using StareMedic.Views.Viewers;
 using System.Reflection.Metadata;

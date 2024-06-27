@@ -8,7 +8,7 @@ using StareMedic.Models.Entities;
 using System.Text;
 using Path = iText.Kernel.Geom.Path;
 
-namespace StareMedic.Models
+namespace StareMedic.Models.Documents
 {
     public static class GenerateAdmisionDoc
     {
@@ -67,7 +67,7 @@ namespace StareMedic.Models
             catch
             {
                 return false;
-            } 
+            }
 
         }
     }
