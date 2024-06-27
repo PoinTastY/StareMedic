@@ -4,6 +4,8 @@ using StareMedic.Models.Entities;
 using StareMedic.Views.Viewers;
 using CommunityToolkit.Maui.Views;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using StareMedic.Models.Documents;
+using Microsoft.UI.Xaml.Controls.Primitives;
 
 namespace StareMedic.Views;
 
@@ -56,7 +58,10 @@ public partial class RegisterClinicalCase : ContentPage
             BtnAddPatient.Opacity = 0;
             await BtnAddPatient.FadeTo(1, 200);
 
-            await Navigation.PushModalAsync(new PatientControll(null));
+            var addPatientView = new PatientControll(null);
+            addPatientView.PatientSelected += OnPatientSelected;
+
+            await Navigation.PushModalAsync(addPatientView);
         }
         finally
         {
@@ -140,45 +145,26 @@ public partial class RegisterClinicalCase : ContentPage
 
                     if (done)
                     {
-                        //push to SDK
-                        try
+                        var choice = await DisplayAlert("Exito", "¿Desea exportar el caso a PDF?", "No", "Si");
+                        if (!choice)
                         {
-                            bool send = await DisplayAlert("Enviar Remision?", "Deseas enviar la admision a una Remision de Contpaqi?", "No", "Si");
-                            if (!send)
+                            var documento = GenerateAdmisionDoc.GenerateDocument(caso);
+
+                            if (documento)
                             {
-                                double x = 0;
-                                x = request.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
+                                await DisplayAlert("Exito", $"Se ha guardado el caso con id: {caso.Id}", "Ok");
 
-                                if (x > 0)
-                                {
-                                    await DisplayAlert("Exito!", $"Se ha generado la remision de la admision\nFolio: {x}", "Ok");
-                                    caso.FolioSDK = x;
-                                }
-                                else
-                                {
-                                    await DisplayAlert("Error", $"No se ha generado la remision en Contpaqi, intenta mas tarde\nRespuesta del servidor: {x}", "OK");
-                                }
                             }
-                        }   
-                        catch (Exception ex)
-                        {
-                            await DisplayAlert("Error SDK", $"Hubo un problema generando el documento en Contpaqi: {ex}", "Enterado");
-                        }
-
-
-                        bool documento = false;
-                        documento = DoCreate.GenerateDocument(caso);
-
-                        if (documento)
-                        {
-                            await DisplayAlert("Exito", $"Se ha guardado el caso con id: {caso.Id}", "Ok");
-
+                            else
+                            {
+                                await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
+                            }
+                            await Shell.Current.GoToAsync("..");
                         }
                         else
                         {
-                            await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
+                            await Shell.Current.GoToAsync("..");
                         }
-                        await Shell.Current.GoToAsync("..");
                     }
                     else
                         await DisplayAlert("Error :(", "Hubo un problema guardando el caso clinico en la base, intentalo mas tarde", "Ok");
@@ -197,22 +183,22 @@ public partial class RegisterClinicalCase : ContentPage
 
     private async void BtnCancel_Clicked(object sender, EventArgs e)
     {
-        BtnCancel.Opacity = 0;
-        await BtnCancel.FadeTo(1, 200);
-
-        bool answer = await DisplayAlert("Cancelar", "¿Estas seguro de cancelar?", "No", "Si");
-        if (!answer)
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
         {
-            var popup = new SpinnerPopup();
-            this.ShowPopup(popup);
-            try
+            BtnCancel.Opacity = 0;
+            await BtnCancel.FadeTo(1, 200);
+
+            bool answer = await DisplayAlert("Cancelar", "¿Estas seguro de cancelar?", "No", "Si");
+            if (!answer)
             {
                 await Shell.Current.GoToAsync("..");
             }
-            finally
-            {
-                popup.Close();
-            }
+        }
+        finally
+        {
+            popup.Close();
         }
     }
     
