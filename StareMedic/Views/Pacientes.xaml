@@ -217,10 +217,11 @@
                     x:Name="btnCancel"
                     Clicked="BtnCancel_Clicked"
                     BackgroundColor="{StaticResource Alter2}"
-                    Text="Volver"                                   
+                    Text="Volver (Esc)"                                   
                     TextColor="{StaticResource Principal}"
                     VerticalOptions="End">
-                    
+
+              
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroupList>
                             <VisualStateGroup x:Name="CommonStates">
@@ -260,7 +261,7 @@
                     x:Name="BtnAddPatient"
                     Clicked="BtnAddPatient_Clicked"
                     BackgroundColor="{StaticResource Alter2}"
-                    Text="Agregar Paciente"
+                    Text="Agregar Paciente (Ctrl + N)"
                     TextColor="{StaticResource Principal}">
 
                     <VisualStateManager.VisualStateGroups>

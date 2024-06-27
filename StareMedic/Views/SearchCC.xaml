@@ -257,7 +257,7 @@
                     FontFamily="HelveticaNeue"
                     Clicked="BtnCancel_Clicked"
                     BackgroundColor="{StaticResource Alter2}"
-                    Text="Volver"                                   
+                    Text="Volver (Esc)"                                   
                     TextColor="{StaticResource Principal}"
                     VerticalOptions="End">
 
@@ -290,7 +290,7 @@
                 </Button>
 
                 <Button 
-                    Text="Nuevo Caso Clinico"               
+                    Text="Nueva Admision (Ctrl + N)"               
                     x:Name="BtnNewCC"
                     Clicked="BtnNewCC_Clicked"
                     FontFamily="HelveticaNeue"
@@ -322,7 +322,7 @@
                                     x:Name="Addcc"
                                     Clicked="BtnNewCC_Clicked">
                                 <MenuFlyoutItem.KeyboardAccelerators>
-                                    <KeyboardAccelerator Key="S" Modifiers="Ctrl"/>
+                                    <KeyboardAccelerator Key="N" Modifiers="Ctrl"/>
                                 </MenuFlyoutItem.KeyboardAccelerators>
                             </MenuFlyoutItem>
                         </MenuFlyout>
