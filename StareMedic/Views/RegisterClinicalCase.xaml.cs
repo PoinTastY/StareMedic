@@ -5,6 +5,7 @@ using StareMedic.Views.Viewers;
 using CommunityToolkit.Maui.Views;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using StareMedic.Models.Documents;
+using Microsoft.UI.Xaml.Controls.Primitives;
 
 namespace StareMedic.Views;
 
@@ -182,22 +183,22 @@ public partial class RegisterClinicalCase : ContentPage
 
     private async void BtnCancel_Clicked(object sender, EventArgs e)
     {
-        BtnCancel.Opacity = 0;
-        await BtnCancel.FadeTo(1, 200);
-
-        bool answer = await DisplayAlert("Cancelar", "¿Estas seguro de cancelar?", "No", "Si");
-        if (!answer)
+        var popup = new SpinnerPopup();
+        this.ShowPopup(popup);
+        try
         {
-            var popup = new SpinnerPopup();
-            this.ShowPopup(popup);
-            try
+            BtnCancel.Opacity = 0;
+            await BtnCancel.FadeTo(1, 200);
+
+            bool answer = await DisplayAlert("Cancelar", "¿Estas seguro de cancelar?", "No", "Si");
+            if (!answer)
             {
                 await Shell.Current.GoToAsync("..");
             }
-            finally
-            {
-                popup.Close();
-            }
+        }
+        finally
+        {
+            popup.Close();
         }
     }
     

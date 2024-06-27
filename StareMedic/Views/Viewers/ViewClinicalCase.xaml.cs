@@ -260,6 +260,8 @@ public partial class ViewClinicalCase : ContentPage
                 RadioQuirurgico.IsChecked = true;
             if (caso.TipoCaso == "Pediatrico")
                 RadioPediatrico.IsChecked = true;
+
+            DateIngreso.Date = caso.FechaIngreso.LocalDateTime;
             enabledisable(false);
             return;
         }
