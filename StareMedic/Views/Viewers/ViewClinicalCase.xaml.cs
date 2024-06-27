@@ -1,7 +1,9 @@
 using CommunityToolkit.Maui.Views;
 using StareMedic.Models;
+using StareMedic.Models.Documents;
 using StareMedic.Models.Entities;
 using StareMedic.Views.Viewers;
+using System.Reflection.Metadata;
 
 namespace StareMedic.Views;
 
@@ -249,6 +251,15 @@ public partial class ViewClinicalCase : ContentPage
                 PickMedic.SelectedItem = medic;
             if (room.Nombre != "missing")
                 PickRoom.SelectedItem = room;
+            //tipo de caso
+            if (caso.TipoCaso == "Medico")
+                RadioMedico.IsChecked = true;
+            if (caso.TipoCaso == "Obstetrico")
+                RadioObstetrico.IsChecked = true;
+            if (caso.TipoCaso == "Quirurgico")
+                RadioQuirurgico.IsChecked = true;
+            if (caso.TipoCaso == "Pediatrico")
+                RadioPediatrico.IsChecked = true;
             enabledisable(false);
             return;
         }
@@ -318,15 +329,15 @@ public partial class ViewClinicalCase : ContentPage
             await BtnExportCase.FadeTo(1, 300);
             if (!Confirm)
             {
-                var documento = DoCreate.GenerateDocument(caso);
+                var documento = GenerateAdmisionDoc.GenerateDocument(caso);
                 if (documento)
                 {
                     await DisplayAlert("Confirmado", $"Se ha exportado el caso:\n{caso.Nombre}", "Ok");
                 }
                 else
                 {
-                    await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{caso.Nombre}", "Ok");
-                }//TODO: EXCEPTION MANAGEMENT
+                    await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{documento}", "Ok");
+                }
             }
         }
         finally

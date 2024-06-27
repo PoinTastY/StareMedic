@@ -9,6 +9,8 @@ public partial class PatientControll : ContentPage
     private Cercano cercano;
     private Fiador fiador;
 
+    public event EventHandler<PatientSelectedEventArgs> PatientSelected;
+
     public PatientControll(Patient pacientEdit)
 	{
 		InitializeComponent();
@@ -186,7 +188,16 @@ public partial class PatientControll : ContentPage
                 else
                     await DisplayAlert("Error", "Hubo un problema registrando al paciente, intentalo mas tarde.", "Ok");
                 //go back
-                await Shell.Current.GoToAsync("..");
+                try
+                {
+                    PatientSelected?.Invoke(this, new PatientSelectedEventArgs { SelectedPatient = paciente });
+                    //await Navigation.PopModalAsync(); // esta en el evento mejor
+                }
+                catch
+                {
+                    await DisplayAlert("Error", "Algo salio mal con el evento de seleccion.", "Volver");
+                    await Shell.Current.GoToAsync("..");
+                }
             }
         }
         else
@@ -207,6 +218,7 @@ public partial class PatientControll : ContentPage
         entryCiudad.Text = paciente.Ciudad;
         EntryEdad.Text = paciente.Edad;
         pickerEdoCivil.SelectedItem = paciente.EstadoCivil;
+        entryCurp.Text = paciente.Curp;
 
         if (paciente.Sexo == 'M')
         {
