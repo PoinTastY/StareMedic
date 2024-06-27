@@ -101,7 +101,7 @@
                         Style="{StaticResource entryPicker}"
                        MaximumWidthRequest="120"
                         FontFamily="HelveticaNeue"
-                       TextColor="{StaticResource Principal}"
+                       
                        BackgroundColor="{StaticResource Alter1}"
                        Grid.Column="1"
                        VerticalOptions="Center"
@@ -131,7 +131,7 @@
                         Grid.Column="3"
                         Style="{StaticResource entryPicker}"
                         FontFamily="HelveticaNeue"
-                        TextColor="{StaticResource Principal}"
+                       
                         BackgroundColor="{StaticResource Alter1}"
                         VerticalOptions="Center"
                         SelectedIndexChanged="PickerEdoCivil_SelectedIndexChanged">
@@ -181,7 +181,7 @@
                         Grid.Column="5"
                         HeightRequest="25"
                         Style="{StaticResource Entrys}"
-                        TextColor="{StaticResource Principal}"
+                      
                         BackgroundColor="{StaticResource Alter1}"
                         MinimumWidthRequest="100"
                         x:Name="EntryEdad"
@@ -202,7 +202,6 @@
                         FontFamily="HelveticaNeue"
                         HeightRequest="25"
                         Style="{StaticResource Entrys}"
-                        TextColor="{StaticResource Principal}"
                         BackgroundColor="{StaticResource Alter1}"
                         MinimumWidthRequest="250"
                         x:Name="entryCurp"

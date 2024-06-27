@@ -77,7 +77,8 @@
                         x:Name="PatientsMain"
                         Grid.Column="1"
                         BackgroundColor="{StaticResource Alter1}" 
-                        ColumnDefinitions="*, *">
+                        RowDefinitions="*,Auto"                       
+                        ColumnDefinitions="*,Auto,*">
                         
                         <Image Grid.Column="0"
                                Source="patients.png"
@@ -85,13 +86,22 @@
                                HeightRequest="50"
                                VerticalOptions="Center"
                                HorizontalOptions="Center"/>
-                        <Label Grid.Column="1"
+                        <Label Grid.Column="2"
                                Text="Pacientes"
                                FontSize="Subtitle"                      
                                FontFamily="HelveticaNeue"
                                TextColor="{StaticResource Black}"
                                VerticalOptions="Center"
                                HorizontalOptions="Start"/>
+                        <Label Text="(F1)"
+                                Grid.Row="1"        
+                                Grid.Column="1"
+                                FontAttributes="Bold"                             
+                                FontFamily="HelveticaNeue"
+                                TextColor="{StaticResource Black}"
+                                VerticalOptions="Center"                
+                                HorizontalOptions="CenterAndExpand"
+                                FontSize="10"/>
 
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroupList>
@@ -131,7 +141,8 @@
                     <Grid x:Name="MedicsMain"
                           Grid.Column="2" 
                           BackgroundColor="{StaticResource Alter1}" 
-                          ColumnDefinitions="*, *">
+                          RowDefinitions="*,Auto"
+                          ColumnDefinitions="*,Auto,*">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroupList>
                                 <VisualStateGroup x:Name="CommonStates">
@@ -150,13 +161,23 @@
                                HeightRequest="50"
                                VerticalOptions="Center"
                                HorizontalOptions="Center"/>
-                        <Label Grid.Column="1"
+                        <Label Grid.Column="2"
                                Text="Medicos"
                                FontSize="Subtitle"
                                FontFamily="HelveticaNeue"
                                TextColor="{StaticResource Black}"
                                VerticalOptions="Center"
                                HorizontalOptions="Start"/>
+                        
+                        <Label Text="(F2)"
+                                Grid.Row="1"        
+                                Grid.Column="1"
+                                FontAttributes="Bold"                             
+                                FontFamily="HelveticaNeue"
+                                TextColor="{StaticResource Black}"
+                                VerticalOptions="Center"                
+                                HorizontalOptions="CenterAndExpand"
+                                FontSize="10"/>
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Tapped="BtnMedics_Clicked"/>
                         </Grid.GestureRecognizers>
@@ -183,7 +204,8 @@
                     <Grid x:Name="Search"
                           Grid.Column="3" 
                           BackgroundColor="{StaticResource Alter1}" 
-                          ColumnDefinitions="*, *">
+                          RowDefinitions="*,Auto"
+                          ColumnDefinitions="*,Auto,*">
                         
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroupList>
@@ -204,13 +226,23 @@
                                HeightRequest="50"
                                VerticalOptions="Center"
                                HorizontalOptions="Center"/>
-                        <Label Grid.Column="1"
+                        <Label Grid.Column="2"
                                Text="Consultar Admisiones"
                                FontSize="Subtitle"
                                FontFamily="HelveticaNeue"
                                TextColor="{StaticResource Black}"
                                VerticalOptions="Center"
                                HorizontalOptions="Start"/>
+                        
+                        <Label Text="(F3)"
+                                Grid.Row="1"        
+                                Grid.Column="1"
+                                FontAttributes="Bold"                             
+                                FontFamily="HelveticaNeue"
+                                TextColor="{StaticResource Black}"
+                                VerticalOptions="Center"                
+                                HorizontalOptions="CenterAndExpand"
+                                FontSize="10"/>
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Tapped="BtnSearchCC_Clicked"/>
                         </Grid.GestureRecognizers>
@@ -236,7 +268,8 @@
                     <Grid x:Name="RegCCMain"
                           Grid.Column="4"
                           BackgroundColor="{StaticResource Alter1}" 
-                          ColumnDefinitions="*, *">
+                          RowDefinitions="*,Auto"
+                          ColumnDefinitions="*,Auto,*">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroupList>
                                 <VisualStateGroup x:Name="CommonStates">
@@ -256,13 +289,22 @@
                                HeightRequest="50"
                                VerticalOptions="Center"
                                HorizontalOptions="Center"/>
-                        <Label Grid.Column="1"
+                        <Label Grid.Column="2"
                                Text="Nueva Admision"
                                FontSize="Subtitle"
                                FontFamily="HelveticaNeue"
                                TextColor="{StaticResource Black}"
                                VerticalOptions="Center"
                                HorizontalOptions="Start"/>
+                        <Label Text="(F4)"
+                                Grid.Row="1"        
+                                Grid.Column="1"
+                                FontAttributes="Bold"                             
+                                FontFamily="HelveticaNeue"
+                                TextColor="{StaticResource Black}"
+                                VerticalOptions="Center"                
+                                HorizontalOptions="CenterAndExpand"
+                                FontSize="10"/>
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Tapped="BtnRegCasoCli_Clicked"/>
                         </Grid.GestureRecognizers>

@@ -218,7 +218,7 @@
                     HeightRequest="50"
                     FontFamily="HelveticaNeue"
                     Clicked="btnCancel_Clicked"
-                    Text="Volver"
+                    Text="Volver (Esc)"
                     TextColor="{StaticResource Principal}"
                     BackgroundColor="{StaticResource Alter2}">
 
@@ -261,7 +261,7 @@
                     x:Name="BtnAddMedic"
                     Clicked="BtnAddMedic_Clicked"
                     BackgroundColor="{StaticResource Alter2}"
-                    Text="Agregar Medico"
+                    Text="Agregar Medico (Ctrl + N)"
                     TextColor="{StaticResource Principal}">
 
                     <VisualStateManager.VisualStateGroups>
