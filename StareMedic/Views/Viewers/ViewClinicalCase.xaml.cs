@@ -321,7 +321,7 @@ public partial class ViewClinicalCase : ContentPage
             if (!Confirm)
             {
                 var documento = GenerateAdmisionDoc.GenerateDocument(caso);
-                if (documento)
+                if (documento == "Exito")
                 {
                     await DisplayAlert("Confirmado", $"Se ha exportado el caso:\n{caso.Nombre}", "Ok");
                 }
