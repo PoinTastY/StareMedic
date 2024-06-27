@@ -1,6 +1,7 @@
 ﻿using iText;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas;
 using iText.Layout;
 using iText.Layout.Element;
 using StareMedic.Models.Entities;
@@ -27,22 +28,22 @@ namespace StareMedic.Models
                 var pdf = new PdfDocument(writer);
 
                 var document = new Document(pdf, PageSize.A4);
-                document.SetMargins(42, 100, 76, 100);
 
-                document.SetFontSize(8);
+                PdfCanvas pdfCanvas = new PdfCanvas(pdf.AddNewPage());
 
-                var no_de_cuarto = new StringBuilder($"{room.Nombre}".PadRight(14), 14);
-                var space = new StringBuilder("      ", 6);
-                var hora = new StringBuilder($"{DateTime.Now.ToShortTimeString()}".PadRight(8), 8);
-                var space2 = new StringBuilder("           ", 11);
-                var no_expediente = new StringBuilder($"{caso.Id}".PadRight(29), 29);
+                Canvas canvas = new Canvas(pdfCanvas, new Rectangle(0, 0, 595, 842));
+                canvas.SetFontSize(8);
 
-                var first_line = new Paragraph(no_de_cuarto.ToString() + space.ToString() + hora.ToString() + space2.ToString() + no_expediente.ToString());
-                var second_line = new Paragraph("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                var no_de_cuarto = new Paragraph($"{room.Nombre}").SetMaxWidth(80).SetFixedPosition(90, 785, 80);
+                canvas.Add(no_de_cuarto);
+
+                var hora = new Paragraph($"{DateTime.Now.ToShortTimeString()}").SetMaxWidth(60).SetFixedPosition(220, 785, 60);
+                canvas.Add(hora);
+
+                var no_expediente = new Paragraph($"{caso.Id}").SetMaxWidth(200).SetFixedPosition(345, 785, 200);
+                canvas.Add(no_expediente);
 
 
-                document.Add(first_line);
-                document.Add(second_line);
 
                 document.Close();
                 return true;
