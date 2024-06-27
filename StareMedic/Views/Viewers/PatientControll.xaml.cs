@@ -338,3 +338,5 @@ public partial class PatientControll : ContentPage
         
     }
 }
+
+// if string.nullorempty (Entrytelefonocercano.text)||Entrytelefonocercano.text.count()<10 telefono jijiji
