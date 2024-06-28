@@ -251,6 +251,17 @@ public partial class ViewClinicalCase : ContentPage
                 PickMedic.SelectedItem = medic;
             if (room.Nombre != "missing")
                 PickRoom.SelectedItem = room;
+            //tipo de caso
+            if (caso.TipoCaso == "Medico")
+                RadioMedico.IsChecked = true;
+            if (caso.TipoCaso == "Obstetrico")
+                RadioObstetrico.IsChecked = true;
+            if (caso.TipoCaso == "Quirurgico")
+                RadioQuirurgico.IsChecked = true;
+            if (caso.TipoCaso == "Pediatrico")
+                RadioPediatrico.IsChecked = true;
+
+            DateIngreso.Date = caso.FechaIngreso.LocalDateTime;
             enabledisable(false);
             return;
         }
@@ -321,14 +332,14 @@ public partial class ViewClinicalCase : ContentPage
             if (!Confirm)
             {
                 var documento = GenerateAdmisionDoc.GenerateDocument(caso);
-                if (documento == "Exito")
+                if (documento)
                 {
                     await DisplayAlert("Confirmado", $"Se ha exportado el caso:\n{caso.Nombre}", "Ok");
                 }
                 else
                 {
                     await DisplayAlert("Error", $"No se ha podido exportar el caso:\n{documento}", "Ok");
-                }//TODO: EXCEPTION MANAGEMENT
+                }
             }
         }
         finally

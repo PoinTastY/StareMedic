@@ -30,6 +30,7 @@
                 StrokeThickness="0">
             <Grid x:Name="MainMenu"
                 ColumnDefinitions="Auto, *"
+                  RowDefinitions="*,Auto"
                           Padding="25"
                           ColumnSpacing="20">
                 
@@ -40,6 +41,16 @@
                        FontFamily="HelveticaNeue"
                        FontSize="28"
                        FontAttributes="Bold"/>
+                
+                <Label Text="(F12)"
+                        Grid.Row="1"        
+                        Grid.Column="1"
+                        FontAttributes="Bold"                             
+                        FontFamily="HelveticaNeue"
+                        TextColor="{StaticResource Principal}"
+                        VerticalOptions="Center"                
+                        HorizontalOptions="End"
+                        FontSize="10"/>
 
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroupList>
