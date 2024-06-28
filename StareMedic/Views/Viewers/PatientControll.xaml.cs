@@ -12,8 +12,8 @@ public partial class PatientControll : ContentPage
     public event EventHandler<PatientSelectedEventArgs> PatientSelected;
 
     public PatientControll(Patient pacientEdit)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
 
         if (pacientEdit != null)
         {
@@ -29,7 +29,7 @@ public partial class PatientControll : ContentPage
         }
 
         lblID.Text = "ID: " + paciente.Id.ToString();
-	}
+    }
 
     //Patient
     private void EntryName_TextChanged(object sender, TextChangedEventArgs e)
@@ -98,7 +98,7 @@ public partial class PatientControll : ContentPage
     private void EntryCurp_TextChanged(object sender, TextChangedEventArgs e)
     {
         paciente.Curp = entryCurp.Text;
-    } 
+    }
 
     //Cercano
     private void EntryNombreCercano_TextChanged(object sender, TextChangedEventArgs e)
@@ -179,7 +179,7 @@ public partial class PatientControll : ContentPage
                 }
                 else
                 {
-                    await DisplayAlert("Error","No puede haber Campos vacios en la informacion de Cercano", "Ok");
+                    await DisplayAlert("Error", $"No puede haber Campos los siguientas campos vacios en la informacion de Cercano: {Dataincompleta()}", "Ok");
                     return;
                 }
 
@@ -195,14 +195,14 @@ public partial class PatientControll : ContentPage
                 }
                 catch
                 {
-                    
+
                 }
                 await Shell.Current.GoToAsync("..");
             }
         }
         else
         {
-            await DisplayAlert("Error:", "No se puede registrar un paciente sin nombre", "OK");
+            await DisplayAlert("Error:", $"No se puede registrar un paciente, Faltan los siguentes Datos: {Dataincompleta()} ", "OK");
             return;
         }
     }
@@ -231,11 +231,11 @@ public partial class PatientControll : ContentPage
         {
             pickerSexo.SelectedItem = "Otro";
         }
-        
+
         //cercano
         if (paciente.IdCercano != null)
         {
-            cercano = new (MainRepo.GetCercanoById(paciente.IdCercano));
+            cercano = new(MainRepo.GetCercanoById(paciente.IdCercano));
             entryNombreCercano.Text = cercano.Nombre;
             entryTelefonoCercano.Text = cercano.Telefono;
             entryDomicilioCercano.Text = cercano.Direccion;
@@ -284,7 +284,7 @@ public partial class PatientControll : ContentPage
     private async void BtnDelete_Clicked(object sender, EventArgs e)
     {
         BtnDelete.Opacity = 0;
-        
+
         await BtnDelete.FadeTo(1, 300);
         bool confirm = await DisplayAlert("Eliminar", $"Desea eliminar al paciente: {paciente.Nombre}?", "No", "Si");
         if (!confirm)
@@ -335,8 +335,85 @@ public partial class PatientControll : ContentPage
         entryEstadoCercano.IsEnabled = x;
         entryRelacionCercano.IsEnabled = x;
         entryCurp.IsEnabled = x;
-        
     }
-}
+    private string Dataincompleta()
+    {
+        string datafaltante = "";
 
-// if string.nullorempty (Entrytelefonocercano.text)||Entrytelefonocercano.text.count()<10 telefono jijiji
+        if (string.IsNullOrEmpty(entryName.Text))
+        {
+            datafaltante += " Nombre ";
+        }
+       
+        if (string.IsNullOrWhiteSpace(entryTelefono.Text) || entryTelefono.Text.Count() < 10)
+        {
+            datafaltante += "Numero De Telefono ";
+        }
+
+        if (pickerSexo.SelectedItem == null) 
+        {
+            datafaltante += " Sexo ";
+        }
+
+        if (pickerEdoCivil.SelectedItem == null)
+        {
+            datafaltante += " Estado Civil ";
+        }
+
+        if (string.IsNullOrEmpty(EntryEdad.Text))
+        {
+            datafaltante += " Edad ";
+        }
+       
+        if (string.IsNullOrEmpty(entryCurp.Text))
+        {
+            datafaltante += " Curp ";
+        }
+
+        if (string.IsNullOrEmpty(entryDomicilio.Text))
+        {
+            datafaltante += " Domicilio ";
+        }
+
+        if (string.IsNullOrEmpty(entryCiudad.Text))
+        {
+            datafaltante += " Ciudad ";
+        }
+
+        if (string.IsNullOrEmpty(entryEstado.Text))
+        {
+            datafaltante += " Estado ";
+        }
+
+        if (string.IsNullOrEmpty(entryNacionalidad.Text))
+        {
+            datafaltante += " Nacionalidad ";
+        }
+
+        if (string.IsNullOrEmpty(entryNombreCercano.Text))
+        {
+            datafaltante += " Nombre ";
+        }
+        if ((string.IsNullOrEmpty(entryTelefonoCercano.Text)) || entryTelefonoCercano.Text.Count() < 10)
+        {
+            datafaltante += " Numero de Telefono ";
+        }
+       
+        if (string.IsNullOrEmpty(entryDomicilioCercano.Text))
+        {
+            datafaltante += " Domicilio  ";
+        }
+       
+        if (string.IsNullOrEmpty(entryEstadoCercano.Text))
+        {
+            datafaltante += " Estado ";
+        }
+       
+        if (string.IsNullOrEmpty(entryRelacionCercano.Text))
+        {
+            datafaltante += " Relacion ";
+        }
+        return datafaltante;
+    }
+   
+}
