@@ -147,6 +147,7 @@ namespace StareMedic.Models.Documents
             var fecha_hoy = new Paragraph($"{DateTime.Now:dd/MM/yyyy}").SetMaxHeight(altura_parrafo).SetMaxWidth(200).SetFixedPosition(220, 240, 200);
             canvas.Add(fecha_hoy);
         }
+
         private static void OpenPdf(string filePath)
         {
             const int maxRetries = 4;
