@@ -227,7 +227,14 @@ namespace StareMedic.Models
 
         public static Diagnostico GetDiagnosticoById(int diagnosticoId)
         {
-            return _db.Diagnosticos.FirstOrDefault(x => x.Id == diagnosticoId);
+            Diagnostico diagnosticoreturned = _db.Diagnosticos.FirstOrDefault(x => x.Id == diagnosticoId);
+            if (diagnosticoreturned == null)
+            {
+                diagnosticoreturned = new();
+                return diagnosticoreturned;
+            }
+            else
+                return diagnosticoreturned;
         }
         #endregion
 

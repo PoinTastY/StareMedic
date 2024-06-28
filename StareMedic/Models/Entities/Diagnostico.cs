@@ -12,6 +12,11 @@
             _id = id;
         }
 
+        public Diagnostico()
+        {
+
+        }
+
         public string Contenido
         {
             get => _content;
