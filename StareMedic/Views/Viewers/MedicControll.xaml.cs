@@ -23,15 +23,7 @@ public partial class MedicControll : ContentPage
             this.doctor = new(MainRepo.GetCurrentMedicIndex());
         }
 	}
-    static AppDbContext _db = new();
-    public static List<Medic> GetMedicsLight(int paginaActual, int cantidadElementos)
-    {
-        return _db.Medics
-            .OrderBy(m => m.Nombre)
-            .Skip((paginaActual - 1) * cantidadElementos)
-            .Take(cantidadElementos)
-            .ToList();
-    }
+
     private void EntryName_TextChanged(object sender, TextChangedEventArgs e)
     {
         doctor.Nombre = EntryName.Text;

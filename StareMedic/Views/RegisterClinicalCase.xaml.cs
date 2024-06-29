@@ -6,7 +6,6 @@ using CommunityToolkit.Maui.Views;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using StareMedic.Models.Documents;
 using Microsoft.UI.Xaml.Controls.Primitives;
-using StareMedic.Data;
 
 namespace StareMedic.Views;
 
@@ -40,16 +39,16 @@ public partial class RegisterClinicalCase : ContentPage
     {
         caso.Nombre = e.NewTextValue;
     }
- 
+
     private void PickerDoctor_SelectedIndexChanged(object sender, EventArgs e)
     {
         PickerDoctor.Opacity = 0;
         PickerDoctor.FadeTo(1, 200);
-        
+
         if (PickerDoctor.SelectedItem != null)
-        caso.IdDoctor = ((Medic)PickerDoctor.SelectedItem).Id;
+            caso.IdDoctor = ((Medic)PickerDoctor.SelectedItem).Id;
     }
-   
+
     private async void BtnAddPatient_Clicked(object sender, EventArgs e)
     {
         var popup = new SpinnerPopup();
