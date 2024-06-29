@@ -11,13 +11,13 @@ public partial class App : Application
 
 
 
-public App()
-	{
-		InitializeComponent();
-        
+    public App()
+    {
+        InitializeComponent();
+
         Application.Current.UserAppTheme = AppTheme.Dark;
 
-       
+
         //fullscreen
         Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) =>
         {
@@ -34,16 +34,16 @@ public App()
     }
 
 
-     
+
 
     protected override Window CreateWindow(IActivationState activationState)
     {
         var window = base.CreateWindow(activationState);
 
-        
+
 
         window.Title = "StareMedic";
-        
+
 
         return window;
     }

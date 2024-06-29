@@ -3,27 +3,26 @@ using StareMedic.Models;
 using StareMedic.Models.Documents;
 using StareMedic.Models.Entities;
 using StareMedic.Views.Viewers;
-using System.Reflection.Metadata;
 
 namespace StareMedic.Views;
 
 public partial class ViewClinicalCase : ContentPage
 {
-	private readonly CasoClinico caso;
-	private readonly Patient patient;
-	private readonly Diagnostico diagnostico;
+    private readonly CasoClinico caso;
+    private readonly Patient patient;
+    private readonly Diagnostico diagnostico;
     private Medic medic;
     private Rooms room;
-    
+
     public ViewClinicalCase(CasoClinico caso)
-	{
-		InitializeComponent();
-		//objects init
-		this.caso = caso;
+    {
+        InitializeComponent();
+        //objects init
+        this.caso = caso;
         patient = caso.Paciente();
-		medic = caso.Medico();
-		room = caso.Habitacion();
-		diagnostico = caso.Diagnostico();
+        medic = caso.Medico();
+        room = caso.Habitacion();
+        diagnostico = caso.Diagnostico();
 
         if (medic.Nombre == "missing" || room.Nombre == "missing")
             BtnSendSDK.IsEnabled = false;
@@ -32,7 +31,7 @@ public partial class ViewClinicalCase : ContentPage
         if (caso.FolioSDK != 0 && caso.FolioSDK != null)
         {
             LblFolioSDK.Text = $"Folio Contpaqi: {caso.FolioSDK}";
-            LblFolioSDK.TextColor = Color.FromRgb(0,161,53);
+            LblFolioSDK.TextColor = Color.FromRgb(0, 161, 53);
             BtnSendSDK.IsEnabled = false;
             BtnSendSDK.IsVisible = false;
         }
@@ -56,25 +55,25 @@ public partial class ViewClinicalCase : ContentPage
 
         //Fill everything
         LblName.Text = caso.Nombre;
-		LblId.Text = "ID: " + caso.Id;
-		EntryName.Text = caso.Nombre;
-		EntryPatient.Text = patient.Nombre;
+        LblId.Text = "ID: " + caso.Id;
+        EntryName.Text = caso.Nombre;
+        EntryPatient.Text = patient.Nombre;
         EditorDiagnoose.Text = diagnostico.Contenido;
 
         //fecha ingreso
         DateIngreso.Date = caso.FechaIngreso.LocalDateTime;
-        
+
         //tipo de caso
-        if(caso.TipoCaso == "Medico")
+        if (caso.TipoCaso == "Medico")
             RadioMedico.IsChecked = true;
-        if(caso.TipoCaso == "Obstetrico")
+        if (caso.TipoCaso == "Obstetrico")
             RadioObstetrico.IsChecked = true;
-        if(caso.TipoCaso == "Quirurgico")
+        if (caso.TipoCaso == "Quirurgico")
             RadioQuirurgico.IsChecked = true;
         if (caso.TipoCaso == "Pediatrico")
             RadioPediatrico.IsChecked = true;
 
-	}
+    }
 
     private async void BtnEditDiagnoose_Clicked(object sender, EventArgs e)
     {
@@ -85,7 +84,7 @@ public partial class ViewClinicalCase : ContentPage
         enabledisableDiag(true);
     }
 
-    private void enabledisableDiag (bool status)
+    private void enabledisableDiag(bool status)
     {
         //interaction on buttons of diagnoose
         EditorDiagnoose.IsReadOnly = !status;
@@ -236,7 +235,7 @@ public partial class ViewClinicalCase : ContentPage
         BtnCancelAll.Opacity = 0;
 
         await BtnCancelAll.FadeTo(1, 300);
-        if(medic.Nombre == "missing" || room.Nombre == "missing")
+        if (medic.Nombre == "missing" || room.Nombre == "missing")
         {
             await DisplayAlert("Advertencia:", "Si el medico o habitaciones asignadas no son validos,\nSe recomienda elegir a uno", "Ok");
             BtnSendSDK.IsEnabled = false;
@@ -351,7 +350,7 @@ public partial class ViewClinicalCase : ContentPage
     //View elements visibility and interaction
     private void enabledisable(bool status)
     {
-        
+
         //interaction of edit buttons
         BtnEdit.IsEnabled = !status;
         BtnEdit.IsVisible = !status;

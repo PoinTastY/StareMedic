@@ -1,5 +1,5 @@
-using StareMedic.Models.Entities;
 using StareMedic.Models;
+using StareMedic.Models.Entities;
 
 namespace StareMedic.Views.Viewers;
 
@@ -345,13 +345,13 @@ public partial class PatientControll : ContentPage
         {
             datafaltante += " Nombre ";
         }
-       
+
         if (string.IsNullOrWhiteSpace(entryTelefono.Text) || entryTelefono.Text.Count() < 10)
         {
             datafaltante += "Numero De Telefono ";
         }
 
-        if (pickerSexo.SelectedItem == null) 
+        if (pickerSexo.SelectedItem == null)
         {
             datafaltante += " Sexo ";
         }
@@ -365,7 +365,7 @@ public partial class PatientControll : ContentPage
         {
             datafaltante += " Edad ";
         }
-       
+
         if (string.IsNullOrEmpty(entryCurp.Text))
         {
             datafaltante += " Curp ";
@@ -399,22 +399,22 @@ public partial class PatientControll : ContentPage
         {
             datafaltante += " Numero de Telefono ";
         }
-       
+
         if (string.IsNullOrEmpty(entryDomicilioCercano.Text))
         {
             datafaltante += " Domicilio  ";
         }
-       
+
         if (string.IsNullOrEmpty(entryEstadoCercano.Text))
         {
             datafaltante += " Estado ";
         }
-       
+
         if (string.IsNullOrEmpty(entryRelacionCercano.Text))
         {
             datafaltante += " Relacion ";
         }
         return datafaltante;
     }
-   
+
 }

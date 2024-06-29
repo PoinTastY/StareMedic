@@ -1,6 +1,6 @@
 using StareMedic.Models;
-using System.Collections.ObjectModel;
 using StareMedic.Views.Viewers;
+using System.Collections.ObjectModel;
 
 namespace StareMedic.Views;
 
@@ -9,16 +9,16 @@ using Rooms = Models.Entities.Rooms;
 public partial class Habitaciones : ContentPage
 {
     ObservableCollection<Rooms> rooms = new();
-	public Habitaciones()
-	{
-		InitializeComponent();
+    public Habitaciones()
+    {
+        InitializeComponent();
         foreach (Rooms room in MainRepo.GetRooms())
         {
             rooms.Add(room);
         }
 
         ListRooms.ItemsSource = rooms;
-	}
+    }
 
     protected override void OnAppearing()
     {
@@ -33,7 +33,7 @@ public partial class Habitaciones : ContentPage
 
     private void ListRooms_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
-        if(ListRooms.SelectedItem != null)
+        if (ListRooms.SelectedItem != null)
         {
             //go to room controll
             Navigation.PushAsync(new RoomControll((Rooms)ListRooms.SelectedItem));
@@ -47,7 +47,7 @@ public partial class Habitaciones : ContentPage
 
     private void SearchBarRooms_SearchButtonPressed(object sender, EventArgs e)
     {
-        if(!string.IsNullOrWhiteSpace(SearchBarRooms.Text))
+        if (!string.IsNullOrWhiteSpace(SearchBarRooms.Text))
         {
             ListRooms.ItemsSource = rooms.Where(room => room.Nombre.Contains(SearchBarRooms.Text.ToUpper()));
         }

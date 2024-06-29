@@ -1,17 +1,17 @@
-using StareMedic.Models.Entities;
 using StareMedic.Models;
+using StareMedic.Models.Entities;
 
 namespace StareMedic.Views.Viewers;
 
 public partial class RoomControll : ContentPage
 {
     Rooms room;
-	public RoomControll(Rooms room)
-	{
-		InitializeComponent();
-        if(room != null)
+    public RoomControll(Rooms room)
+    {
+        InitializeComponent();
+        if (room != null)
         {
-            
+
             this.room = room;
             EntryName.Text = room.Nombre;
             EditorDescripcion.Text = room.Descripcion;
@@ -23,7 +23,7 @@ public partial class RoomControll : ContentPage
             BtnDelete.IsEnabled = false;
             this.room = new(MainRepo.GetCurrentRoomIndex());
         }
-	}
+    }
 
     private void EntryName_TextChanged(object sender, TextChangedEventArgs e)
     {
@@ -40,7 +40,7 @@ public partial class RoomControll : ContentPage
     {
         BtnGuardar.Opacity = 0;
 
-        await BtnGuardar.FadeTo(1, 300); 
+        await BtnGuardar.FadeTo(1, 300);
 
         if (room.Nombre != null && room.Nombre != "")
         {
@@ -64,7 +64,7 @@ public partial class RoomControll : ContentPage
     {
         BtnCancel.Opacity = 0;
 
-        await BtnCancel.FadeTo(1, 300); 
+        await BtnCancel.FadeTo(1, 300);
 
         bool confirm = await DisplayAlert("Cancelar", "Desea cancelar el registro?", "No", "Si");
         if (!confirm)
@@ -87,7 +87,7 @@ public partial class RoomControll : ContentPage
     {
         BtnDelete.Opacity = 0;
 
-        await BtnDelete.FadeTo(1, 300); 
+        await BtnDelete.FadeTo(1, 300);
 
         bool confirm = await DisplayAlert("Eliminar", $"Desea eliminar la habitacion {room.Nombre}?", "No", "Si");
         if (!confirm)
@@ -105,8 +105,8 @@ public partial class RoomControll : ContentPage
         BtnDelete.IsEnabled = !x;
         EntryName.IsEnabled = x;
         EditorDescripcion.IsEnabled = x;
-        BtnCancel.IsVisible =  x;
-        BtnCancel.IsEnabled =  x;
+        BtnCancel.IsVisible = x;
+        BtnCancel.IsEnabled = x;
         BtnCancel2.IsVisible = !x;
         BtnCancel2.IsEnabled = !x;
         BtnGuardar.IsVisible = x;
@@ -117,7 +117,7 @@ public partial class RoomControll : ContentPage
     {
         BtnEdit.Opacity = 0;
 
-        await BtnEdit.FadeTo(1, 300); 
+        await BtnEdit.FadeTo(1, 300);
         EnableDisable(true);
     }
 }

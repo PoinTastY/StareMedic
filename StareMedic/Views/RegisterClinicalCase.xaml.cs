@@ -1,11 +1,9 @@
+using CommunityToolkit.Maui.Views;
 using StareMedic.Models;
-using System.Collections.ObjectModel;
+using StareMedic.Models.Documents;
 using StareMedic.Models.Entities;
 using StareMedic.Views.Viewers;
-using CommunityToolkit.Maui.Views;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using StareMedic.Models.Documents;
-using Microsoft.UI.Xaml.Controls.Primitives;
+using System.Collections.ObjectModel;
 
 namespace StareMedic.Views;
 

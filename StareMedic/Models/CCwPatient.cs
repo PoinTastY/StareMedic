@@ -18,7 +18,7 @@
         }
 
         public string Id { get { return _id; } set { _id = value; } }
-        public string Nombre { get { return _name;} set { _name = value; } }
+        public string Nombre { get { return _name; } set { _name = value; } }
         public string PatientName { get { return _patientName; } set { _patientName = value; } }
         public string Medic { get { return _medic; } set { _medic = value; } }
         public int Iddb
