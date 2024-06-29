@@ -612,8 +612,8 @@
                     FontFamily="HelveticaNeue"                  
                     BackgroundColor="{StaticResource Alter2}"
                     TextColor="{StaticResource Principal}"
-                    Text="Guardar Paciente (Ctrl + S)"
-                    WidthRequest="200"
+                    Text="Guardar Paciente"
+                    WidthRequest="150"
                     HeightRequest="50"
                     Grid.Column="1"
                     HorizontalOptions="Center">

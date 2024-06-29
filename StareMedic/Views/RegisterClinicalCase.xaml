@@ -417,7 +417,7 @@
             <Grid
             Grid.Row="6"
             Padding="30"
-            HorizontalOptions="FillAndExpand"
+            HorizontalOptions="StartAndExpand"
             VerticalOptions="EndAndExpand">
 
             <Grid.ColumnDefinitions>
@@ -430,7 +430,7 @@
                 <Button
                 x:Name="BtnCancel"
                 Clicked="BtnCancel_Clicked"
-                Text="Cancelar (Esc)"
+                Text="Cancelar"
                     FontFamily="HelveticaNeue"
                 HeightRequest="50"
                 BackgroundColor="{StaticResource Alter2}"
@@ -438,7 +438,7 @@
                 WidthRequest="200"
                 Grid.Column="0"                
                 VerticalOptions="End"
-                HorizontalOptions="Start">
+                HorizontalOptions="Center">
 
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroupList>
@@ -472,16 +472,16 @@
             <Button
                 x:Name="BtnGuardar"
                 Clicked="BtnGuardar_Clicked"
-                Text="Confirmar Admision (Ctrl + S)"
+                Text="Confirmar Admision"
                 HeightRequest="50"
                 FontFamily="HelveticaNeue"
                 BackgroundColor="{StaticResource Alter2}"
                 TextColor="{StaticResource Principal}"
                 Margin="200,0,200,0"
-                WidthRequest="250"
+                WidthRequest="200"
                 VerticalOptions="End"
                 Grid.Column="1"
-                HorizontalOptions="EndAndExpand">
+                HorizontalOptions="End">
 
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroupList>
