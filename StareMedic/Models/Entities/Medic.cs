@@ -1,4 +1,6 @@
-﻿namespace StareMedic.Models.Entities
+﻿using StareMedic.Data;
+
+namespace StareMedic.Models.Entities
 {
     public class Medic
     {
@@ -23,7 +25,7 @@
         public Medic(Medic original)
         {
 
-           _id = original._id;
+            _id = original._id;
             _name = original._name;
             _phone = original._phone;
             _domicilio = original._domicilio;
@@ -32,7 +34,7 @@
         }
 
         //default builder, dont use or move, if u need new builder, do another one
-        public Medic() 
+        public Medic()
         {
             _name = "missing";
         }

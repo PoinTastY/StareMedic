@@ -3,6 +3,7 @@ using StareMedic.Models;
 using StareMedic.Models.Documents;
 using StareMedic.Models.Entities;
 using StareMedic.Views.Viewers;
+using System.Collections.ObjectModel;
 using System.Reflection.Metadata;
 
 namespace StareMedic.Views;
@@ -39,7 +40,7 @@ public partial class ViewClinicalCase : ContentPage
 
         PickMedic.ItemsSource = MainRepo.GetMedics();
         PickRoom.ItemsSource = MainRepo.GetRooms();
-
+        
         if (medic.Nombre != "missing")
         {
             PickMedic.SelectedItem = medic;

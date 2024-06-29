@@ -31,10 +31,12 @@ namespace StareMedic.Models
                 .Take(cantidadElementos)
                 .ToList();
         }
-        public static List<Medic> GetMedics()
+        public static List<Medic> GetMedics ()
         {
             //return _db.Medics.Skip((paginaActual - 1) * cantidadElementos).Take(cantidadElementos).ToList(); we need it full 4 now
-            return _db.Medics.ToList();
+            return _db.Medics
+                .OrderBy(m => m.Nombre)
+                .ToList();
         }
 
         public static List<Medic> GetMedicsLight(int paginaActual, int cantidadElementos)
