@@ -111,9 +111,6 @@ public partial class RegisterClinicalCase : ContentPage
         caso.IdPaciente = patient.Id;
         ShowDoctor.IsVisible = true;
         ShowRoom.IsVisible = true;
-
-        // Cierra la página modal
-        Navigation.PopModalAsync();
     }
 
     private async void BtnGuardar_Clicked(object sender, EventArgs e)

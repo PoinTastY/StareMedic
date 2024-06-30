@@ -53,7 +53,7 @@ public partial class PickPatientView : ContentPage
             try
             {
                 PatientSelected?.Invoke(this, new PatientSelectedEventArgs { SelectedPatient = paciente });
-                //await Navigation.PopModalAsync(); // esta en el evento mejor
+                await Navigation.PopModalAsync();
             }
             catch
             {
