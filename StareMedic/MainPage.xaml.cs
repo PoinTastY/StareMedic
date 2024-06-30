@@ -1,6 +1,6 @@
-﻿using StareMedic.Views;
+﻿using CommunityToolkit.Maui.Views;
+using StareMedic.Views;
 using StareMedic.Views.Viewers;
-using CommunityToolkit.Maui.Views;
 
 namespace StareMedic;
 
@@ -9,12 +9,12 @@ public partial class MainPage : ContentPage
     private SemaphoreSlim semaforo = new(1, 1);
 
     public MainPage()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
     }
 
 
-	//remember to register pages on appshell first, or you are not going nowhere
+    //remember to register pages on appshell first, or you are not going nowhere
     private async void BtnPacientes_Clicked(object sender, EventArgs e)
     {
         if (!await semaforo.WaitAsync(0))
@@ -59,8 +59,8 @@ public partial class MainPage : ContentPage
 
     private async void BtnRegCasoCli_Clicked(object sender, EventArgs e)
     {
-        if(!await semaforo.WaitAsync(0))
-                return;
+        if (!await semaforo.WaitAsync(0))
+            return;
 
         var button = sender as Button;
         if (button != null)

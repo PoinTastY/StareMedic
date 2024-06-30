@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using StareMedic.Models.Entities;
 using StareMedic.Models;
+using StareMedic.Models.Entities;
 
 
 namespace StareMedic.Data
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext : DbContext
     {
         public DbSet<CasoClinico> CasoClinicos { get; set; }
         public DbSet<Patient> Patients { get; set; }
@@ -60,8 +60,8 @@ namespace StareMedic.Data
             modelBuilder.Entity<CasoClinico>()
                 .ToTable("casoclinico")
                 .HasKey(c => c.IdDB);
-                modelBuilder.Entity<CasoClinico>()
-                .Ignore(c => c.Id);
+            modelBuilder.Entity<CasoClinico>()
+            .Ignore(c => c.Id);
 
             //Cercano entity
             modelBuilder.Entity<Cercano>()
@@ -124,7 +124,7 @@ namespace StareMedic.Data
             modelBuilder.Entity<Fiador>()
                 .Property(f => f.Estado)
                 .HasColumnName("_state");
-            
+
 
 
             //patient entity
@@ -140,7 +140,7 @@ namespace StareMedic.Data
                 .Property(p => p.Nombre)
                 .HasColumnName("_name");
 
-            modelBuilder.Entity <Patient>()
+            modelBuilder.Entity<Patient>()
                 .Property(p => p.Curp)
                 .HasColumnName("_curp");
 
@@ -180,7 +180,7 @@ namespace StareMedic.Data
                 .Property(p => p.Registered)
                 .HasColumnName("_fecharegistrado")
                 .HasColumnType("timestamp with time zone")
-                .IsRequired(true);  
+                .IsRequired(true);
 
             modelBuilder.Entity<Patient>()
                 .Property(p => p.IdCercano)

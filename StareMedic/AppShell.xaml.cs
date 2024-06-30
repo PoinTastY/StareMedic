@@ -1,4 +1,4 @@
-﻿ 
+﻿
 using CommunityToolkit.Maui.Views;
 using StareMedic.Views;
 using StareMedic.Views.Viewers;
@@ -8,23 +8,23 @@ namespace StareMedic;
 public partial class AppShell : Shell
 {
     private SemaphoreSlim semaforo = new(1, 1);
-    
-	public AppShell()
-	{
-		InitializeComponent();
+
+    public AppShell()
+    {
+        InitializeComponent();
         //App
-        Shell.SetBackButtonBehavior(this, new BackButtonBehavior { IsVisible = false } );
+        Shell.SetBackButtonBehavior(this, new BackButtonBehavior { IsVisible = false });
         //Routing
         Routing.RegisterRoute(nameof(Pacientes), typeof(Pacientes));
         Routing.RegisterRoute(nameof(Doctores), typeof(Doctores));
-		Routing.RegisterRoute(nameof(Habitaciones), typeof(Habitaciones));
+        Routing.RegisterRoute(nameof(Habitaciones), typeof(Habitaciones));
         Routing.RegisterRoute(nameof(RegisterClinicalCase), typeof(RegisterClinicalCase));
-		Routing.RegisterRoute(nameof(PickPatientView), typeof(PickPatientView));
-		Routing.RegisterRoute(nameof(SearchCC), typeof(SearchCC));
-		Routing.RegisterRoute(nameof(ViewClinicalCase), typeof(ViewClinicalCase));
-		Routing.RegisterRoute(nameof(MedicControll), typeof(MedicControll));
-		Routing.RegisterRoute(nameof(PatientControll), typeof(PatientControll));
-		Routing.RegisterRoute(nameof(RoomControll), typeof(RoomControll));
+        Routing.RegisterRoute(nameof(PickPatientView), typeof(PickPatientView));
+        Routing.RegisterRoute(nameof(SearchCC), typeof(SearchCC));
+        Routing.RegisterRoute(nameof(ViewClinicalCase), typeof(ViewClinicalCase));
+        Routing.RegisterRoute(nameof(MedicControll), typeof(MedicControll));
+        Routing.RegisterRoute(nameof(PatientControll), typeof(PatientControll));
+        Routing.RegisterRoute(nameof(RoomControll), typeof(RoomControll));
     }
 
     private async void BtnPacientes_Clicked(object sender, EventArgs e)
@@ -67,7 +67,7 @@ public partial class AppShell : Shell
     {
         if (!await semaforo.WaitAsync(0))
             return;
-        
+
         var button = sender as Button;
         if (button != null)
         {

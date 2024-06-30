@@ -11,15 +11,15 @@ namespace StareMedic.Models
 
         #region Get Lists
         //getters
-        public static List<Patient> GetPatients(int cantidadElementos, int paginaActual) 
+        public static List<Patient> GetPatients(int cantidadElementos, int paginaActual)
         {
             return _db.Patients
                 .OrderBy(p => p.Nombre)
                 .Skip((paginaActual - 1) * cantidadElementos)
                 .Take(cantidadElementos)
-                .ToList(); 
+                .ToList();
         }//the framework sents an order by clause to the db, so eficiency is not that impacted
-        public static List<Rooms> GetRooms() 
+        public static List<Rooms> GetRooms()
         {
             return _db.Rooms.ToList();
         }
@@ -110,12 +110,12 @@ namespace StareMedic.Models
             {
                 return false;
             }
-            
+
         }
 
         public static void AddRoom(Rooms room)//this thing is not used 4 now
         {
-            if(!(room.Id <= GetCurrentRoomIndex()-1))
+            if (!(room.Id <= GetCurrentRoomIndex() - 1))
             {
                 _db.Rooms.Add(room);
                 _db.SaveChanges();
@@ -138,7 +138,7 @@ namespace StareMedic.Models
             {
                 return false;
             }
-            
+
         }
 
         public static bool AddMedic(Medic medic)
@@ -219,15 +219,23 @@ namespace StareMedic.Models
             Medic medreturned = _db.Medics.FirstOrDefault(x => x.Id == medicId);
             if (medreturned == null)
             {
-                medreturned= new();
+                medreturned = new();
                 return medreturned;
-            }else
+            }
+            else
                 return medreturned;
         }
 
         public static Diagnostico GetDiagnosticoById(int diagnosticoId)
         {
-            return _db.Diagnosticos.FirstOrDefault(x => x.Id == diagnosticoId);
+            Diagnostico diagnosticoreturned = _db.Diagnosticos.FirstOrDefault(x => x.Id == diagnosticoId);
+            if (diagnosticoreturned == null)
+            {
+                diagnosticoreturned = new();
+                return diagnosticoreturned;
+            }
+            else
+                return diagnosticoreturned;
         }
         #endregion
 
@@ -252,35 +260,35 @@ namespace StareMedic.Models
 
         public static int GetCurrentFiadorIndex()
         {
-            if(!_db.Fiadores.Any()) { return 1; }//check dis out
+            if (!_db.Fiadores.Any()) { return 1; }//check dis out
             var maxId = _db.Fiadores.Max(p => (int?)p.Id);
             return (maxId ?? 0) + 1;
         }
-        
+
         public static int GetCurrentRoomIndex()
         {
-            if(!_db.Rooms.Any()) { return 1; }
+            if (!_db.Rooms.Any()) { return 1; }
             var maxId = _db.Rooms.Max(p => (int?)p.Id);
             return (maxId ?? 0) + 1;
         }
 
         public static int GetCurrentCaseIndex()
         {
-            if(!_db.CasoClinicos.Any()) { return 1; }//check dis out
+            if (!_db.CasoClinicos.Any()) { return 1; }//check dis out
             var maxId = _db.CasoClinicos.Max(p => (int?)p.IdDB);
             return (maxId ?? 0) + 1;
         }
 
         public static int GetCurrentMedicIndex()
         {
-            if(!_db.Medics.Any()) { return 1; }//check dis out
+            if (!_db.Medics.Any()) { return 1; }//check dis out
             var maxId = _db.Medics.Max(p => (int?)p.Id);
             return (maxId ?? 0) + 1;
         }
 
         public static int GetCurrentDiagnosticoIndex()
         {
-            if(!_db.Diagnosticos.Any()) { return 1; }//check dis out
+            if (!_db.Diagnosticos.Any()) { return 1; }//check dis out
             var maxId = _db.Diagnosticos.Max(p => (int?)p.Id);
             return (maxId ?? 0) + 1;
         }
@@ -316,7 +324,7 @@ namespace StareMedic.Models
 
         }
 
-        public static void UpdateRoom( int id)
+        public static void UpdateRoom(int id)
         {
             var room2update = _db.Rooms.FirstOrDefault(x => x.Id == id);
             _db.Entry(room2update).CurrentValues.SetValues(room2update);
@@ -356,7 +364,7 @@ namespace StareMedic.Models
         public static bool DeletePatient(Patient patient)
         {
             var validate = SearchCasoClinico(patient.Nombre, 1);
-            if(validate.Count > 0)
+            if (validate.Count > 0)
             {
                 return false;
             }
@@ -388,7 +396,7 @@ namespace StareMedic.Models
         public static bool DeleteMedic(int id)
         {
             var validate = SearchCasoClinico(GetMedicById(id).Nombre, 4);
-            if(validate.Count > 0)
+            if (validate.Count > 0)
                 return false;
             var medic2delete = _db.Medics.FirstOrDefault(x => x.Id == id);
             _db.Medics.Remove(medic2delete);
@@ -418,7 +426,7 @@ namespace StareMedic.Models
 
         public static List<CasoClinico> SearchCasoClinico(string datoCasoClinico, int searchCriteria)
         {
-            if(searchCriteria == 1)
+            if (searchCriteria == 1)
             {
                 //search by paciente we need this join
                 var query = from casoclinico in _db.CasoClinicos

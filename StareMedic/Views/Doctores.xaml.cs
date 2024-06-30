@@ -1,20 +1,20 @@
-using System.Collections.ObjectModel;
-using StareMedic.Models.Entities;
-using StareMedic.Models;
-using StareMedic.Views.Viewers;
 using CommunityToolkit.Maui.Views;
+using StareMedic.Models;
+using StareMedic.Models.Entities;
+using StareMedic.Views.Viewers;
+using System.Collections.ObjectModel;
 
 namespace StareMedic.Views;
 
 public partial class Doctores : ContentPage
 {
 
-	ObservableCollection<Medic> medics = new();
+    ObservableCollection<Medic> medics = new();
 
     int listpage;
-	public Doctores()
-	{
-		InitializeComponent();
+    public Doctores()
+    {
+        InitializeComponent();
         listpage = 1;
         BtnPrevListPage.IsEnabled = false;
 
@@ -37,13 +37,13 @@ public partial class Doctores : ContentPage
         else
             BtnNextListPage.IsEnabled = true;
     }
-        
+
 
 
 
     private async void listMedics_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
-        if(listMedics.SelectedItem != null)
+        if (listMedics.SelectedItem != null)
         {
             var popup = new SpinnerPopup();
             this.ShowPopup(popup);
@@ -63,7 +63,7 @@ public partial class Doctores : ContentPage
 
     private void SearchBarMedics_SearchButtonPressed(object sender, EventArgs e)
     {
-        if(!string.IsNullOrWhiteSpace(SearchBarMedics.Text))
+        if (!string.IsNullOrWhiteSpace(SearchBarMedics.Text))
         {
             var popup = new SpinnerPopup();
             this.ShowPopup(popup);

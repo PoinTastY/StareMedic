@@ -151,7 +151,7 @@
 
         public static implicit operator bool(Patient patient)
         {
-            if(!string.IsNullOrEmpty(patient._name) &&
+            if (!string.IsNullOrEmpty(patient._name) &&
                 !string.IsNullOrEmpty(patient._domicilio) &&
                 patient._sexo != 'N' &&
                 !string.IsNullOrEmpty(patient._edad))
@@ -191,7 +191,8 @@
 
         public Cercano Cercano
         {
-            get {
+            get
+            {
                 if (_idCercano == 0)
                 {
                     return new Cercano(MainRepo.GetCurrentCercanoIndex());
@@ -215,6 +216,6 @@
             }
         }
 
-        
+
     }
 }

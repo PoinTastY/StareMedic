@@ -114,18 +114,18 @@
         }
 
         public Medic Medico()
-        { 
+        {
             return MainRepo.GetMedicById(_idDoctor);
         }
 
-        public Rooms Habitacion() 
-        {             
+        public Rooms Habitacion()
+        {
             return MainRepo.GetRoomById(_idHabitacion);
         }
 
         public Diagnostico Diagnostico()
         {
-                return MainRepo.GetDiagnosticoById(_idDiagnostico);
+            return MainRepo.GetDiagnosticoById(_idDiagnostico);
         }
 
         //maybe add close case method in here instead of repo?
