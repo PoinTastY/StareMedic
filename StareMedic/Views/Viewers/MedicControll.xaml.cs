@@ -1,14 +1,14 @@
 namespace StareMedic.Views.Viewers;
-using StareMedic.Models.Entities;
 using StareMedic.Models;
+using StareMedic.Models.Entities;
 
 public partial class MedicControll : ContentPage
 {
-	private Medic doctor;
-	public MedicControll(Medic doctor)
-	{
-		InitializeComponent();
-        if(doctor != null)
+    private Medic doctor;
+    public MedicControll(Medic doctor)
+    {
+        InitializeComponent();
+        if (doctor != null)
         {
             this.doctor = doctor;
             EntryName.Text = doctor.Nombre;
@@ -22,7 +22,7 @@ public partial class MedicControll : ContentPage
         {
             this.doctor = new(MainRepo.GetCurrentMedicIndex());
         }
-	}
+    }
 
     private void EntryName_TextChanged(object sender, TextChangedEventArgs e)
     {
@@ -57,7 +57,7 @@ public partial class MedicControll : ContentPage
     private void EntryEstado_TextChanged(object sender, TextChangedEventArgs e)
     {
         doctor.Estado = EntryEstado.Text;
-    } 
+    }
 
     private async void BtnGuardar_Clicked(object sender, EventArgs e)
     {
@@ -179,10 +179,10 @@ public partial class MedicControll : ContentPage
         }
 
         if (string.IsNullOrEmpty(fallo.Estado))
-        
+
             faltantes += " Estado ";
-        
+
         return faltantes;
-  
+
     }
 }

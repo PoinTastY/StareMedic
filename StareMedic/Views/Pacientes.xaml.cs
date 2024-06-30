@@ -1,7 +1,7 @@
-using StareMedic.Models;
-using System.Collections.ObjectModel;
-using StareMedic.Views.Viewers;
 using CommunityToolkit.Maui.Views;
+using StareMedic.Models;
+using StareMedic.Views.Viewers;
+using System.Collections.ObjectModel;
 
 namespace StareMedic.Views;
 
@@ -9,11 +9,11 @@ using Patient = Models.Entities.Patient; //this is to declare what are we exactl
 
 public partial class Pacientes : ContentPage
 {
-	ObservableCollection<Patient> patients = new();
+    ObservableCollection<Patient> patients = new();
     private int listpage;
-	public Pacientes()
-	{
-		InitializeComponent();
+    public Pacientes()
+    {
+        InitializeComponent();
         listpage = 1;
         BtnPrevListPage.IsEnabled = false;
     }
@@ -59,14 +59,14 @@ public partial class Pacientes : ContentPage
 
     private async void ListPatients_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
-       
-		if(listPatients.SelectedItem != null)
-		{
+
+        if (listPatients.SelectedItem != null)
+        {
             var popup = new SpinnerPopup();
             this.ShowPopup(popup);
             try
             {
-                Patient patient = new ((Patient)listPatients.SelectedItem);
+                Patient patient = new((Patient)listPatients.SelectedItem);
                 await Navigation.PushAsync(new PatientControll(patient));
             }
             finally
@@ -79,7 +79,7 @@ public partial class Pacientes : ContentPage
     private void ListPatients_ItemTapped(object sender, ItemTappedEventArgs e)
     {
 
-		listPatients.SelectedItem = null;
+        listPatients.SelectedItem = null;
     }
 
     private void SearchBarPatients_SearchButtonPressed(object sender, EventArgs e)
@@ -107,7 +107,7 @@ public partial class Pacientes : ContentPage
 
     private void SearchBarPatients_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if(string.IsNullOrWhiteSpace(SearchBarPatients.Text))
+        if (string.IsNullOrWhiteSpace(SearchBarPatients.Text))
         {
             var popup = new SpinnerPopup();
             this.ShowPopup(popup);

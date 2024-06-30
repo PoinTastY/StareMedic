@@ -1,13 +1,13 @@
-﻿using System.Net.Sockets;
-using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using StareMedic.Models.Entities;
+using System.Net.Sockets;
+using System.Text;
 
 namespace StareMedic.Models
 {
     public class Request
     {
-        
+
         public Request(int work)
         {
             Work = work;
@@ -54,7 +54,7 @@ namespace StareMedic.Models
             req.cTextoExtra1 = new StringBuilder(paciente.Nombre, 20).ToString();
             req.cTextoExtra2 = new StringBuilder(paciente.Telefono + ", Edad: " + paciente.Edad, 20).ToString();
             req.cTextoExtra3 = new StringBuilder(paciente.Domicilio, 20).ToString();
-            
+
 
             req.SerialDocto = JsonConvert.SerializeObject(docto);
             req.Observaciones = $"Medico: {medico.Nombre} Diagnostico: {diagnostico.Contenido}";
@@ -77,7 +77,7 @@ namespace StareMedic.Models
             {
                 return 0;
             }
-            
+
         }
     }
 }

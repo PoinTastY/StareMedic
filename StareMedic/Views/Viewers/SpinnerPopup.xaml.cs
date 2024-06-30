@@ -4,8 +4,8 @@ namespace StareMedic.Views.Viewers;
 
 public partial class SpinnerPopup : Popup
 {
-	public SpinnerPopup()
-	{
-		InitializeComponent();
-	}
+    public SpinnerPopup()
+    {
+        InitializeComponent();
+    }
 }

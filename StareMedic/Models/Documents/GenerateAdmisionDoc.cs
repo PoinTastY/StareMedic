@@ -1,10 +1,8 @@
-﻿using iText;
-using iText.Kernel.Geom;
+﻿using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
 using iText.Layout;
 using iText.Layout.Element;
-using Microsoft.UI.Xaml.Controls;
 using StareMedic.Models.Entities;
 using System.Diagnostics;
 using Canvas = iText.Layout.Canvas;
@@ -73,172 +71,180 @@ namespace StareMedic.Models.Documents
         // !!! This method uses static values, GenerateDocument(caso); is required to set them
         private static void AdmisionClinica(Canvas canvas, CasoClinico caso)
         {
-            int columna_1 = 90;
-            int columna_2 = 345;
-            int columna_3 = 435;
+            int columna_1 = 120;
+            int columna_2 = 335;
+            int columna_3 = 415;
             int altura_parrafo = 20;
             int normal_width = 160;
 
-            var no_de_cuarto = new Paragraph($"{s_room.Nombre}").SetMaxWidth(80).SetFixedPosition(columna_1, 785, 80);
+            var no_de_cuarto = new Paragraph($"{s_room.Nombre}").SetMaxWidth(80).SetFixedPosition(columna_1, 775, 80);
             canvas.Add(no_de_cuarto);
 
-            var hora = new Paragraph($"{DateTime.Now.ToShortTimeString()}").SetMaxWidth(60).SetFixedPosition(220, 785, 60);
+            var hora = new Paragraph($"{DateTime.Now.ToShortTimeString()}").SetMaxWidth(60).SetFixedPosition(230, 775, 60);
             canvas.Add(hora);
 
-            var no_expediente = new Paragraph($"{caso.Id}").SetMaxWidth(200).SetFixedPosition(345, 785, 200);
+            var no_expediente = new Paragraph($"{caso.Id}").SetMaxWidth(200).SetFixedPosition(345, 775, 200);
             canvas.Add(no_expediente);
 
-            var fecha_ingreso = new Paragraph($"{caso.FechaIngreso:dd/MM/yyyy}").SetMaxWidth(normal_width).SetFixedPosition(columna_1, 770, normal_width);
+            var fecha_ingreso = new Paragraph($"{caso.FechaIngreso:dd/MM/yyyy}").SetMaxWidth(normal_width).SetFixedPosition(columna_1, 758, normal_width);
             canvas.Add(fecha_ingreso);
 
-            var sexo = new Paragraph($"{s_patient.Sexo}").SetMaxWidth(50).SetFixedPosition(columna_2, 770, 50);
+            var sexo = new Paragraph($"{s_patient.Sexo}").SetMaxWidth(50).SetFixedPosition(columna_2, 758, 50);
             canvas.Add(sexo);
 
-            var edad = new Paragraph($"{s_patient.Edad}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_3, 770, normal_width);
+            var edad = new Paragraph($"{s_patient.Edad}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_3 - 5, 758, normal_width);
             canvas.Add(edad);
 
-            var nombre_paciente = new Paragraph($"{s_patient.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 755, normal_width);
+            var nombre_paciente = new Paragraph($"{s_patient.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 740, normal_width);
             canvas.Add(nombre_paciente);
 
-            var estado_civil = new Paragraph($"{s_patient.EstadoCivil}").SetMaxWidth(50).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_2, 755, 50);
+            var estado_civil = new Paragraph($"{s_patient.EstadoCivil}").SetMaxWidth(50).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_2, 740, 50);
             canvas.Add(estado_civil);
 
-            var nacionalidad = new Paragraph($"{s_patient.Nacionalidad}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_3, 755, normal_width);
+            var nacionalidad = new Paragraph($"{s_patient.Nacionalidad}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_3, 740, normal_width);
             canvas.Add(nacionalidad);
 
-            var domicilio_paciente = new Paragraph($"{s_patient.Domicilio}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 730, normal_width);
+            var domicilio_paciente = new Paragraph($"{s_patient.Domicilio}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 715, normal_width);
             canvas.Add(domicilio_paciente);
 
-            var telefono_paciente = new Paragraph($"{s_patient.Telefono}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_2, 730, normal_width);
+            var telefono_paciente = new Paragraph($"{s_patient.Telefono}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_2, 725, normal_width);
             canvas.Add(telefono_paciente);
 
-            var ciudad_estado = new Paragraph($"{s_patient.Ciudad}, {s_patient.Estado}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 715, normal_width);
+            var ciudad_estado = new Paragraph($"{s_patient.Ciudad}, {s_patient.Estado}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 700, normal_width);
             canvas.Add(ciudad_estado);
 
-            var relacion = new Paragraph($"{s_cercano.Relacion}").SetMaxWidth(50).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_2, 715, 50);
+            var relacion = new Paragraph($"{s_cercano.Relacion}").SetMaxWidth(50).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_2, 695, 50);
             canvas.Add(relacion);
 
-            var telefono_cercano = new Paragraph($"{s_cercano.Telefono}").SetMaxWidth(normal_width).SetFixedPosition(columna_3, 715, normal_width);
+            var telefono_cercano = new Paragraph($"{s_cercano.Telefono}").SetMaxWidth(normal_width).SetFixedPosition(columna_3, 695, normal_width);
             canvas.Add(telefono_cercano);
 
-            var nombre_cercano = new Paragraph($"{s_cercano.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 695, normal_width);
+            var nombre_cercano = new Paragraph($"{s_cercano.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 675, normal_width);
             canvas.Add(nombre_cercano);
 
-            var domicilio_cercano = new Paragraph($"{s_cercano.Direccion}").SetMaxWidth(200).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 685, 200);
+            var domicilio_cercano = new Paragraph($"{s_cercano.Direccion}").SetMaxWidth(200).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 665, 200);
             canvas.Add(domicilio_cercano);
 
-            var ciudad_estado_cercano = new Paragraph($"{s_cercano.Ciudad}, {s_cercano.Estado}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 665, normal_width);
+            var ciudad_estado_cercano = new Paragraph($"{s_cercano.Ciudad}, {s_cercano.Estado}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 645, normal_width);
             canvas.Add(ciudad_estado_cercano);
 
-            var caso_clinico = new Paragraph($"{caso.Nombre}").SetMaxWidth(170).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_2, 665, 170);
+            var caso_clinico = new Paragraph($"{caso.Nombre}").SetMaxWidth(170).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_2, 640, 170);
             canvas.Add(caso_clinico);
 
-            var nombre_doctor = new Paragraph($"{s_medic.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 650, normal_width);
+            var nombre_doctor = new Paragraph($"{s_medic.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 630, normal_width);
             canvas.Add(nombre_doctor);
 
-            var nombre_fiador = new Paragraph($"{s_cercano.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 630, normal_width);
+            var nombre_fiador = new Paragraph($"{s_cercano.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 605, normal_width);
             canvas.Add(nombre_fiador);
 
-            var telefono_fiador = new Paragraph($"{s_cercano.Telefono}").SetMaxWidth(normal_width).SetFixedPosition(columna_2, 635, normal_width);
+            var telefono_fiador = new Paragraph($"{s_cercano.Telefono}").SetMaxWidth(normal_width).SetFixedPosition(columna_2, 615, normal_width);
             canvas.Add(telefono_fiador);
 
-            var domicilio_fiador = new Paragraph($"{s_cercano.Direccion}").SetMaxWidth(200).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 625, 200);
+            var domicilio_fiador = new Paragraph($"{s_cercano.Direccion}").SetMaxWidth(200).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 590, 200);
             canvas.Add(domicilio_fiador);
 
-            var ciudad_estado_fiador = new Paragraph($"{s_cercano.Ciudad}, {s_cercano.Estado}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 600, normal_width);
+            var ciudad_estado_fiador = new Paragraph($"{s_cercano.Ciudad}, {s_cercano.Estado}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 570, normal_width);
             canvas.Add(ciudad_estado_fiador);
 
-            var diagnostico = new Paragraph($"{s_diag.Contenido}").SetMaxWidth(400).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 580, 400);
+            var diagnostico = new Paragraph($"{s_diag.Contenido}").SetMaxWidth(400).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 550, 400);
             canvas.Add(diagnostico);
 
-            var denominacion_paciente = new Paragraph($"{s_patient.Nombre}").SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 510, 200);
+            var denominacion_paciente = new Paragraph($"{s_patient.Nombre}").SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 500, 200);
             canvas.Add(denominacion_paciente);
 
-            var fecha_hoy = new Paragraph($"{DateTime.Now:dd/MM/yyyy}").SetMaxHeight(altura_parrafo).SetMaxWidth(200).SetFixedPosition(220, 240, 200);
+            var fecha_hoy = new Paragraph($"{DateTime.Now:dd/MM/yyyy}").SetMaxHeight(altura_parrafo).SetMaxWidth(200).SetFixedPosition(200, 255, 200);
             canvas.Add(fecha_hoy);
         }
 
         private static void SumarioClinico(Canvas canvas, CasoClinico caso)
         {
-            int columna_1 = 90;
-            int columna_2 = 350;
-            int columna_3 = 440;
-            int altura_parrafo = 20;
+            int columna_1 = 110;
+            int columna_2 = 345;
+            int columna_3 = 435;
+            int altura_parrafo = 18;
             int normal_width = 160;
 
-            var no_de_cuarto = new Paragraph($"{s_room.Nombre}").SetMaxWidth(80).SetFixedPosition(columna_1, 785, 80);
+            var no_de_cuarto = new Paragraph($"{s_room.Nombre}").SetMaxWidth(80).SetFixedPosition(columna_1, 755, 80);
             canvas.Add(no_de_cuarto);
 
-            var hora = new Paragraph($"{DateTime.Now.ToShortTimeString()}").SetMaxWidth(60).SetFixedPosition(220, 785, 60);
+            var hora = new Paragraph($"{DateTime.Now.ToShortTimeString()}").SetMaxWidth(60).SetFixedPosition(230, 755, 60);
             canvas.Add(hora);
 
-            var no_expediente = new Paragraph($"{caso.Id}").SetMaxWidth(200).SetFixedPosition(345, 785, 200);
+            var no_expediente = new Paragraph($"{caso.Id}").SetMaxWidth(200).SetFixedPosition(355, 755, 200);
             canvas.Add(no_expediente);
 
-            var fecha_ingreso = new Paragraph($"{caso.FechaIngreso:dd/MM/yyyy}").SetMaxWidth(normal_width).SetFixedPosition(columna_1, 770, normal_width);
+            var fecha_ingreso = new Paragraph($"{caso.FechaIngreso:dd/MM/yyyy}").SetMaxWidth(normal_width).SetFixedPosition(columna_1, 738, normal_width);
             canvas.Add(fecha_ingreso);
 
-            var sexo = new Paragraph($"{s_patient.Sexo}").SetMaxWidth(50).SetFixedPosition(columna_2, 770, 50);
+            var sexo = new Paragraph($"{s_patient.Sexo}").SetMaxWidth(50).SetFixedPosition(columna_2, 738, 50);
             canvas.Add(sexo);
 
-            var edad = new Paragraph($"{s_patient.Edad}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_3, 770, normal_width);
+            var edad = new Paragraph($"{s_patient.Edad}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_3 - 5, 738, normal_width);
             canvas.Add(edad);
 
-            var nombre_paciente = new Paragraph($"{s_patient.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 755, normal_width);
+            var nombre_paciente = new Paragraph($"{s_patient.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 715, normal_width);
             canvas.Add(nombre_paciente);
 
-            var estado_civil = new Paragraph($"{s_patient.EstadoCivil}").SetMaxWidth(50).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_2, 755, 50);
+            var estado_civil = new Paragraph($"{s_patient.EstadoCivil}").SetMaxWidth(50).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_2, 722, 50);
             canvas.Add(estado_civil);
 
-            var nacionalidad = new Paragraph($"{s_patient.Nacionalidad}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_3, 755, normal_width);
+            var nacionalidad = new Paragraph($"{s_patient.Nacionalidad}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_3 + 5, 722, normal_width);
             canvas.Add(nacionalidad);
 
-            var domicilio_paciente = new Paragraph($"{s_patient.Domicilio}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 730, normal_width);
+            var domicilio_paciente = new Paragraph($"{s_patient.Domicilio}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 687, normal_width);
             canvas.Add(domicilio_paciente);
 
-            var telefono_paciente = new Paragraph($"{s_patient.Telefono}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_2, 730, normal_width);
+            var telefono_paciente = new Paragraph($"{s_patient.Telefono}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_2, 695, normal_width);
             canvas.Add(telefono_paciente);
 
-            var ciudad_estado = new Paragraph($"{s_patient.Ciudad}, {s_patient.Estado}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 715, normal_width);
+            var ciudad_estado = new Paragraph($"{s_patient.Ciudad}, {s_patient.Estado}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 678, normal_width);
             canvas.Add(ciudad_estado);
 
-            var relacion = new Paragraph($"{s_cercano.Relacion}").SetMaxWidth(50).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_2, 715, 50);
+            var relacion = new Paragraph($"{s_cercano.Relacion}").SetMaxWidth(50).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_2, 662, 50);
             canvas.Add(relacion);
 
-            var telefono_cercano = new Paragraph($"{s_cercano.Telefono}").SetMaxWidth(normal_width).SetFixedPosition(columna_3, 715, normal_width);
+            var telefono_cercano = new Paragraph($"{s_cercano.Telefono}").SetMaxWidth(normal_width).SetFixedPosition(columna_3, 662, normal_width);
             canvas.Add(telefono_cercano);
 
-            var nombre_cercano = new Paragraph($"{s_cercano.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 695, normal_width);
+            var nombre_cercano = new Paragraph($"{s_cercano.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 652, normal_width);
             canvas.Add(nombre_cercano);
 
-            var domicilio_cercano = new Paragraph($"{s_cercano.Direccion}").SetMaxWidth(200).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 685, 200);
+            var domicilio_cercano = new Paragraph($"{s_cercano.Direccion}").SetMaxWidth(200).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 633, 200);
             canvas.Add(domicilio_cercano);
 
-            var ciudad_estado_cercano = new Paragraph($"{s_cercano.Ciudad}, {s_cercano.Estado}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 665, normal_width);
+            var ciudad_estado_cercano = new Paragraph($"{s_cercano.Ciudad}, {s_cercano.Estado}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 618, normal_width);
             canvas.Add(ciudad_estado_cercano);
 
-            var caso_clinico = new Paragraph($"{caso.Nombre}").SetMaxWidth(170).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_2, 665, 170);
+            var caso_clinico = new Paragraph($"{caso.Nombre}").SetMaxWidth(170).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_2, 615, 170);
             canvas.Add(caso_clinico);
 
-            var nombre_doctor = new Paragraph($"{s_medic.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 650, normal_width);
+            var nombre_doctor = new Paragraph($"{s_medic.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 600, normal_width);
             canvas.Add(nombre_doctor);
 
-            var nombre_fiador = new Paragraph($"{s_cercano.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 630, normal_width);
+            var nombre_fiador = new Paragraph($"{s_cercano.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 573, normal_width);
             canvas.Add(nombre_fiador);
 
-            var telefono_fiador = new Paragraph($"{s_cercano.Telefono}").SetMaxWidth(normal_width).SetFixedPosition(columna_2, 635, normal_width);
+            var telefono_fiador = new Paragraph($"{s_cercano.Telefono}").SetMaxWidth(normal_width).SetFixedPosition(columna_2, 585, normal_width);
             canvas.Add(telefono_fiador);
 
-            var domicilio_fiador = new Paragraph($"{s_cercano.Direccion}").SetMaxWidth(200).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 625, 200);
+            var domicilio_fiador = new Paragraph($"{s_cercano.Direccion}").SetMaxWidth(200).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 555, 200);
             canvas.Add(domicilio_fiador);
 
-            var ciudad_estado_fiador = new Paragraph($"{s_cercano.Ciudad}, {s_cercano.Estado}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 600, normal_width);
+            var ciudad_estado_fiador = new Paragraph($"{s_cercano.Ciudad}, {s_cercano.Estado}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 540, normal_width);
             canvas.Add(ciudad_estado_fiador);
 
-            var diagnostico = new Paragraph($"{s_diag.Contenido}").SetMaxWidth(400).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 580, 400);
+            var diagnostico = new Paragraph($"{s_diag.Contenido}").SetMaxWidth(400).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 518, 400);
             canvas.Add(diagnostico);
-
             //TODO: Add remaining body content
+
+            var nombre_paciente2 = new Paragraph($"{s_patient.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 497, normal_width);
+            canvas.Add(nombre_paciente2);
+
+            var domicilio_paciente2 = new Paragraph($"{s_patient.Domicilio}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1, 475, normal_width);
+            canvas.Add(domicilio_paciente2);
+
+            var servicio_del_dr = new Paragraph($"{s_medic.Nombre}").SetMaxWidth(normal_width).SetMaxHeight(altura_parrafo).SetFixedPosition(columna_1 - 15, 292, normal_width);
+            canvas.Add(servicio_del_dr);
         }
 
         private static void OpenPdf(string filePath)
@@ -300,7 +306,7 @@ namespace StareMedic.Models.Documents
                     UseShellExecute = false
                 });
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return;
             }
