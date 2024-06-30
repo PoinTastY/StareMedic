@@ -31,7 +31,7 @@
                 ColumnDefinitions="*,*"
                 RowDefinitions="*,*">
 
-                <Label Text="Nombre:"
+                <Label Text="*Nombre:"
                        TextColor="{StaticResource Alter2}"
                        VerticalOptions="Center"
                        HorizontalOptions="Center"
@@ -68,7 +68,7 @@
             RowSpacing="100"
             RowDefinitions="*,*">
 
-            <Label Text="Telefono:"
+            <Label Text="*Telefono:"
                    Grid.Column="0"
                    VerticalOptions="Center"
                    Style="{StaticResource labelEntry}"/>
@@ -81,7 +81,7 @@
                    Style="{StaticResource entryPhone}"
                    TextChanged="EntryTelefono_TextChanged"/>
             
-            <Label Text="Domicilio:"
+            <Label Text="*Domicilio:"
                    Grid.Column="2"
                    VerticalOptions="Center"
                    Style="{StaticResource labelEntry}"/>
@@ -94,7 +94,7 @@
                    Style="{StaticResource Entrys}"
                    TextChanged="EntryDomicilio_TextChanged"/>
 
-            <Label Text="Ciudad:"
+            <Label Text="*Ciudad:"
                    Grid.Column="0"
                    Grid.Row="1"
                    VerticalOptions="Center"
@@ -109,7 +109,7 @@
                    Style="{StaticResource Entrys}"
                    TextChanged="EntryCiudad_TextChanged"/>
 
-            <Label Text="Estado:"
+            <Label Text="*Estado:"
                    Grid.Column="2"
                    Grid.Row="1"
                    VerticalOptions="Center"

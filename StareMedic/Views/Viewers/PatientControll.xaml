@@ -43,7 +43,7 @@
 
                     <!--Forced capture-->
                     <Label 
-                        Text="Nombre:"
+                        Text="*Nombre:"
                         Grid.Column="0"
                         VerticalOptions="Center"
                         FontFamily="HelveticaNeue"
@@ -90,7 +90,7 @@
                     HorizontalOptions="StartAndExpand">
 
                     <Label 
-                       Text="Sexo:"
+                       Text="*Sexo:"
                        VerticalOptions="Center"
                        HorizontalOptions="Center"
                        Grid.Column="0"
@@ -170,7 +170,7 @@
                     </Picker>-->
 
                     <Label 
-                        Text="Edad:"
+                        Text="*Edad:"
                         Grid.Column="4"                      
                         VerticalOptions="Center"
                         FontFamily="HelveticaNeue"
@@ -227,7 +227,7 @@
                     Grid.Column="0" 
                     Grid.Row="0">
 
-                    <Label Text="Direccion (Calle, Numero, Numero int., C.P., Colonia...):"
+                    <Label Text="*Direccion (Calle, Numero, Numero int., C.P., Colonia...):"
                            HorizontalOptions="Start"
                            FontFamily="HelveticaNeue"
                            TextColor="{StaticResource Black}"/>
@@ -332,7 +332,7 @@
                     Grid.Row="1">
 
                     <Label 
-                        Text="Nombre:"
+                        Text="*Nombre:"
                         FontFamily="HelveticaNeue"
                         HorizontalOptions="Start"
                         TextColor="{StaticResource Black}"/>
@@ -355,7 +355,7 @@
                     Grid.Row="1">
 
                     <Label 
-                        Text="Telefono:"
+                        Text="*Telefono:"
                            HorizontalOptions="Start"
                         FontFamily="HelveticaNeue"
                            TextColor="{StaticResource Black}"/>
@@ -375,7 +375,7 @@
                     Grid.Column="0" 
                     Grid.Row="2">
 
-                    <Label Text="Direccion (Calle, Numero, Numero int., C.P., Colonia...):"
+                    <Label Text="*Direccion (Calle, Numero, Numero int., C.P., Colonia...):"
                            HorizontalOptions="Start"
                            FontFamily="HelveticaNeue"
                            TextColor="{StaticResource Black}"/>
@@ -436,7 +436,7 @@
                     Grid.Column="1" 
                     Grid.Row="3">
 
-                    <Label Text="Relacion:"
+                    <Label Text="*Relacion:"
                            HorizontalOptions="Start"
                            FontFamily="HelveticaNeue"
                            TextColor="{StaticResource Black}"/>
