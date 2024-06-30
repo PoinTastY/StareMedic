@@ -202,7 +202,7 @@ public partial class PatientControll : ContentPage
         }
         else
         {
-            await DisplayAlert("Error:", $"No se puede registrar un paciente, Faltan los siguentes Datos: {Dataincompleta()} ", "OK");
+            await DisplayAlert("Error:", $"No se puede registrar un paciente, Faltan los siguentes Datos: {Dataincompleta()} {DataincompletacC()}", "OK");
             return;
         }
     }
@@ -340,81 +340,46 @@ public partial class PatientControll : ContentPage
     private string Dataincompleta()
     {
         string datafaltante = "";
-
+     
         if (string.IsNullOrEmpty(entryName.Text))
         {
             datafaltante += " Nombre ";
         }
-
-        if (string.IsNullOrWhiteSpace(entryTelefono.Text) || entryTelefono.Text.Count() < 10)
-        {
-            datafaltante += "Numero De Telefono ";
-        }
-
         if (pickerSexo.SelectedItem == null)
         {
             datafaltante += " Sexo ";
         }
-
-        if (pickerEdoCivil.SelectedItem == null)
-        {
-            datafaltante += " Estado Civil ";
-        }
-
         if (string.IsNullOrEmpty(EntryEdad.Text))
         {
             datafaltante += " Edad ";
         }
-
-        if (string.IsNullOrEmpty(entryCurp.Text))
-        {
-            datafaltante += " Curp ";
-        }
-
         if (string.IsNullOrEmpty(entryDomicilio.Text))
         {
             datafaltante += " Domicilio ";
         }
-
-        if (string.IsNullOrEmpty(entryCiudad.Text))
-        {
-            datafaltante += " Ciudad ";
-        }
-
-        if (string.IsNullOrEmpty(entryEstado.Text))
-        {
-            datafaltante += " Estado ";
-        }
-
-        if (string.IsNullOrEmpty(entryNacionalidad.Text))
-        {
-            datafaltante += " Nacionalidad ";
-        }
-
+    
+        return datafaltante;
+    }
+    private string DataincompletacC()
+    {
+        string datafaltanteC = "\n Datos Faltantes, Cercano: ";
         if (string.IsNullOrEmpty(entryNombreCercano.Text))
         {
-            datafaltante += " Nombre ";
+            datafaltanteC += " Nombre ";
         }
         if ((string.IsNullOrEmpty(entryTelefonoCercano.Text)) || entryTelefonoCercano.Text.Count() < 10)
         {
-            datafaltante += " Numero de Telefono ";
+            datafaltanteC += " Numero de Telefono ";
         }
-
         if (string.IsNullOrEmpty(entryDomicilioCercano.Text))
         {
-            datafaltante += " Domicilio  ";
+            datafaltanteC += " Domicilio ";
         }
-
-        if (string.IsNullOrEmpty(entryEstadoCercano.Text))
-        {
-            datafaltante += " Estado ";
-        }
-
         if (string.IsNullOrEmpty(entryRelacionCercano.Text))
         {
-            datafaltante += " Relacion ";
+            datafaltanteC += " Relacion ";
         }
-        return datafaltante;
+        return datafaltanteC;
     }
 
 }
