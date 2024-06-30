@@ -68,7 +68,7 @@
             RowSpacing="100"
             RowDefinitions="*,*">
 
-            <Label Text="*Telefono:"
+            <Label Text="Telefono:"
                    Grid.Column="0"
                    VerticalOptions="Center"
                    Style="{StaticResource labelEntry}"/>

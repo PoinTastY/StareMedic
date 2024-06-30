@@ -75,7 +75,6 @@
         public static implicit operator bool(Medic medic)
         {
             if (!string.IsNullOrEmpty(medic._name) &&
-                !string.IsNullOrEmpty(medic._phone) &&
                !string.IsNullOrEmpty(medic._domicilio) &&
                !string.IsNullOrEmpty(medic._ciudad) &&
                !string.IsNullOrEmpty(medic._estado))

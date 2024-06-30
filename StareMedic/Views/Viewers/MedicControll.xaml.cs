@@ -164,10 +164,6 @@ public partial class MedicControll : ContentPage
         {
             faltantes += " Nombre ";
         }
-        if (string.IsNullOrEmpty(fallo.Telefono))
-        {
-            faltantes += " Telefono ";
-        }
         if (string.IsNullOrEmpty(fallo.Domicilio))
         {
             faltantes += " Domicilio ";
