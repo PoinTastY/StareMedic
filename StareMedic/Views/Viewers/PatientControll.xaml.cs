@@ -159,29 +159,17 @@ public partial class PatientControll : ContentPage
 
         await BtnGuardar.FadeTo(1, 300);
 
-        if (paciente)
+        if (paciente && cercano)
         {
             //the cancel and confirm buttons are switched bcs i like it that way
             bool confirmation = await DisplayAlert("Confirmar", $"Se registrara a:\n{paciente.Nombre}", "Cancelar", "Confirmar");
             if (!confirmation)//that is actually true lol
             {
-                //add 2 repo 
-                if (cercano)
-                {
-
-                    paciente.IdCercano = cercano.Id;
-                    MainRepo.AddCercano(cercano);
-                    fiador.Copy(cercano);
-                    MainRepo.AddFiador(fiador);
-                    paciente.IdFiador = fiador.Id;
-
-                    //simplified capture to force cercano data capture and use it always as fiador
-                }
-                else
-                {
-                    await DisplayAlert("Error", $"No puede haber Campos los siguientas campos vacios en la informacion de Cercano: {Dataincompleta()}", "Ok");
-                    return;
-                }
+                paciente.IdCercano = cercano.Id;
+                MainRepo.AddCercano(cercano);
+                fiador.Copy(cercano);
+                MainRepo.AddFiador(fiador);
+                paciente.IdFiador = fiador.Id;
 
                 if (MainRepo.AddPatient(paciente))
                     await DisplayAlert("Exito", $"Paciente registrado: {paciente.Nombre}", "OK");
@@ -191,7 +179,7 @@ public partial class PatientControll : ContentPage
                 try
                 {
                     PatientSelected?.Invoke(this, new PatientSelectedEventArgs { SelectedPatient = paciente });
-                    //await Navigation.PopModalAsync(); // esta en el evento mejor
+                    await Navigation.PopModalAsync();
                 }
                 catch
                 {
@@ -202,7 +190,7 @@ public partial class PatientControll : ContentPage
         }
         else
         {
-            await DisplayAlert("Error:", $"No se puede registrar un paciente, Faltan los siguentes Datos: {Dataincompleta()} ", "OK");
+            await DisplayAlert("Error:", $"No se puede registrar un paciente, Faltan los siguentes Datos: \n{Dataincompleta(paciente, cercano)}", "OK");
             return;
         }
     }
@@ -337,84 +325,50 @@ public partial class PatientControll : ContentPage
         entryRelacionCercano.IsEnabled = x;
         entryCurp.IsEnabled = x;
     }
-    private string Dataincompleta()
+    private string Dataincompleta(Patient patient, Cercano cercano)
     {
         string datafaltante = "";
 
-        if (string.IsNullOrEmpty(entryName.Text))
+        if(!patient)
         {
-            datafaltante += " Nombre ";
+            datafaltante += "Del Paciente:\n";
+            if (string.IsNullOrEmpty(entryName.Text))
+            {
+                datafaltante += "Nombre ";
+            }
+            if (pickerSexo.SelectedItem == null)
+            {
+                datafaltante += "Sexo ";
+            }
+            if (string.IsNullOrEmpty(EntryEdad.Text))
+            {
+                datafaltante += "Edad ";
+            }
+            if (string.IsNullOrEmpty(entryDomicilio.Text))
+            {
+                datafaltante += "Domicilio ";
+            }
         }
-
-        if (string.IsNullOrWhiteSpace(entryTelefono.Text) || entryTelefono.Text.Count() < 10)
+        if (!cercano)
         {
-            datafaltante += "Numero De Telefono ";
-        }
-
-        if (pickerSexo.SelectedItem == null)
-        {
-            datafaltante += " Sexo ";
-        }
-
-        if (pickerEdoCivil.SelectedItem == null)
-        {
-            datafaltante += " Estado Civil ";
-        }
-
-        if (string.IsNullOrEmpty(EntryEdad.Text))
-        {
-            datafaltante += " Edad ";
-        }
-
-        if (string.IsNullOrEmpty(entryCurp.Text))
-        {
-            datafaltante += " Curp ";
-        }
-
-        if (string.IsNullOrEmpty(entryDomicilio.Text))
-        {
-            datafaltante += " Domicilio ";
-        }
-
-        if (string.IsNullOrEmpty(entryCiudad.Text))
-        {
-            datafaltante += " Ciudad ";
-        }
-
-        if (string.IsNullOrEmpty(entryEstado.Text))
-        {
-            datafaltante += " Estado ";
-        }
-
-        if (string.IsNullOrEmpty(entryNacionalidad.Text))
-        {
-            datafaltante += " Nacionalidad ";
-        }
-
-        if (string.IsNullOrEmpty(entryNombreCercano.Text))
-        {
-            datafaltante += " Nombre ";
-        }
-        if ((string.IsNullOrEmpty(entryTelefonoCercano.Text)) || entryTelefonoCercano.Text.Count() < 10)
-        {
-            datafaltante += " Numero de Telefono ";
-        }
-
-        if (string.IsNullOrEmpty(entryDomicilioCercano.Text))
-        {
-            datafaltante += " Domicilio  ";
-        }
-
-        if (string.IsNullOrEmpty(entryEstadoCercano.Text))
-        {
-            datafaltante += " Estado ";
-        }
-
-        if (string.IsNullOrEmpty(entryRelacionCercano.Text))
-        {
-            datafaltante += " Relacion ";
+            datafaltante += "\nDel Contacto Cercano:\n";
+            if (string.IsNullOrEmpty(entryNombreCercano.Text))
+            {
+                datafaltante += "Nombre ";
+            }
+            if ((string.IsNullOrEmpty(entryTelefonoCercano.Text)) || entryTelefonoCercano.Text.Count() < 10)
+            {
+                datafaltante += "Numero de Telefono ";
+            }
+            if (string.IsNullOrEmpty(entryDomicilioCercano.Text))
+            {
+                datafaltante += "Domicilio ";
+            }
+            if (string.IsNullOrEmpty(entryRelacionCercano.Text))
+            {
+                datafaltante += "Relacion ";
+            }
         }
         return datafaltante;
     }
-
 }
