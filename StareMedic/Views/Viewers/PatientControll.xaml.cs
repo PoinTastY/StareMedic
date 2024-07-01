@@ -179,11 +179,11 @@ public partial class PatientControll : ContentPage
                 try
                 {
                     PatientSelected?.Invoke(this, new PatientSelectedEventArgs { SelectedPatient = paciente });
-                    await Navigation.PopModalAsync();
+                    //await Shell.Current.GoToAsync("..");
+
                 }
                 catch
                 {
-                    await DisplayAlert("Error", "Algo salio mal con el evento de seleccion.", "Volver");
                     await Shell.Current.GoToAsync("..");
                 }
             }

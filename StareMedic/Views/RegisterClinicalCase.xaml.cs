@@ -96,7 +96,7 @@ public partial class RegisterClinicalCase : ContentPage
         }
     }
 
-    private void OnPatientSelected(object sender, PatientSelectedEventArgs e)
+    private async void OnPatientSelected(object sender, PatientSelectedEventArgs e)
     {
 
         // Aquí recibo el objeto seleccionado
@@ -111,6 +111,8 @@ public partial class RegisterClinicalCase : ContentPage
         caso.IdPaciente = patient.Id;
         ShowDoctor.IsVisible = true;
         ShowRoom.IsVisible = true;
+
+        await Shell.Current.GoToAsync("..");
     }
 
     private async void BtnGuardar_Clicked(object sender, EventArgs e)
