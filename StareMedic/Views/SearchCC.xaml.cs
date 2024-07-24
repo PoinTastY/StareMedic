@@ -18,12 +18,12 @@ public partial class SearchCC : ContentPage
         PickerFilterSearch.SelectedItem = "Paciente";
     }
 
-    protected override void OnAppearing()
+    protected async override void OnAppearing()
     {
         base.OnAppearing();
         casos.Clear();
         listpage = 1;
-        var listCasos = MainRepo.GetCasos(50, listpage);//maybe get a temporal list to optimize this
+        var listCasos = await MainRepo.GetCasosAsync(50, listpage);//maybe get a temporal list to optimize this
         foreach (CasoClinico caso in listCasos)
         {
             CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
@@ -64,7 +64,7 @@ public partial class SearchCC : ContentPage
         ListViewCC.SelectedItem = null;
     }
 
-    private void SearchBarentry_TextChanged(object sender, TextChangedEventArgs e)//validate here the things we validate with the listpage
+    private async void SearchBarentry_TextChanged(object sender, TextChangedEventArgs e)//validate here the things we validate with the listpage
     {
         if (string.IsNullOrWhiteSpace(SearchBarentry.Text))
         {
@@ -73,7 +73,7 @@ public partial class SearchCC : ContentPage
             try
             {
                 casos.Clear();
-                foreach (CasoClinico caso in MainRepo.GetCasos(50, listpage))
+                foreach (CasoClinico caso in await MainRepo.GetCasosAsync(50, listpage))
                 {
                     CCwPatient vista = new(caso.IdDB, caso.Id, caso.Nombre, caso.Paciente().Nombre, caso.Medico().Nombre);
                     casos.Add(vista);
@@ -201,7 +201,7 @@ public partial class SearchCC : ContentPage
 
             casos.Clear();
 
-            var nextCasos = MainRepo.GetCasos(50, --listpage);
+            var nextCasos = await MainRepo.GetCasosAsync(50, --listpage);
 
             foreach (CasoClinico caso in nextCasos)
             {
@@ -236,7 +236,7 @@ public partial class SearchCC : ContentPage
             BtnNextListPage.Opacity = 0;
 
             await BtnNextListPage.FadeTo(1, 300);
-            var nextCasos = MainRepo.GetCasos(50, ++listpage);
+            var nextCasos = await MainRepo.GetCasosAsync(50, ++listpage);
             if (nextCasos.Count < 50)
             {
                 BtnNextListPage.IsEnabled = false;

@@ -205,9 +205,8 @@ public partial class RegisterClinicalCase : ContentPage
     private void MakeStringID()
     {
         string id;
-        id = string.Concat("CC", ((Medic)PickerDoctor.SelectedItem).Nombre.AsSpan(0, 1));
-        id += LblPaciente.Text[..1];
-        id += ((Rooms)PickerHabitacion.SelectedItem).Nombre[..1];
+        id = "R";
+        id = id + DateTime.Now.Year.ToString()[2..];
         id += caso.IdDB.ToString();
         caso.Id = id;
     }

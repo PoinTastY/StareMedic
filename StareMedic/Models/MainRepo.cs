@@ -1,4 +1,5 @@
-﻿using StareMedic.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using StareMedic.Data;
 using StareMedic.Models.Entities;
 
 namespace StareMedic.Models
@@ -23,13 +24,13 @@ namespace StareMedic.Models
         {
             return _db.Rooms.ToList();
         }
-        public static List<CasoClinico> GetCasos(int cantidadElementos, int paginaActual)
+        public async static Task<List<CasoClinico>> GetCasosAsync(int cantidadElementos, int paginaActual)
         {
-            return _db.CasoClinicos
+            return await _db.CasoClinicos
                 .OrderByDescending(c => c.IdDB)  // Ordenar por el campo deseado en orden descendente
                 .Skip((paginaActual - 1) * cantidadElementos)
                 .Take(cantidadElementos)
-                .ToList();
+                .ToListAsync();
         }
         public static List<Medic> GetMedics()
         {
