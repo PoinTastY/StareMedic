@@ -19,7 +19,7 @@ public partial class PickPatientView : ContentPage
     public event EventHandler<PatientSelectedEventArgs> PatientSelected;
 
     public PickPatientView()
-	{
+    {
         InitializeComponent();
         listpage = 1;
         BtnPrevListPage.IsEnabled = false;
@@ -35,7 +35,7 @@ public partial class PickPatientView : ContentPage
 
         BtnConfirmar.IsEnabled = false;
         ListViewPatients.ItemsSource = patients.OrderBy(p => p.Nombre);
-	}
+    }
 
     private async void BtnConfirmar_Clicked(object sender, EventArgs e)
     {
@@ -45,15 +45,15 @@ public partial class PickPatientView : ContentPage
         Patient paciente = (Patient)ListViewPatients.SelectedItem;
 
         //u sure?
-        bool confirmacion = await DisplayAlert("Confirmacion", $"Seleccionar a: {paciente.Nombre}?","Volver", "Confirmar");
+        bool confirmacion = await DisplayAlert("Confirmacion", $"Seleccionar a: {paciente.Nombre}?", "Volver", "Confirmar");
 
-        
+
         if (!confirmacion)
         {
             try
             {
                 PatientSelected?.Invoke(this, new PatientSelectedEventArgs { SelectedPatient = paciente });
-                //await Navigation.PopModalAsync(); // esta en el evento mejor
+                await Navigation.PopModalAsync();
             }
             catch
             {
@@ -100,16 +100,16 @@ public partial class PickPatientView : ContentPage
         if (e.SelectedItem != null)
         {
             var selectedPatient = (Patient)e.SelectedItem;
-            SelectedPatientLabel.Text = selectedPatient.Nombre;         
+            SelectedPatientLabel.Text = selectedPatient.Nombre;
             BtnConfirmar.IsEnabled = true;
-            BtnConfirmar.TextColor = Color.FromHex("#FFFBF5");  
+            BtnConfirmar.TextColor = Color.FromHex("#FFFBF5");
             BtnConfirmar.BackgroundColor = Color.FromHex("#7743DB");
         }
     }
 
     private void SearchbarPatient_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if(string.IsNullOrWhiteSpace(SearchbarPatient.Text))
+        if (string.IsNullOrWhiteSpace(SearchbarPatient.Text))
         {
             ListViewPatients.ItemsSource = patients;
             BtnConfirmar.IsEnabled = false;
@@ -141,8 +141,8 @@ public partial class PickPatientView : ContentPage
 
             var nextPatients = MainRepo.GetPatients(50, --listpage);
 
-            
-        
+
+
             foreach (Patient patient in nextPatients)
             {
                 patients.Add(patient);
@@ -164,7 +164,7 @@ public partial class PickPatientView : ContentPage
                 BtnPrevListPage.IsEnabled = true;
             popup.Close();
         }
-        
+
     }
 
     private void BtnNextListPage_Clicked(object sender, EventArgs e)
@@ -174,16 +174,16 @@ public partial class PickPatientView : ContentPage
         try
         {
             var nextPatients = MainRepo.GetPatients(50, ++listpage);
-        if (nextPatients.Count < 50)
-        {
-            BtnNextListPage.IsEnabled = false;
-            if (nextPatients.Count == 0)
-                return;
-        }
+            if (nextPatients.Count < 50)
+            {
+                BtnNextListPage.IsEnabled = false;
+                if (nextPatients.Count == 0)
+                    return;
+            }
 
-        patients.Clear();
-        
-        
+            patients.Clear();
+
+
             foreach (Patient patient in nextPatients)
             {
                 patients.Add(patient);

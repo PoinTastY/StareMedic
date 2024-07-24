@@ -7,7 +7,7 @@
         private string _name;
         private string _description;//will be used as codigo cliente 4 contpaqsdk
 
-        
+
 
         //builders
         public Rooms(int id)

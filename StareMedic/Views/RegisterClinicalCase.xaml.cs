@@ -1,11 +1,9 @@
+using CommunityToolkit.Maui.Views;
 using StareMedic.Models;
-using System.Collections.ObjectModel;
+using StareMedic.Models.Documents;
 using StareMedic.Models.Entities;
 using StareMedic.Views.Viewers;
-using CommunityToolkit.Maui.Views;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using StareMedic.Models.Documents;
-using Microsoft.UI.Xaml.Controls.Primitives;
+using System.Collections.ObjectModel;
 
 namespace StareMedic.Views;
 
@@ -27,7 +25,7 @@ public partial class RegisterClinicalCase : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        
+
     }
 
     protected override void OnDisappearing()
@@ -41,11 +39,11 @@ public partial class RegisterClinicalCase : ContentPage
     }
 
     private void PickerDoctor_SelectedIndexChanged(object sender, EventArgs e)
-    {      
+    {
         PickerDoctor.Opacity = 0;
         PickerDoctor.FadeTo(1, 200);
 
-        if(PickerDoctor.SelectedItem != null)
+        if (PickerDoctor.SelectedItem != null)
             caso.IdDoctor = ((Medic)PickerDoctor.SelectedItem).Id;
     }
 
@@ -75,7 +73,7 @@ public partial class RegisterClinicalCase : ContentPage
         PickerHabitacion.FadeTo(1, 400);
 
         if (PickerDoctor.SelectedItem != null)
-           caso.IdHabitacion = ((Rooms)PickerHabitacion.SelectedItem).Id;
+            caso.IdHabitacion = ((Rooms)PickerHabitacion.SelectedItem).Id;
     }
 
     private async void BtnPickPatient_Clicked(object sender, EventArgs e)
@@ -100,7 +98,7 @@ public partial class RegisterClinicalCase : ContentPage
 
     private void OnPatientSelected(object sender, PatientSelectedEventArgs e)
     {
-        
+
         // Aquí recibo el objeto seleccionado
         var selectedPatient = e.SelectedPatient;
 
@@ -113,9 +111,6 @@ public partial class RegisterClinicalCase : ContentPage
         caso.IdPaciente = patient.Id;
         ShowDoctor.IsVisible = true;
         ShowRoom.IsVisible = true;
-
-        // Cierra la página modal
-        Navigation.PopModalAsync();
     }
 
     private async void BtnGuardar_Clicked(object sender, EventArgs e)
@@ -172,7 +167,7 @@ public partial class RegisterClinicalCase : ContentPage
             }
             else
             {
-                await DisplayAlert("Error", "No se pudo guardar el caso, verifica que todo este bien", "Ok");
+                await DisplayAlert("Error", $"No se pudo guardar el caso, Datos faltantes:\n{ValidarData()}", "Ok");
             }
         }
         finally
@@ -201,7 +196,7 @@ public partial class RegisterClinicalCase : ContentPage
             popup.Close();
         }
     }
-    
+
     private void MakeStringID()
     {
         string id;
@@ -221,19 +216,19 @@ public partial class RegisterClinicalCase : ContentPage
 
     private void RadioMedico_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        if(RadioMedico.IsChecked)
+        if (RadioMedico.IsChecked)
             caso.TipoCaso = "Medico";
     }
 
     private void RadioQuirurgico_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        if(RadioQuirurgico.IsChecked)
+        if (RadioQuirurgico.IsChecked)
             caso.TipoCaso = "Quirurgico";
     }
 
     private void RadioObstetrico_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        if(RadioObstetrico.IsChecked)
+        if (RadioObstetrico.IsChecked)
             caso.TipoCaso = "Obstetrico";
     }
 
@@ -241,5 +236,32 @@ public partial class RegisterClinicalCase : ContentPage
     {
         if (RadioPediatrico.IsChecked)
             caso.TipoCaso = "Pediatrico";
+    }
+    private string ValidarData()
+    {
+        string Datosfaltantes = "";
+
+        if (string.IsNullOrEmpty(EntryName.Text))
+        {
+            Datosfaltantes += " Nombre ";
+        }
+
+        if (!(RadioMedico.IsChecked || RadioObstetrico.IsChecked || RadioQuirurgico.IsChecked || RadioPediatrico.IsChecked))
+        {
+            Datosfaltantes += " Tipo De Caso ";
+        }
+        if (PickerDoctor.SelectedItem == null)
+        {
+            Datosfaltantes += " Doctor ";
+        }
+        if (patient.Nombre == null)
+        {
+            Datosfaltantes += " Paciente ";
+        }
+        if (PickerHabitacion.SelectedItem == null)
+        {
+            Datosfaltantes += " Habitacion ";
+        }
+        return Datosfaltantes;
     }
 }

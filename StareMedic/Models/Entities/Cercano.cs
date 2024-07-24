@@ -35,7 +35,7 @@
             _relation = original._relation;
         }
 
-        public Cercano() 
+        public Cercano()
         {
             _id = null;
             _name = "";
@@ -91,11 +91,11 @@
 
         public static implicit operator bool(Cercano cercano)
         {
-            if(!string.IsNullOrEmpty(cercano._name) &&
+            if (!string.IsNullOrEmpty(cercano._name) &&
                !string.IsNullOrEmpty(cercano._address) &&
                !string.IsNullOrEmpty(cercano._relation) &&
                cercano._id != null)
-                
+
             {
                 return true;
             }
@@ -104,11 +104,11 @@
 
         public string SubDireccion()
         {
-            if(_address == null)
+            if (_address == null)
             {
                 return "";
             }
-            return _address.Length > 43? string.Concat(_address.AsSpan(0, 40), "...") : _address;
+            return _address.Length > 43 ? string.Concat(_address.AsSpan(0, 40), "...") : _address;
         }
 
     }

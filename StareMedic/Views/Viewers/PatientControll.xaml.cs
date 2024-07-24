@@ -1,5 +1,5 @@
-using StareMedic.Models.Entities;
 using StareMedic.Models;
+using StareMedic.Models.Entities;
 
 namespace StareMedic.Views.Viewers;
 
@@ -12,8 +12,8 @@ public partial class PatientControll : ContentPage
     public event EventHandler<PatientSelectedEventArgs> PatientSelected;
 
     public PatientControll(Patient pacientEdit)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
 
         if (pacientEdit != null)
         {
@@ -29,7 +29,7 @@ public partial class PatientControll : ContentPage
         }
 
         lblID.Text = "ID: " + paciente.Id.ToString();
-	}
+    }
 
     //Patient
     private void EntryName_TextChanged(object sender, TextChangedEventArgs e)
@@ -98,7 +98,7 @@ public partial class PatientControll : ContentPage
     private void EntryCurp_TextChanged(object sender, TextChangedEventArgs e)
     {
         paciente.Curp = entryCurp.Text;
-    } 
+    }
 
     //Cercano
     private void EntryNombreCercano_TextChanged(object sender, TextChangedEventArgs e)
@@ -159,29 +159,17 @@ public partial class PatientControll : ContentPage
 
         await BtnGuardar.FadeTo(1, 300);
 
-        if (paciente)
+        if (paciente && cercano)
         {
             //the cancel and confirm buttons are switched bcs i like it that way
             bool confirmation = await DisplayAlert("Confirmar", $"Se registrara a:\n{paciente.Nombre}", "Cancelar", "Confirmar");
             if (!confirmation)//that is actually true lol
             {
-                //add 2 repo 
-                if (cercano)
-                {
-
-                    paciente.IdCercano = cercano.Id;
-                    MainRepo.AddCercano(cercano);
-                    fiador.Copy(cercano);
-                    MainRepo.AddFiador(fiador);
-                    paciente.IdFiador = fiador.Id;
-
-                    //simplified capture to force cercano data capture and use it always as fiador
-                }
-                else
-                {
-                    await DisplayAlert("Error","No puede haber Campos vacios en la informacion de Cercano", "Ok");
-                    return;
-                }
+                paciente.IdCercano = cercano.Id;
+                MainRepo.AddCercano(cercano);
+                fiador.Copy(cercano);
+                MainRepo.AddFiador(fiador);
+                paciente.IdFiador = fiador.Id;
 
                 if (MainRepo.AddPatient(paciente))
                     await DisplayAlert("Exito", $"Paciente registrado: {paciente.Nombre}", "OK");
@@ -191,7 +179,7 @@ public partial class PatientControll : ContentPage
                 try
                 {
                     PatientSelected?.Invoke(this, new PatientSelectedEventArgs { SelectedPatient = paciente });
-                    //await Navigation.PopModalAsync(); // esta en el evento mejor
+                    await Navigation.PopModalAsync();
                 }
                 catch
                 {
@@ -202,7 +190,7 @@ public partial class PatientControll : ContentPage
         }
         else
         {
-            await DisplayAlert("Error:", "No se puede registrar un paciente sin nombre", "OK");
+            await DisplayAlert("Error:", $"No se puede registrar un paciente, Faltan los siguentes Datos: \n{Dataincompleta(paciente, cercano)}", "OK");
             return;
         }
     }
@@ -232,11 +220,11 @@ public partial class PatientControll : ContentPage
         {
             pickerSexo.SelectedItem = "Otro";
         }
-        
+
         //cercano
         if (paciente.IdCercano != null)
         {
-            cercano = new (MainRepo.GetCercanoById(paciente.IdCercano));
+            cercano = new(MainRepo.GetCercanoById(paciente.IdCercano));
             entryNombreCercano.Text = cercano.Nombre;
             entryTelefonoCercano.Text = cercano.Telefono;
             entryDomicilioCercano.Text = cercano.Direccion;
@@ -285,7 +273,7 @@ public partial class PatientControll : ContentPage
     private async void BtnDelete_Clicked(object sender, EventArgs e)
     {
         BtnDelete.Opacity = 0;
-        
+
         await BtnDelete.FadeTo(1, 300);
         bool confirm = await DisplayAlert("Eliminar", $"Desea eliminar al paciente: {paciente.Nombre}?", "No", "Si");
         if (!confirm)
@@ -336,6 +324,51 @@ public partial class PatientControll : ContentPage
         entryEstadoCercano.IsEnabled = x;
         entryRelacionCercano.IsEnabled = x;
         entryCurp.IsEnabled = x;
-        
+    }
+    private string Dataincompleta(Patient patient, Cercano cercano)
+    {
+        string datafaltante = "";
+
+        if(!patient)
+        {
+            datafaltante += "Del Paciente:\n";
+            if (string.IsNullOrEmpty(entryName.Text))
+            {
+                datafaltante += "Nombre ";
+            }
+            if (pickerSexo.SelectedItem == null)
+            {
+                datafaltante += "Sexo ";
+            }
+            if (string.IsNullOrEmpty(EntryEdad.Text))
+            {
+                datafaltante += "Edad ";
+            }
+            if (string.IsNullOrEmpty(entryDomicilio.Text))
+            {
+                datafaltante += "Domicilio ";
+            }
+        }
+        if (!cercano)
+        {
+            datafaltante += "\nDel Contacto Cercano:\n";
+            if (string.IsNullOrEmpty(entryNombreCercano.Text))
+            {
+                datafaltante += "Nombre ";
+            }
+            if ((string.IsNullOrEmpty(entryTelefonoCercano.Text)) || entryTelefonoCercano.Text.Count() < 10)
+            {
+                datafaltante += "Numero de Telefono ";
+            }
+            if (string.IsNullOrEmpty(entryDomicilioCercano.Text))
+            {
+                datafaltante += "Domicilio ";
+            }
+            if (string.IsNullOrEmpty(entryRelacionCercano.Text))
+            {
+                datafaltante += "Relacion ";
+            }
+        }
+        return datafaltante;
     }
 }

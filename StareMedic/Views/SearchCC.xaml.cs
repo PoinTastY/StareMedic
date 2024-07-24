@@ -1,10 +1,10 @@
 namespace StareMedic.Views;
 
-using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Views;
 using StareMedic.Models;
 using StareMedic.Models.Entities;
 using StareMedic.Views.Viewers;
+using System.Collections.ObjectModel;
 
 public partial class SearchCC : ContentPage
 {
@@ -30,9 +30,9 @@ public partial class SearchCC : ContentPage
             casos.Add(vista);
         }
         ListViewCC.ItemsSource = casos;
-        if(listpage == 1)
+        if (listpage == 1)
             BtnPrevListPage.IsEnabled = false;
-        
+
         if (casos.Count < 50)
             BtnNextListPage.IsEnabled = false;
         else
@@ -60,7 +60,7 @@ public partial class SearchCC : ContentPage
 
     private void ListViewCC_ItemTapped(object sender, ItemTappedEventArgs e)
     {
-       
+
         ListViewCC.SelectedItem = null;
     }
 
@@ -100,7 +100,7 @@ public partial class SearchCC : ContentPage
     {
         if (!string.IsNullOrWhiteSpace(SearchBarentry.Text))
         {
-            
+
             var popup = new SpinnerPopup();
             this.ShowPopup(popup);
             try
@@ -260,7 +260,7 @@ public partial class SearchCC : ContentPage
         }
         finally
         {
-            if(casos.Count < 50)
+            if (casos.Count < 50)
                 BtnNextListPage.IsEnabled = false;
             else
                 BtnNextListPage.IsEnabled = true;

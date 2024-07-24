@@ -22,7 +22,7 @@
 
         }
 
-        public Fiador() 
+        public Fiador()
         {
             _id = null;
             _name = "";

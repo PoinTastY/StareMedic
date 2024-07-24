@@ -1,8 +1,7 @@
 ﻿using iTextSharp.text;
-using System.Diagnostics;
-using System.IO;
 using iTextSharp.text.pdf;
 using StareMedic.Models.Entities;
+using System.Diagnostics;
 using Element = iTextSharp.text.Element;
 
 namespace StareMedic.Models
@@ -31,37 +30,37 @@ namespace StareMedic.Models
 
                 GenerarDataParaPlantilla(CasoReferenciado, patient, cercano, fiador, doc, writer);
 
-//                //header
-//                Paragraph HojaAdmision = new(@"HOJA DE ADMISION
-//", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12f));
-//                HojaAdmision.Alignment = Element.ALIGN_CENTER;
-//                doc.Add(HojaAdmision);
+                //                //header
+                //                Paragraph HojaAdmision = new(@"HOJA DE ADMISION
+                //", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12f));
+                //                HojaAdmision.Alignment = Element.ALIGN_CENTER;
+                //                doc.Add(HojaAdmision);
 
-//                //Hoja de admision
-//                doc.Add(GenerateContentTable(CasoReferenciado, patient, cercano, fiador));
+                //                //Hoja de admision
+                //                doc.Add(GenerateContentTable(CasoReferenciado, patient, cercano, fiador));
 
-//                //Diagnosis
-//                doc.Add(Diagnosis(CasoReferenciado.IdDiagnostico));
+                //                //Diagnosis
+                //                doc.Add(Diagnosis(CasoReferenciado.IdDiagnostico));
 
-//                //logo and clausules
-//                doc.Add(logoYtal(fiador.Nombre));
+                //                //logo and clausules
+                //                doc.Add(logoYtal(fiador.Nombre));
 
-//                //clausulas
-//                doc.Add(Clausule());
+                //                //clausulas
+                //                doc.Add(Clausule());
 
-//                //signs
-//                doc.Add(Sign());
+                //                //signs
+                //                doc.Add(Sign());
 
-//                //sumario clinico
-//                doc.NewPage();
-//                Paragraph SumarioClinico = new(@"HOJA DE SUMARIO CLINICO
-//", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12f));
+                //                //sumario clinico
+                //                doc.NewPage();
+                //                Paragraph SumarioClinico = new(@"HOJA DE SUMARIO CLINICO
+                //", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12f));
 
-//                SumarioClinico.Alignment = Element.ALIGN_CENTER;
-//                doc.Add(SumarioClinico);
-//                doc.Add(GenerateContentTable(CasoReferenciado, patient, cercano, fiador));
+                //                SumarioClinico.Alignment = Element.ALIGN_CENTER;
+                //                doc.Add(SumarioClinico);
+                //                doc.Add(GenerateContentTable(CasoReferenciado, patient, cercano, fiador));
 
-//                doc.Add(SumarioTemplate(CasoReferenciado, MainRepo.GetMedicById(CasoReferenciado.IdDoctor)));
+                //                doc.Add(SumarioTemplate(CasoReferenciado, MainRepo.GetMedicById(CasoReferenciado.IdDoctor)));
 
 
                 //close file
@@ -73,7 +72,7 @@ namespace StareMedic.Models
             {
                 return false;
             }
-            
+
         }
 
         private static PdfPTable GenerateContentTable(CasoClinico CasoReferenciado, Patient patient, Cercano cercano, Fiador fiador)
@@ -99,7 +98,7 @@ namespace StareMedic.Models
             PdfPTable displayinfo = new(5);
             displayinfo.DefaultCell.Border = Rectangle.NO_BORDER;
 
-            displayinfo.AddCell(new Phrase("Caso Clinico: ", fuente)); displayinfo.AddCell(new PdfPCell(new Phrase(CasoReferenciado.Id, fuente)) { Colspan = 2, Border = Rectangle.NO_BORDER }) ;
+            displayinfo.AddCell(new Phrase("Caso Clinico: ", fuente)); displayinfo.AddCell(new PdfPCell(new Phrase(CasoReferenciado.Id, fuente)) { Colspan = 2, Border = Rectangle.NO_BORDER });
             displayinfo.AddCell(new Phrase($"Fecha de ingreso: {CasoReferenciado.FechaIngreso:dd/MM/yyyy}", fuente));
             displayinfo.AddCell(new Phrase($"Tipo de caso: {CasoReferenciado.TipoCaso}", fuente));//br
 
@@ -165,14 +164,14 @@ namespace StareMedic.Models
             return displayinfo;
         }
 
-        private static Paragraph Diagnosis (int diagnoose)
+        private static Paragraph Diagnosis(int diagnoose)
         {
             Paragraph body = new()
             {
                 new Phrase($"Diagnostico:\n{MainRepo.GetDiagnosticoById(diagnoose).Contenido}", FontFactory.GetFont(FontFactory.HELVETICA, 8f)),
                 //maybe styling needed here
             };
-            
+
             return body;
         }
 
@@ -208,7 +207,7 @@ A QUIEN SE LE DENOMINARA ""EL PACIENTE"", Y QUE CELEBRARAN MEDIANTE LAS SIGUIENT
             return logoClausules;
         }
 
-        private static Paragraph Clausule ()
+        private static Paragraph Clausule()
         {
             iTextSharp.text.Font fnt = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 6f);
             Paragraph body = new();
@@ -217,7 +216,7 @@ A QUIEN SE LE DENOMINARA ""EL PACIENTE"", Y QUE CELEBRARAN MEDIANTE LAS SIGUIENT
             //Clausulas subtitle centered
             Paragraph Clausulas = new("CLAUSULAS", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11f));
             Clausulas.Alignment = Element.ALIGN_CENTER;
-            
+
             //actual clausules
             body.Add(Clausulas);
             body.Add(new Chunk(@"
@@ -257,7 +256,7 @@ SAN JUAN DE LOS LAGOS, JAL., A: {DateTime.Now:D}
                                      ______________________________                                         ______________________________       
                                                       ""EL PACIENTE""                                                                            ""EL HOSPITAL""
 ", FontFactory.GetFont(FontFactory.HELVETICA, 8f)));
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             signatures.Add(new Chunk("PAGARE", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10f)));
             string pagareText = @"
@@ -285,7 +284,7 @@ IMPORTE DE LOS SERVICIOS DETALLADOS EN ESTE TITULO DE CREDITO, QUE GENERA INTERE
             //replace Servicio del DR field with the actual doctor name with bold font maybe
 
             //recreate remaining fields
-            Paragraph previos = new ("INGRESOS ANTERIORES AL HOSPITAL", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11f));
+            Paragraph previos = new("INGRESOS ANTERIORES AL HOSPITAL", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11f));
             previos.Alignment = Element.ALIGN_CENTER;
             template.Add(previos);
             previos = new(" FECHA                      DIAGNOSTICO                                           RESULTADO               FECHA DE INTERNACION", FontFactory.GetFont(FontFactory.HELVETICA, 10f));
@@ -363,5 +362,5 @@ Completos:     ______________________                                 __________
         }
 
     }
-    
+
 }
