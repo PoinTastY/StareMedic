@@ -55,7 +55,7 @@
                                HorizontalOptions="Center"/>
 
                         <Label
-                            Text="Ver 1.0"
+                            Text="Ver 1.1"
                             Grid.Row="1"        
                             Grid.Column="1"
                             FontAttributes="Bold"

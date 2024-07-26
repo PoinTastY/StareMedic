@@ -1,4 +1,6 @@
-﻿namespace StareMedic.Models
+﻿using StareMedic.Models.Entities;
+
+namespace StareMedic.Models
 {
     internal class CCwPatient
     {
@@ -7,15 +9,19 @@
         private string _name;
         private string _patientName;
         private string _medic;
+        private string _date;
 
-        public CCwPatient(int iddb, string id, string name, string patientName, string medic)
+        public CCwPatient(CasoClinico caso, Patient patient, Medic medic)
         {
-            _iddb = iddb;
-            _id = id;
-            _name = name;
-            _patientName = patientName;
-            _medic = medic;
+            _iddb = caso.IdDB;
+            _id = caso.Id;
+            _name = caso.Nombre;
+            _patientName = patient.Nombre;
+            _medic = medic.Nombre;
+            _date = caso.FechaIngreso.ToString("dd/MM/yyyy");
         }
+
+        public string Date { get { return _date; } set { _date = value; } }
 
         public string Id { get { return _id; } set { _id = value; } }
         public string Nombre { get { return _name; } set { _name = value; } }
