@@ -1,3 +1,6 @@
+[![wakatime](https://wakatime.com/badge/user/c0317f7c-7fd4-4735-9545-0dfa48c96f07/project/d166e21b-3a3c-41da-a2bc-2504cd0c7948.svg)](https://wakatime.com/badge/user/c0317f7c-7fd4-4735-9545-0dfa48c96f07/project/d166e21b-3a3c-41da-a2bc-2504cd0c7948)
+[![wakatime](https://wakatime.com/badge/user/c0317f7c-7fd4-4735-9545-0dfa48c96f07/project/5918b5f8-93e6-4691-ae45-3d58129408f0.svg)](https://wakatime.com/badge/user/c0317f7c-7fd4-4735-9545-0dfa48c96f07/project/5918b5f8-93e6-4691-ae45-3d58129408f0)
+[![wakatime](https://wakatime.com/badge/user/c0317f7c-7fd4-4735-9545-0dfa48c96f07/project/ea9cb641-d2f0-4c9a-b8ad-6589b1e1c315.svg)](https://wakatime.com/badge/user/c0317f7c-7fd4-4735-9545-0dfa48c96f07/project/ea9cb641-d2f0-4c9a-b8ad-6589b1e1c315)
 # StareMedic
 Software de administracion hospitalaria
 
