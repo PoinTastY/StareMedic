@@ -401,7 +401,7 @@ public partial class ViewClinicalCase : ContentPage
                     if (x > 0)
                     {
                         await DisplayAlert("Exito!", $"Se ha generado la remision de la admision\nFolio: {x}", "Ok");
-                        caso.FolioSDK = x;
+                        caso.FolioSDK = (int)x;
                         LblFolioSDK.Text = $"Folio Contpaqi: {caso.FolioSDK}";
                         LblFolioSDK.TextColor = Color.FromRgb(0, 161, 53);
                         BtnSendSDK.IsEnabled = false;
@@ -410,7 +410,7 @@ public partial class ViewClinicalCase : ContentPage
                     else
                     {
                         await DisplayAlert("Error", $"No se ha generado la remision en Contpaqi, intenta mas tarde\nRespuesta del servidor: {x}", "OK");
-                        caso.FolioSDK = x;
+                        caso.FolioSDK = (int)x;
                     }
                     MainRepo.UpdateClinicalCase(caso);
                 }

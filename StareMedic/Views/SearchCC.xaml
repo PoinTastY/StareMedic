@@ -79,6 +79,10 @@
                                                 <ColumnDefinition Width="*" />
                                                 <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
 
                                                     <Label 
                                                         Text="{Binding PatientName, StringFormat='{0} '}"
@@ -87,7 +91,8 @@
                                                         FontSize="15"
                                                         TextColor="{StaticResource Black}"
                                                         HorizontalOptions="Start"
-                                                        Grid.Column="0" />
+                                                        Grid.Column="0"
+                                                        Grid.Row="1"/>
 
                                                     <Label
                                                         Text="{Binding Medic, StringFormat='Medico: {0} '}"
@@ -96,8 +101,18 @@
                                                         Style="{StaticResource labelEntry}"
                                                         TextColor="{StaticResource Black}"
                                                         HorizontalOptions="End"
-                                                        Grid.Column="1" />
-                                    </Grid>
+                                                        Grid.Column="1"
+                                                        Grid.Row="1"/>
+                                    <Label
+                                            Text="{Binding SDKFolio}"
+                                            FontFamily="HelveticaNeue"
+                                            TextColor="Green"
+                                            FontSize="15"
+                                            Style="{StaticResource labelEntry}"
+                                            HorizontalOptions="End"
+                                            Grid.Column="1"
+                                            Grid.Row="0"/>
+                                </Grid>
                             </StackLayout>
                             
                                 <VisualStateManager.VisualStateGroups>
