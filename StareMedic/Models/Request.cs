@@ -1,10 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.UI.Windowing;
+using Newtonsoft.Json;
+using StareMedic.Models.DTOs;
 using StareMedic.Models.Entities;
 using System.Net.Sockets;
 using System.Text;
 
 namespace StareMedic.Models
 {
+    public class ApiResponse
+    {
+        public string Message { get; set; }
+        public double FolioDocumento { get; set; }
+        public int IdDocumento { get; set; }
+    }
     public class Request
     {
 
@@ -19,7 +27,7 @@ namespace StareMedic.Models
         public string cTextoExtra2 { get; set; }
         public string cTextoExtra3 { get; set; }
 
-        public double FillPackAndPush(CasoClinico caso, Patient paciente, Rooms room, Medic medico, Diagnostico diagnostico)
+        public async Task<double> FillPackAndPush(CasoClinico caso, Patient paciente, Rooms room, Medic medico, Diagnostico diagnostico)
         {
             string confPath = Path.Combine(AppContext.BaseDirectory, "Data/config.json"); // Ruta completa al archivo JSON
                                                                                           // Verificar si el archivo existe
@@ -40,38 +48,45 @@ namespace StareMedic.Models
             // Deserializar el contenido en un objeto Config
             Config config = JsonConvert.DeserializeObject<Config>(jsonString);
 
-            Request req = new(Work);
-            TcpClient client = new TcpClient(config.ServerSDK, 42069);
-            NetworkStream stream = client.GetStream();
-            SDK.tDocumento docto = new SDK.tDocumento();
-            docto.aCodConcepto = "REM3";
-            docto.aCodigoCteProv = room.Descripcion;
-            docto.aSerie = "RH";
-            docto.aTipoCambio = 1;
-            docto.aFecha = caso.FechaIngreso.ToString("MM/dd/yyyy");
-            docto.aReferencia = $"{room.Nombre} {caso.Id}";
+            DocumentDTO documentRequest = new();
+            var httpClient = new HttpClient();
 
-            req.cTextoExtra1 = new StringBuilder(paciente.Nombre, 20).ToString();
-            req.cTextoExtra2 = new StringBuilder(paciente.Telefono + ", Edad: " + paciente.Edad, 20).ToString();
-            req.cTextoExtra3 = new StringBuilder(paciente.Domicilio, 20).ToString();
+            string url = "http://" + config.ServerSDK + "/addDocumentWithMovementSDK";
 
 
-            req.SerialDocto = JsonConvert.SerializeObject(docto);
-            req.Observaciones = $"Medico: {medico.Nombre} Diagnostico: {diagnostico.Contenido}";
+            documentRequest.CTEXTOEXTRA1 = new StringBuilder(paciente.Nombre, 20).ToString();
+            documentRequest.CTEXTOEXTRA2 = new StringBuilder(paciente.Telefono + ", Edad: " + paciente.Edad, 20).ToString();
+            documentRequest.CTEXTOEXTRA3 = new StringBuilder(paciente.Domicilio, 20).ToString();
+            documentRequest.COBSERVACIONES = $"Medico: {medico.Nombre} Diagnostico: {diagnostico.Contenido}";
+            documentRequest.aSerie = "RH";
+            documentRequest.aCodConcepto = "REM3";
+            documentRequest.aCodigoCteProv = room.Descripcion;
+            documentRequest.aTipoCambio = 1;
+            documentRequest.aFecha = caso.FechaIngreso.ToString("MM/dd/yyyy");
+            documentRequest.aReferencia = $"{room.Nombre} {caso.Id}";
+            documentRequest.aCodAlmacen = "1";
+            documentRequest.aCodProdSer = "_HPENSION01";
 
             //MemoryStream memory = new MemoryStream(); this is just in case the response is extend
 
             try
             {
-                byte[] requestBuffer = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(req));
-                stream.Write(requestBuffer, 0, requestBuffer.Length);
-                byte[] responseBuffer = new byte[4096];
-                int bytesRead = stream.Read(responseBuffer, 0, responseBuffer.Length);
-                string response = Encoding.UTF8.GetString(responseBuffer, 0, bytesRead);
-                Response objresponse = JsonConvert.DeserializeObject<Response>(response);
-                if (objresponse.ResponseCode != 0)
-                    return (double)objresponse.ResponseCode;
-                return 0;
+                // Serializa el objeto DocumentoDTO a JSON
+                var jsonData = JsonConvert.SerializeObject(documentRequest);
+                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+                // Realiza una solicitud POST
+                var response = await httpClient.PostAsync(url, content);
+
+                // Asegúrate de que la respuesta sea exitosa
+                response.EnsureSuccessStatusCode();
+
+                // Lee el contenido de la respuesta
+                var responseBody = await response.Content.ReadAsStringAsync();
+                     var apiresponse = JsonConvert.DeserializeObject<ApiResponse>(responseBody);
+
+                // Accede al único valor en el diccionario y retórnalo
+                return apiresponse.FolioDocumento;
             }
             catch
             {

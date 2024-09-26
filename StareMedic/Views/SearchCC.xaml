@@ -47,11 +47,16 @@
                                 <StackLayout                               
                                 Orientation="Vertical"
                                 Padding="0,0,10,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
 
-                                    <HorizontalStackLayout>
+                                    <HorizontalStackLayout Grid.Column="0">
 
 
-                                    <Label 
+                                        <Label 
                                          Text ="{Binding Path=Id, StringFormat=' {0} '}"
                                          FontFamily="HelveticaNeue"
                                          TextColor="{StaticResource Alter1}"
@@ -61,7 +66,7 @@
                                          Style="{StaticResource labelEntry}"
                                          HorizontalTextAlignment="Start"/>
 
-                                    <Label 
+                                        <Label 
                                             Text="{Binding Nombre, StringFormat=' {0} '}"
                                             FontFamily="HelveticaNeue"                                      
                                             FontSize="15"
@@ -69,30 +74,42 @@
                                             TextColor="{StaticResource Alter2}"
                                             HorizontalOptions="StartAndExpand"
                                             HorizontalTextAlignment="Center"/>
-                                                                                                             
+                                        
+
+
                                     </HorizontalStackLayout>
+                                    <HorizontalStackLayout HorizontalOptions="End"
+                                                           Grid.Column="1">
+                                        <Label
+        Text="{Binding SDKFolio}"
+        FontFamily="HelveticaNeue"
+        TextColor="Green"
+        FontSize="15"
+        Style="{StaticResource labelEntry}"
+    VerticalOptions="Center"
+        HorizontalOptions="EndAndExpand"
+    HorizontalTextAlignment="End"/>
+
+                                    </HorizontalStackLayout>
+                                </Grid>
+
 
                                     <Grid 
                                         HorizontalOptions="FillAndExpand">
-                                        
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
 
-                                                    <Label 
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label 
                                                         Text="{Binding PatientName, StringFormat='{0} '}"
                                                         FontFamily="HelveticaNeue"
                                                         Style="{StaticResource labelEntry}"
                                                         FontSize="15"
                                                         TextColor="{StaticResource Black}"
                                                         HorizontalOptions="Start"
-                                                        Grid.Column="0"
-                                                        Grid.Row="1"/>
+                                                        Grid.Column="0"/>
 
                                                     <Label
                                                         Text="{Binding Medic, StringFormat='Medico: {0} '}"
@@ -101,17 +118,8 @@
                                                         Style="{StaticResource labelEntry}"
                                                         TextColor="{StaticResource Black}"
                                                         HorizontalOptions="End"
-                                                        Grid.Column="1"
-                                                        Grid.Row="1"/>
-                                    <Label
-                                            Text="{Binding SDKFolio}"
-                                            FontFamily="HelveticaNeue"
-                                            TextColor="Green"
-                                            FontSize="15"
-                                            Style="{StaticResource labelEntry}"
-                                            HorizontalOptions="End"
-                                            Grid.Column="1"
-                                            Grid.Row="0"/>
+                                                        Grid.Column="1"/>
+                                    
                                 </Grid>
                             </StackLayout>
                             

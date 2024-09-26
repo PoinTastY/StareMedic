@@ -397,7 +397,7 @@ public partial class ViewClinicalCase : ContentPage
                 var confirm = await DisplayAlert("Confirmacion", "Quieres enviar la remision a Contpaqi?\nRecuerda validar todos los datos", "No", "Si");
                 if (!confirm)
                 {
-                    double x = req.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
+                    double x = await req.FillPackAndPush(caso, caso.Paciente(), caso.Habitacion(), caso.Medico(), caso.Diagnostico());
                     if (x > 0)
                     {
                         await DisplayAlert("Exito!", $"Se ha generado la remision de la admision\nFolio: {x}", "Ok");
